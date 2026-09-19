@@ -23,7 +23,9 @@ COPY --chown=node:node public ./public
 COPY --chown=node:node LICENSE-NOTICE.md ./
 
 RUN mkdir -p /data && chown node:node /data
-USER node
+# Railway monta o volume depois da imagem e o ponto de montagem pode chegar
+# com proprietário root; o servidor precisa conseguir criar o SQLite em /data.
+USER root
 
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
