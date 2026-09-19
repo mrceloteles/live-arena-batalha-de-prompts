@@ -1,0 +1,26 @@
+{
+  "target": "https://reddoor-google26.phygitalapp.com.br/api.php?action=room_status",
+  "method": "POST",
+  "request": { "room_id": "main" },
+  "observed_at": "2026-09-04T10:00:39Z",
+  "http_status": 200,
+  "normalized_response": {
+    "ok": true,
+    "phase": "idle",
+    "expected_stations": 3,
+    "registered": 0,
+    "playing_stations": 0,
+    "submitted": 0,
+    "scored": 0,
+    "all_registered": false,
+    "all_submitted": false,
+    "all_scored": false,
+    "round": null,
+    "rounds": [],
+    "round_ranking": [],
+    "final_ranking": [],
+    "station_ids": [1, 2, 3],
+    "total_rounds_per_station": 3
+  },
+  "normalization": "volatile timestamps, online presence and request identifiers omitted"
+}

@@ -1,0 +1,71 @@
+name: Teste funcional do site
+
+on:
+  # Sem filtro por nome de branch, de propósito. Esta linha já errou duas vezes
+  # adivinhando: com `[main]` o gatilho nunca disparava nesta cópia, que vive em
+  # `master`, e com `[master]` ficaria cego para uma cópia publicada em `main`.
+  # O M15 do plano de melhorias é explícito: o repositório ANTERIOR usava `main`,
+  # esta cópia usa `master`, e o destino será um repositório NOVO, cuja branch
+  # padrão ainda será escolhida lá. Não há nome a acertar daqui, então
+  # `push` sem `branches` cobre qualquer um — ao custo de rodar também em envio
+  # de tag. Ver docs/PLANO-MELHORIAS-FULLSTACK-2026-09-17.md e AUDIT.md (17/09).
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Um envio novo cancela o que ainda estava rodando do envio anterior — o
+# resultado que interessa é o do commit mais recente.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+      - name: Configurar Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      # O Puppeteer baixa o próprio Chromium (~150 MB) no `npm ci`. Sem este
+      # cache ele viria de novo a cada execução.
+      - name: Guardar o Chromium do Puppeteer
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      # `npm ci` (e não `npm install`): instala exatamente o que o lock fixa e
+      # falha se o lock não casar com o package.json.
+      - name: Instalar dependências
+        run: npm ci
+      # O `npm ci` NÃO roda o postinstall do Puppeteer: a política `allow-scripts`
+      # deste npm deixa o script de fora (aparece só como aviso, e o Chromium
+      # não é baixado). Sem este passo o portão 2 falha com "Could not find
+      # Chrome". O download vai para o diretório que o cache acima guarda.
+      - name: Instalar o Chromium do Puppeteer
+        run: npx puppeteer browsers install chrome
+      - name: Executar testes funcionais
+        run: npm test
+      # Portão 2: a tela renderizada. O Chromium abre com as marcas que o runner
+      # exige (ver test/support/navegador.mjs).
+      #
+      # Sem segunda tentativa, de propósito. O portão reprovou sob carga duas
+      # vezes em quatro execuções, sempre em teste diferente e sempre passando
+      # quando repetido isolado, e a causa era a espera e não o produto: o clique
+      # caía num botão que o painel do professor já havia substituído (ele relê o
+      # servidor a cada 2,5 s) e a espera de 30 s do Puppeteer estourava por
+      # causa disso.
+      #
+      # As esperas agora têm orçamento próprio, polling por intervalo e clique
+      # repetido até fazer efeito (test/support/navegador.mjs), e o mecanismo
+      # tem prova própria em test/browser/navegador-esperas.test.mjs. Repetir a
+      # execução esconderia justamente o que interessa ver: se este portão
+      # voltar a falhar, é uma espera para consertar, não um envio para repetir.
+      - name: Portão 2 — a tela renderizada
+        run: npm run test:browser

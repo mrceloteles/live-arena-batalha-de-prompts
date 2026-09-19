@@ -1,0 +1,2133 @@
+/* Refinement of the existing Live Arena identity.
+   Kept separate from the legacy CSS so current surfaces have one scoped contract.
+   !important is limited to properties already forced by the legacy theme. */
+
+/* ============================================================
+   DONO ÚNICO — seletores que antes eram definidos em mais de uma folha.
+   Estas declarações vinham de folhas ANTERIORES na ordem de carregamento
+   (app-authorial → arena → design → refinement → round) e por isso entram
+   no topo desta folha: continuam exatamente entre os mesmos vizinhos de
+   cascata que tinham antes, só que agora com um dono só.
+   ============================================================ */
+
+:root {
+  --soft-blue:#c8dafc;
+  --shadow:0 0 10px rgba(0,0,0,.1);
+  /* `--font-google` e o nome LEGADO do token (a folha capturada
+     `app-authorial.css` ainda o consulta em HTML inteiro). Ele nomeava
+     "Google Sans"/"Product Sans" — faces que o produto nunca baixou e que
+     carregam marca de terceiro, contra o DESIGN.md aprovado. O valor agora e a
+     pilha da casa: mesmo desenho na tela (a queda era a Plus Jakarta Sans de
+     qualquer jeito), sem o nome de outro fornecedor no contrato. */
+  --font-google: var(--font-sans);
+  --arena-boss: #d93025;
+  --arena-boss-soft: rgba(217, 48, 37, .10);
+  --arena-energy: #f9ab00;
+  --arena-energy-soft: rgba(249, 171, 0, .16);
+  --arena-good: #188038;
+  --arena-good-soft: rgba(24, 128, 56, .12);
+  --color-primary: #0b57d0;
+  --color-primary-deep: #0842a0;
+  --color-primary-dark: #071f49;
+  /* O accent carrega texto branco em quatro superficies (o gradiente de marca, o
+     chip do codigo e o ponto marcado da rodada): com #00875a o branco dava 4,55
+     — dois centesimos de folga sobre o teto AA. Dois tons mais fundo abre 5,91
+     e mantem o matiz. */
+  --color-accent: #00725a;
+  --color-warning: #f9ab00;
+  --color-bg: #f8fafd;
+  --color-surface: #ffffff;
+  --color-text: #1f2937;
+  /* A tinta secundaria da casa carrega rotulo, dica e contador sobre as
+     superficies cinzas mais claras do produto (#eef0f5 a #f1f5f9): ali #5f6368
+     dava 5,31 — 0,81 acima do teto AA. Um degrau mais escuro uniformiza a
+     familia em 6,1 e mantem o cinza lendo como secundario. */
+  --color-text-muted: #545b61;
+  --color-border: rgba(11, 87, 208, 0.12);
+  --color-danger: #d93025;
+  --color-success: #188038;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --shadow-sm: 0 4px 12px rgba(11, 87, 208, 0.05);
+  --shadow-md: 0 16px 48px rgba(11, 87, 208, 0.08);
+  /* Uma face por PAPEL. Titulo (Space Grotesk), texto (Plus Jakarta Sans),
+     numero e micro-rotulo (JetBrains Mono). Antes: a Plus Jakarta Sans era
+     baixada e usada no texto, o titulo nao tinha face nenhuma, e o mono tinha
+     TRES pilhas diferentes — `ui-monospace, 'Cascadia Code'` em arena.css,
+     `ui-monospace, SFMono-Regular` em design.css e o `--la-mono` daqui, que
+     pedia JetBrains Mono sem que ninguem a baixasse. */
+  --font-display: 'Space Grotesk', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* sobrescreve a paleta herdada do clone */ --blue: var(--color-primary);
+  --cyan: var(--color-accent);
+  --navy: var(--color-primary-dark);
+  --navy-soft: var(--color-primary-dark);
+  --gray: var(--color-text-muted);
+  --gray-2: var(--color-text-muted);
+  --gray-3: #eef2f8;
+  --line: var(--color-border);
+  --la-blue: #0052ff;
+  --la-blue-deep: #003ec7;
+  --la-ink: #071f49;
+  --la-ink-2: #0d2c61;
+  --la-yellow: #ffdd00;
+  --la-cyan: #37d9c5;
+  --la-paper: #ffffff;
+  --la-canvas: #f5f7fc;
+  --la-muted: #667085;
+  --la-line: var(--color-border);
+  --la-grid: rgba(7,31,73,.08);
+  --la-shadow: 0 22px 60px rgba(7,31,73,.12);
+  /* Etapa C: os tokens da família entram na escala da casa. Antes eram 20px de
+     raio e 6/16 de sombra aqui, enquanto as regras escritas à mão usavam 18, 22
+     e 24 de raio e 14/44 de sombra — o mesmo grupo desenhado de cinco jeitos. */
+  --la-shadow-soft: var(--shadow-sm);
+  --la-radius-card: var(--radius-md);
+  --la-radius-control: 10px;
+  /* ----------------------------------------------------------------
+     IDENTIDADE DO REDESIGN (pacote `live-arena-redesign-ajustado.zip`).
+     A referência de lá nomeia cada peça — listras diagonais azuis no jogo
+     e na TV, fita de perigo amarela/preta, sublinhado magenta, cartões
+     brancos de canto grande e sombra flutuante, e botão de entrada em
+     pílula. Os valores entram UMA vez, com o papel declarado, e nenhuma
+     tela inventa o seu: era assim que o produto tinha acabado com cinco
+     raios e três sombras para dizer a mesma coisa.
+     A tinta de leitura não muda aqui: o azul das ações (`--color-primary`)
+     e o verde de marca (`--color-accent`) continuam sendo os da casa — a
+     referência diverge em matiz, não em papel, e trocar o azul da ação
+     mexeria em todo par de contraste já medido sem ganho de leitura. */
+  --la-blue-primary: #0052cc;
+  --la-blue-electric: #0076ff;
+  --la-magenta: #ff2d75;
+  --la-magenta-soft: #ff5e97;
+  --la-magenta-pale: #ffa3c2;
+  --la-tape-yellow: #ffd000;
+  --la-tape-ink: #1c1917;
+  /* Fita de perigo: 18 px no cartão de entrada, 10 px no grupo interno. */
+  --la-tape-h: 18px;
+  --la-tape-step: 14px;
+  --la-stripe-a: #005ce6;
+  --la-stripe-b: #0076ff;
+  --la-shadow-card: 0 24px 60px -12px rgba(0, 38, 115, .28), 0 10px 24px -6px rgba(0, 0, 0, .08);
+  --la-shadow-pill: 0 8px 25px -4px rgba(0, 118, 255, .45);
+  --la-radius-card-lg: 28px;
+  --la-radius-field: 14px;
+  /* A referencia pede monoespaçada para código, cronômetro e nota — os
+     números que não podem dançar a cada atualização. */
+  --la-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Face dos TITULOS da identidade (`font-display` da referencia). */
+  --la-display: var(--font-display);
+}
+.arena-lobby-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  backdrop-filter: blur(8px);
+  min-height: 60px !important;
+  height: 60px !important;
+  padding: 0 24px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: #080d1e !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+.arena-lobby-stats {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.arena-lobby-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 24px clamp(16px, 3vw, 40px) 48px;
+  align-items: start;
+  gap: 22px !important;
+}
+.arena-mission-panel {
+  position: relative;
+  background: #ffffff !important;
+  border: 0 !important;
+  /* Identidade do redesign (referência LA-03): o mesmo cartão de entrada —
+     canto grande, sombra flutuante e a fita de perigo como aresta superior.
+     Durante a rodada esta superfície é dissolvida por `round.css` (a missão vira
+     uma área de trabalho, sem moldura); a fita volta junto com o cartão, no
+     estado de espera. */
+  border-radius: var(--la-radius-card-lg) !important;
+  box-shadow: var(--la-shadow-card) !important;
+  padding: calc(var(--la-tape-h) + clamp(24px, 3.5vw, 32px)) clamp(24px, 3.5vw, 40px) clamp(24px, 3.5vw, 40px) !important;
+  overflow: hidden;
+}
+/* A fita da espera do aluno. É um elemento de verdade no markup
+   (`<div class="signal-tape">`), não um pseudo-elemento: ele já existia e
+   estava desligado em `design.css`. */
+.signal-tape {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--la-tape-h);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--la-tape-yellow),
+    var(--la-tape-yellow) var(--la-tape-step),
+    var(--la-tape-ink) var(--la-tape-step),
+    var(--la-tape-ink) calc(var(--la-tape-step) * 2)
+  );
+}
+
+/* ============================================================
+   ETAPA B — SUPERFÍCIE DOS ESTADOS DO ALUNO
+   As telas do aluno empilhavam superfícies com raios (20, 24, 18, 14) e sombras
+   (12/36, 6/16, 16/60) diferentes para dizer a mesma coisa: "aqui começa um
+   grupo". Esta é a família: um raio, uma sombra baixa, a mesma borda, e os
+   grupos internos separados por espaço ou linha em vez de uma caixa dentro da
+   outra. O painel da missão está acima porque já tinha `!important` próprio.
+   ============================================================ */
+.arena-mode-hud,
+.arena-mode-vote,
+.arena-mode-panel,
+.arena-feedback {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.arena-feedback { background: #f2f6ff; }
+/* Espera: uma mensagem principal e a ilustração em proporção menor. */
+.wait-illustration { width: min(200px, 46%); }
+.arena-roster-item em {
+  font-style: normal;
+  background: rgba(0, 82, 255, 0.08) !important;
+  color: #0052ff !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+}
+.arena-dialog {
+  border: 0;
+  border-radius: 24px;
+  background: transparent;
+  width: min(720px, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+}
+.arena-tv-topbar {
+  position: relative;
+  z-index: 2;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,.12) !important;
+  background: rgba(3,15,39,.34) !important;
+  backdrop-filter: blur(10px);
+  flex-wrap: wrap;
+}
+.arena-tv-room {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-color: rgba(255,255,255,.16) !important;
+  background: rgba(255,255,255,.07) !important;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.arena-proj-code {
+  padding: 18px 34px;
+  border: 2px dashed rgba(0, 82, 255, 0.35);
+  border-radius: 20px;
+  background: #f2f5ff;
+  color: var(--navy);
+  /* O código de conexão da TV é número de verdade: entra na mesma mono do PIN,
+     do cronômetro e da nota. */
+  font-family: var(--la-mono);
+  font-size: clamp(40px, 6vw, 56px);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+.arena-tv-pin strong {
+  color: #37d9c5;
+  font-size: clamp(72px, 12vw, 168px);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  text-shadow: 0 0 46px rgba(55, 217, 197, 0.35);
+}
+.arena-tv-figure img {
+  display: block;
+  width: 100%;
+  max-height: 62vh;
+}
+body[data-page='index'] .portal-shell-center {
+  place-items: center;
+}
+body[data-page='index'] .portal-shell-center .portal-hero {
+  min-height: 0;
+  padding-inline: clamp(20px, 4vw, 60px);
+}
+.arena-admin-layout {
+  display: grid;
+  height: 100svh;
+  background: var(--color-bg);
+  overflow: hidden;
+}
+.arena-admin-main {
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  overflow: hidden;
+  background: #f8fafd;
+}
+.arena-admin-head-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-surface);
+  border-bottom: 1px solid rgba(11, 87, 208, 0.08);
+  z-index: 5;
+}
+.arena-topbar-title small {
+  display: block;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+.arena-admin-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+}
+.admin-login-shell {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  background: url('/public/assets/figma/start-bg.png') center / cover no-repeat fixed, #f8fafd;
+}
+.admin-login-card {
+  position: relative;
+  /* Mesma família do cartão de entrada do aluno, com o respiro do topo da
+     fita de perigo (`.brand-tape`, na seção da identidade). */
+  padding: calc(var(--la-tape-h) + clamp(32px, 5vw, 44px)) clamp(28px, 4vw, 40px) clamp(28px, 5vw, 40px);
+  border-radius: var(--la-radius-card-lg) !important;
+  background: #ffffff !important;
+  border: 0 !important;
+  box-shadow: var(--la-shadow-card) !important;
+  overflow: hidden;
+  text-align: center;
+}
+.admin-login-head h1 {
+  margin: 6px 0 8px;
+  color: #071f49;
+  font-size: clamp(24px, 2.5vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.admin-login-back {
+  display: inline-block;
+  color: var(--color-text-muted) !important;
+  font-size: 13px;
+  text-decoration: none;
+}
+.arena-lobby-header .ghost-link {
+  color: #94a3b8 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 6px 12px !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+}
+.arena-tv-topbar::after {
+  content: 'LIVE';
+  left: 50%;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--la-yellow);
+  color: var(--la-ink);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .14em;
+}
+.arena-roster-item strong {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  flex: 1 1 auto !important;
+  text-align: left !important;
+}
+
+@media (max-width: 640px) {
+  .arena-lobby-header {
+    height: auto !important;
+    min-height: 52px !important;
+    flex-wrap: nowrap !important;
+  }
+  .arena-lobby-header .ghost-link {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .arena-admin-layout {
+    grid-template-columns: 1fr;
+  }
+  .arena-admin-head-top {
+    justify-content: space-between;
+  }
+}
+
+:root {
+  --ui-gutter: clamp(16px, 3vw, 32px);
+  --ui-panel-gap: 24px;
+  --ui-panel-radius: 20px;
+}
+
+.brand-identity { flex: 0 0 auto; }
+.brand-identity-main, .brand-identity-sub { white-space: nowrap; }
+.brand-identity .prompt-arrow { border-left: 0; border-bottom: 0; }
+:is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+body[data-page='tv'] :focus-visible,
+.arena-lobby-header :focus-visible { outline-color: #38bdf8; }
+input::placeholder, textarea::placeholder { color: #65758b !important; opacity: 1; }
+input, select, textarea { caret-color: var(--color-primary); }
+.arena-timer, .arena-tv-timer, .arena-room-code,
+.arena-result-score strong, .metric-card strong { font-variant-numeric: tabular-nums; }
+
+/* Entry surfaces: equal gutters, clear groups and a complete mobile composition. */
+body[data-page='index'] .portal-shell-center {
+  padding: clamp(24px, 5vh, 56px) var(--ui-gutter);
+}
+body[data-page='index'] .portal-shell-center .portal-hero {
+  /* O respiro do topo abre espaço para a fita de perigo: ela é a aresta do
+     cartão, não um bloco a mais empilhado dentro dele. */
+  padding: calc(var(--la-tape-h) + var(--space-4)) clamp(20px, 4vw, 40px) var(--space-4);
+  gap: var(--space-4);
+}
+body[data-page='index'] .portal-hero-headline { text-wrap: balance; }
+body[data-page='arena'] .arena-screen[data-arena-screen='join'] {
+  padding: 24px 16px;
+}
+body[data-page='arena'] .join-card {
+  width: min(440px, 100%);
+  min-width: 0;
+  margin: 0 auto;
+  /* Identidade do redesign (referência LA-02): superfície sólida, canto grande
+     e sombra flutuante, com a fita de perigo recortada pelo canto. */
+  border-radius: var(--la-radius-card-lg) !important;
+  border: 0 !important;
+  background: #ffffff !important;
+  box-shadow: var(--la-shadow-card) !important;
+  overflow: hidden;
+  padding: calc(var(--la-tape-h) + clamp(24px, 4vw, 32px)) clamp(24px, 4vw, 36px) clamp(24px, 4vw, 32px) !important;
+  gap: 16px;
+}
+body[data-page='arena'] .join-card .arena-kicker {
+  margin: 0 0 8px !important;
+  line-height: 1.55;
+}
+body[data-page='arena'] .join-card .arena-field input {
+  /* Campo um degrau mais alto e de canto maior, como na referência. O anel de
+     foco continua o único do produto (declarado logo abaixo). */
+  height: 52px !important;
+  min-height: 52px !important;
+  border-radius: var(--la-radius-field) !important;
+  border: 1px solid #d8dee8 !important;
+  background: #f8fafc !important;
+  padding: 0 16px !important;
+  font-size: 16px !important;
+}
+body[data-page='arena'] .join-card .ghost-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 0;
+}
+/* O foco dos campos das DUAS entradas volta a ser o de todo campo do produto —
+   4 px translúcidos com a borda azul. A entrada do aluno tinha anel próprio de
+   3 px num azul (0,82,255 a 16%) e o login outro de 4 px (12,92,255 a 10%):
+   três larguras e duas cores para o mesmo estado, nas duas telas irmãs. */
+.join-card .arena-field input:focus,
+.admin-login-form .arena-field input:focus {
+  border-color: #0c5cff !important;
+  box-shadow: 0 0 0 4px rgba(12, 92, 255, 0.1) !important;
+}
+/* O botão do login era a pílula antiga (999 px, 16 px, peso 900, com brilho)
+   enquanto a entrada do aluno lia um retângulo de 10 px — duas entradas irmãs,
+   dois primários. O produto unificou as duas no retângulo; o redesign voltou
+   as DUAS para a pílula da referência, que é a mesma decisão (uma família para
+   as portas de entrada), com outro desenho. Quem declara essa família agora é a
+   seção da identidade, e ela inclui o portal: um dono só para os três botões. */
+.admin-login-shell { padding: 24px 16px; }
+.admin-login-card { width: min(440px, 100%); }
+/* A mensagem de erro das duas entradas reserva a linha antes de existir.
+   Medido em 390×844: sem a reserva o cartão cresce quando o erro chega, e como
+   ele é centralizado o formulário inteiro sobe — 31px na entrada do aluno e
+   41px no login, com os campos saindo de baixo do dedo de quem acabou de tocar
+   em "Entrar". A regra global de `:empty` continua valendo em todo o resto.
+   hidden: a reserva vence o ATRIBUTO de propósito — o `message()` deixa o nó
+   com `hidden` enquanto não há texto, e é justamente aí que a linha precisa
+   existir, senão o pulo medido volta. O portão test/css/hidden.test.mjs cobra
+   esta marca; regra que pinta um elemento escondido sem ela é defeito. */
+.join-card .arena-message:empty,
+.admin-login-form .form-message:empty {
+  display: block !important;
+  min-height: 21px;
+  margin: 4px 0 0;
+}
+/* A reserva é de UMA linha, e é por isso que a mensagem de erro da sala tem de
+   caber em uma: com duas linhas ela ainda empurrava o formulário em 10px. */
+.join-card .arena-message {
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+/* A mensagem do login era uma caixa de 46px (padding e borda) para dizer uma
+   linha de texto que a entrada do aluno diz como texto simples — duas famílias
+   de mensagem dentro da mesma família de cartão. Como texto, a linha reservada
+   basta: a caixa maior obrigava a reservar 46px de espaço vazio para o erro de
+   uma linha não empurrar o formulário. */
+/* A margem também faz parte da conta: a folha base dá `margin-top: 20px` à
+   mensagem não-vazia e a reserva usa 4px — 16px de diferença, metade para cada
+   lado, que era o deslocamento que sobrava. */
+.admin-login-form .form-message {
+  margin: 4px 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--gray);
+}
+.admin-login-form .form-message[data-tone='error'] { color: var(--color-danger); }
+.admin-login-form .form-message[data-tone='info'] { color: var(--color-primary); }
+.admin-login-head h1 { text-wrap: balance; line-height: 1.2; }
+.admin-login-back { min-height: 44px; align-content: center; margin-top: 12px; }
+
+/* Administration: a fluid grid, stable header, and navigation on every size. */
+.arena-admin-layout { grid-template-columns: 244px minmax(0, 1fr); }
+.arena-admin-main { min-width: 0; }
+.arena-admin-head-top {
+  height: auto;
+  min-height: 76px;
+  flex: 0 0 auto;
+  padding: 16px var(--ui-gutter);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.arena-topbar-title { min-width: 0; }
+.arena-topbar-title small { line-height: 1.5; }
+.arena-admin-head-top .arena-admin-topright { gap: 12px; flex-wrap: wrap; }
+.arena-admin-head-top .arena-admin-crumb { gap: 8px; }
+.arena-admin-scroll-area { padding: 24px var(--ui-gutter) 48px; scroll-padding-top: 24px; }
+.arena-admin-layout .report-panel {
+  padding: 24px;
+  border-radius: var(--ui-panel-radius);
+  scroll-margin-top: 24px;
+}
+.arena-admin-layout .report-panel h2 { line-height: 1.3; }
+.arena-admin-layout .text-field,
+.arena-dialog .text-field { min-width: 0; gap: 8px; }
+.arena-admin-layout .text-field > span,
+.arena-dialog .text-field > span {
+  position: static;
+  align-self: flex-start;
+  padding: 0;
+  background: transparent;
+  line-height: 1.4;
+  font-size: 13px;
+  font-weight: 600;
+  color: #42526b;
+}
+.arena-admin-layout :is(input,select),
+.arena-dialog :is(input:not([type='checkbox']),select,textarea) {
+  min-width: 0;
+  max-width: 100%;
+  font: inherit;
+  font-size: 16px !important;
+}
+
+.arena-admin-layout .arena-room-card-actions button,
+.arena-admin-layout .arena-challenge-actions button { min-height: 44px; }
+.arena-admin-layout .arena-cockpit { padding: 24px; gap: 24px; }
+.arena-admin-layout .arena-cockpit-code { flex-basis: 210px; padding-right: 20px; }
+.arena-admin-layout .arena-cockpit-info { min-width: 0; }
+.arena-admin-layout .arena-cockpit-start { flex-wrap: wrap; }
+/* `auto-fill`, e não `auto-fit`: sem irmãos, o cartão solitário esticava pela
+   largura toda do painel em vez de manter a largura do resto da grade. */
+.arena-admin-layout .admin-arena-challenge-grid,
+.arena-admin-layout .admin-arena-lesson-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+}
+.arena-admin-layout :is(.arena-challenge-head strong, .arena-lesson-card h3) {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Dialog fields retain visible labels and a comfortable editing rhythm. */
+/* Etapa D — o diálogo cabe na janela e tem UMA região de rolagem.
+   Antes quem rolava era o overlay e o cartão não tinha teto: além de dois
+   lugares possíveis de rolagem, o título saía de vista e o botão de fechar
+   (que é absoluto dentro do cartão) ia junto com o conteúdo. Agora o cartão é
+   limitado à janela, o corpo rola por dentro e o título fica preso no topo. */
+.arena-dialog { padding: 16px; overflow: hidden; overscroll-behavior: contain; }
+.arena-dialog .arena-dialog-card {
+  max-height: calc(100dvh - 2rem);
+  overflow: hidden;
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+.arena-dialog [data-arena-dialog-body] {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 32px 32px;
+}
+/* Rodapé do formulário longo: a ação fica presa à base da janela do diálogo —
+   depois de rolar o formulário inteiro, salvar não exige outra rolagem. É
+   `sticky`, não `fixed`: participa do fluxo e ocupa o próprio lugar no fim, onde
+   a margem de baixo do corpo (a mesma que separa todo o resto) é a reserva que
+   impede a barra de cobrir o último campo. As laterais negativas só fazem o
+   fundo da barra atravessar o respiro lateral do corpo.
+
+   A tentação era cancelar também a margem de baixo (`-32px`). Medido, isso
+   quebra: o retângulo do `sticky` é encolhido pelas margens do próprio elemento,
+   então a barra ficava presa 32px ACIMA da base e tapava os últimos 12px do
+   campo "Velocidade na pontuação" no fim da rolagem. A mensagem do formulário
+   veio para cima dela: era o único elemento que ficava abaixo. */
+.arena-dialog .arena-dialog-actions {
+  position: sticky;
+  z-index: 1;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 -32px;
+  border-top: 1px solid var(--color-border);
+  background: #fff;
+  padding: 14px 32px 18px;
+}
+.arena-dialog .arena-dialog-actions > .figma-cta { flex: 1 1 auto; }
+.arena-dialog [data-arena-dialog-body] h3 {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0 40px 20px 0;
+  padding: 28px 0 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--color-border);
+}
+.arena-dialog h3 { font-size: 24px; font-weight: 750; line-height: 1.3; margin-bottom: 24px; }
+.arena-dialog .arena-challenge-form { gap: 20px; }
+.arena-dialog textarea {
+  border: 1px solid #d0d7e2;
+  border-radius: 12px;
+  padding: 12px 14px;
+  line-height: 1.5;
+}
+.arena-dialog input[type='file'] { height: auto; padding: 8px; }
+.arena-dialog input::file-selector-button {
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-right: 8px;
+  background: #e8f0fe;
+  color: var(--color-primary-deep);
+  font: inherit;
+}
+.arena-proj-code { font-variant-numeric: tabular-nums; }
+
+/* Participant header: brand, room and status keep distinct space. */
+.arena-lobby-header { gap: 24px !important; }
+.arena-lobby-header .arena-lobby-brand { flex: 1 1 auto; min-width: 0; }
+.arena-lobby-room-meta { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.arena-lobby-room-meta > strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.arena-lobby-room-meta .arena-room-code { flex-shrink: 0; }
+.arena-lobby-stats { flex: 0 0 auto; }
+.arena-lobby-header .ghost-link { min-height: 44px; display: inline-flex; align-items: center; }
+.arena-lobby-header .arena-lobby-stats > span strong { color: #5eeac5 !important; }
+.arena-mission-panel { min-width: 0; }
+.arena-mission-panel .arena-classic-figure {
+  background: #eef2f8;
+  box-shadow: none;
+  max-height: none;
+}
+.arena-mission-panel .arena-classic-figure img {
+  width: 100%;
+  height: clamp(210px, 32vh, 320px) !important;
+  max-height: none !important;
+  aspect-ratio: auto;
+  object-fit: contain;
+  object-position: center;
+}
+.arena-mission-panel h1 { text-wrap: balance; line-height: 1.18; }
+.arena-mission-panel .arena-result {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.arena-mission-panel .arena-result[hidden] { display: none; }
+.arena-result .arena-feedback { width: 100%; margin: 0; }
+.arena-result .arena-breakdown { width: 100%; }
+.arena-mission-panel .arena-mission-empty h1 { line-height: 1.25; }
+.arena-roster-item strong { min-width: 0; }
+.arena-roster-item em { flex-shrink: 0; }
+
+/* TV: preserve the dark arena, correct the empty column and brand collision. */
+/* Quatro colunas, uma linha. Com três colunas e o selo LIVE fixado na terceira, o
+   botão "Tela cheia" — que é auto-colocado — sobrava para uma SEGUNDA linha,
+   sozinho: 126 px de cabeçalho em 1920×1080 (e 123 em 1280×720), dos quais 57
+   eram só essa linha, empurrando o palco para baixo em toda projeção. O selo e o
+   botão passam a ser duas colunas da MESMA faixa de ferramentas, à direita. */
+.arena-tv-topbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  min-height: 72px;
+  height: auto;
+  align-items: center;
+  padding: 14px clamp(20px, 3vw, 48px);
+  gap: clamp(12px, 2vw, 24px);
+}
+.arena-tv-topbar::after {
+  position: static;
+  transform: none;
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+}
+.arena-tv-fullscreen-btn {
+  grid-column: 4;
+  grid-row: 1;
+  justify-self: end;
+}
+.arena-tv-room { justify-self: end; max-width: 100%; }
+.arena-tv-room strong { overflow-wrap: anywhere; }
+.arena-tv-content.is-lobby .arena-tv-lobby:has(> :only-child) {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 1000px;
+  margin-inline: auto;
+}
+.arena-tv-content.is-lobby .arena-tv-lobby-main { width: 100%; }
+.arena-tv-pin strong { font-family: var(--font-sans); }
+.arena-tv-figure img { object-fit: contain; }
+.arena-tv-content h1 { letter-spacing: -.03em !important; }
+
+/* ============================================================
+   AMBIÊNCIA DA MARCA — dois fundos, e a tela escolhe UM.
+
+   A referência tem exatamente dois fundos de página: o gradiente suave
+   menta/azul/lavanda (portal, entradas, espera, painel, relatório) e as
+   listras diagonais azuis do ringue (a rodada do aluno e a projeção). Antes,
+   cada superfície desenhava o seu — foto no portal, cinza chapado no painel,
+   pontilhado na espera — e é por isso que a identidade nova não se enxergava:
+   forma nova sobre o mesmo fundo continua lendo como o mesmo produto.
+
+   A regra que não muda: nenhum TEXTO encosta em listra ou gradiente. As
+   superfícies de leitura continuam brancas e sólidas por cima da ambientação —
+   é o que preserva cada par de contraste já medido. Listra e gradiente são
+   fundo de página, nunca fundo de texto.
+   ============================================================ */
+body[data-page='index'],
+body[data-page='index'] .portal-shell,
+body[data-page='admin-arena'] .arena-admin-layout,
+body[data-page='report'] .report-shell,
+.admin-login-shell,
+body[data-page='arena'],
+body[data-page='arena'] .arena-lobby {
+  background-color: #eaf1ff !important;
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(167, 243, 208, 0.55) 0%, transparent 40%),
+    radial-gradient(circle at 92% 8%, rgba(186, 230, 253, 0.62) 0%, transparent 44%),
+    radial-gradient(circle at 50% 45%, rgba(147, 197, 253, 0.5) 0%, transparent 58%),
+    radial-gradient(circle at 88% 88%, rgba(221, 214, 254, 0.55) 0%, transparent 46%) !important;
+  /* O RESET de tamanho, posição e repetição é o que conserta o ladrilho, e não
+     um detalhe de estilo: uma regra antiga da sala de espera
+     (`body[data-page='arena'] .arena-lobby`) fixa `background-size: 34px 35.5px`
+     e `position: 19px 20px`. Trocar só a imagem deixava esses valores de pé — o
+     gradiente virava um xadrez de manchas repetidas a cada 34 px (medido no PNG
+     da sala de espera em 18/09, 702 fronteiras de cor). O atalho `background`
+     faria o mesmo, mas o PORTÃO DE CONTRASTE não lê atalho: sem uma cor de
+     fundo resolvida aqui, ele procura o fundo mais atrás (a listra azul da
+     rodada) e reprova a tinta do cabeçalho — que na tela está sobre branco. */
+  background-size: auto !important;
+  background-position: 0 0 !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+/* A tela de ENTRADA tinha fundo próprio (um `#f8faff` opaco e uma grade de
+   pontos de 26 px) por cima do gradiente da página: a identidade aparecia só
+   nas bordas do cartão, e o resultado lia como "fundo branco com bolinhas" em
+   vez da lavagem menta/lavanda da referência. A página tem UM fundo — o do
+   `body`. O elemento continua na marcação porque posiciona o cartão. */
+body[data-page='arena'] .arena-screen[data-arena-screen='join'] .arena-bg {
+  background: none !important;
+}
+body[data-page='arena'] .arena-screen[data-arena-screen='join'] .arena-bg::after {
+  content: none !important;
+}
+/* O portal tinha uma FOTO de fundo (`start-bg.png`). Ela sai do fundo — o
+   cartão branco sobre o gradiente é a referência, e a foto atrás dele apagava
+   justamente o que a identidade tem de mais legível. O arquivo continua no
+   repositório: o `evidence/manifest.json` exige a captura dele. */
+body[data-page='admin-arena'] .arena-admin-main { background: transparent; }
+/* A superfície de leitura continua branca, com o canto grande e a sombra
+   suave da referência: é o `card-pure-white` do protótipo. */
+body[data-page='admin-arena'] .report-panel,
+body[data-page='report'] .report-panel,
+body[data-page='report'] .metric-card {
+  border-color: rgba(255, 255, 255, 0.9);
+  background: #ffffff;
+}
+/* ---- CARTÃO BRANCO FLUTUANTE (a `card-pure-white` da referência) ----
+   Vale para as superfícies de leitura do painel e do relatório: fundo branco
+   sólido, canto grande e sombra flutuante. A borda de 1 px sai: na referência
+   quem separa o cartão do fundo é a sombra, não o traço. */
+body[data-page='admin-arena'] :is(.arena-cockpit, .arena-room-card, .arena-challenge-card, .arena-lesson-card),
+body[data-page='report'] :is(.report-panel, .metric-card) {
+  border-color: transparent;
+  border-radius: var(--la-radius-card-lg);
+  background: #ffffff;
+  box-shadow: 0 18px 44px -18px rgba(0, 38, 115, 0.24), 0 6px 18px -8px rgba(0, 0, 0, 0.06);
+}
+
+/* Reports: balanced metric rows and containers that can shrink around data. */
+body[data-page='report'] .metric-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+body[data-page='report'] :is(.report-grid, .report-panel, .metric-card) { min-width: 0; }
+body[data-page='report'] .metric-card { padding: 20px; }
+body[data-page='report'] .report-grid > * { min-width: 0; }
+body[data-page='report'] canvas { max-width: 100%; }
+body[data-page='report'] .report-head { margin-bottom: 24px !important; }
+body[data-page='report'] .report-filter-panel { padding: 20px; }
+body[data-page='report'] .report-filters { gap: 16px; }
+body[data-page='report'] .report-date-field { min-width: 0; }
+body[data-page='report'] .panel-title { gap: 8px; flex-wrap: wrap; }
+
+/* Relatório: consultas agrupadas por assunto, com o operacional atrás de UMA
+   dobra. Ela é uma dobra, não um painel fechado dentro de outro: o plano reprova
+   chegar a um dado simples atravessando aberturas em série, e o corpo do grupo
+   leva os quatro blocos abertos de uma vez. */
+body[data-page='report'] .report-group { width: min(1360px, 100%); margin: 0 auto 24px; }
+body[data-page='report'] .report-group:last-of-type { margin-bottom: 0; }
+body[data-page='report'] .report-group-title {
+  margin: 0 0 10px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+body[data-page='report'] .report-group > .report-grid { width: 100%; margin: 0; }
+body[data-page='report'] .report-group > .report-full-grid { padding-bottom: 0; }
+body[data-page='report'] .report-group-fold {
+  border: 1px solid rgba(11, 87, 208, .12);
+  border-radius: var(--la-radius-card);
+  background: hsla(0, 0%, 100%, .84);
+  box-shadow: var(--la-shadow-soft);
+  padding: 14px 16px;
+}
+body[data-page='report'] .report-group-fold[open] { padding: 18px 20px 22px; }
+/* A dobra usa o MESMO resumo dos painéis — caret, hover e foco — porque é a
+   mesma interação. Sem o caret ela não se anuncia como dobra: o painel fechado
+   tem o dele desde antes, e uma caixa sem marca nenhuma pede clique no escuro. */
+body[data-page='report'] .report-group-fold > summary.panel-title {
+  margin-bottom: 0;
+  cursor: pointer;
+  list-style: none;
+}
+body[data-page='report'] .report-group-fold > summary.panel-title::-webkit-details-marker { display: none; }
+body[data-page='report'] .report-group-fold > summary.panel-title h2 { flex: 1 1 auto; }
+body[data-page='report'] .report-group-fold > summary.panel-title::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid currentColor;
+  transition: transform .18s ease;
+}
+body[data-page='report'] .report-group-fold[open] > summary.panel-title::before { transform: rotate(90deg); }
+body[data-page='report'] .report-group-fold > summary.panel-title:hover,
+body[data-page='report'] .report-group-fold > summary.panel-title:focus-visible { color: var(--blue); }
+body[data-page='report'] .report-group-fold[open] > summary.panel-title { margin-bottom: 16px; }
+body[data-page='report'] .report-group-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 24px;
+}
+body[data-page='report'] .report-block { min-width: 0; }
+body[data-page='report'] .report-block > h3 {
+  margin: 0 0 10px;
+  color: var(--color-primary-dark);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+/* O painel fechado é a leitura que mais se repete na tela (onze deles): a caixa
+   encolhe e o respiro que sobrava embaixo do título sai junto. */
+body[data-page='report'] .report-panel { padding: 14px 16px; }
+body[data-page='report'] .report-panel[open] { padding: 18px 20px 22px; }
+body[data-page='report'] .report-panel > summary.panel-title { margin-bottom: 0; }
+body[data-page='report'] .report-panel[open] > summary.panel-title { margin-bottom: 14px; }
+
+@media (max-width: 980px) {
+  body[data-page='report'] .report-group-body { grid-template-columns: 1fr; gap: 20px; }
+}
+
+@media (max-width: 1200px) {
+  .arena-admin-layout .arena-cockpit { flex-direction: column; }
+  .arena-admin-layout .arena-cockpit-code {
+    flex-basis: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 0 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .arena-admin-layout { display: flex; flex-direction: column; height: auto; overflow: visible; }
+  .arena-admin-sidebar {
+    display: flex;
+    padding: 16px;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+    gap: 12px;
+  }
+  .brand-logo-sidebar { border: 0; margin: 0; padding: 0; }
+  .arena-sidebar-nav { flex-direction: row; flex-wrap: wrap; margin: 0; gap: 4px; }
+  .arena-sidebar-nav .sidebar-link { padding: 8px 12px; min-height: 44px; border-radius: 12px; font-size: 13px; }
+  .arena-sidebar-bottom { position: absolute; right: 16px; top: 14px; padding: 0; border: 0; }
+  .arena-sidebar-bottom .admin-user-card { display: none; }
+  .arena-sidebar-bottom .sidebar-logout { min-height: 44px !important; width: auto; }
+  .arena-admin-main { height: auto; overflow: visible; }
+  .arena-admin-head-top { padding: 20px 16px; gap: 12px; }
+  .arena-admin-head-top .arena-admin-topright { justify-content: flex-start; }
+  .arena-admin-scroll-area { overflow: visible; }
+  .arena-admin-layout .report-panel { padding: 24px; }
+  body[data-page='report'] .metric-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .arena-tv-topbar { gap: 16px; }
+  .arena-tv-room { grid-column: 1 / -1; grid-row: 2; justify-self: start; font-size: 16px; }
+}
+
+@media (max-width: 640px) {
+  body[data-page='index'] .portal-shell-center .portal-hero {
+    gap: 20px;
+    padding: calc(var(--la-tape-h) + 32px) 20px 32px;
+  }
+  body[data-page='index'] .portal-hero-headline { font-size: clamp(34px, 9.5vw, 42px) !important; }
+  .arena-admin-layout .report-panel { padding: 20px; margin-bottom: 20px; }
+  .arena-admin-layout .arena-room-card { padding: 16px; }
+
+  .arena-admin-layout .arena-cockpit { padding: 20px; }
+  .arena-admin-layout .arena-cockpit-start > button { width: 100%; }
+  .arena-admin-layout .admin-arena-detail h2 { font-size: 20px; overflow-wrap: anywhere; }
+  .arena-dialog { padding: 8px; }
+  .arena-dialog .arena-dialog-card { max-height: calc(100dvh - 1rem); }
+  .arena-dialog [data-arena-dialog-body] { padding: 0 20px 20px; }
+  .arena-dialog .arena-dialog-actions { margin: 0 -20px; padding: 12px 20px 16px; }
+  .arena-dialog [data-arena-dialog-body] h3 { margin-right: 44px; padding: 22px 0 14px; }
+  .arena-dialog h3 { font-size: 22px; }
+  .arena-lobby-header {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 12px 16px !important;
+    gap: 12px !important;
+  }
+  .arena-lobby-header .arena-lobby-brand { display: contents; }
+  .arena-lobby-brand .brand-identity { grid-row: 1; grid-column: 1; justify-self: start; }
+  .arena-lobby-sep { display: none; }
+  .arena-lobby-header .arena-lobby-room-meta {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,.14);
+  }
+  .arena-lobby-header .arena-lobby-room-meta > strong { flex: 1; font-size: 13px !important; }
+  .arena-lobby-header .arena-lobby-stats { grid-column: 2; grid-row: 1; }
+  .arena-lobby-header .arena-lobby-stats > span:first-child { font-size: 11px !important; padding: 4px 8px !important; }
+  .arena-lobby-header .ghost-link { min-width: 44px; padding: 4px 8px !important; }
+  .arena-lobby-body { padding: 16px 16px 32px !important; }
+  .arena-mission-panel { padding: calc(var(--la-tape-h) + 20px) 20px 20px !important; }
+  .arena-mission-panel:not([hidden]):has(.arena-mission-empty:not([hidden])) { padding: calc(var(--la-tape-h) + 32px) 20px 32px !important; min-height: 0; }
+  .arena-mission-panel .arena-result { padding: 16px; }
+  .arena-mission-meta { flex: 1; gap: 6px; }
+  .arena-mission-top { flex-wrap: nowrap; gap: 8px; }
+  .arena-mission-badge { font-size: 10px; }
+  .arena-timer { min-width: 76px; padding-inline: 10px; }
+  .arena-roster-item { gap: 8px !important; padding: 10px !important; }
+  .arena-roster-item strong { font-size: 14px !important; }
+  .arena-roster-item em { font-size: 9px !important; padding: 4px 6px !important; }
+  .arena-tv-topbar { padding: 16px 20px; }
+  .arena-tv-stage { padding: 24px 20px; }
+  .arena-tv-pin strong { font-size: clamp(44px, 12vw, 76px); }
+  .arena-tv-content.is-connect > p { max-width: 32ch; margin-inline: auto; }
+  body[data-page='report'] .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  body[data-page='report'] .metric-card { padding: 16px; }
+  body[data-page='report'] .metric-card strong { font-size: 30px; }
+  body[data-page='report'] .report-header-actions { display: flex; flex-wrap: wrap; }
+  body[data-page='report'] .report-head .report-header-actions > .figma-cta { flex: 1 1 calc(50% - 8px); min-width: 0; padding-inline: 8px; }
+  body[data-page='report'] .report-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; }
+  body[data-page='report'] .report-date-field { width: 100%; }
+  body[data-page='report'] .report-date-field input { width: 100%; min-width: 0; padding-inline: 8px; font-size: 14px; }
+  body[data-page='report'] .report-print-meta { grid-column: 1 / -1; gap: 12px; line-height: 1.5; }
+}
+
+/* ============================================================
+   IDENTIDADE DO REDESIGN — pacote `live-arena-redesign-ajustado.zip`
+   (referência `code.html`), aplicado às superfícies mapeadas em
+   `MAPA-INTEGRACAO.md`. Esta seção é a dona única da linguagem nova: fita de
+   perigo, sublinhado magenta, listras diagonais, cartão branco de canto grande
+   com sombra flutuante e o botão de entrada em pílula.
+
+   O que NÃO muda aqui: a tinta de leitura, os pares de contraste já medidos, a
+   cópia das telas, os seletores `data-*` que o JS usa e todo contrato de ação.
+   A referência é mais brusca no azul; o produto mantém `--color-primary`, então
+   a identidade nova entra nos valores de FORMA e nos acentos decorativos, não
+   na tinta que carrega texto.
+   ============================================================ */
+
+/* ---- Botão de ENTRADA: uma família para as três portas do produto ----
+   Portal, entrada do aluno e login do painel faziam a mesma ação em duas
+   formas. A referência tem uma só: pílula, peso máximo e a sombra azul da
+   marca. As três passam a ler igual. */
+body[data-page='index'] .portal-enter,
+body[data-page='arena'] .join-card .arena-submit,
+.admin-login-submit {
+  border-radius: 999px !important;
+  min-height: 56px !important;
+  height: 56px !important;
+  padding: 0 34px !important;
+  border: 0 !important;
+  background: var(--color-primary) !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.01em !important;
+  box-shadow: var(--la-shadow-pill) !important;
+}
+body[data-page='index'] .portal-enter:hover,
+body[data-page='arena'] .join-card .arena-submit:hover,
+.admin-login-submit:hover {
+  background: var(--la-blue-electric) !important;
+  box-shadow: 0 10px 30px -4px rgba(0, 118, 255, 0.55) !important;
+  transform: translateY(-1px);
+}
+/* Rótulo em caixa alta só nas duas portas em que a referência escreve assim
+   (entrada do aluno e painel); o portal mantém a frase como está. */
+body[data-page='arena'] .join-card .arena-submit,
+.admin-login-submit {
+  text-transform: uppercase;
+  letter-spacing: 0.06em !important;
+}
+
+/* ---- AÇÃO PRIMÁRIA de dentro da partida: a MESMA pílula ----
+   A pílula acima é das portas de entrada; estas são as ações primárias de
+   dentro do produto (enviar prompt, entrar na projeção, confirmar). Em vez de
+   uma segunda família com gradiente, elas leem a mesma: azul liso da marca,
+   rótulo pesado e a sombra azul da referência. */
+.figma-cta-blue,
+.figma-cta-gradient,
+.arena-submit,
+.arena-tv-code-submit {
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--color-primary) !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  box-shadow: var(--la-shadow-pill) !important;
+  font-weight: 900 !important;
+}
+.figma-cta-blue:hover,
+.figma-cta-gradient:hover,
+.arena-submit:hover,
+.arena-tv-code-submit:hover {
+  background: var(--la-blue-electric) !important;
+  background-image: none !important;
+  transform: translateY(-1px);
+}
+/* O sublinhado de um título alinhado à esquerda nasce à esquerda: o
+   `margin: auto` de `.brand-swoosh` existe para os títulos centrados das portas
+   de entrada, não para o cabeçalho do relatório nem para o título da missão. */
+body[data-page='report'] .arena-admin-titles .brand-swoosh,
+body[data-page='arena'].round-active .round-workspace .brand-swoosh {
+  margin: 10px 0 0;
+}
+body[data-page='arena'].round-active .round-workspace .brand-swoosh { --la-swoosh-w: 96px; }
+
+/* ---- CARTÃO DE ENTRADA (portal) ----
+   A referência LA-01: superfície branca sólida, canto grande e sombra
+   flutuante sobre o fundo menta/azul/lavanda. Sai a borda de 1 px e o vidro
+   translúcido — o cartão deve ler como superfície, não como camada de vidro.
+   (Os outros dois cartões de entrada — aluno e painel — ficam com as regras
+   deles, logo acima, e leem o mesmo desenho.) */
+body[data-page='index'] .portal-hero {
+  border-radius: var(--la-radius-card-lg) !important;
+  background: #ffffff !important;
+  border: 0 !important;
+  box-shadow: var(--la-shadow-card) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ---- FITA DE PERIGO e SUBLINHADO MAGENTA (peças da referência) ----
+   Fita: a BORDA superior do cartão, não um bloco dentro dele — o cartão
+   recorta o próprio canto (`overflow: hidden`) e o respiro do topo é de quem
+   declara o padding. É decoração pura: não carrega texto.
+   Sublinhado: o traço magenta com o losango na ponta, sob o título. */
+.brand-tape {
+  position: relative;
+  overflow: hidden;
+}
+.brand-tape::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--la-tape-h);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--la-tape-yellow),
+    var(--la-tape-yellow) var(--la-tape-step),
+    var(--la-tape-ink) var(--la-tape-step),
+    var(--la-tape-ink) calc(var(--la-tape-step) * 2)
+  );
+}
+.brand-swoosh {
+  /* Bloco: o traço é centralizado pelo próprio `margin: auto` e não empurra o
+     que vem depois (na entrada do painel ele é filho de um cabeçalho que não
+     é flex, e inline ele dividia a linha com o rótulo do campo). */
+  display: block;
+  position: relative;
+  width: var(--la-swoosh-w, 112px);
+  height: 6px;
+  margin: 10px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--la-magenta) 0%, var(--la-magenta-soft) 80%, var(--la-magenta-pale) 100%);
+}
+.brand-swoosh::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--la-magenta);
+  transform: rotate(45deg);
+}
+.brand-swoosh--wide { --la-swoosh-w: 160px; }
+/* O código da sala é número de verdade: monoespaçada e tabular, como o
+   cronômetro e a nota — é o mesmo tipo de dado. */
+body[data-page='arena'] .join-card .arena-field input[name='code'] {
+  font-family: var(--la-mono) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-align: center !important;
+  color: var(--color-primary-dark) !important;
+}
+
+/* ---- TV / PROJEÇÃO ----
+   A referência põe a projeção sobre as listras do ringue e o palco num cartão
+   flutuante de moldura clara, com a fita de perigo na aresta. É o que entra
+   aqui: a página passa a ser a listra azul e o palco vira o cartão.
+   O palco continua ESCURO, e a razão é de leitura, não de gosto: a projeção é
+   vista à distância numa sala com luz baixa, e TODOS os pares de contraste dela
+   foram medidos sobre tinta branca — roster, ranking, sorteio, dinâmicas e
+   resultados. Inverter a tinta de todos eles seria reauditar cada par, e o
+   ganho seria estético. A identidade entra na moldura: listra atrás, moldura
+   clara, fita na aresta de cima e os números em monoespaçada.
+   O que não pode acontecer: tinta branca direto sobre a listra. Por isso a
+   barrra de cima continua a lâmina escura translúcida que a projeção usa desde
+   17/09 — ela é quem segura o contraste do cabeçalho sobre o fundo novo. */
+body[data-page='tv'] {
+  background-color: var(--la-stripe-a) !important;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--la-stripe-a) 0 32px,
+    var(--la-stripe-b) 32px 64px
+  ) !important;
+  background-attachment: fixed !important;
+}
+/* Duas camadas pintavam o escuro por cima da listra: o `.arena-tv` (coluna que
+   ocupa a tela toda) e o `.arena-tv-bg`. A ambientação é da PÁGINA; o escuro
+   agora é só do palco, que é o cartão. */
+body[data-page='tv'] .arena-tv { background: none !important; }
+body[data-page='tv'] .arena-tv-bg { background: none !important; }
+/* A moldura é o cartão: sem `overflow: hidden`, porque o palco dimensiona o
+   conteúdo em vh/vw e recortar aqui esconderia justamente o que se lê longe. */
+body[data-page='tv'] .arena-tv-stage {
+  margin: 0 clamp(10px, 1.2vw, 20px) clamp(10px, 1.4vh, 20px);
+  /* A borda é 4px: o `border-radius` da fita (`::after`) desconta este valor. */
+  border: 4px solid rgba(255, 255, 255, 0.92);
+  border-radius: var(--la-radius-card-lg);
+  background: linear-gradient(165deg, #05173a 0%, #062a52 58%, #083a6e 100%);
+  box-shadow: 0 26px 60px -16px rgba(0, 22, 66, 0.55), 0 10px 26px -8px rgba(0, 0, 0, 0.28);
+}
+/* A projeção tem UMA fita, na aresta do palco. Aqui havia uma segunda tarja de
+   10px colada na borda de cima da janela — duas fitas dizendo a mesma coisa, em
+   alturas diferentes, e a de cima sem canto para seguir. */
+body[data-page='tv'] .arena-tv-stage::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  /* A fita VESTE a caixa do palco e pinta só a faixa de cima — ela não é uma
+     tarja de 10px de altura. Tarja não pode levar o raio de dentro: num box de
+     10px o CSS reduz os raios verticais para caber (Backgrounds §5.5), então
+     `border-radius: 24px` é PINTADO com 10px e a fita invade a moldura branca
+     na quina. Medido em pixel, o preenchimento seguia o arco de 10px. Com a
+     caixa inteira o raio não é escalado, e é a curva do box que recorta a
+     tarja. */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--la-tape-yellow),
+    var(--la-tape-yellow) 10px,
+    var(--la-tape-ink) 10px,
+    var(--la-tape-ink) 20px
+  );
+  /* A faixa de cima: a altura da fita em si continua 10px. */
+  background-repeat: no-repeat;
+  background-size: 100% 10px;
+  background-position: top;
+  /* A ponta da fita segue o canto do cartão. O palco é esta moldura — raio de
+     28px e 4px de borda branca — e não tem `overflow: hidden` de propósito (o
+     conteúdo se mede em vh/vw e recortar aqui esconderia o que se lê de longe).
+     Sem o raio aqui, a fita termina em canto RETO por dentro da curva da
+     moldura: a ponta fica à mostra, sobre o canto arredondado.
+     O raio é o de dentro — o de fora menos a borda —, que é exatamente a curva
+     em que a borda encontra o fundo do palco: é ali que a fita encosta. */
+  border-radius: calc(var(--la-radius-card-lg) - 4px) calc(var(--la-radius-card-lg) - 4px) 0 0;
+  pointer-events: none;
+}
+body[data-page='tv'] .arena-tv-timer,
+body[data-page='tv'] .arena-tv-pin strong {
+  font-family: var(--la-mono) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- NÚMEROS DA RODADA ----
+   Cronômetro e nota são os dois números que a turma olha de longe: leem em
+   monoespaçada tabular, como o código da sala e o PIN da projeção — é o mesmo
+   tipo de dado e o produto não desenha cada um de um jeito. */
+body[data-page='arena'] .arena-timer,
+body[data-page='arena'] .arena-result-score strong {
+  font-family: var(--la-mono) !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   VOZ DA ARENA — uma face por PAPEL, como a referência aprovada.
+
+   A referência carrega três famílias e dá um papel a cada uma: Space Grotesk
+   nos títulos, Plus Jakarta Sans no texto, JetBrains Mono no número e no
+   micro-rótulo. O produto baixava UMA (Plus Jakarta Sans) e desenhava com
+   quatro: título sem face própria, texto em Plus Jakarta Sans, mono em
+   `ui-monospace, 'Cascadia Code'` nas telas do painel, mono de novo com outra
+   pilha em `design.css`, `Arial Black` no cronômetro e o `--la-mono` daqui
+   pedindo uma JetBrains Mono que ninguém baixava. Não é forma nem cor: é a
+   diferença entre um sistema e telas que se parecem.
+
+   O papel de cada face, então:
+     display  → título. Leitura de longe, peso máximo, entreletra apertada.
+     mono     → dado que não pode dançar: código, PIN, contagem, cronômetro,
+                nota, tentativa — e o micro-rótulo em caixa alta que nomeia
+                um dado (é o `e.g. ROUND 1 • REVERSA` da referência).
+     texto    → todo o resto, no `--font-sans` da casa.
+   ============================================================ */
+
+/* ---- TÍTULOS ---- */
+.portal-hero-headline,
+.join-head h1,
+.admin-login-head h1,
+.arena-mission-panel h1,
+body[data-page='report'] .report-head h1,
+body[data-page='report'] .arena-admin-titles h1,
+body[data-page='tv'] .arena-tv-content h1,
+body[data-page='admin-arena'] .admin-arena-hero h1,
+body[data-page='admin-arena'] .admin-arena-detail h2 {
+  font-family: var(--la-display);
+}
+
+/* ---- NÚMEROS E MICRO-RÓTULOS ----
+   Código da sala, PIN, contagem de missões, tentativa, rótulo de estatística:
+   o MESMO tipo de dado, o mesmo desenho em todas as telas. A entreletra entra
+   só onde ela é do PAR — código e selo lido dígito a dígito, rótulo em caixa
+   alta —, nunca por cima do que a folha antiga já apertou ou abriu. */
+.arena-room-code,
+.arena-preset-chip,
+.arena-mission-badge,
+.arena-round-count,
+.arena-admin-kicker,
+.arena-room-missions-badge,
+.arena-attempt-dot,
+.arena-admin .arena-stat b,
+.arena-admin .arena-room-card-badges :is(.arena-room-code, .arena-preset-chip, .arena-room-missions-badge),
+body[data-page='report'] .metric-card > span,
+body[data-page='report'] .report-group-title {
+  font-family: var(--la-mono);
+}
+.arena-room-code,
+.arena-preset-chip,
+.arena-room-missions-badge,
+body[data-page='report'] .metric-card > span {
+  letter-spacing: 0.06em;
+}
+/* O rótulo do indicador é micro-rótulo, como na referência (LA-12): caixa alta
+   e mono sobre o número, que continua sendo o texto grande do cartão. */
+body[data-page='report'] .metric-card > span { text-transform: uppercase; }
+
+/* ---- TÍTULO das três portas ---- */
+body[data-page='arena'] .join-card .join-head h1,
+.admin-login-head h1 {
+  font-weight: 900 !important;
+  letter-spacing: -0.035em !important;
+}
+/* O sublinhado do painel precisa do próprio respiro: no cartão do aluno quem
+   abre espaço depois dele é a dica, que tem margem; aqui o que segue é o
+   rótulo do campo, que não tem. */
+.admin-login-head .brand-swoosh { margin-bottom: 14px; }
+
+/* ============================================================
+   PAINEL DO PROFESSOR — um cartão para cada trabalho
+   (referência LA-05, `teacher-dashboard-hero` + `teacher-room-list`).
+
+   O painel empilhava cinco caixas com a MESMA borda clara, o mesmo raio e a
+   mesma sombra: nada era "a página". A referência resolve com dois cartões e
+   uma hierarquia — um herói com título, ação primária e os números da Arena,
+   e uma lista de salas contínua, com linhas separadas por fio em vez de N
+   caixas soltas.
+   ============================================================ */
+
+/* A faixa é UMA linha de trabalho: os números à esquerda, a ação primária à
+   direita — e nenhuma frase. O teto de palavras do painel já estava no limite
+   (68/68) e aqui não entra prosa: só o rótulo de cada número. */
+.arena-admin-layout .admin-arena-hero {
+  padding: 18px clamp(20px, 3vw, 32px);
+}
+.arena-hero-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.arena-hero-primary {
+  flex: 0 0 auto;
+  min-height: 48px;
+  height: 48px;
+  padding: 0 26px;
+}
+.arena-hero-stats {
+  display: grid;
+  flex: 1 1 420px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  min-width: 0;
+}
+.arena-hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 2px 0;
+}
+.arena-hero-stat:nth-child(2n) {
+  border-left: 1px solid var(--color-border);
+  padding-left: 18px;
+}
+.arena-hero-stat:nth-child(n + 3) {
+  border-top: 1px solid var(--color-border);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+.arena-hero-stat > span {
+  color: var(--color-text-muted);
+  font-family: var(--la-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.arena-hero-stat > strong {
+  color: var(--color-primary-dark);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.arena-hero-stat > strong.is-live { color: #12692c; }
+@media (min-width: 1000px) {
+  .arena-hero-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .arena-hero-stat:nth-child(n + 3) {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 2px;
+  }
+  .arena-hero-stat:nth-child(n + 2) {
+    border-left: 1px solid var(--color-border);
+    padding-left: 18px;
+  }
+}
+@media (max-width: 700px) {
+  .arena-hero-primary { flex: 1 1 100%; }
+}
+
+/* ---- SALAS: uma LISTA contínua, não N cartões ----
+   Cada linha continua sendo o mesmo `article` com `data-room-id` (o JS e os
+   testes não mudam): o que muda é o tratamento — sem caixa própria, sem raio,
+   sem sombra, separadas pelo fio. O `!important` está nas propriedades que a
+   folha antiga já forçava; fora delas, a cascata normal decide. */
+.admin-arena-rooms .arena-panel-title-wrap {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 14px;
+}
+.admin-arena-rooms .arena-panel-title-wrap h2 { margin: 0; }
+.admin-arena-rooms .admin-arena-room-list {
+  gap: 0;
+  margin-top: 4px;
+  padding-right: 0;
+}
+.admin-arena-rooms .arena-room-card {
+  gap: 20px;
+  padding: 18px 2px !important;
+  border: 0 !important;
+  border-top: 1px solid var(--color-border) !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  transition: background 0.15s ease;
+}
+.admin-arena-rooms .arena-room-card:first-child { border-top: 0 !important; }
+.admin-arena-rooms .arena-room-card:hover {
+  min-height: 0 !important;
+  border-color: var(--color-primary) !important;
+  background: rgba(11, 87, 208, 0.03) !important;
+  box-shadow: none !important;
+  transform: none;
+}
+.admin-arena-rooms .arena-room-card.is-selected {
+  border-color: var(--color-primary) !important;
+  background: rgba(11, 87, 208, 0.06) !important;
+  box-shadow: none !important;
+}
+
+/* ============================================================
+   DIAGNÓSTICO DO ROUND (referência LA-03D)
+   Duas frases — onde foi melhor e onde ainda dá ponto — na frente da dobra do
+   detalhamento. É a decisão do próximo movimento, e é o que o aluno precisa ler
+   antes de escolher entre refinar e seguir com a turma.
+   ============================================================ */
+.arena-diagnosis {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.arena-diagnosis[hidden] { display: none; }
+.arena-diagnosis-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #f7f9fe;
+  padding: 12px 14px;
+}
+.arena-diagnosis-item > span {
+  font-family: var(--la-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.arena-diagnosis-item > strong {
+  color: var(--color-primary-dark);
+  font-size: 14px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.arena-diagnosis-item > em {
+  font-family: var(--la-mono);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+.arena-diagnosis-item.is-best {
+  border-color: #cdebd6;
+  background: #eefaf1;
+}
+.arena-diagnosis-item.is-best > span { color: #12692c; }
+.arena-diagnosis-item.is-focus {
+  border-color: #f6e0b0;
+  background: #fff8ea;
+}
+.arena-diagnosis-item.is-focus > span { color: #8a5a00; }
+@media (max-width: 560px) {
+  .arena-diagnosis { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ============================================================
+   SALA EM DESTAQUE (referência LA-06)
+
+   O detalhe da sala é a tela onde o professor passa a aula, e ele reúne três
+   decisões diferentes. A referência dá um cartão a cada uma, e é isso que esta
+   camada desenha, sem tirar nem pôr dado:
+
+     1. CABEÇALHO — os dois selos (sala em destaque e o estado), o título grande
+        e, abaixo, a linha de números seguida da linha de ações. Antes o estado
+        dividia a linha de números: dois dados de naturezas diferentes na mesma
+        frase, e a ação primária misturada às secundárias.
+     2. DUAS COLUNAS — o ACESSO à esquerda (código, link, QR, projeção) e a
+        PARTIDA à direita (preset, lugares, regra, rodada no ar, próxima
+        missão). Sai a moldura dupla: cada coluna é UM cartão.
+     3. FAIXA DE INDICADORES — os números do modo Arena, lado a lado, embaixo da
+        partida. Eles só existem onde o dado existe (sala do modo Arena); em
+        sala clássica a faixa não entra, e nada é inventado para preenchê-la.
+
+   O resto do vocabulário continua o da casa: cartão de canto grande com sombra
+   flutuante, mono em número e micro-rótulo, uma única ação primária azul.
+   ============================================================ */
+body[data-page='admin-arena'] .admin-arena-detail {
+  position: relative;
+  border: 0 !important;
+  border-radius: var(--la-radius-card-lg) !important;
+  background: #ffffff !important;
+  box-shadow: var(--la-shadow-card) !important;
+  padding: clamp(18px, 2.2vw, 30px) !important;
+}
+
+/* ---- 1. CABEÇALHO ---- */
+body[data-page='admin-arena'] .arena-detail-head-bar {
+  align-items: flex-start !important;
+  margin-bottom: 16px !important;
+  padding-bottom: 0 !important;
+  border-bottom: 0 !important;
+}
+body[data-page='admin-arena'] .arena-detail-heading { display: grid; gap: 10px; min-width: 0; }
+body[data-page='admin-arena'] .arena-detail-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+body[data-page='admin-arena'] .arena-detail-badge-live {
+  margin-bottom: 0 !important;
+  border: 1px solid rgba(0, 82, 255, 0.18);
+  background: #eff5ff;
+  color: var(--la-blue-deep);
+  font-family: var(--la-mono);
+}
+/* O selo do estado lê o mesmo desenho do "sala em destaque", com a cor do
+   estado. `[hidden]` continua vencendo: nenhuma regra aqui usa `!important`
+   em `display`, e o catch-all da folha base é quem decide a ausência. */
+body[data-page='admin-arena'] .arena-detail-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #d6e4f5;
+  border-radius: 999px;
+  background: #f2f6fd;
+  color: #17427f;
+  padding: 4px 12px;
+  font-family: var(--la-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+body[data-page='admin-arena'] .arena-detail-state::before { content: '●'; font-size: 9px; }
+body[data-page='admin-arena'] .arena-detail-state.is-open,
+body[data-page='admin-arena'] .arena-detail-state.is-playing {
+  border-color: #c7e9d4;
+  background: #eefaf1;
+  color: #12692c;
+}
+body[data-page='admin-arena'] .arena-detail-state.is-waiting {
+  border-color: #f6e0b0;
+  background: #fff8ea;
+  color: #7a4a03;
+}
+body[data-page='admin-arena'] .arena-detail-head-bar h1 {
+  margin: 0 !important;
+  font-family: var(--la-display);
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--la-ink);
+}
+/* A linha de dados vem do cliente e é a mesma família em toda tela: rótulo em
+   texto secundário e número em mono. */
+body[data-page='admin-arena'] .arena-detail-head {
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 14px !important;
+  margin-bottom: 22px !important;
+}
+body[data-page='admin-arena'] .arena-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+  color: var(--color-text-muted) !important;
+  font-size: 13.5px !important;
+  font-weight: 600;
+}
+body[data-page='admin-arena'] .arena-detail-meta > span {
+  margin-right: 0 !important;
+  color: inherit !important;
+  font-size: inherit !important;
+}
+body[data-page='admin-arena'] .arena-detail-meta b {
+  font-family: var(--la-mono);
+  font-weight: 700;
+  color: var(--la-ink);
+}
+body[data-page='admin-arena'] .arena-detail-dot { color: #c3cada !important; }
+
+/* Ações: uma família de pílula para todas, e UMA primária. */
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions {
+  justify-content: flex-start !important;
+  flex-wrap: wrap;
+  gap: 10px !important;
+}
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions :is(button, summary, .arena-preview-open) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  border: 1px solid #dde3ee !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: var(--la-ink) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  padding: 0 18px !important;
+  text-decoration: none;
+  cursor: pointer;
+}
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions :is(button, summary, .arena-preview-open):hover,
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions :is(button, summary, .arena-preview-open):focus-visible {
+  border-color: #c3d2ea !important;
+  background: #f7f9fd !important;
+}
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions :is(.is-primary, [data-action='start'], [data-action='publish']) {
+  border-color: transparent !important;
+  background: var(--la-blue-primary) !important;
+  color: #ffffff !important;
+  box-shadow: var(--la-shadow-pill) !important;
+}
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions :is(.is-primary, [data-action='start'], [data-action='publish']):hover,
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions :is(.is-primary, [data-action='start'], [data-action='publish']):focus-visible {
+  border-color: transparent !important;
+  background: var(--la-blue-deep) !important;
+  color: #ffffff !important;
+}
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions :is(.is-danger, [data-action='delete'], [data-action='end-room']) {
+  border-color: #ffd9d6 !important;
+  background: #fff5f4 !important;
+  color: #a81c14 !important;
+  box-shadow: none !important;
+}
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions :is(.is-danger, [data-action='delete'], [data-action='end-room']):hover,
+body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions :is(.is-danger, [data-action='delete'], [data-action='end-room']):focus-visible {
+  border-color: #f6bdb8 !important;
+  background: #ffecea !important;
+  color: #8a120c !important;
+}
+
+/* ---- 2. DUAS COLUNAS ---- */
+body[data-page='admin-arena'] [data-arena-detail-body] .arena-cockpit {
+  display: grid !important;
+  grid-template-columns: minmax(250px, 320px) minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: 20px !important;
+  margin-bottom: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+body[data-page='admin-arena'] .arena-detail-access {
+  border: 1px solid #dbe4f5 !important;
+  border-right: 1px solid #dbe4f5 !important;
+  border-radius: var(--la-radius-card) !important;
+  background: #f7f9ff !important;
+  padding: 20px !important;
+  gap: 12px !important;
+  flex-basis: auto !important;
+}
+body[data-page='admin-arena'] .arena-detail-access > small {
+  color: var(--color-text-muted);
+  font-family: var(--la-mono);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+body[data-page='admin-arena'] .arena-detail-access > p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+body[data-page='admin-arena'] .arena-detail-pin { margin: 0 !important; }
+body[data-page='admin-arena'] .arena-detail-pin strong {
+  display: block;
+  font-family: var(--la-mono);
+  font-size: clamp(38px, 4.6vw, 50px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--la-blue-primary);
+}
+body[data-page='admin-arena'] .arena-detail-access .arena-cockpit-copy-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+body[data-page='admin-arena'] .arena-detail-access .arena-copy-code {
+  min-height: 42px;
+  border: 1px solid #dde3ee !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  color: var(--la-ink) !important;
+  font-family: var(--font-sans);
+  font-size: 13px !important;
+  font-weight: 700;
+  cursor: pointer;
+}
+body[data-page='admin-arena'] .arena-detail-access .arena-copy-code:hover,
+body[data-page='admin-arena'] .arena-detail-access .arena-copy-code:focus-visible {
+  border-color: #c3d2ea !important;
+  background: #f7f9fd !important;
+}
+/* O QR é a entrada de quem chega atrasado: fica rotulado e com o alvo na mão.
+   Sem `!important` em `display` — o `[hidden]` da folha base continua ganhando. */
+body[data-page='admin-arena'] .arena-detail-access .arena-qr-entry {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  align-items: center;
+  gap: 4px 10px;
+  border: 1px solid #dbe4f5;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 10px 12px;
+}
+body[data-page='admin-arena'] .arena-detail-access .arena-qr-entry > small {
+  grid-column: 1 / -1;
+  color: var(--color-text-muted);
+  font-family: var(--la-mono);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+body[data-page='admin-arena'] .arena-detail-access .arena-tv-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  margin-top: auto;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--la-blue-primary) !important;
+  color: #ffffff !important;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: var(--la-shadow-pill);
+}
+body[data-page='admin-arena'] .arena-detail-access .arena-tv-open:hover,
+body[data-page='admin-arena'] .arena-detail-access .arena-tv-open:focus-visible {
+  background: var(--la-blue-deep) !important;
+  color: #ffffff !important;
+}
+/* A partida: preset e lugares em cima, a regra abaixo do fio, a rodada no ar no
+   cartão interno e a próxima missão ao lado da ação primária. */
+body[data-page='admin-arena'] .arena-detail-match {
+  border: 1px solid #dbe4f5;
+  border-radius: var(--la-radius-card);
+  background: #ffffff;
+  padding: 20px;
+  gap: 14px;
+}
+body[data-page='admin-arena'] .arena-detail-match-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+body[data-page='admin-arena'] .arena-detail-seats {
+  color: var(--color-text-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+body[data-page='admin-arena'] .arena-detail-match .arena-cockpit-rules {
+  gap: 8px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eef2f8;
+}
+body[data-page='admin-arena'] .arena-detail-match .arena-cockpit-rules strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--la-ink-2);
+}
+body[data-page='admin-arena'] .arena-detail-current {
+  display: grid;
+  gap: 6px;
+  border: 1px solid #dbe4f5;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 16px 18px;
+}
+body[data-page='admin-arena'] .arena-detail-current.is-open {
+  border-color: rgba(0, 82, 255, 0.35);
+  background: #f7faff;
+}
+body[data-page='admin-arena'] .arena-detail-current-kicker {
+  color: var(--la-blue-deep);
+  font-family: var(--la-mono);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+body[data-page='admin-arena'] .arena-detail-current h4 {
+  margin: 0;
+  font-family: var(--la-display);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--la-ink);
+  overflow-wrap: anywhere;
+}
+body[data-page='admin-arena'] .arena-detail-current p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+body[data-page='admin-arena'] .arena-detail-current .arena-round-countdown {
+  font-family: var(--la-mono);
+  font-weight: 700;
+  color: var(--la-ink);
+}
+body[data-page='admin-arena'] .arena-detail-start {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border: 1px solid #dbe4f5;
+  border-radius: 16px;
+  background: #f7faff;
+  padding: 14px 18px;
+}
+body[data-page='admin-arena'] .arena-detail-start p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+body[data-page='admin-arena'] .arena-detail-start p b {
+  font-family: var(--la-mono);
+  color: var(--la-ink);
+}
+
+/* ---- 3. FAIXA DE INDICADORES (modo Arena) ---- */
+body[data-page='admin-arena'] .arena-detail-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid #eef2f8;
+}
+body[data-page='admin-arena'] .arena-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  border: 1px solid #e2e8f3;
+  border-radius: var(--la-radius-card);
+  background: #f8fafd;
+  padding: 14px 16px;
+}
+body[data-page='admin-arena'] .arena-stat-card > small {
+  color: #41506a;
+  font-family: var(--la-mono);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+body[data-page='admin-arena'] .arena-stat-card > strong {
+  font-family: var(--la-mono);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--la-ink);
+}
+body[data-page='admin-arena'] .arena-stat-card > strong i {
+  font-style: normal;
+  font-size: 15px;
+  color: #5c6b85;
+}
+body[data-page='admin-arena'] .arena-stat-card > span {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+body[data-page='admin-arena'] .arena-stat-card.is-boss { border-color: #f6d5da; background: #fdf3f4; }
+body[data-page='admin-arena'] .arena-stat-card.is-boss > small { color: #8a1030; }
+body[data-page='admin-arena'] .arena-stat-card.is-energy { border-color: #f4e2b4; background: #fdf8ea; }
+body[data-page='admin-arena'] .arena-stat-card.is-energy > small { color: #7a4a03; }
+body[data-page='admin-arena'] .arena-stat-card.is-accuracy { border-color: #cfe0f8; background: #f1f6ff; }
+body[data-page='admin-arena'] .arena-stat-card.is-accuracy > small { color: #17427f; }
+/* A barra e os corações são as peças que a arena já desenha: aqui só entram na
+   coluna (a barra abaixo do número) e no tamanho do cartão. */
+body[data-page='admin-arena'] .arena-stat-card .arena-energy {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+body[data-page='admin-arena'] .arena-stat-card .arena-energy > b {
+  font-family: var(--la-mono);
+  font-size: 22px;
+  color: var(--la-ink);
+}
+body[data-page='admin-arena'] .arena-stat-card .arena-energy-track {
+  width: 100%;
+  height: 10px;
+}
+body[data-page='admin-arena'] .arena-stat-card .arena-accuracy {
+  color: var(--la-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+body[data-page='admin-arena'] .arena-stat-card .arena-accuracy > b {
+  font-family: var(--la-mono);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--la-blue-deep);
+}
+
+/* ---- ROTEIRO DE MISSÕES: linhas, não cartões ----
+   A mesma ideia já aplicada à lista de salas: cada missão é UMA linha — número,
+   título, modalidade/duração/tentativas e as ações na ponta. O que era cartão de
+   altura fixa em grade vira uma lista contínua, e o que a missão tem de peso
+   (imagem, o aluno recebe, gabarito, envios, ranking) continua nas dobras logo
+   abaixo do título. */
+body[data-page='admin-arena'] .arena-detail-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 26px 0 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+body[data-page='admin-arena'] .arena-detail-section-head h3 {
+  margin: 0;
+  font-family: var(--la-display);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--la-ink);
+}
+body[data-page='admin-arena'] .arena-detail-section-head button {
+  min-height: 38px;
+  border: 1px solid #dbe4f5 !important;
+  border-radius: 999px !important;
+  background: #f7f9ff !important;
+  color: var(--la-blue-deep) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  padding: 0 16px !important;
+  cursor: pointer;
+}
+body[data-page='admin-arena'] .arena-detail-section-head button:hover,
+body[data-page='admin-arena'] .arena-detail-section-head button:focus-visible {
+  border-color: #c3d2ea !important;
+  background: #eef4ff !important;
+}
+body[data-page='admin-arena'] .arena-rounds-grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0 !important;
+}
+body[data-page='admin-arena'] .arena-round-card {
+  border: 0 !important;
+  border-top: 1px solid var(--color-border) !important;
+  border-radius: 0 !important;
+  background: none !important;
+  padding: 16px 0 !important;
+}
+body[data-page='admin-arena'] .arena-round-card:first-child { border-top: 0 !important; }
+body[data-page='admin-arena'] .arena-round-card.is-open { background: rgba(0, 82, 255, 0.035) !important; }
+body[data-page='admin-arena'] .arena-round-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+body[data-page='admin-arena'] .arena-round-num {
+  display: grid;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid #dbe4f5;
+  border-radius: 9px;
+  background: #f7f9ff;
+  color: var(--la-blue-deep);
+  font-family: var(--la-mono);
+  font-size: 13px;
+  font-weight: 800;
+}
+body[data-page='admin-arena'] .arena-round-preview {
+  flex: 0 0 auto;
+  width: 76px;
+  height: 54px;
+  overflow: hidden;
+  border: 1px solid #dbe4f5;
+  border-radius: 10px;
+  background: #f7f9ff;
+}
+body[data-page='admin-arena'] .arena-round-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+body[data-page='admin-arena'] .arena-round-preview-empty {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  padding: 4px;
+  color: #8a1030;
+  font-family: var(--la-mono);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+body[data-page='admin-arena'] .arena-round-head {
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 6px;
+  margin-bottom: 0;
+}
+body[data-page='admin-arena'] .arena-round-title {
+  margin: 0;
+  font-family: var(--la-display);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--la-ink);
+  overflow-wrap: anywhere;
+}
+body[data-page='admin-arena'] .arena-round-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+  color: var(--color-text-muted) !important;
+  font-size: 12px !important;
+}
+body[data-page='admin-arena'] .arena-round-kicker {
+  color: #41506a;
+  font-family: var(--la-mono);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+body[data-page='admin-arena'] .arena-round-meta .arena-round-timer {
+  color: var(--la-ink-2);
+  font-family: var(--la-mono);
+  font-weight: 700;
+}
+body[data-page='admin-arena'] .arena-round-manage {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+}
+body[data-page='admin-arena'] .arena-round-manage button {
+  min-height: 34px;
+  border: 1px solid #dbe4f5 !important;
+  border-radius: 9px !important;
+  background: #ffffff !important;
+  color: var(--la-ink) !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  padding: 0 12px !important;
+  cursor: pointer;
+}
+body[data-page='admin-arena'] .arena-round-manage button:hover,
+body[data-page='admin-arena'] .arena-round-manage button:focus-visible {
+  border-color: #c3d2ea !important;
+  background: #f7f9fd !important;
+}
+body[data-page='admin-arena'] .arena-round-manage button.is-danger {
+  border-color: #ffd9d6 !important;
+  background: #fff5f4 !important;
+  color: #a81c14 !important;
+}
+body[data-page='admin-arena'] .arena-round-manage button:disabled { opacity: 0.45; }
+
+@media (max-width: 1180px) {
+  body[data-page='admin-arena'] [data-arena-detail-body] .arena-cockpit {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+@media (max-width: 720px) {
+  body[data-page='admin-arena'] .arena-detail-stats { grid-template-columns: minmax(0, 1fr); }
+  body[data-page='admin-arena'] .arena-detail-head .arena-room-card-actions > * { flex: 1 1 auto; justify-content: center; }
+  body[data-page='admin-arena'] .arena-round-row { flex-wrap: wrap; }
+  /* Com `flex-basis: auto` a base do titulo e' a largura do conteudo: ele nao
+     cabia ao lado do numero e ia inteiro para a linha de baixo, deixando o
+     numero sozinho por cima. Base zero faz numero e titulo dividirem a linha, e
+     o titulo quebra dentro dela. */
+  body[data-page='admin-arena'] .arena-round-head { flex: 1 1 0; }
+  body[data-page='admin-arena'] .arena-round-manage { width: 100%; }
+  body[data-page='admin-arena'] .arena-round-manage button { flex: 1 1 auto; }
+}
+
+@media print {
+  body[data-page='report'] .metric-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  body[data-page='report'] .metric-card { padding: 8px; break-inside: avoid; }
+}

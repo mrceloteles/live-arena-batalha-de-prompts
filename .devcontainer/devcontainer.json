@@ -1,0 +1,15 @@
+{
+  "name": "Batalha de Prompts",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
+  "forwardPorts": [
+    3000
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "Batalha de Prompts",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "node --test test/api/*.test.mjs test/db/*.test.mjs test/domain/*.test.mjs test/judge/*.test.mjs test/smoke/*.test.mjs test/web/*.test.mjs",
+  "postStartCommand": "nohup npm start > /tmp/batalha-de-prompts.log 2>&1 &"
+}

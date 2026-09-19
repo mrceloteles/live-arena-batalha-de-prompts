@@ -1,0 +1,270 @@
+*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}*{box-sizing:border-box}body,html{width:100%;height:100%;min-height:100%}body,html{overflow:hidden}body[data-page=admin],body[data-page=report],html:has(body[data-page=admin]),html:has(body[data-page=report]){height:auto;min-height:100%;overflow-x:hidden;overflow-y:auto}button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:wait}.portal-shell{height:100svh;}.\!screen{position:absolute!important;inset:0!important;height:100svh!important;min-height:100svh!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;transition:opacity .42s ease!important}.screen{position:absolute;inset:0;height:100svh;min-height:100svh;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .42s ease}.\!screen.is-active{opacity:1!important;pointer-events:auto!important}.screen.is-active{opacity:1;pointer-events:auto}.figma-cta:hover,.ghost-link:hover{transform:translateY(-2px)}.figma-cta-gradient{min-width:164px;color:#fff}.is-loading{opacity:.72}.text-field{margin-bottom:20px}.text-field span{font-weight:600;letter-spacing:.04em}.text-field input,.text-field select{width:100%;height:56px;border:1px solid var(--gray-2);border-radius:6px;background:#fff;padding:14px 16px;color:#222;outline:none}.form-message[data-tone=error]{color:#d93025}.form-message[data-tone=info]{color:var(--blue)}.form-message.is-gemini-waiting:after{content:"...";display:inline-block;width:0;overflow:hidden;vertical-align:bottom;animation:gemini-wait-dots 1.2s steps(4) infinite}@keyframes gemini-wait-dots{0%{width:0}to{width:1.1em}}.prompt-form{align-items:center;gap:10px;}.prompt-form textarea{flex:1 1 auto;overflow:hidden;}.ranking-pane{flex:1 1 0}.ranking-pane{gap:16px;border-left:3px solid var(--gray-3);}.empty-state{margin:0;color:var(--gray);font-size:15px}.toast{position:fixed;z-index:20;right:24px;bottom:24px;max-width:min(420px,calc(100vw - 48px));border:1px solid rgba(0,82,255,.18);border-radius:18px;background:hsla(0,0%,100%,.96);box-shadow:0 16px 50px rgba(0,28,80,.16);color:var(--navy);padding:16px 18px;font-size:14px}.network-modal{position:fixed;z-index:100;inset:0;display:grid;place-items:center;background:rgba(0,28,80,.62);opacity:0;padding:32px;pointer-events:none;transition:opacity .22s ease}.network-modal.is-visible{opacity:1;pointer-events:auto}.network-modal-card{width:min(760px,calc(100vw - 48px));border:4px solid hsla(0,0%,100%,.72);border-radius:28px;background:#fff;box-shadow:0 28px 90px rgba(0,0,0,.28);padding:clamp(34px,5vw,64px);text-align:center}.network-modal-card strong{display:block;color:#d93025;font-size:clamp(42px,6vw,78px);line-height:.95;font-weight:900}.network-modal-card p{max-width:560px;margin:22px auto 0;color:var(--navy);font-size:clamp(20px,2.4vw,30px);line-height:1.15;font-weight:700}.metric-grid,.report-grid{width:min(1360px,100%);margin:0 auto}.metric-card,.report-panel{border:1px solid rgba(200,218,252,.7);border-radius:24px;background:hsla(0,0%,100%,.84);box-shadow:0 16px 60px rgba(0,28,80,.08)}.metric-card small,.metric-card span,.panel-title span{color:var(--gray);font-size:13px;font-weight:700}.report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.report-panel{padding:20px}.report-panel-wide{grid-column:1/-1}.panel-title{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}.report-panel canvas{width:100%;height:auto;border-radius:18px}.admin-links{display:flex;flex-wrap:wrap;gap:10px}.admin-links form{margin:0}.report-page-shell{height:100svh;overflow:auto}.report-header-actions{display:flex;gap:18px}.report-filter-panel,.report-print-meta{width:min(1360px,100%);margin:0 auto 16px}.report-date-field{margin-bottom:0}.report-print-meta{display:flex;align-items:center;justify-content:space-between;gap:14px;color:var(--gray);font-size:13px}.report-print-meta strong{color:var(--navy)}.report-full-grid{align-items:start;padding-bottom:32px}.report-full-grid .report-panel{min-width:0;overflow:hidden}.heatmap{width:100%;overflow-x:auto;padding-bottom:4px}.heatmap-row{display:grid;grid-template-columns:64px repeat(24,minmax(28px,1fr));gap:4px;min-width:920px;margin-bottom:4px;align-items:center}.heatmap-row span,.heatmap-row strong{display:grid;min-height:28px;place-items:center;border-radius:6px;font-size:11px;font-weight:800}.heatmap-row strong{justify-content:start;color:var(--navy)}.heatmap-cell{background:rgba(0,82,255,.08)}.comparison-table{display:flex;flex-direction:column;gap:12px}.comparison-row div,.comparison-row small{position:relative;z-index:1}.comparison-row div{display:flex;justify-content:space-between;gap:12px}.comparison-row strong{color:var(--navy)}.comparison-row small,.comparison-row span{color:var(--gray);font-size:13px;font-weight:800}.comparison-row small{display:block;margin-top:6px;color:var(--blue)}.report-table-wrap{width:100%;max-height:520px;overflow:auto}.report-data-table{width:100%;min-width:860px;border-collapse:collapse;color:#344054;font-size:13px}.report-data-table td,.report-data-table th{border-bottom:1px solid var(--gray-3);padding:10px 12px;text-align:left;vertical-align:top}.report-data-table-dense{min-width:1180px;font-size:12px}.report-data-table tr:last-child td{border-bottom:0}.report-image-thumb{display:inline-flex;width:72px;height:54px;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(200,218,252,.9);border-radius:8px;background:#f6f8fc;padding:0}.report-image-thumb img{width:100%;height:100%;-o-object-fit:cover;object-fit:cover}.report-prompt-cell{display:block;min-width:220px;max-width:360px;color:#344054;line-height:1.35}.report-image-modal{position:fixed;z-index:120;inset:0;display:grid;place-items:center;opacity:0;padding:28px;pointer-events:none;transition:opacity .18s ease}.report-image-modal.is-visible{opacity:1;pointer-events:auto}.report-image-modal-backdrop{position:absolute;inset:0;border:0;background:rgba(0,28,80,.72)}.report-image-modal-card{position:relative;z-index:1;display:flex;width:min(900px,calc(100vw - 48px));max-height:calc(100svh - 48px);flex-direction:column;gap:12px;border-radius:12px;background:#fff;box-shadow:0 28px 90px rgba(0,0,0,.26);padding:14px}.report-image-modal-card img{width:100%;max-height:calc(100svh - 140px);border-radius:8px;-o-object-fit:contain;object-fit:contain;background:#f6f8fc}.report-image-modal-card strong{color:var(--navy);font-size:14px}.\!screen{background-color:#d8d8d8!important}.screen{background-color:#d8d8d8}.text-field{position:relative;display:block;margin:0}.text-field span{position:absolute;top:-10px;left:16px;z-index:1;background:#f8f9fa;color:#5f6368;font-size:14px;padding:0 6px}.text-field input{width:100%;height:58px;border:1.5px solid #5f6368;border-radius:6px;background:transparent;color:#3c4043;padding:0 16px;font-size:16px;outline:none}.text-field input::-moz-placeholder{color:#9aa0a6}.text-field input::placeholder{color:#9aa0a6}.figma-cta-blue,.figma-cta-gradient{min-width:151px;min-height:46px;border-radius:999px;background:#004ced;color:#fff;padding:0 28px;font-size:16px;font-weight:800}.wait-illustration{height:auto}.prompt-form{position:relative;display:flex;flex:1 1 auto;min-height:0;margin:0;border:0;border-radius:0;padding:36px 30px 74px}.prompt-form textarea{width:100%;min-height:100%;max-height:none;border:0;background:transparent;color:#3c4043;font-size:18px;line-height:1.35;resize:none;outline:none}.prompt-form textarea::-moz-placeholder{color:#dadce0}.prompt-form textarea::placeholder{color:#dadce0}.ranking-pane{display:flex;width:100%;height:100%;min-height:0;flex-direction:column;align-items:center;justify-content:center;border:0;padding:0;text-align:center}.ranking-pane h2{margin:0;color:#004ced;line-height:1;font-weight:900;letter-spacing:-.04em}.ranking-pane p{color:#5f6368;font-size:20px}.ranking-pane h2{margin-bottom:44px;font-size:clamp(26px,2.15vw,34px)}.ranking-pane>h2[data-score-name]{margin:20px 0 4px;color:#3c4043;font-size:clamp(24px,2.1vw,32px)}.tv-topbar{position:absolute;z-index:4;top:6.1%;left:3.6%;right:3.5%;align-items:center;justify-content:space-between}body:not([data-tv-stage]) .tv-topbar,body[data-tv-stage=idle] .tv-topbar{display:none}.tv-topbar{display:flex!important}.\!screen[data-screen=register] .text-field,.screen[data-screen=register] .text-field{position:relative!important;left:auto!important;top:auto!important;width:100%!important;height:auto!important;margin:0!important}.\!screen[data-screen=register] .text-field small,.\!screen[data-screen=register] .text-field span,.screen[data-screen=register] .text-field small,.screen[data-screen=register] .text-field span{display:block!important}.\!screen[data-screen=register] .text-field input,.screen[data-screen=register] .text-field input,.text-field input{width:100%!important;height:58px!important;border:1.5px solid #5f6368!important;border-radius:6px!important;background:transparent!important;color:#3c4043!important;padding:0 16px!important;font-size:16px!important}.\!screen[data-screen=register] .text-field input::-moz-placeholder{color:#9aa0a6!important}.\!screen[data-screen=register] .text-field input::placeholder{color:#9aa0a6!important}.prompt-form textarea::-moz-placeholder,.screen[data-screen=register] .text-field input::-moz-placeholder,.text-field input::-moz-placeholder{color:#9aa0a6!important}.prompt-form textarea::placeholder,.screen[data-screen=register] .text-field input::placeholder,.text-field input::placeholder{color:#9aa0a6!important}.\!screen[data-screen=manual] .figma-cta-gradient,.\!screen[data-screen=register] .figma-cta-blue,.screen[data-screen=manual] .figma-cta-gradient,.screen[data-screen=register] .figma-cta-blue{opacity:1!important;color:inherit!important}.\!screen[data-screen=play] .prompt-form,.screen[data-screen=play] .prompt-form{position:relative!important;inset:auto!important;display:flex!important;flex:1 1 auto!important;margin:0!important;border:0!important;padding:36px 30px 74px!important}.\!screen[data-screen=play] .prompt-form textarea,.screen[data-screen=play] .prompt-form textarea{position:static!important;width:100%!important;height:auto!important;min-height:100%!important;max-height:none!important;color:#3c4043!important;font-size:18px!important}.\!table{display:table!important}.table{display:table}.hidden{display:none}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}@media (max-width:980px){.screen,body{overflow:hidden}.screen{height:100svh;min-height:100svh}.ranking-pane{width:100%}.text-field{margin-bottom:8px}.text-field input{height:44px;padding:10px 12px}.text-field small{min-height:12px;padding-top:2px;font-size:10px}.figma-cta{min-height:42px;padding:10px 18px}.prompt-form{margin:0 12px 12px;border-radius:14px;padding:8px}.prompt-form textarea{min-height:32px;max-height:72px;font-size:14px}.ranking-pane{flex:1 1 auto;min-height:0;gap:8px;border-left:0;border-top:2px solid var(--gray-3);padding:10px 0 0}.ranking-pane h2{font-size:18px}.metric-grid,.report-grid{grid-template-columns:1fr}.report-header{flex-direction:column}}@media (max-width:640px){.text-field{margin-bottom:6px}.text-field input{height:40px;font-size:14px}.form-message{min-height:16px;margin-top:6px;font-size:11px}.portal-hero{padding:48px 0}.prompt-form{margin:0 8px 8px;padding:6px}.prompt-form textarea{max-height:60px}.ranking-pane h2{font-size:16px}}.rank-medal{position:relative;display:inline-block;width:42px;height:46px}.rank-medal:before{content:"";position:absolute;top:4px;left:8px;width:26px;height:24px;border-radius:4px 4px 10px 10px;background:#fae100;box-shadow:inset 0 0 0 4px hsla(0,0%,100%,.26)}.rank-medal:after{content:"";position:absolute;bottom:5px;left:14px;width:14px;height:14px;border-radius:2px;background:#3c4043}.rank-player{display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important}.rank-avatar{display:block!important;width:48px!important;height:48px!important;border-radius:999px!important;background:#f2f3ff!important;-o-object-fit:contain!important;object-fit:contain!important}.rank-player span{color:#3c4043!important;font-size:clamp(20px,1.75vw,26px)!important;font-weight:700!important;letter-spacing:-.035em!important;}.rank-points img{width:22px!important;height:22px!important}.rank-medal:after,.rank-medal:before{display:none!important}@keyframes prompt-timeout-orbit{0%{transform:translateY(-50%) rotate(-28deg)}to{transform:translateY(-50%) rotate(332deg)}}.rank-player{min-width:0!important}.rank-player span{display:-webkit-box!important;overflow:hidden!important;line-height:1.05!important;text-overflow:clip!important;white-space:normal!important;overflow-wrap:anywhere!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important}@keyframes prompt-timeout-dot-pulse{0%,72%,to{opacity:.38;transform:translate(-50%,-50%) scale(.72);filter:none}24%,44%{opacity:.98;transform:translate(-50%,-50%) scale(1.08);filter:drop-shadow(0 0 6px rgba(255,255,255,.48))}}@media print{.report-page-shell,body,body[data-page=report],html{height:auto;min-height:0;overflow:visible;background:#fff}.report-page-shell{padding:0}.network-modal,.toast{display:none!important}.metric-grid,.report-grid,.report-header,.report-print-meta{width:100%}.report-header{margin-bottom:12px}.report-header h1{margin:0 0 6px;font-size:34px}.report-header p,.report-print-meta{font-size:11px}.metric-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:8px}.metric-card,.report-panel{-moz-column-break-inside:avoid;break-inside:avoid;border-color:#d8dee9;border-radius:8px;background:#fff;box-shadow:none}.metric-card{gap:2px;padding:10px}.metric-card strong{font-size:20px}.report-full-grid,.report-grid{grid-template-columns:1fr;gap:10px;padding-bottom:0}.report-panel,.report-panel-wide{grid-column:auto}.report-panel{padding:12px}.panel-title{margin-bottom:8px}.panel-title h2{font-size:16px}.panel-title span{font-size:10px}.report-panel canvas{max-height:220px}.heatmap,.report-table-wrap{max-height:none;overflow:visible}.report-data-table{min-width:0;font-size:8px;table-layout:fixed}.report-data-table td,.report-data-table th{padding:4px 5px;word-break:break-word}.report-data-table th{position:static;font-size:7px}.heatmap-row{grid-template-columns:42px repeat(24,1fr);min-width:0;gap:2px}.heatmap-row span,.heatmap-row strong{min-height:16px;border-radius:3px;font-size:7px}}@media(max-width:720px){}
+
+/* =================================================
+   PREMIUM WEB DESIGN — DEFINITIVE QA FIX v7
+   ================================================= */
+
+/* Topbar & Live Arena Logo */
+
+/* O logotipo do topo clássico: altura fixa, largura pelo conteúdo. */
+/* Register Card: Perfeito, centralizado e respirável */
+
+/* Coluna esquerda: Ilustração e textos harmoniosos */
+
+/* Coluna direita: Formulário elegante, sem padding-top excessivo */
+
+/* LGPD */
+
+/* Footer: Botão e Link alinhados com breathing room */
+
+/* ============================================================
+   Suporte a turmas grandes (35+ estações)
+   Areas de jogadores ficam rolaveis e cartoes compactam.
+   ============================================================ */
+
+/* TV — painel de progresso da rodada em andamento com scroll */
+
+/* TV — cadastro: lista de jogadores rolavel dentro do card (card tem 470px fixos;
+   a lista em coluna estoura e era cortada pelo main-shell). */
+/* Turmas grandes: linhas compactas na lista de cadastro da TV */
+
+/* TV — instrucoes: grade rolavel no painel lateral */
+
+/* TV — ranking da rodada / final com scroll */
+
+/* Jogo — tela de espera (aguardando jogadores) com scroll */
+
+/* Jogo — ranking de score com scroll */
+
+/* Modo denso (turmas grandes): cartoes compactos e mais colunas */
+
+/* Painel de instrucoes da TV e estreito: mantem 4 colunas no modo denso */
+
+/* Marca neutra do rodape/topo (substitui a classe original Google): mesma
+   proporcao do logotipo antigo, sem referenciar marca de terceiros. */
+
+/* Seta decorativa da tela inicial: a imagem pc-idle-arrow.png nao existe
+   (404 no console); esconde o elemento em vez de exibir espaco vazio. */
+
+/* ============================================================
+   Correcoes finais da varredura multi-tamanho (plano aprovado)
+   ============================================================ */
+
+/* Fix B — Tela de jogo em telas estreitas (<=760px): o tema dava ao
+   .play-card min-height:360px, mas a fileira do grid tem ~327px em um
+   celular 390x844 — o card estourava a viewport (y 861 > 844) e o botao
+   "Enviar Resposta" ficava fora da area clicavel. O card agora preenche
+   exatamente a fileira e o botao vira uma barra larga na base. */
+
+/* Fix C — Score em telas ate 900px: empilha os paineis (vencedor em
+   cima, ranking embaixo) e libera a rolagem. O tema so empilhava abaixo
+   de 760px; entre 760-900px o ranking ficava espremido numa coluna
+   estreita ao lado do vencedor. */
+/* Fix: pagina inicial (portal) travava sem scroll — .portal-shell tinha
+   height:100svh + overflow:hidden e body,html overflow:hidden global.
+   O conteudo (cards de modo, PCs, link "Painel admin") ficava cortado e
+   inalcancavel abaixo da dobra. */
+body[data-page=index],html:has(body[data-page=index]){height:auto;min-height:100%;overflow-x:hidden;overflow-y:auto}
+body[data-page=index] .portal-shell{height:auto;min-height:100svh;overflow-y:auto}
+/* Fix (mesma classe de bug): o painel admin classico ficava VISIVEL antes do
+   login — [data-admin-panel][hidden] perdia para display:grid e o login
+   para display:flex. Configuracao so aparece com senha. */
+[data-admin-login-panel][hidden] { display: none !important; }
+[data-admin-panel][hidden] { display: none !important; }
+
+/* ============ Home: entrada unica ============ */
+body[data-page=index] .portal-shell-center {
+  place-items: start center;
+}
+/* O cartão passou a ter a altura do que contém. `min-height: 100svh` fazia a
+   moldura crescer até a tela inteira em volta de marca, título e ação. */
+body[data-page=index] .portal-shell-center .portal-hero {
+  justify-content: center;
+  min-height: 0;
+  padding: 0;
+}
+body[data-page=index] .portal-enter {
+  min-width: 260px;
+  min-height: 56px;
+  margin-top: var(--space-1);
+  padding: 14px 40px;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+@media (max-width: 640px) {
+  body[data-page=index] .portal-enter {
+    width: min(320px, 86vw);
+    min-width: 0;
+    font-size: 19px;
+    padding: 16px 28px;
+  }
+}
+
+/* ================================================================
+   UX FIX PATCH v1 — Correcoes de usabilidade detectadas em teste humano
+   ================================================================ */
+
+/* FIX 1: Portal — botão na forma da família (pílula) e sem brilho colorido:
+   quem sustenta a ação é a forma e o contraste, não a sombra. */
+body[data-page=index] .portal-enter {
+  border-radius: 999px !important;
+  box-shadow: 0 2px 10px rgba(0, 82, 255, 0.18) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+body[data-page=index] .portal-enter:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 16px rgba(0, 82, 255, 0.24) !important;
+}
+
+/* FIX 2: Ilustracao do cadastro — muito pequena, sem presenca visual */
+
+/* FIX 3: yellow-tape sobrepondo topbar no cadastro */
+
+/* FIX 4: register-copy — distribuicao vertical melhor */
+
+/* FIX 5: Botao start — mais shadow e peso */
+
+/* FIX 6: TV Idle — instrucao para o professor */
+
+/* FIX 7: Botao Avancar — loading state */
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+
+/* FIX 8: Status Sincronizando — indicador pulsante */
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* FIX 9: Area de texto do jogo — foco visual */
+
+/* FIX 10: Score screen — titulo nao comprime em telas intermediarias */
+
+/* FIX 11: Manual actions — flex-wrap para nao vazar */
+
+/* FIX 12: nav-action Voltar — mais legivel */
+
+/* ================================================================
+   UX FIX PATCH v2 — Correcoes na Area do Professor (Admin/Report)
+   ================================================================ */
+
+/* FIX 13: Voltar button na header do Admin/Report precisa de espacamento e alinhamento */
+
+/* FIX 14: Actions do Report (Exportar, Imprimir, etc.) desalinhados */
+.report-header-actions {
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
+    margin-top: 28px !important; /* Descer para alinhar com o H1 principal */
+}
+
+/* FIX 15: Filtros do Report (De / Ate / Todo o periodo) com flex alignment errado */
+.report-filters .text-field input {
+    height: 48px !important;
+}
+.report-filters .figma-cta {
+    min-height: 48px !important;
+    padding: 0 24px !important;
+}
+
+/* FIX 16: Painel Admin - Input de configuracao de computadores parecia desconectado */
+
+/* FIX 17: Ajuste no tamanho do Logo da tela de login Admin para nao ficar gigantesco */
+
+/* ================================================================
+   CARGA DE LEITURA — Relatorio (etapa 5 do plano)
+   O que o professor consulta primeiro fica a vista (o resumo do periodo e o
+   ranking); o resto abre pelo titulo que ja existia — o `summary` E o proprio
+   `.panel-title`, entao rotulo nenhum foi escrito para virar alca.
+   ================================================================ */
+
+/* Alca do painel: a linha do titulo abre e fecha o detalhe. O marcador nativo
+   do `summary` so existe em `list-item`, e o `.panel-title` e uma linha flex —
+   entao o caret e desenhado aqui, e nao herdado do navegador. A tecla funciona
+   sozinha, porque `summary` entra no `:focus-visible` global das folhas vivas. */
+.report-panel > summary.panel-title {
+    cursor: pointer;
+    list-style: none;
+}
+
+.report-panel > summary.panel-title::-webkit-details-marker {
+    display: none;
+}
+
+.report-panel > summary.panel-title::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 7px solid currentColor;
+    transition: transform 0.18s ease;
+}
+
+/* Aberta, a seta aponta para baixo — o mesmo caret, girado. */
+.report-panel[open] > summary.panel-title::before {
+    transform: rotate(90deg);
+}
+
+.report-panel > summary.panel-title:hover,
+.report-panel > summary.panel-title:focus-visible {
+    color: var(--blue);
+}
+
+/* O titulo empurra a legenda para a direita, como o `justify-content` ja fazia. */
+.report-panel > summary.panel-title h2 {
+    flex: 1 1 auto;
+}
+
+/* Resumo do periodo: quatro indicadores a vista, o resto no mesmo cartao. */
+.report-more-metrics {
+    width: min(1360px, 100%);
+    margin: 16px auto 0;
+}
+
+.report-more-metrics > summary.panel-title {
+    margin-bottom: 0;
+}
+
+.report-more-metrics[open] > summary.panel-title {
+    margin-bottom: 14px;
+}
+
+.report-more-metrics[open] {
+    padding-bottom: 4px;
+}
+
+.report-metric-extra {
+    margin-bottom: 12px;
+}
+
+/* Estado vazio unico, no lugar de oito cartoes repetindo o mesmo aviso. O
+   `[hidden]` precisa vir declarado: a regra de exibicao abaixo tem a mesma
+   especificidade do `[hidden]` do preflight, e a ultima ganharia. */
+.report-empty {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: min(1360px, 100%);
+    margin: 0 auto 16px;
+    border: 1px solid rgba(200, 218, 252, 0.7);
+    border-radius: 24px;
+    background: hsla(0, 0%, 100%, 0.84);
+    box-shadow: 0 16px 60px rgba(0, 28, 80, 0.08);
+    padding: 22px 20px;
+}
+
+.report-empty[hidden] {
+    display: none;
+}
+
+.report-empty strong {
+    color: var(--navy);
+    font-size: 17px;
+}
+
+.report-empty span {
+    color: var(--gray);
+    font-size: 13px;
+    font-weight: 700;
+}

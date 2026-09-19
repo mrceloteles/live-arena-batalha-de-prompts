@@ -1,0 +1,14 @@
+# A captura do site-base é byte a byte: `evidence/manifest.json` guarda, por
+# arquivo capturado, o tamanho em bytes e o sha256 — e dois testes comparam os
+# dois com o arquivo em disco.
+#
+# O git, sem esta marca, converte a evidência no checkout e invalida os dois:
+# os HTML capturados tinham EOL misto (a maioria `\r\n`, algumas linhas só `\n`),
+# então a normalização descarta os `\n` sozinhos e o `\r` volta para todas as
+# linhas (a captura de 16425 bytes virou 16432); e `wall-illustration.png` — que
+# o site-base serve como SVG com nome de `.png`, logo é texto sem nenhum byte NUL
+# — ganha 25 `\r` e deixa de bater com a captura (16111 virou 16136).
+#
+# Com `-text` o git não toca nos bytes: o que está versionado é o que sai no
+# checkout, em Windows e no CI Linux.
+evidence/** -text

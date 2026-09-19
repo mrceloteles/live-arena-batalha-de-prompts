@@ -1,0 +1,433 @@
+{
+  "promptfoo_version": "0.122.2",
+  "runs_per_case_provider": 10,
+  "total": 60,
+  "passed": 60,
+  "failed": 0,
+  "providers": [
+    "source-package-reference",
+    "current-source-fallback"
+  ],
+  "outputs": [
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "29.071",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "18.6325",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "source-package-reference",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    },
+    {
+      "provider": "current-source-fallback",
+      "pass": true,
+      "score": 1,
+      "text": "12.6992",
+      "error": null
+    }
+  ]
+}

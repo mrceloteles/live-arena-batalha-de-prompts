@@ -1,0 +1,3814 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+/* ============================================================
+   DESCUBRA O PROMPT â€” Design System (Arena)
+   Identidade Live Arena — Batalha de Prompts.
+   Paleta: azul da acao #0b57d0, Ink #071f49, verde de marca #00725a,
+   ambar #f9ab00.
+   Tipografia (uma face por PAPEL, como a referencia aprovada pede):
+   Space Grotesk nos titulos, Plus Jakarta Sans no texto, JetBrains Mono
+   nos numeros e micro-rotulos. As tres vem do mesmo `@import` acima —
+   antes so a Plus Jakarta Sans era baixada e o mono caia no Cascadia Code
+   do sistema (ou em nada), enquanto os titulos nao tinham face nenhuma.
+   ============================================================ */
+
+/* ---------- Tokens ---------- */
+
+/* ---------- Base ---------- */
+
+/* ============================================================
+   DONO ÚNICO — seletores que antes eram definidos em mais de uma folha.
+   Estas declarações vinham de folhas ANTERIORES na ordem de carregamento
+   (app-authorial → arena → design → refinement → round) e por isso entram
+   no topo desta folha: continuam exatamente entre os mesmos vizinhos de
+   cascata que tinham antes, só que agora com um dono só.
+   ============================================================ */
+
+body {
+  margin:0;
+  font-family:var(--font-google);
+  color:#222;
+  background:#faf8ff;
+}
+.figma-cta-blue {
+  color:#fff;
+}
+.text-field small {
+  display:block;
+  font-size:12px;
+  min-height:0;
+  padding-top:4px;
+}
+.form-message {
+  min-height:20px;
+  margin:0;
+}
+.portal-shell {
+  background-image:url(../figma/start-bg.png);
+  background-size:cover;
+}
+.portal-hero {
+  width:min(1040px,calc(100vw - 48px));
+}
+.report-shell {
+  min-height:100svh;
+}
+.report-header {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:24px;
+  margin:0 auto 24px;
+}
+.report-header h1 {
+  line-height:.95;
+}
+.report-header p {
+  margin:0;
+}
+.metric-card {
+  gap:6px;
+}
+.panel-title h2 {
+  margin:0;
+}
+.report-filters {
+  display:flex;
+  align-items: center !important;
+}
+.report-period-pill {
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  padding:12px 18px;
+  font-size:14px;
+  font-weight:800;
+  min-height: 48px !important;
+}
+.comparison-row {
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+  background:#fff;
+  padding:14px 16px;
+}
+.comparison-row i {
+  position:absolute;
+  inset:auto auto 0 0;
+  height:4px;
+}
+.report-data-table th {
+  position:sticky;
+  z-index:1;
+  top:0;
+}
+.arena-screen[data-arena-screen='join'] {
+  position: relative;
+  min-height: 100svh;
+  display: none;
+}
+.arena-bg {
+  position: absolute;
+  inset: 0;
+}
+.join-card {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.arena-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.arena-field {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.arena-lobby-brand {
+  min-width: 0;
+}
+.arena-lobby-brand img {
+  width: 44px;
+}
+.arena-lobby-brand strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.arena-room-code {
+  align-items: center;
+  display: inline-flex;
+  margin: 4px 8px 0 0;
+}
+.arena-mission-empty h1 {
+  margin: 0;
+  line-height: 1;
+}
+.arena-mission-empty p {
+  margin: 0;
+}
+.arena-mission-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.arena-mission h1 {
+  margin: 0 0 14px;
+  line-height: 1.05;
+}
+.arena-mission-context {
+  margin: 0 0 14px;
+  line-height: 1.45;
+}
+.arena-rescue blockquote {
+  margin: 8px 0 0;
+  border-left: 3px solid rgba(217, 48, 37, 0.4);
+  font-size: 18px;
+  font-style: italic;
+  padding-left: 12px;
+}
+.arena-attempts {
+  margin-bottom: 14px;
+}
+.arena-attempt-dot {
+  place-items: center;
+}
+.arena-prompt-form {
+  display: flex;
+  flex-direction: column;
+}
+.arena-result {
+  margin-top: 18px;
+  padding-top: 18px;
+}
+.arena-breakdown-track {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+}
+.arena-breakdown-track i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+.arena-feedback {
+  margin: 0 0 8px;
+}
+.arena-roster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.arena-roster-title {
+  margin: 0;
+}
+.arena-roster-list {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.arena-side {
+  display: flex;
+  flex-direction: column;
+}
+.arena-card {
+  padding: 18px 20px;
+}
+.arena-card h2 {
+  margin: 0 0 12px;
+}
+.admin-arena-room-list {
+  margin-top: 14px;
+}
+.arena-room-card {
+  flex-direction: column;
+}
+.arena-challenge-card {
+  gap: 10px;
+}
+.arena-challenge-head strong {
+  display: block;
+  margin-top: 6px;
+}
+.arena-challenge-card p {
+  margin: 0;
+}
+.arena-challenge-criteria {
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.arena-dialog-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  border-radius: 24px;
+  background: #fff;
+}
+.arena-dialog-card h3 {
+  margin: 0 40px 16px 0;
+  color: var(--navy);
+  font-size: 24px;
+}
+.arena-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: #f2f3ff;
+  color: var(--blue);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+.arena-completo-hint ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.arena-preset-chip {
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.arena-cockpit {
+  align-items: stretch;
+}
+.arena-cockpit-code {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 0;
+}
+.arena-cockpit-code strong {
+  margin: 4px 0 6px;
+  font-weight: 900;
+}
+.arena-cockpit-info {
+  min-width: 0;
+}
+.arena-cockpit-start {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.arena-cockpit-start p {
+  margin: 0;
+  line-height: 1.35;
+}
+body[data-page='tv'] {
+  overflow: hidden !important;
+  height: 100svh !important;
+  min-height: 100svh !important;
+}
+.arena-tv {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  color: #fff;
+}
+.arena-tv-bg {
+  position: absolute;
+  inset: 0;
+}
+.arena-tv-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255, 255, 255, 0.012) 3px 4px);
+  pointer-events: none;
+}
+.arena-tv-content {
+  width: min(1280px, 100%);
+}
+.arena-tv-code-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 34px;
+  font-size: 18px;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+.arena-tv-rank {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+.arena-tv-rank-medal {
+  display: block;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+.arena-tv-rank-star {
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+.arena-tv-rank.is-champion {
+  border-color: rgba(255, 199, 82, 0.5);
+  background: linear-gradient(90deg, rgba(255, 199, 82, 0.2), rgba(255, 255, 255, 0.05));
+}
+.arena-tv-rank strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.arena-tv-rank.pos-1 {
+  border-color: rgba(255, 199, 82, 0.45);
+}
+.arena-tv-results-head {
+  gap: 4px;
+}
+.arena-tv-champion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 1.6vw, 24px);
+  margin-top: 10px;
+  border: 1px solid rgba(255, 199, 82, 0.35);
+  border-radius: 22px;
+  background: linear-gradient(120deg, rgba(255, 199, 82, 0.16), rgba(55, 217, 197, 0.08));
+  padding: clamp(12px, 1.4vh, 20px) clamp(18px, 2vw, 32px);
+}
+.arena-tv-champion-medal {
+  display: block;
+  width: clamp(52px, 5vw, 78px);
+  height: clamp(52px, 5vw, 78px);
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+.arena-tv-champion-avatar {
+  width: clamp(44px, 4vw, 64px);
+  height: clamp(44px, 4vw, 64px);
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  object-fit: contain;
+}
+.arena-tv-champion-kicker {
+  font-size: clamp(11px, 1vw, 14px);
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.arena-tv-champion-copy strong {
+  overflow: hidden;
+  color: #fff;
+  font-size: clamp(24px, 2.6vw, 40px);
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.arena-tv-champion-copy b {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(16px, 1.6vw, 22px);
+}
+.arena-tv-round-copy h1 {
+  margin: 0;
+  font-size: clamp(26px, 3.6vw, 54px);
+  line-height: 1.08;
+}
+.arena-tv-round-copy p {
+  margin: 0;
+  font-size: clamp(15px, 1.7vw, 23px);
+  line-height: 1.45;
+}
+.arena-tv-progress {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 6px;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: clamp(13px, 1.4vw, 18px);
+  align-self: flex-start;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+body[data-page='admin'],
+body[data-page='report'],
+body[data-page='arena'],
+body[data-page='admin-arena'] {
+  background: var(--color-bg);
+}
+
+body[data-page='index'] {
+  background: url('/public/assets/figma/start-bg.png') center / cover no-repeat fixed, #f8fafd !important;
+}
+
+/* ============================================================
+   MARCA OFICIAL PADRONIZADA â€” LIVE ARENA (Batalha de Prompts)
+   ============================================================ */
+.brand-identity {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-family: var(--font-sans);
+}
+.brand-identity .mark {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  flex: none;
+}
+.brand-identity .prompt-arrow {
+  width: 22px;
+  height: 22px;
+  border-right: 5px solid var(--color-primary);
+  border-top: 5px solid var(--color-primary);
+  transform: rotate(45deg);
+  border-radius: 3px;
+  transition: border-color 0.2s ease;
+}
+.brand-identity .prompt-line {
+  width: 18px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--color-warning);
+}
+.brand-identity-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-align: left;
+}
+.brand-identity-main {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #071f49;
+}
+.brand-identity-main b {
+  font-weight: 800;
+  color: var(--color-primary);
+}
+.brand-identity-sub {
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 3px;
+}
+
+/* VariaÃ§Ã£o Escura (TV e cabeÃ§alho do aluno) */
+
+/* VariaÃ§Ãµes de Tamanho */
+.brand-identity--small {
+  gap: 8px;
+}
+.brand-identity--small .prompt-arrow {
+  width: 17px;
+  height: 17px;
+  border-width: 4px;
+}
+.brand-identity--small .prompt-line {
+  width: 14px;
+  height: 4px;
+}
+.brand-identity--small .brand-identity-main {
+  font-size: 15px;
+}
+.brand-identity--small .brand-identity-sub {
+  font-size: 7px;
+  letter-spacing: 0.14em;
+  margin-top: 2px;
+}
+
+.brand-identity--large {
+  gap: 16px;
+}
+.brand-identity--large .prompt-arrow {
+  width: 28px;
+  height: 28px;
+  border-width: 6px;
+}
+.brand-identity--large .prompt-line {
+  width: 24px;
+  height: 6px;
+}
+.brand-identity--large .brand-identity-main {
+  font-size: 24px;
+}
+.brand-identity--large .brand-identity-sub {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  margin-top: 4px;
+}
+
+/* Hero Callout unificada da Home */
+.portal-hero-brand {
+  margin-bottom: 6px;
+}
+.portal-hero-callout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.portal-hero-headline {
+  margin: 0;
+  font-size: clamp(38px, 5.2vw, 68px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: #071f49;
+  line-height: 1.05;
+}
+.portal-hero-headline span {
+  background: linear-gradient(90deg, #0b57d0 0%, #00875a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #0b57d0;
+}
+
+/* Regras de marca unificadas exclusivamente em .brand-identity */
+
+/* ============================================================
+   ACENTO LISTRADO (amarelo/azul) â€” assinatura de cards
+   ============================================================ */
+
+/* ============================================================
+   HOME â€” portal da identidade (listras azuis + card branco)
+   ComposiÃ§Ã£o aprovada (protÃ³tipo v4): fundo listrado diagonal,
+   marca flutuando sobre o card, fita de risco no topo, lockup,
+   tagline, CTA Ãºnico e faixa de prova (3 rodadas / tempo ao
+   vivo / feedback imediato / ranking coletivo).
+   ============================================================ */
+.portal-shell {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: clamp(72px, 10vh, 104px) 24px clamp(40px, 6vh, 64px);
+  overflow: hidden;
+  position: relative;
+  background: url('/public/assets/figma/start-bg.png') center / cover no-repeat fixed, #f8fafd;
+  color: #1f2937;
+}
+.portal-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Textura de ambientação: atenuada para não competir com o título. */
+  background-image: radial-gradient(rgba(11, 87, 208, 0.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
+  pointer-events: none;
+  display: block;
+}
+.portal-hero {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+  /* Tamanho e espaçamento têm um dono só: `.portal-shell .portal-hero` nesta
+     folha e o bloco do portal em `refinement.css`. Aqui fica o acabamento. */
+  border-radius: var(--radius-md) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+/* Marca integrada ao topo do card */
+.portal-hero .portal-hero-brand {
+  display: inline-flex;
+  justify-content: center;
+  white-space: nowrap;
+  /* Era um cartão com sombra dentro do cartão; a marca já é o topo dele. */
+  background: transparent;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  margin-bottom: 0;
+}
+/* Fita de risco desnecessÃ¡ria: removida */
+body[data-page='index'] .portal-hero::after {
+  display: none !important;
+}
+.portal-enter {
+  margin-top: 10px;
+  border-radius: 999px !important;
+  min-height: 50px;
+  height: 50px;
+  padding: 0 40px;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #0b57d0, #0842a0) !important;
+  box-shadow: 0 4px 18px rgba(11, 87, 208, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+}
+.portal-enter:hover {
+  background: linear-gradient(135deg, #1557b0, #0b57d0) !important;
+  box-shadow: 0 8px 26px rgba(11, 87, 208, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-1px);
+}
+@media (max-width: 980px) {
+}
+@media (max-width: 640px) {
+}
+
+/* ============================================================
+   BOTÃ•ES â€” pilula, gradiente, sombra colorida
+   ============================================================ */
+.figma-cta {
+  border-radius: 999px;
+  border: 0;
+  background: linear-gradient(100deg, var(--color-primary) 0 72%, #0a63c9 86%, var(--color-accent) 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(0, 82, 255, 0.22);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.figma-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0, 82, 255, 0.22); }
+.figma-cta-blue { background: var(--color-primary); box-shadow: 0 4px 14px rgba(0, 82, 255, 0.14); }
+.figma-cta-gradient { background: linear-gradient(100deg, var(--color-primary) 0 72%, #0a63c9 86%, var(--color-accent) 100%); box-shadow: 0 4px 14px rgba(0, 82, 255, 0.14); }
+.figma-cta:disabled { cursor: not-allowed; }
+
+/* Secundario: texto azul, sem caixa */
+.ghost-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.ghost-link:hover { color: var(--color-primary-deep); background: rgba(0, 82, 255, 0.06); transform: none; }
+.report-header .ghost-link {
+  margin-bottom: 0 !important;
+  padding: 8px 10px !important;
+  font-size: 14px !important;
+  background: transparent !important;
+  color: var(--color-primary) !important;
+}
+.report-header .ghost-link:hover {
+  background: rgba(0, 82, 255, 0.06) !important;
+  color: var(--color-primary-deep) !important;
+}
+
+/* ============================================================
+   INPUTS â€” label flutuante no join, foco azul
+   ============================================================ */
+.text-field span,
+.arena-field > span {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.text-field input,
+.text-field select,
+.arena-field input,
+.arena-field select,
+.arena-field textarea {
+  height: 52px;
+  border: 1px solid #dce0e8;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  padding: 0 14px;
+  color: var(--color-text);
+  font-size: 16px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+/* vence o legado (.text-field input com !important 58px/6px):
+   admin login e relatorio usam o mesmo input do sistema (52px/9px) */
+.text-field input,
+.text-field select {
+  height: 52px !important;
+  border-radius: var(--radius-sm) !important;
+  border-color: #dce0e8 !important;
+  background: var(--color-surface) !important;
+  padding: 0 14px !important;
+  font-size: 16px !important;
+  color: var(--color-text) !important;
+}
+/* o :focus do sistema precisa vencer o !important acima (mesma
+   especificidade, !important vence) */
+.text-field input:focus,
+.text-field select:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(55, 217, 197, 0.22) !important;
+}
+.arena-field textarea {
+  min-height: 150px;
+  padding: 16px;
+  line-height: 1.5;
+}
+.text-field input:focus,
+.text-field select:focus,
+.arena-field input:focus,
+.arena-field select:focus,
+.arena-field textarea:focus {
+  outline: none;
+}
+.text-field input::placeholder,
+.arena-field input::placeholder,
+.arena-field textarea::placeholder { color: #98a2b3; }
+.text-field small { color: var(--color-danger); }
+
+/* Join: labels flutuantes (como o cadastro do preview) */
+.join-card .arena-field { position: relative; }
+.join-card .arena-field > span {
+  top: -8px;
+  left: 13px;
+  z-index: 1;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   CARDS â€” borda azulada, radius, sombra leve
+   ============================================================ */
+.report-panel,
+.metric-card,
+.arena-mission-panel,
+.arena-card,
+.join-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+.arena-card { border-radius: var(--radius-lg); }
+
+/* ============================================================
+   CHIPS â€” chip de sala com gradiente + barra amarela
+   ============================================================ */
+.arena-room-code {
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: linear-gradient(100deg, var(--color-primary) 0 78%, var(--color-accent) 100%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  box-shadow: inset 0 -3px 0 rgba(255, 221, 0, 0.92);
+}
+.arena-mission-badge {
+  display: inline-flex;
+  text-transform: uppercase;
+}
+.arena-preset-chip {
+  border-radius: 999px;
+  background: rgba(0, 82, 255, 0.08);
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  letter-spacing: 0.06em;
+}
+.arena-preset-chip.is-classic,
+.arena-preset-chip.is-turma,
+body.arena-classic-room .arena-mission-badge,
+.arena-mission-panel.is-boss .arena-mission-badge {
+  background: #eef3ff;
+  color: var(--color-primary);
+}
+.report-period-pill {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ============================================================
+   ENTRADA (join) â€” card da identidade sobre dot-grid
+   ============================================================ */
+.arena-screen[data-arena-screen='join'] { place-items: center; padding: 24px; }
+.arena-bg {
+  background:
+    radial-gradient(circle at 15% 12%, rgba(55, 217, 197, 0.14), transparent 24%),
+    radial-gradient(circle at 85% 82%, rgba(0, 82, 255, 0.1), transparent 28%),
+    #f8faff;
+}
+.arena-screen[data-arena-screen='join'] .arena-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 82, 255, 0.12) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 18%, #000 82%, transparent 100%);
+}
+.join-card {
+  position: relative;
+  width: min(440px, calc(100vw - 32px));
+  margin: 0;
+  gap: 20px;
+  text-align: center;
+}
+.join-card .brand-logo { justify-content: center; margin-bottom: 6px; }
+.join-head h1 {
+  line-height: 1.1;
+}
+.arena-kicker { line-height: 1.45; }
+.arena-form { gap: 16px; }
+.arena-field { gap: 6px; }
+.arena-submit { width: 100%; }
+
+/* ============================================================
+   LOBBY DO ALUNO â€” fundo gradiente suave da identidade
+   ============================================================ */
+.arena-lobby {
+  min-height: 100svh;
+  background: linear-gradient(180deg, #eef4ff, #f9fbff);
+}
+.arena-lobby-brand img { display: none; }
+.arena-lobby-brand strong {
+  color: var(--color-primary-dark);
+  font-size: clamp(15px, 1.8vw, 19px);
+  font-weight: 800;
+}
+.arena-lobby-stats strong { color: var(--color-primary); font-size: 17px; font-weight: 800; }
+
+/* ---------- MissÃ£o: foco ---------- */
+.arena-mission-empty { min-height: 300px; gap: 10px; }
+.arena-mission-top { margin-bottom: 14px; }
+.arena-mission h1 {
+  color: var(--color-primary-dark);
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.arena-mission-context {
+  border-left: 3px solid var(--color-accent);
+  color: var(--color-text-muted);
+  font-size: 16px;
+  padding-left: 14px;
+}
+.arena-mission-body {
+  color: var(--color-text);
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.5;
+  /* leitura ideal: 65ch (regra de tipografia: 45-75ch por linha) */
+  max-width: 65ch;
+}
+
+/* blocos de contexto (resgate / reversa / referencia) */
+.arena-rescue { background: #fef6f3; border: 1px solid #fbe3da; }
+.arena-reversa { background: #f2f6ff; border: 1px solid #e2ecff; }
+.arena-rescue span { color: var(--color-danger); }
+.arena-reversa span { color: var(--color-primary); }
+.arena-rescue blockquote { color: var(--color-text-muted); }
+
+/* envio */
+.arena-prompt-form { gap: 14px; }
+
+/* resultado */
+.arena-result { border-top: 1px solid var(--color-border); }
+.arena-breakdown-track { background: #eef2f8; }
+.arena-breakdown-track i { background: var(--color-primary); }
+.arena-feedback {
+  font-weight: 500;
+}
+.arena-evolution.is-positive { color: var(--color-success); }
+.arena-evolution:not(.is-positive) { color: var(--color-danger); }
+
+/* ---------- Painel lateral ---------- */
+.arena-card h2 {
+  color: var(--color-primary-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.arena-mini-ranking li.is-me { background: rgba(0, 82, 255, 0.07); }
+
+/* roster */
+.arena-roster-item {
+  color: var(--color-text);
+  font-size: 13px;
+}
+.arena-roster-item.is-connected {
+  border-color: rgba(24, 128, 56, 0.3);
+  background: #f2fbf4;
+}
+
+/* ============================================================
+   PAINEL DO PROFESSOR (DASHBOARD MATERIAL 3)
+   ============================================================ */
+
+/* Sidebar */
+.arena-admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-right: 1px solid rgba(11, 87, 208, 0.08);
+  padding: 24px 16px;
+  z-index: 10;
+  box-shadow: 2px 0 12px rgba(11, 87, 208, 0.02);
+}
+.brand-logo-sidebar {
+  padding: 0 8px 20px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.arena-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  margin-top: 16px;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 999px; /* Material 3 Pill */
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sidebar-link .sidebar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--color-text-muted);
+  transition: color 0.15s ease;
+}
+.sidebar-link:hover {
+  background: rgba(11, 87, 208, 0.07);
+  color: #0b57d0;
+}
+.sidebar-link:hover .sidebar-icon {
+  color: #0b57d0;
+}
+.sidebar-link.is-active {
+  background: #e8f0fe; /* Google Primary Container */
+  color: #0b57d0; /* Google Primary */
+  font-weight: 700;
+}
+.sidebar-link.is-active .sidebar-icon {
+  color: #0b57d0;
+}
+.arena-sidebar-bottom {
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.admin-user-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #f8fafd;
+  border: 1px solid rgba(11, 87, 208, 0.08);
+  border-radius: 12px;
+}
+.admin-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0b57d0, #0842a0);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex: none;
+  box-shadow: 0 2px 8px rgba(11, 87, 208, 0.25);
+}
+.admin-user-info b {
+  display: block;
+  font-size: 13px;
+  color: #071f49;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.admin-user-info small {
+  display: block;
+  font-size: 11px;
+  color: #00875a;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.sidebar-logout {
+  width: 100%;
+  justify-content: center;
+  color: var(--color-text-muted) !important;
+  font-size: 13px !important;
+  min-height: 36px !important;
+  border-radius: 8px !important;
+}
+.sidebar-logout:hover {
+  color: #b3261e !important;
+  background: rgba(179, 38, 30, 0.08) !important;
+}
+
+/* Main Content Area */
+.arena-topbar-title b {
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  color: #071f49;
+  letter-spacing: -0.01em;
+}
+
+/* Tela de Login do Admin Dedicada */
+.admin-login-brand {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.admin-login-head .pill {
+  margin-bottom: 6px;
+}
+.admin-login-head p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+/* Mesmo botão da entrada do aluno (`body[data-page='arena'] .join-card
+   .arena-submit`), que é um retângulo de 10 px com 48 px de altura. A forma e a
+   tinta ficam TODAS em `refinement.css`: aqui elas seriam vencidas pelo
+   `.figma-cta { border-radius: 999px !important }` e a declaração perderia a
+   cascata — o cartório reprova declaração que não vale em elemento nenhum. */
+.admin-login-submit {
+  width: 100%;
+  margin-top: 6px;
+}
+.admin-login-back:hover {
+  color: #0b57d0 !important;
+}
+
+/* Container de seÃ§Ã£o */
+.arena-admin-layout section {
+  width: min(1080px, 100%);
+  margin: 0 auto 24px;
+}
+.arena-admin-layout .report-panel h2 {
+  color: var(--color-primary-dark);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+}
+
+/* Responsive Dashboard */
+@media (max-width: 900px) {
+}
+
+/* banco de desafios: estilo Material 3 Elevated Card */
+.admin-arena-challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.arena-challenge-card {
+  display: flex;
+  flex-direction: column;
+  background: #f1f5f9 !important; /* Mais escuro (slate-100) para garantir o contraste no painel branco */
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.arena-challenge-card:hover {
+  background: #ffffff !important; /* Pula pro branco limpo no hover */
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08) !important;
+  transform: translateY(-2px);
+}
+.arena-challenge-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.arena-challenge-head .arena-status-badge {
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  text-transform: uppercase;
+}
+.arena-challenge-head strong {
+  color: var(--color-primary-dark);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.arena-challenge-head small {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+.arena-challenge-card p {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex: 1;
+}
+.arena-challenge-criteria { display: none; }
+.arena-challenge-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 12px;
+}
+.arena-challenge-actions button {
+  background: transparent;
+  border: none;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+.arena-challenge-actions button:hover {
+  background: rgba(11, 87, 208, 0.06);
+}
+.arena-challenge-actions button.is-danger {
+  color: var(--color-danger);
+}
+.arena-challenge-actions button.is-danger:hover {
+  background: rgba(217, 48, 37, 0.06);
+}
+
+/* salas */
+.admin-arena-room-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.arena-room-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(11, 87, 208, 0.12);
+  border-radius: 18px;
+  background: var(--color-surface);
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(11, 87, 208, 0.03);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.arena-room-card:hover {
+  border-color: rgba(11, 87, 208, 0.28);
+  box-shadow: 0 8px 24px rgba(11, 87, 208, 0.08);
+  transform: translateY(-1px);
+}
+.arena-room-card.is-selected {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.14);
+}
+.arena-room-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+.arena-room-card-actions button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+}
+.arena-room-card-actions button[data-action="detail"] {
+  border-color: rgba(11, 87, 208, 0.2);
+  color: #0b57d0;
+  background: #ffffff;
+}
+.arena-room-card-actions button[data-action="detail"]:hover {
+  background: #f1f5f9;
+}
+.arena-room-card-actions button[data-action="start"] {
+  background: #0b57d0;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(11, 87, 208, 0.25);
+}
+.arena-room-card-actions button[data-action="start"]:hover {
+  background: #0842a0;
+  box-shadow: 0 4px 14px rgba(11, 87, 208, 0.35);
+}
+.arena-room-card-actions button.is-danger {
+  color: #d93025;
+}
+.arena-room-card-actions button.is-danger:hover {
+  background: rgba(217, 48, 37, 0.08);
+}
+
+/* ============================================================
+   RELATÃ“RIO
+   ============================================================ */
+.report-shell { padding: 32px clamp(16px, 3vw, 40px) 48px; background: #f8faff; }
+.report-header { width: min(1360px, 100%); }
+.report-header h1 {
+  color: var(--color-primary-dark);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 12px 0 6px;
+}
+.report-header p { color: var(--color-text-muted); font-size: 15px; }
+.report-header-actions .figma-cta { min-height: 44px; font-size: 15px; padding: 0 22px; }
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px !important; /* Overrides earlier rule */
+  box-shadow: 0 4px 16px rgba(11, 87, 208, 0.05);
+}
+.metric-card span:first-child { /* TÃ­tulo */
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+.metric-card strong {
+  color: var(--color-primary-dark);
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.metric-card small {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+.panel-title h2 { color: var(--color-primary-dark); font-size: 17px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 4px; }
+.panel-title span { color: var(--color-text-muted); font-size: 12px; font-weight: 500; }
+
+.report-data-table th {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--color-surface);
+}
+.report-data-table td { color: var(--color-text); border-bottom: 1px solid var(--color-border); }
+.comparison-row { border: 1px solid var(--color-border); }
+.comparison-row i { background: var(--color-primary); }
+.heatmap-head span { background: var(--color-bg); color: var(--color-text-muted); }
+
+/* ============================================================
+   SALA - COCKPIT DETAIL
+   ============================================================ */
+.admin-arena-detail h2[data-arena-detail-title] {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+/* Bloco de convite da sala. Era 32px de padding com o código a 56px e a coluna
+   de informação centralizada na vertical: o resultado era 398px de altura, com
+   uma faixa vazia acima do estado e da ação. O convite continua sendo o que o
+   professor mostra na espera; o que saiu foi a altura sem informação. */
+.arena-cockpit {
+  display: flex;
+  gap: 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 16px rgba(11, 87, 208, 0.04);
+}
+.arena-cockpit-code {
+  flex: 0 0 196px;
+  border-right: 1px solid #f1f5f9;
+  padding-right: 20px;
+}
+.arena-cockpit-code small {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.arena-cockpit-code strong {
+  display: block;
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--color-primary-dark);
+  margin-top: 2px;
+}
+.arena-cockpit-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+}
+.arena-cockpit-rules strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 8px 0 4px;
+}
+.arena-cockpit-start {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 0;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* Convite durante a atividade: a aula em andamento vale mais que o convite, mas
+   quem chega atrasado precisa do código. A dobra deixa o PIN na alça e o QR,
+   o link e a projeção a um clique — sem empurrar a missão para baixo. */
+.arena-invite-fold {
+  margin-bottom: 18px;
+}
+.arena-invite-fold > summary {
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.arena-invite-fold > summary b {
+  color: var(--color-primary-dark);
+  letter-spacing: 0.02em;
+}
+.arena-invite-fold[open] > summary {
+  margin-bottom: 10px;
+}
+.arena-cockpit-start p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+/* ============================================================
+   TV / PROJEÃ‡ÃƒO â€” leitura Ã  distÃ¢ncia (navy + acentos)
+   ============================================================ */
+.arena-tv-bg {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(0, 82, 255, 0.28), transparent 40%),
+    radial-gradient(circle at 85% 88%, rgba(55, 217, 197, 0.18), transparent 45%),
+    var(--color-primary-dark);
+}
+.arena-tv-bg::after { display: none; }
+.arena-tv-brand .brand-logo { gap: 10px; }
+.arena-tv-brand .prompt-arrow { width: 16px; height: 16px; border-width: 4px; }
+.arena-tv-brand .prompt-line { width: 14px; height: 4px; }
+.arena-tv-round-copy h1 { color: #fff; font-weight: 800; letter-spacing: -0.02em; }
+.arena-tv-round-copy p { color: rgba(255, 255, 255, 0.78); }
+.arena-tv-progress {
+  background: rgba(55, 217, 197, 0.14);
+  color: rgba(255, 255, 255, 0.85);
+}
+.arena-tv-code-submit {
+  min-height: 56px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 12px 24px rgba(0, 82, 255, 0.3);
+  cursor: pointer;
+}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width: 900px) {
+  .arena-lobby-body { grid-template-columns: 1fr; }
+  .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .report-grid { grid-template-columns: 1fr; }
+}
+
+/* Celular com tela baixa: a missao precisa caber sem rolar para
+   chegar ao botao de envio (acao principal visivel). */
+@media (max-width: 640px) and (max-height: 760px) {
+  .arena-mission-panel { padding: 16px; }
+  .arena-mission-top { margin-bottom: 10px; }
+  .arena-mission h1 { margin-bottom: 6px; font-size: 20px; }
+  .arena-mission-body { margin-bottom: 8px; font-size: 14.5px; line-height: 1.4; }
+  .arena-classic-figure img { max-height: 120px; }
+  .arena-attempts { margin-bottom: 8px; gap: 6px; }
+  .arena-attempt-dot { width: 26px; height: 26px; }
+  .arena-field textarea { min-height: 80px; }
+  .arena-prompt-form { gap: 10px; }
+}
+
+@media (max-width: 640px) {
+  .metric-grid { grid-template-columns: 1fr 1fr; }
+  .report-header { flex-direction: column; }
+  .report-header-actions { width: 100%; }
+  .figma-cta { width: 100%; }
+  .portal-hero { gap: var(--space-3); }
+  .portal-hero .mark { transform: scale(0.85); }
+}
+/* ============================================================
+   LIVE ARENA â€” IDENTITY CONSOLIDATION 2026-09
+   Objetivo: uma identidade Ãºnica sem redesenhar a aplicaÃ§Ã£o.
+   Linguagem: editorial competition + prompt syntax.
+   ============================================================ */
+
+/* Base visual: menos cinza genÃ©rico, mais â€œarena editorialâ€. */
+body {
+  background-color: var(--la-canvas);
+}
+body[data-page='arena'],
+body[data-page='admin-arena'],
+body[data-page='report'] {
+  background:
+    radial-gradient(circle at 9% 10%, rgba(55,217,197,.10), transparent 24rem),
+    radial-gradient(circle at 91% 14%, rgba(0,82,255,.08), transparent 26rem),
+    var(--la-canvas);
+}
+
+/* Assinatura estrutural: bracket/chevron + faixa de sinal. */
+.arena-card,
+.report-panel {
+  position: relative;
+  border-color: var(--la-line) !important;
+  border-radius: var(--la-radius-card) !important;
+  box-shadow: var(--la-shadow-soft) !important;
+}
+.arena-card::after,
+.report-panel::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* BotÃµes: reduzir variaÃ§Ãµes e deixar o amarelo como sinal, nÃ£o como decoraÃ§Ã£o. */
+.figma-cta,
+.arena-submit {
+  border-radius: 999px !important;
+  letter-spacing: .01em !important;
+  min-height: 44px;
+}
+.figma-cta-blue,
+.arena-submit,
+.figma-cta-gradient {
+  background: linear-gradient(100deg, var(--la-blue) 0%, var(--la-blue-deep) 100%) !important;
+  box-shadow: 0 4px 14px rgba(0,82,255,.14) !important;
+}
+.figma-cta-blue:hover,
+.arena-submit:hover,
+.figma-cta-gradient:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,82,255,.22) !important;
+}
+
+/* Campos: linguagem Ãºnica em toda a experiÃªncia. */
+.text-field input,
+.text-field select,
+.arena-field input,
+.arena-field textarea {
+  border: 1px solid #dce0e8 !important;
+  border-radius: var(--la-radius-control) !important;
+  background: rgba(255,255,255,.96) !important;
+  color: var(--la-ink) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.7);
+}
+.text-field input:focus,
+.text-field select:focus,
+.arena-field input:focus,
+.arena-field textarea:focus {
+  outline: none !important;
+  border-color: var(--la-blue) !important;
+  box-shadow: 0 0 0 4px rgba(0,82,255,.10) !important;
+}
+
+/* ============================================================
+   PORTAL â€” preservar a composiÃ§Ã£o aprovada e reforÃ§ar assinatura.
+   ============================================================ */
+body[data-page='index'] .portal-hero::after {
+  content: 'LIVE / 01';
+  position: absolute;
+  right: 28px;
+  bottom: 22px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  color: rgba(7,31,73,.34);
+}
+body[data-page='index'] .portal-enter::before {
+  content: '> ';
+  color: var(--la-yellow);
+  font-weight: 900;
+}
+
+/* ============================================================
+   ENTRADA DO JOGADOR â€” menos â€œformulÃ¡rioâ€, mais acesso Ã  arena.
+   ============================================================ */
+/* A fita de perigo do cartão de entrada do aluno voltou pela identidade do
+   redesign: quem a desenha agora é a classe `.brand-tape`, dona única da
+   linguagem nova (ver `refinement.css`). O slot `::before` fica livre. */
+
+/* ============================================================
+   LOBBY / MISSÃƒO â€” coraÃ§Ã£o visual do produto.
+   ============================================================ */
+.arena-lobby-header::before {
+  content: none !important;
+  display: none !important;
+}
+.arena-lobby-header::after {
+  content: none !important;
+  display: none !important;
+}
+.arena-lobby-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.arena-lobby-sep {
+  width: 1px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.arena-lobby-room-meta strong {
+  font-size: 14.5px !important;
+  font-weight: 700 !important;
+  color: #f8fafc !important;
+  letter-spacing: -0.01em;
+}
+.arena-lobby-header .arena-room-code {
+  background: rgba(11, 87, 208, 0.25) !important;
+  color: #93c5fd !important;
+  border: 1px solid rgba(147, 197, 253, 0.35) !important;
+  border-radius: 999px !important;
+  padding: 3px 10px !important;
+  font-family: var(--la-mono);
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em;
+}
+.arena-lobby-stats > span:first-child {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(52, 211, 153, 0.25) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+.arena-lobby-stats > span:first-child::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+.arena-lobby-header .ghost-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+.arena-mission-panel::before {
+  content: none !important;
+  display: none !important;
+}
+.arena-mission-empty h1,
+.arena-mission h1 {
+  color: #071f49 !important;
+  font-size: clamp(24px, 2.5vw, 32px) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  margin: 0 0 8px !important;
+}
+.arena-mission-empty h1::before {
+  content: none !important;
+}
+.arena-mission-badge {
+  background: rgba(0, 82, 255, 0.08) !important;
+  color: #0052ff !important;
+  border: 1px solid rgba(0, 82, 255, 0.18) !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  padding: 4px 10px !important;
+  box-shadow: none !important;
+}
+.arena-timer {
+  font-weight: 700 !important;
+  padding: 6px 14px !important;
+}
+.arena-timer::before {
+  display: none !important;
+}
+.arena-rescue,
+.arena-scenario,
+.arena-completo-hint {
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 4px solid var(--color-primary) !important;
+  background: #f8fafc !important;
+  padding: 14px 18px !important;
+}
+.arena-rescue > span,
+.arena-scenario > span,
+.arena-completo-hint > span {
+  color: var(--color-primary) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.arena-prompt-form textarea {
+  min-height: 140px;
+  font-family: inherit !important;
+  box-shadow: none !important;
+}
+.arena-prompt-form textarea:focus {
+  background: #ffffff !important;
+}
+.arena-prompt-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* Side panels: CartÃµes limpos e integrados */
+.arena-side {
+  gap: 16px !important;
+}
+.arena-side .arena-card {
+  overflow: hidden;
+  border-radius: 18px !important;
+  border: 1px solid rgba(0, 82, 255, 0.08) !important;
+  box-shadow: 0 8px 24px rgba(7, 31, 73, 0.05) !important;
+  background: #ffffff !important;
+  padding: 18px !important;
+}
+.arena-side .arena-card h2 {
+  margin: 0 0 12px !important;
+  padding: 0 0 10px !important;
+  color: #071f49 !important;
+  background: transparent !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid #f1f5f9 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+.arena-ranking-panel h2::before { content: '#' !important; color: var(--color-primary); font-weight: 900; }
+.arena-results-panel h2::before { content: '\25CF ' !important; color: #10b981; font-size: 10px; }
+.arena-highlights-panel h2::before { content: '\2605 ' !important; color: #f59e0b; }
+
+/* Nota / resultado: linguagem de placar.
+   A caixa com gradiente, raio e sombra próprios saiu daqui: o resultado é um
+   grupo DENTRO do painel da missão, separado pela linha que a regra base
+   (`.arena-result`, mais acima nesta folha) já desenhava. */
+.arena-result-score {
+  position: relative;
+}
+.arena-result-score::after {
+  display: none;
+}
+.arena-result-score strong {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   TV / PROJEÃ‡ÃƒO â€” leitura Ã  distÃ¢ncia + placar televisivo.
+   ============================================================ */
+body[data-page='tv'] {
+  background: var(--la-ink) !important;
+}
+.arena-tv {
+  background:
+    radial-gradient(circle at 8% 16%, rgba(55,217,197,.18), transparent 31vw),
+    radial-gradient(circle at 88% 15%, rgba(0,82,255,.34), transparent 34vw),
+    linear-gradient(145deg,#061a3e 0%,#071f49 58%,#09285d 100%) !important;
+}
+.arena-tv::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .20;
+  background-image: radial-gradient(circle,rgba(255,255,255,.45) 1px,transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(90deg,#000,transparent 34%,transparent 70%,#000);
+}
+.arena-tv-content {
+  position: relative;
+  z-index: 1;
+}
+.arena-tv [class*='ranking'],
+.arena-tv [class*='score'] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   PROFESSOR / RELATÃ“RIO â€” mesma marca, tom operacional.
+   ============================================================ */
+body[data-page='admin-arena'] .report-header,
+body[data-page='report'] .report-header {
+  position: relative;
+  border-radius: 0 0 26px 26px;
+  background: var(--la-ink) !important;
+  color: #fff !important;
+  box-shadow: 0 14px 42px rgba(7,31,73,.13);
+}
+body[data-page='admin-arena'] .report-header::after,
+body[data-page='report'] .report-header::after {
+  content: '';
+  position: absolute;
+  left: 28px;
+  bottom: 0;
+  width: 150px;
+  height: 5px;
+  background: repeating-linear-gradient(135deg,var(--la-yellow) 0 10px,var(--la-yellow) 10px 13px,transparent 13px 18px);
+}
+/* Regras rebeldes removidas: report-header agora usa o tema claro com contraste correto */
+.metric-grid > * {
+  border-radius: 16px !important;
+  border-color: var(--la-line) !important;
+  box-shadow: 0 8px 24px rgba(7,31,73,.06) !important;
+}
+.panel-title h2,
+.report-panel h2,
+.admin-arena h2 {
+  color: var(--la-ink) !important;
+  letter-spacing: -.02em;
+}
+
+/* ============================================================
+   V4 â€” GRAMÃTICA COMPLETA (protÃ³tipo batalha_prompts_v4_logo_oficial)
+   Fita de sinal, pills de status, score-burst, feedback-box,
+   chips de dica e roster com pills â€” aplicadas em todas as telas.
+   ============================================================ */
+/* `.signal-tape` era fita desligada no produto inteiro. A identidade do
+   redesign a liga — quem a desenha é `.signal-tape` em `refinement.css`. A TV
+   continua escondendo a dela nos estados em que ela não pertence
+   (`.arena-tv-round`/`.arena-tv-results`, logo abaixo). */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.status-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid rgba(6, 95, 70, 0.2);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.status-live::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+/* ---- JOIN (Cadastro): Card moderno, sem fitas, inputs confortÃ¡veis ---- */
+.join-card {
+  border-radius: var(--radius-md) !important;
+  background: #ffffff !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: var(--shadow-sm) !important;
+  padding: clamp(28px, 4vw, 40px) !important;
+  overflow: visible;
+}
+.join-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.join-head .brand-logo {
+  margin-bottom: 6px;
+}
+.join-head .pill {
+  margin-bottom: 2px;
+}
+.join-head h1 {
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  color: #071f49 !important;
+  margin: 0 !important;
+}
+.arena-kicker {
+  text-align: center;
+  color: var(--color-text-muted) !important;
+  font-size: 14px !important;
+  margin: 0 0 20px !important;
+}
+.join-card .arena-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.join-card .arena-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+.join-card .arena-field span {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #334155 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.join-card .arena-field input {
+  height: 46px !important;
+  min-height: 46px !important;
+  border-radius: 10px !important;
+  border: 1px solid #d0d7e2 !important;
+  padding: 0 14px !important;
+  font-size: 15px !important;
+  font-family: inherit !important;
+  color: #0f172a !important;
+  background: #f8fafc !important;
+  transition: all 0.15s ease !important;
+}
+.join-card .arena-field input:focus {
+  background: #ffffff !important;
+  border-color: #0052ff !important;
+  box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.16) !important;
+  outline: none !important;
+}
+.join-card .arena-submit {
+  height: 48px !important;
+  min-height: 48px !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  margin-top: 6px !important;
+  width: 100% !important;
+  background: linear-gradient(135deg, #0052ff, #0045db) !important;
+  box-shadow: 0 4px 16px rgba(0, 82, 255, 0.3) !important;
+}
+.join-card .arena-submit:hover {
+  background: linear-gradient(135deg, #1a64ff, #0052ff) !important;
+  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.4) !important;
+  transform: translateY(-1px);
+}
+.join-card .ghost-link {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  color: var(--color-text-muted) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  text-decoration: none;
+}
+.join-card .ghost-link:hover {
+  color: #0052ff !important;
+}
+/* ---- TV (TelÃ£o): layout cinematogrÃ¡fico para resultados e ranking ---- */
+.arena-tv-round,
+.arena-tv-results {
+  position: relative;
+  padding-top: 24px;
+}
+.arena-tv-round .signal-tape,
+.arena-tv-results .signal-tape { display: none !important; }
+.arena-tv-round-badge {
+  background: rgba(0, 82, 255, 0.2) !important;
+  color: #60a5fa !important;
+  border: 1px solid rgba(96, 165, 250, 0.3) !important;
+  border-radius: 999px !important;
+  padding: 6px 18px !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase;
+  box-shadow: none !important;
+}
+.arena-tv-results {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+.arena-tv-results-head h1 {
+  margin: 8px 0 0 0 !important;
+}
+/* Campeao da batalha: trofeu, avatar e estrela servidos pela base observada
+   (nada de medalha desenhada em CSS nem emoji no final). */
+.arena-tv-champion {
+  backdrop-filter: blur(12px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+.arena-tv-champion-medal {
+  filter: drop-shadow(0 12px 30px rgba(251, 191, 36, 0.5)) !important;
+}
+.arena-tv-champion-avatar {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.24) !important;
+}
+.arena-tv-champion-kicker {
+  color: #fbbf24 !important;
+}
+.arena-tv-champion-copy strong {
+  font-weight: 900 !important;
+  letter-spacing: -0.02em;
+}
+.arena-tv-champion-copy b {
+  color: #38bdf8 !important;
+  font-weight: 900 !important;
+}
+.arena-tv-rank-list-large {
+  gap: 12px !important;
+}
+.arena-tv-rank {
+  border-radius: 16px !important;
+  padding: 16px 24px !important;
+  background: rgba(15, 23, 42, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.arena-tv-rank:hover {
+  transform: translateY(-2px);
+}
+.arena-tv-rank strong {
+  font-size: clamp(18px, 1.8vw, 24px) !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+.arena-tv-rank b {
+  font-size: clamp(18px, 2vw, 26px) !important;
+  font-family: var(--la-mono) !important;
+  font-weight: 800 !important;
+  color: #38bdf8 !important;
+}
+.arena-tv-rank.pos-1 .arena-tv-rank-pos {
+  color: #fbbf24 !important;
+  font-size: clamp(18px, 2vw, 24px) !important;
+  font-weight: 900 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.arena-tv-rank-medal {
+  width: clamp(26px, 2.4vw, 36px) !important;
+  height: clamp(26px, 2.4vw, 36px) !important;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5)) !important;
+}
+.arena-tv-rank.is-champion .arena-tv-rank-medal {
+  width: clamp(40px, 3.4vw, 54px) !important;
+  height: clamp(40px, 3.4vw, 54px) !important;
+  filter: drop-shadow(0 10px 28px rgba(251, 191, 36, 0.55)) !important;
+}
+.arena-tv-rank.is-champion {
+  border: 1.5px solid rgba(251, 191, 36, 0.65) !important;
+  box-shadow: 0 8px 36px rgba(245, 158, 11, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+.arena-tv-rank-points {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.arena-tv-rank-star {
+  width: 20px !important;
+  height: 20px !important;
+  filter: drop-shadow(0 3px 10px rgba(56, 189, 248, 0.45));
+}
+.arena-tv-rank.pos-1 b {
+  color: #fbbf24 !important;
+}
+.arena-tv-rank.pos-2 {
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.15) 0%, rgba(15, 23, 42, 0.8) 100%) !important;
+  border-color: rgba(148, 163, 184, 0.4) !important;
+}
+.arena-tv-rank.pos-2 .arena-tv-rank-pos {
+  color: #cbd5e1 !important;
+  font-size: clamp(17px, 1.8vw, 22px) !important;
+  font-weight: 800 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.arena-tv-rank.pos-2 b {
+  color: #cbd5e1 !important;
+}
+.arena-tv-rank.pos-3 {
+  background: linear-gradient(90deg, rgba(217, 119, 6, 0.14) 0%, rgba(15, 23, 42, 0.8) 100%) !important;
+  border-color: rgba(217, 119, 6, 0.35) !important;
+}
+.arena-tv-rank.pos-3 .arena-tv-rank-pos {
+  color: #f59e0b !important;
+  font-size: clamp(17px, 1.8vw, 22px) !important;
+  font-weight: 800 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.arena-tv-rank.pos-3 b {
+  color: #f59e0b !important;
+}
+
+/* ---- LOBBY (Espera): contador como pill + roster com avatar ---- */
+.arena-lobby-stats > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 7px 12px;
+}
+.arena-roster-item {
+  grid-template-columns: 32px 1fr auto;
+}
+.arena-roster-dot {
+  box-shadow: inset 0 0 0 1px rgba(0, 82, 255, 0.12);
+}
+.arena-roster-item.is-connected .arena-roster-dot {
+  box-shadow: inset 0 0 0 1px rgba(24, 128, 56, 0.25);
+}
+.arena-roster-item.is-connected em {
+  background: #e9f8ef;
+  color: #12692c;
+}
+.arena-roster-item.is-me em {
+  background: #eaf1ff;
+  color: var(--color-primary);
+}
+
+/* ---- MISSÃƒO (Rodada): chips de dica no editor ---- */
+.arena-completo-hint ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.arena-completo-hint ul li {
+  list-style: none;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: #eef3fa;
+  color: var(--color-text-muted);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---- RESULTADO: ANEL da nota (referência LA-03D) ----
+   Era uma caixa azul com gradiente, sombra própria e um `%` colado ao número.
+   A referência resolve a mesma informação com um ANEL: quanto do total já foi
+   conquistado se lê de longe, sem pedir uma segunda superfície colorida dentro
+   do painel branco — o painel da missão já é a superfície de leitura da tela.
+   O anel é `conic-gradient` sobre `--la-score` (0–100), escrito pelo JS. Sem
+   valor, ele fica vazio e o número continua sendo o texto do placar. */
+.arena-result-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: auto;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--color-text);
+}
+.arena-result-score > span {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.arena-score-ring {
+  position: relative;
+  display: flex;
+  width: 132px;
+  height: 132px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 999px;
+  background: conic-gradient(var(--color-primary) calc(var(--la-score, 0) * 1%), #e8eefb 0);
+}
+.arena-score-ring::before {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border-radius: 999px;
+  background: #ffffff;
+}
+.arena-score-ring strong {
+  display: block;
+  color: var(--color-primary-dark) !important;
+  font-size: clamp(30px, 3.4vw, 38px);
+  font-weight: 800;
+  line-height: 1;
+  font-family: var(--la-mono);
+}
+.arena-score-ring-unit {
+  position: relative;
+  z-index: 1;
+  color: var(--color-text-muted);
+  font-family: var(--la-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+/* O `%` colado ao número saiu: o anel mostra a fração e a unidade é texto
+   próprio ("de 100" no percentual, "pontos" na sala clássica), escrito pelo
+   JS junto com o valor. */
+.arena-feedback {
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #0052ff;
+  padding: 16px 20px;
+  border-radius: 10px;
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ---- TV: sem fita decorativa invasiva ---- */
+.arena-tv-content::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* ============================================================
+   RESPONSIVO â€” identidade preservada sem sacrificar leitura.
+   ============================================================ */
+@media (max-width: 800px) {
+  .arena-lobby-header::before {
+    content: '>_';
+    margin-right: 10px;
+    padding-right: 10px;
+  }
+  .arena-lobby-header::after { width: 88px; }
+  .arena-mission-panel::before { display: none; }
+  body[data-page='admin-arena'] .report-header,
+  body[data-page='report'] .report-header {
+    border-radius: 0 0 18px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .figma-cta,
+  .arena-submit { transition: none !important; }
+  .figma-cta:hover,
+  .arena-submit:hover { transform: none !important; }
+}
+
+/* ============================================================
+   CONSOLE DO PROFESSOR (admin-arena) â€” topo leve, largura
+   controlada, seÃ§Ãµes em grade. Redesenho alinhado ao protÃ³tipo
+   "Painel do professor": sem o bloco navy gigante, com kicker,
+   status ao vivo, painÃ©is em 2 colunas e cards enxutos.
+   ============================================================ */
+
+/* Scroll: o reset global (app-authorial) prende html e liberava sÃ³
+   index/join/admin/report â€” admin-arena ficava sem barra de rolagem. */
+html:has(body[data-page='admin-arena']) {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* Topo claro â€” neutraliza o bloco navy herdado de report/admin */
+body[data-page='admin-arena'] .report-header.arena-admin-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  width: min(1240px, 100%) !important;
+  margin: 0 auto 26px !important;
+  padding: 0 0 22px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--color-text) !important;
+  box-shadow: none !important;
+}
+body[data-page='admin-arena'] .arena-admin-head::after {
+  display: none !important;
+}
+body[data-page='admin-arena'] .arena-admin-head h1 {
+  margin: 6px 0 6px !important;
+  color: var(--color-primary-dark) !important;
+  font-size: clamp(26px, 2.6vw, 36px) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.05 !important;
+}
+body[data-page='admin-arena'] .arena-admin-head p {
+  margin: 0 !important;
+  color: var(--color-text-muted) !important;
+  font-size: 15px !important;
+  opacity: 1 !important;
+  max-width: 760px;
+}
+body[data-page='admin-arena'] .arena-admin-head .ghost-link {
+  background: transparent !important;
+  color: var(--color-primary) !important;
+}
+body[data-page='admin-arena'] .arena-admin-head .ghost-link:hover {
+  color: var(--color-primary-deep) !important;
+  background: rgba(0, 82, 255, 0.06) !important;
+}
+
+/* linha superior: marca Ã  esquerda, navegaÃ§Ã£o + status Ã  direita */
+.arena-admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.arena-admin-topright {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.arena-admin-crumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.arena-admin-kicker {
+  display: block;
+  margin-top: 10px;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.arena-admin-status.status-live { margin-left: auto; }
+.status-live.is-closed {
+  background: #fbecef !important;
+  color: #9f2a49 !important;
+  border-color: #f3c9d2 !important;
+}
+.status-live.is-closed::before {
+  background: #c43d4b !important;
+  box-shadow: 0 0 0 4px rgba(196, 61, 75, 0.14) !important;
+}
+
+/* ConteÃºdo em largura controlada, alinhada ao topo */
+.arena-admin > [data-admin-arena-content] {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+}
+[data-admin-arena-content][hidden] { display: none !important; }
+
+/* Grade: gate + criar sala lado a lado; blocos longos ocupam a linha toda */
+@media (min-width: 1020px) {
+  .arena-admin > [data-admin-arena-content]:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .arena-admin [data-admin-arena-content] > .report-panel { margin-bottom: 0; }
+}
+
+/* Removed old room card flex rules */
+
+/* Cards de desafio enxutos: sem o parÃ¡grafo longo, aÃ§Ãµes Ã  direita */
+.arena-admin .arena-challenge-card p { display: none; }
+.arena-admin .arena-challenge-head {
+  flex: 1;
+  min-width: 0;
+}
+.arena-admin .arena-challenge-actions { flex: none; }
+
+/* Refino â€” salas como linhas de lista (1 por linha) e desafios em tiles compactos. */
+/* Refino â€” salas como lista contida (nÃ£o estica a pÃ¡gina) e Cockpit com foco no topo. */
+.arena-admin .admin-arena-room-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  margin-top: 16px;
+  max-height: 440px;
+  overflow-y: auto;
+  padding-right: 8px;
+  overscroll-behavior: contain;
+}
+.arena-admin .admin-arena-room-list::-webkit-scrollbar {
+  width: 6px;
+}
+.arena-admin .admin-arena-room-list::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 999px;
+}
+.arena-admin .admin-arena-room-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+.arena-admin .admin-arena-room-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Painel Cockpit da Sala Selecionada: destaque no topo */
+.admin-arena-detail {
+  border-left: 4px solid var(--color-primary, #0052ff) !important;
+  box-shadow: 0 8px 30px rgba(11, 87, 208, 0.08) !important;
+  scroll-margin-top: 24px;
+}
+.arena-detail-head-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eef2f8;
+  flex-wrap: wrap;
+}
+.arena-detail-head-bar h2 {
+  margin: 0 !important;
+}
+.arena-detail-badge-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #0052ff;
+  background: rgba(0, 82, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+.arena-detail-close {
+  font-size: 13px !important;
+  color: var(--color-text-muted) !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff !important;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.arena-detail-close:hover {
+  color: #b3261e !important;
+  border-color: #fca5a5 !important;
+  background: #fef2f2 !important;
+}
+.arena-panel-title-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.arena-room-counter-pill {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.arena-room-counter-pill:empty {
+  display: none;
+}
+.arena-admin .arena-room-card {
+  display: grid !important;
+  flex-shrink: 0 !important;
+  grid-template-columns: minmax(280px, 1.4fr) minmax(220px, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 20px !important;
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #f1f5f9 !important; /* Mais escuro (slate-100) */
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.arena-admin .arena-room-card:hover {
+  background: #ffffff !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  min-height: 80px !important;
+}
+.arena-admin .arena-room-card:hover {
+  border-color: rgba(11, 87, 208, 0.28) !important;
+  box-shadow: 0 8px 24px rgba(11, 87, 208, 0.08) !important;
+  transform: translateY(-1px);
+}
+.arena-admin .arena-room-card.is-selected {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.14) !important;
+}
+
+/* Coluna 1: TÃ­tulo e Badges */
+.arena-admin .arena-room-card-main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.arena-admin .arena-room-card-title strong {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.arena-admin .arena-room-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.arena-admin .arena-room-card-badges .arena-room-code {
+  margin: 0;
+}
+.arena-admin .arena-room-card-badges .arena-status-badge,
+.arena-admin .arena-room-card-badges .arena-preset-chip {
+  margin: 0;
+}
+
+/* No cartão, código, contagem de missões e modalidade são metadados: viram texto
+   simples, com separador, e param de disputar atenção com o estado da sala.
+   O que continua com fundo é o que muda decisão — o estado e o aviso de missão
+   pendente. As classes seguem as mesmas: o que muda é o tratamento. */
+.arena-admin .arena-room-card-badges .arena-room-code,
+.arena-admin .arena-room-card-badges .arena-room-missions-badge,
+.arena-admin .arena-room-card-badges .arena-preset-chip {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  color: var(--color-text-muted) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+}
+.arena-admin .arena-room-card-badges .arena-room-code::before {
+  content: 'PIN ';
+  font-weight: 700;
+}
+.arena-admin .arena-room-card-badges .arena-room-missions-badge::before,
+.arena-admin .arena-room-card-badges .arena-preset-chip::before {
+  content: '·';
+  margin-right: 8px;
+}
+
+/* A família de botões do detalhe é a mesma dos cartões (retângulo de 8px, 12,5px
+   de texto): o que parecia botão de outro sistema eram a alça do "Gerenciar
+   sala" e o chip de tempo, ambos em pílula. A alça e o chip passam a ler a
+   mesma forma; o chip fica como informação, com o "ajustar" separado por uma
+   linha em vez de virar um botão inteiro. */
+/* O convite tem dois botões de copiar numa coluna estreita: em duas linhas, como
+   já estavam, e com a folga menor — o que o professor lê é o código, não o
+   botão. O QR também encolheu: 72px para 56px continua sendo QR legível a
+   distância de mesa, e a linha inteira do convite ficou 26px mais baixa. */
+.arena-cockpit-code .arena-qr-entry {
+  margin-top: 8px;
+  padding: 8px 10px;
+}
+.arena-cockpit-code .arena-qr-entry-img {
+  width: 56px;
+  height: 56px;
+}
+
+.arena-admin .arena-detail-head .arena-room-card-actions button,
+.arena-admin .arena-detail-head .arena-room-card-actions summary {
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+}
+.arena-admin .arena-detail-head .arena-room-card-actions button:hover,
+.arena-admin .arena-detail-head .arena-room-card-actions summary:hover {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.arena-admin .arena-detail-head .arena-room-card-actions button[data-action="start"],
+.arena-admin .arena-detail-head .arena-room-card-actions button[data-action="publish"] {
+  background: #0052ff !important;
+  border-color: #0052ff !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(0, 82, 255, 0.2) !important;
+}
+.arena-admin .arena-detail-head .arena-room-card-actions button.is-danger {
+  border-color: #fee2e2 !important;
+  background: transparent !important;
+  color: #ef4444 !important;
+}
+.arena-admin .arena-detail-head .arena-timing-chip {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  color: var(--color-text-muted) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 0 !important;
+}
+.arena-admin .arena-detail-head .arena-timing-chip:hover,
+.arena-admin .arena-detail-head .arena-timing-chip:focus-visible {
+  color: var(--color-primary) !important;
+}
+.arena-admin .arena-detail-head .arena-timing-chip .arena-timing-chip-edit {
+  border-left: 0 !important;
+  color: var(--color-primary) !important;
+  padding-left: 6px !important;
+  text-decoration: underline;
+}
+.arena-admin .arena-admin-tools > summary {
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+}
+
+/* Coluna 2: EstatÃ­sticas Premium */
+.arena-admin .arena-room-card-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #f8fafd;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1px solid #eef2f8;
+}
+.arena-admin .arena-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.arena-admin .arena-stat b {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  line-height: 1;
+}
+.arena-admin .arena-stat b.is-live {
+  color: #10b981;
+}
+.arena-admin .arena-stat span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.arena-admin .arena-stat-divider {
+  width: 1px;
+  height: 24px;
+  background: #e2e8f0;
+}
+
+/* Coluna 3: AÃ§Ãµes */
+
+/* Responsividade do Card Premium */
+@media (max-width: 1000px) {
+  .arena-admin .arena-room-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px !important;
+  }
+  .arena-admin .arena-room-card-stats {
+    width: 100%;
+    justify-content: center;
+  }
+  .arena-admin .arena-room-card-actions {
+    justify-content: flex-start;
+  }
+}
+
+.arena-admin .arena-challenge-card {
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 6px !important;
+  padding: 11px 13px !important;
+  border-radius: 12px !important;
+  justify-content: flex-start !important;
+}
+.arena-admin .arena-challenge-head strong {
+  margin-top: 3px !important;
+  font-size: 14px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.arena-admin .arena-challenge-actions {
+  justify-content: flex-start;
+}
+
+/* ============================================================
+   RELATÃ“RIO (/report.php) â€” mesmo topo leve do console.
+   ============================================================ */
+body[data-page='report'] .report-header.report-head {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  width: min(1360px, 100%) !important;
+  margin: 0 auto 24px !important;
+  padding: 0 0 20px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--color-text) !important;
+  box-shadow: none !important;
+}
+body[data-page='report'] .report-head::after { display: none !important; }
+body[data-page='report'] .report-head h1 {
+  margin: 4px 0 6px !important;
+  color: var(--color-primary-dark) !important;
+  font-size: clamp(26px, 2.6vw, 36px) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.05 !important;
+}
+body[data-page='report'] .report-head p {
+  margin: 0 !important;
+  color: var(--color-text-muted) !important;
+  font-size: 15px !important;
+  opacity: 1 !important;
+  max-width: 820px;
+}
+body[data-page='report'] .report-head .ghost-link {
+  background: transparent !important;
+  color: var(--color-primary) !important;
+}
+body[data-page='report'] .report-head .ghost-link:hover {
+  color: var(--color-primary-deep) !important;
+  background: rgba(0, 82, 255, 0.06) !important;
+}
+
+/* aÃ§Ãµes do relatÃ³rio no canto superior direito */
+.report-head .report-header-actions {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.report-head .report-header-actions .figma-cta {
+  min-height: 40px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  padding: 0 16px !important;
+  border-radius: var(--radius-sm, 8px) !important;
+}
+
+/* Hierarquia visual de liÃ§Ãµes na administraÃ§Ã£o */
+.arena-lesson-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  /* `auto` empurra a linha de ações para a base do cartão, que é uma coluna
+     (`arena.css`, `.arena-lesson-card`): em dois cartões da mesma linha, os
+     botões passam a começar na mesma altura. */
+  margin-top: auto;
+  padding-top: 10px;
+}
+/* A secundária já tinha traço neutro, mas herdava da pílula do CTA o mesmo
+   tamanho e a mesma fonte de 16 px peso 900 da principal: lidas juntas, eram
+   dois primários. Aqui as duas passam a ler a família de botões do painel
+   (retângulo de 8 px, 12,5 px, 600/700) e só a principal mantém o azul. */
+.arena-lesson-actions button {
+  min-width: 0 !important;
+  min-height: 44px !important;
+  border-radius: 8px !important;
+  padding: 6px 14px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.arena-lesson-actions button[data-action="add-lesson-room"] {
+  background: #0052ff !important;
+  border: 1px solid #0052ff !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(0, 82, 255, 0.2) !important;
+}
+.arena-lesson-actions button[data-action="add-lesson-room"]:hover {
+  background: #003ec7 !important;
+  border-color: #003ec7 !important;
+}
+.arena-lesson-actions button[data-action="add-lesson-bank"] {
+  background: transparent !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: none !important;
+}
+.arena-lesson-actions button[data-action="add-lesson-bank"]:hover {
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Mesma classe de bug do scroll do admin: arena (/play) e tv tambÃ©m
+   ficavam presos pelo html overflow:hidden global (conteÃºdo cortado
+   abaixo da dobra no mobile). */
+html:has(body[data-page='arena']),
+html:has(body[data-page='tv']) {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* ============================================================
+   AJUSTES FINOS /PLAY (protÃ³tipo batalha_prompts_v4):
+   foco azul #0c5cff com glow, timer em caixa navy,
+   badge separado (RODADA X/Y + pill do modo), botÃµes peso 900.
+   ============================================================ */
+/* 1. Foco azul com glow â€” inputs, select e textarea (todas as telas) */
+.text-field input:focus,
+.text-field select:focus,
+.arena-field input:focus,
+.arena-field select:focus,
+.arena-field textarea:focus {
+  border-color: #0c5cff !important;
+  box-shadow: 0 0 0 4px rgba(12, 92, 255, 0.10) !important;
+}
+
+/* 2. Timer da rodada como caixa navy "relÃ³gio de estÃ¡dio" */
+.arena-timer {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 104px;
+  border-radius: 10px !important;
+  background: #0a214e !important;
+  color: #fff !important;
+  font-family: var(--la-display) !important;
+  font-size: 22px !important;
+  letter-spacing: 0.04em;
+  line-height: 1 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-variant-numeric: tabular-nums;
+}
+.arena-timer::before { content: none !important; }
+.arena-timer.is-danger {
+  color: #b3261e !important;
+  background: #fff !important;
+}
+
+/* 3. Badge separado: RODADA 01/03 (texto cinza) + pill do modo */
+.arena-mission-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.arena-round-count {
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  color: #4a5b75;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* 4. BotÃµes primÃ¡rios peso 900 (protÃ³tipo .btn font-weight:900) */
+.figma-cta,
+.arena-submit {
+  font-weight: 900 !important;
+}
+
+/* RevisÃ£o transversal das telas. MantÃ©m os estados e eventos do motor. */
+[hidden] { display: none !important; }
+html:has(body[data-page='index']) {
+  height: auto !important;
+  overflow-y: auto !important;
+}
+body { line-height: 1.5; }
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+:is(button, a, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 4px;
+}
+:is(.arena-lobby-header, .arena-tv) :is(button, a):focus-visible { outline-color: var(--color-warning); }
+:is(.arena-field, .text-field) :is(input, select, textarea) { width: 100%; max-width: 100%; }
+.arena-field textarea { height: auto; resize: vertical; }
+.figma-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 48px;
+  max-width: 100%;
+  padding: .75rem 1.5rem;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.figma-cta:disabled { opacity: .55; transform: none; box-shadow: none !important; }.arena-empty, .arena-counter{ color: #52627a; font-size: .875rem; }
+.portal-shell { padding-inline: var(--space-4); }
+/* 720px: o cartão do portal emoldura marca, título e ação — não é uma faixa
+   larga com três elementos no meio. */
+.portal-shell .portal-hero { width: 100%; max-width: 720px; min-width: 0; }
+body[data-page='index'] .portal-hero::after,
+.report-panel::after, .arena-card::after { content: none; }
+.portal-enter::before { content: none !important; }
+.join-card .arena-field > span {
+  position: static;
+  padding: 0;
+  background: transparent;
+  font-size: .875rem;
+  text-align: left;
+}
+.form-message {
+  padding: 12px 16px;
+  background: var(--bg-raised, #f8fafd);
+  border: 1px solid var(--color-border, #eef2f8);
+  border-radius: 8px;
+  color: var(--color-text-secondary, #475569);
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+.arena-message:empty, .form-message:empty { display: none !important; margin: 0; min-height: 0; padding: 0; border: none; }
+.arena-admin > [data-admin-arena-content]:not([hidden]) { display: grid; gap: 1.25rem; }
+.arena-admin [data-admin-arena-content] > .report-panel { margin: 0; }
+/* `auto-fill`: com um desafio só, `auto-fit` esticava o cartão pela largura
+   inteira do painel (medido em 16/09: 1030 px contra 333 px na grade cheia). */
+.arena-admin .admin-arena-challenge-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 268px), 1fr)) !important;
+}
+.arena-admin .arena-challenge-head strong { white-space: normal; overflow-wrap: anywhere; }
+.arena-admin .arena-challenge-actions button,
+.arena-room-card-actions button,
+.arena-table button { min-height: 44px; font-size: .875rem; }
+
+.arena-admin-kicker, .arena-round-count { font-size: .75rem; letter-spacing: .08em; }
+.arena-mission-meta { flex-wrap: wrap; min-width: 0; }
+.arena-mission-top { gap: 1rem; flex-wrap: wrap; }
+.arena-timer { flex-shrink: 0; }
+.arena-roster-item, .arena-mini-ranking li, .arena-mission-body,
+.arena-feedback { overflow-wrap: anywhere; }
+.arena-dialog-card { max-height: calc(100dvh - 2rem); padding: 2rem 1.25rem; }
+.arena-dialog-close { min-width: 44px; min-height: 44px; z-index: 2; }
+.arena-dialog-card h3 { padding-right: 2.5rem; }
+.report-table-wrap, .arena-table-wrap { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.report-filters { flex-wrap: wrap; gap: 1rem; }
+.report-period-pill:empty { display: none; }
+.report-date-field { width: 100%; }
+.report-date-field > span { position: static; background: transparent; padding: 0; font-size: .875rem; }
+@media (min-width: 768px) {
+  .report-date-field { width: auto; flex: 1 1 12rem; }
+  .arena-dialog-card { padding: 2rem; }
+}
+@media (max-width: 640px) {
+  .arena-admin .report-panel { padding: 1.25rem; }
+  .arena-admin .arena-room-card-actions { width: 100%; justify-content: flex-start; }
+  .arena-lobby-brand {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+  }
+  .arena-lobby-brand strong {
+    font-size: 13px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .arena-lobby-header .arena-room-code {
+    padding: 2px 6px !important;
+    font-size: 11px !important;
+    flex-shrink: 0 !important;
+  }
+  .arena-lobby-stats {
+    width: auto !important;
+    flex-shrink: 0 !important;
+    gap: 6px !important;
+  }
+  .arena-lobby-stats > span:first-child {
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+  }
+  .report-head .report-header-actions { gap: .5rem; }
+  .report-head .report-header-actions > * { flex: 1 1 auto; }
+}
+/* ==========================================================================
+   POLISH LEVEL 3: SALA DE ESPERA DO JOGADOR (LOBBY & ROSTER)
+   ========================================================================== */
+/* O `:not([hidden])` no PAINEL, e não só na espera dentro dele: este seletor
+   casava com o painel escondido também — e, declarando `display: flex
+   !important` com três classes de especificidade, vencia os três `[hidden]` da
+   cascata (`[data-arena-screen] [hidden]`, `[hidden]`, o do Tailwind). Medido no
+   navegador em 16/09: no Wild Card, o painel ficava com o atributo `hidden` E
+   pintado (`display: flex`), então a votação aparecia com o cartão de espera do
+   tamanho de meia tela logo abaixo das opções — duas situações na mesma tela. */
+.arena-mission-panel:not([hidden]):has(.arena-mission-empty:not([hidden])) {
+  min-height: 480px;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  padding: 48px 24px !important;
+}
+
+.arena-mission-empty {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  max-width: 580px !important;
+  margin: 0 auto !important;
+}
+
+.arena-mission-empty::before {
+  content: '\25CF  SALA DE ESPERA';
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+  animation: arena-badge-pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes arena-badge-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.75; transform: scale(0.97); }
+}
+
+.arena-mission-empty h1 {
+  font-size: clamp(24px, 2.8vw, 32px) !important;
+  font-weight: 900 !important;
+  color: #0f172a !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 8px !important;
+}
+
+.arena-mission-empty p {
+  color: var(--color-text-muted) !important;
+  font-size: 15.5px !important;
+  line-height: 1.5 !important;
+  max-width: 460px !important;
+  margin-bottom: 20px !important;
+}
+
+/* Roster / Lista de participantes com design refinado */
+.arena-roster {
+  width: 100% !important;
+  max-width: 440px !important;
+  margin-top: 12px !important;
+  padding-top: 20px !important;
+  border-top: 1px dashed #e2e8f0 !important;
+}
+
+.arena-roster-title {
+  display: block !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #94a3b8 !important;
+  text-transform: uppercase !important;
+  margin-bottom: 14px !important;
+}
+
+.arena-roster-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.arena-roster-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding: 10px 16px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.2s ease !important;
+}
+
+.arena-roster-item.is-me {
+  border-color: rgba(0, 82, 255, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(0, 82, 255, 0.09) !important;
+}
+
+.arena-roster-dot {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+  background: #f1f5f9 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+}
+
+.arena-roster-item.is-connected .arena-roster-dot {
+  background: #ecfdf5 !important;
+}
+
+.arena-roster-item.is-connected .arena-roster-dot::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+
+/* ==========================================================================
+   POLISH LEVEL 3: TV RESULTS (CENTRALIZAÃ‡ÃƒO E PODIUM CINEMATOGRÃFICO)
+   ========================================================================== */
+.arena-tv-results {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: calc(100vh - 120px) !important;
+  padding: 32px 24px !important;
+  gap: 28px !important;
+}
+
+.arena-tv-results-head {
+  text-align: center !important;
+}
+
+.arena-tv-results-head h1 {
+  font-size: clamp(36px, 4.2vw, 56px) !important;
+  letter-spacing: -0.02em !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  text-shadow: 0 4px 24px rgba(0, 82, 255, 0.3) !important;
+}
+
+.arena-tv-results-head p {
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-size: clamp(16px, 1.6vw, 20px) !important;
+  margin-top: 6px !important;
+}
+
+.arena-tv-rank-list-large {
+  width: min(840px, 92vw) !important;
+  margin: 0 auto !important;
+}
+
+.arena-tv-rank.pos-1 {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.22) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
+  border: 1.5px solid rgba(251, 191, 36, 0.65) !important;
+  box-shadow: 0 8px 36px rgba(245, 158, 11, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  transform: scale(1.02);
+}
+
+/* ==========================================================================
+   POLISH LEVEL 3: BOTÃ•ES DO PAINEL DO PROFESSOR (ADMIN ARENA)
+   ========================================================================== */
+.arena-admin .arena-room-card-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex: none !important;
+  gap: 8px !important;
+}
+
+.arena-admin .arena-room-card-actions button {
+  border-radius: 8px !important;
+  padding: 6px 14px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+  color: #1e293b !important;
+}
+
+.arena-admin .arena-room-card-actions button:hover {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.arena-admin .arena-room-card-actions button[data-action="start"],
+.arena-admin .arena-room-card-actions button[data-action="publish"] {
+  background: #0052ff !important;
+  border-color: #0052ff !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(0, 82, 255, 0.2) !important;
+}
+
+.arena-admin .arena-room-card-actions button[data-action="start"]:hover,
+.arena-admin .arena-room-card-actions button[data-action="publish"]:hover {
+  background: #0045d8 !important;
+  border-color: #0045d8 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.3) !important;
+}
+
+.arena-admin .arena-room-card-actions button.is-danger,
+.arena-admin .arena-room-card-actions button[data-action="delete"],
+.arena-admin .arena-room-card-actions button[data-action="end-room"] {
+  background: transparent !important;
+  border-color: #fee2e2 !important;
+  color: #ef4444 !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+.arena-admin .arena-room-card-actions button.is-danger:hover,
+.arena-admin .arena-room-card-actions button[data-action="delete"]:hover,
+.arena-admin .arena-room-card-actions button[data-action="end-room"]:hover {
+  background: #fef2f2 !important;
+  border-color: #fca5a5 !important;
+  color: #b3261e !important;
+}
+
+/* AÃ§Ãµes dos cards de Desafio */
+.arena-admin .arena-challenge-actions button {
+  border-radius: 6px !important;
+  padding: 5px 11px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff !important; /* Branco puro contra o card cinza */
+  color: #475569 !important;
+  transition: all 0.15s ease !important;
+}
+
+.arena-admin .arena-challenge-actions button:hover {
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+.arena-admin .arena-challenge-actions button.is-danger {
+  border-color: #fee2e2 !important;
+  color: #ef4444 !important;
+  background: transparent !important;
+}
+
+.arena-admin .arena-challenge-actions button.is-danger:hover {
+  background: #fef2f2 !important;
+  border-color: #fca5a5 !important;
+  color: #b3261e !important;
+}
+
+/* ==========================================================================
+   POLISH LEVEL 3: PLAYER - TENTATIVAS & PROMPT EDITOR
+   ========================================================================== */
+.arena-attempts {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 12px 0 16px 0 !important;
+}
+
+.arena-attempt-dot {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+  background: #f1f5f9 !important;
+  color: var(--color-text-muted) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  border: 1px solid #e2e8f0 !important;
+  transition: all 0.2s ease !important;
+}
+
+.arena-attempt-dot.is-scored {
+  background: linear-gradient(135deg, #036b4c, #05402f) !important;
+  color: #ffffff !important;
+  border-color: #05402f !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25) !important;
+}
+
+.arena-attempt-dot.is-pending {
+  background: rgba(0, 82, 255, 0.08) !important;
+  color: #0052ff !important;
+  border-color: rgba(0, 82, 255, 0.3) !important;
+}
+
+.arena-prompt-form textarea {
+  border-radius: 14px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  line-height: 1.55 !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.arena-prompt-form textarea:focus {
+  outline: none !important;
+  border-color: #0052ff !important;
+  box-shadow: 0 0 0 4px rgba(0, 82, 255, 0.12) !important;
+}
+
+/* ==========================================================================
+   POLISH LEVEL 3.1: ADMIN LOGIN CARD (COMPACTO & CENTRALIZADO)
+   ========================================================================== */
+
+/* ==========================================================================
+   POLISH LEVEL 3.1: CENTRALIZAÃ‡ÃƒO DO LOBBY DE ESPERA DO JOGADOR
+   ========================================================================== */
+.arena-lobby-body:has(.arena-mission-empty:not([hidden])) {
+  grid-template-columns: minmax(0, 680px) !important;
+  justify-content: center !important;
+}
+
+.arena-lobby-body:has(.arena-mission-empty:not([hidden])) .arena-side {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   POLISH LEVEL 3.2: BRAND IDENTITY UNIFICATION & DESIGN HARMONY
+   ========================================================================== */
+.join-brand-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.report-brand-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+/* Garantia de contraste e legibilidade da marca em fundos claros */
+.brand-identity--light .brand-identity-main {
+  color: #071f49 !important;
+}
+.brand-identity--light .brand-identity-main b {
+  color: #0b57d0 !important;
+}
+.brand-identity--light .brand-identity-sub {
+  color: var(--color-text-muted) !important;
+}
+.brand-identity--light .prompt-arrow {
+  border-color: #0b57d0 !important;
+}
+.brand-identity--light .prompt-line {
+  background: #f9ab00 !important;
+}
+
+/* Garantia de contraste e legibilidade da marca em fundos escuros */
+.brand-identity--dark .brand-identity-main {
+  color: #ffffff !important;
+}
+.brand-identity--dark .brand-identity-main b {
+  color: #60a5fa !important;
+}
+.brand-identity--dark .brand-identity-sub {
+  color: #94a3b8 !important;
+}
+.brand-identity--dark .prompt-arrow {
+  border-color: #38bdf8 !important;
+}
+.brand-identity--dark .prompt-line {
+  background: #f9ab00 !important;
+}
+
+/* Evitar quebra do cabeÃ§alho da TV e do Lobby */
+.arena-tv-brand,
+.arena-lobby-brand {
+  flex: none;
+}
+
+/* ============================================================
+   COCKPIT PROFESSOR â€” BOTÃ•ES DE CÃ“DIGO E LINK DIRETO
+   ============================================================ */
+.arena-cockpit-copy-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 6px 0 8px;
+}
+.arena-copy-link {
+  background: var(--color-primary-light, #e8f0fe);
+  border-color: rgba(11, 87, 208, 0.25);
+  color: var(--color-primary, #0b57d0);
+  transition: all 0.15s ease;
+}
+.arena-copy-link:hover {
+  background: #d2e3fc;
+  border-color: rgba(11, 87, 208, 0.45);
+}
+
+/* ============================================================
+   LIGHTBOX / ZOOM PARA IMAGENS DE REFERÃŠNCIA (MOBILE & DESKTOP)
+   ============================================================ */
+.arena-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 31, 73, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 1;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  cursor: zoom-out;
+}
+.arena-lightbox[hidden] {
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
+}
+.arena-lightbox-img {
+  max-width: 94vw;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: arenaLightboxZoom 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes arenaLightboxZoom {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.arena-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, transform 0.15s ease;
+  z-index: 1;
+}
+.arena-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.08);
+}
+.arena-lightbox-hint {
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.arena-classic-figure,
+.arena-reversa,
+[data-arena-classic-image],
+[data-arena-reversa-image] {
+  cursor: zoom-in;
+}
+.arena-classic-figure:hover [data-arena-classic-image],
+.arena-reversa:hover [data-arena-reversa-image] {
+  filter: brightness(1.03);
+}
+
+/* ============================================================
+   CONTADOR DINÃ‚MICO DE CARACTERES & ALERTAS
+   ============================================================ */
+.arena-counter {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+.arena-counter.is-warning {
+  color: #b06000;
+  font-weight: 700;
+}
+.arena-counter.is-limit {
+  color: #d93025;
+  font-weight: 800;
+}
+
+/* BotÃ£o de envio com atalho visual de teclado */
+.arena-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.arena-submit-hint {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .arena-submit-hint {
+    display: none;
+  }
+}
+
+/* ============================================================
+   BANNER DE INSTABILIDADE E RECONEXÃƒO DE REDE
+   ============================================================ */
+.arena-offline-banner {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fef7e0;
+  color: #7a4100;
+  border: 1px solid #f9ab00;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  z-index: 99998;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: arenaSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.arena-offline-banner[hidden] {
+  display: none !important;
+}
+@keyframes arenaSlideDown {
+  from {
+    transform: translate(-50%, -20px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+/* BotÃ£o de alternar tela cheia na projeÃ§Ã£o da TV */
+.arena-tv-fullscreen-btn {
+  margin-left: auto;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.arena-tv-fullscreen-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: scale(1.03);
+}
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   SALA DE ESPERA DO JOGADOR â€” HARMONIZAÃ‡ÃƒO
+   A tela de espera herdava o tema escuro antigo do lobby (marca e
+   "Sair" em branco sobre a barra clara, chip azul-claro sobre azul)
+   e ficava branca sobre branca. Aqui ela passa a usar os mesmos
+   tokens da rodada e o fundo pontilhado da tela de espera da base
+   observada, com o cartÃ£o de espera em superfÃ­cie prÃ³pria.
+   Nada Ã© redesenhado: sÃ³ entram os mesmos valores jÃ¡ usados em
+   round.css + o texto pontilhado da base.
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+body[data-page='arena'] .arena-lobby {
+  background:
+    radial-gradient(circle, hsla(0, 0%, 100%, 0.95) 0 3px, transparent 3.6px) 19px 20px / 34px 35.5px,
+    radial-gradient(ellipse at 12% 6%, rgba(66, 133, 244, 0.12), transparent 40%),
+    radial-gradient(ellipse at 90% 4%, rgba(55, 217, 197, 0.14), transparent 38%),
+    #e7edf7 !important;
+}
+
+/* CabeÃ§alho: uma linha, barra clara curta e texto escuro legÃ­vel */
+body[data-page='arena'] .arena-lobby-header {
+  min-height: 64px !important;
+  height: auto !important;
+  flex-wrap: nowrap !important;
+  gap: 14px !important;
+  padding: 10px clamp(16px, 3vw, 32px) !important;
+  background: hsla(0, 0%, 100%, 0.9) !important;
+  border-bottom: 1px solid #e2e6ed !important;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.06) !important;
+  color: #202124 !important;
+}
+body[data-page='arena'] .arena-lobby-header .brand-identity-main {
+  color: #202124 !important;
+}
+body[data-page='arena'] .arena-lobby-header .brand-identity-main b {
+  color: #1967d2 !important;
+}
+body[data-page='arena'] .arena-lobby-header .brand-identity-sub {
+  color: var(--color-text-muted) !important;
+}
+body[data-page='arena'] .arena-lobby-header .prompt-arrow {
+  border-color: #1967d2 !important;
+}
+body[data-page='arena'] .arena-lobby-header .prompt-line {
+  background: #f9ab00 !important;
+}
+body[data-page='arena'] .arena-lobby-header .arena-lobby-room-meta > strong {
+  color: #202124 !important;
+  font-size: 13.5px !important;
+  min-width: 0;
+  max-width: min(38vw, 320px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+body[data-page='arena'] .arena-lobby-header .arena-lobby-sep {
+  background: #dadce0 !important;
+}
+body[data-page='arena'] .arena-lobby-header .arena-room-code {
+  background: #edf3fe !important;
+  border: 1px solid #d2e3fc !important;
+  color: #185abc !important;
+  /* Sem a barra amarela herdada do chip com gradiente: virava um anel solto. */
+  box-shadow: none !important;
+}
+body[data-page='arena'] .arena-lobby-header .ghost-link {
+  color: var(--color-text-muted) !important;
+}
+body[data-page='arena'] .arena-lobby-header .ghost-link:hover {
+  color: #202124 !important;
+  background: #f1f3f4 !important;
+}
+body[data-page='arena'] .arena-lobby-stats {
+  gap: 10px !important;
+}
+body[data-page='arena'] .arena-lobby-stats > span:first-child {
+  background: rgba(24, 128, 56, 0.1) !important;
+  border: 1px solid rgba(24, 128, 56, 0.2) !important;
+  /* #188038 sobre a própria pílula verde dava 4,28 — abaixo de AA para 14px. */
+  color: #136c2f !important;
+}
+body[data-page='arena'] .arena-lobby-stats > span:first-child strong {
+  color: #136c2f !important;
+}
+
+/* CartÃ£o de espera: superfÃ­cie prÃ³pria sobre o fundo pontilhado */
+body[data-page='arena']:not(.round-finished) .arena-mission-panel:not([hidden]):has(.arena-mission-empty:not([hidden])) {
+  min-height: 0 !important;
+  padding: clamp(28px, 4vw, 44px) !important;
+  background: #f8f9fa !important;
+  border: 1px solid #e2e6ed !important;
+  box-shadow:
+    0 1px 3px rgba(60, 64, 67, 0.12),
+    0 12px 32px rgba(7, 31, 73, 0.06) !important;
+}
+body[data-page='arena'] .arena-mission-empty {
+  gap: 14px !important;
+}
+.arena-wait-illustration {
+  display: block;
+  width: min(320px, 66vw);
+  height: auto;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  body[data-page='arena'] .arena-lobby-header {
+    display: flex !important;
+    grid-template-columns: none !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    padding: 10px 14px !important;
+  }
+  body[data-page='arena'] .arena-lobby-header .arena-lobby-brand {
+    display: flex !important;
+    min-width: 0 !important;
+  }
+  body[data-page='arena'] .arena-lobby-header .arena-lobby-sep {
+    display: none !important;
+  }
+  body[data-page='arena'] .arena-lobby-header .arena-lobby-room-meta {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    width: auto !important;
+    padding: 0 !important;
+    border: 0 !important;
+    justify-content: flex-start !important;
+  }
+  body[data-page='arena'] .arena-lobby-header .arena-lobby-room-meta > strong {
+    display: none !important;
+  }
+  body[data-page='arena'] .arena-lobby-header .brand-identity-sub {
+    display: none !important;
+  }
+  body[data-page='arena'] .arena-lobby-stats [data-arena-connected-label] {
+    display: none !important;
+  }
+  body[data-page='arena'] .arena-lobby-stats {
+    gap: 4px !important;
+  }
+  body[data-page='arena'] .arena-lobby-stats > span:first-child {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+  }
+  body[data-page='arena'] .arena-lobby-header .ghost-link {
+    padding: 6px 8px !important;
+  }
+}
+
+body[data-page='arena'] .arena-mission-empty {
+  min-height: 0 !important;
+}
+body[data-page='arena'].round-finished .arena-wait-illustration {
+  display: none !important;
+}
+
+/* Em telas muito estreitas o sÃ­mbolo da marca jÃ¡ identifica a Arena; o texto
+   ao lado empurraria o cÃ³digo da sala e "conectados" para fora da barra. */
+@media (max-width: 360px) {
+  body[data-page='arena'] .arena-lobby-header .brand-identity-text {
+    display: none !important;
+  }
+}

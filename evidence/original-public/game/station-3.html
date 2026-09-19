@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jogador 3 - Descubra o Prompt</title>
+    <link rel="stylesheet" href="public/assets/css/app.css?v=1787236246">
+</head>
+<body
+    data-page="game"
+    data-station="3"
+    data-mode="wait_all"
+    data-room="main"
+    data-duration="60"
+    data-round-results-duration="10"
+    data-final-results-duration="30"
+    data-reset-at="1787680471"
+>
+    <main class="game-shell">
+        <section class="screen is-active start-screen" data-screen="start" aria-label="Tela inicial">
+            <img class="google-startups-logo google-startups-logo-white" src="public/assets/figma/google-startups-white.png" alt="Google for Startups">
+            <article class="battle-hero-card">
+                <span class="yellow-tape" aria-hidden="true"></span>
+                <div class="battle-logo battle-logo-hero">
+                    <span>Batalha de</span>
+                    <strong>PROMPT</strong>
+                </div>
+                <span class="pink-scribble" aria-hidden="true"></span>
+            </article>
+            <div class="start-arrow" aria-hidden="true"></div>
+            <button class="start-cta figma-cta" type="button" data-go="register">Entrar no ringue!</button>
+        </section>
+
+        <section class="screen card-screen" data-screen="register" aria-label="Cadastro">
+            <header class="flow-topbar">
+                <button class="nav-action" type="button" data-go="start"><span aria-hidden="true">‹</span> Voltar</button>
+                <img class="google-startups-logo google-startups-logo-muted" src="public/assets/figma/google-startups-muted.png" alt="Google for Startups">
+            </header>
+            <div class="figma-card register-card battle-card">
+                <span class="yellow-tape" aria-hidden="true"></span>
+                <div class="register-copy">
+                    <div class="battle-logo battle-logo-small">
+                        <span>Batalha de</span>
+                        <strong>PROMPT</strong>
+                    </div>
+                    <h1>Fazer Cadastro</h1>
+                    <p>Preencha os campos para criarmos seu cadastro</p>
+                </div>
+                <form class="register-form" id="registerForm" novalidate>
+                    <input type="hidden" name="station_id" value="3">
+                    <input type="hidden" name="room_id" value="main">
+                    <input type="hidden" name="mode" value="wait_all">
+
+                    <label class="text-field">
+                        <span>Nome</span>
+                        <input name="name" autocomplete="name" placeholder="Digite seu nome completo..." required>
+                        <small data-error-for="name"></small>
+                    </label>
+                    <label class="text-field">
+                        <span>E-mail</span>
+                        <input name="email" type="email" autocomplete="email" placeholder="Digite seu e-mail..." required>
+                        <small data-error-for="email"></small>
+                    </label>
+                    <label class="text-field">
+                        <span>Cargo</span>
+                        <input name="role" autocomplete="organization-title" placeholder="Digite seu cargo..." required>
+                        <small data-error-for="role"></small>
+                    </label>
+                    <label class="text-field">
+                        <span>Empresa</span>
+                        <input name="company" autocomplete="organization" placeholder="Digite sua empresa..." required>
+                        <small data-error-for="company"></small>
+                    </label>
+                    <div class="lgpd-field" data-lgpd-field>
+                        <label class="lgpd-check">
+                            <input type="checkbox" name="lgpd_accept" value="1" required>
+                            <span>Li e aceito os <button class="lgpd-link" type="button" data-lgpd-open>termos da LGPD</button></span>
+                        </label>
+                        <small data-error-for="lgpd_accept"></small>
+                    </div>
+
+                    <div class="form-footer">
+                        <button class="help-button" type="button" data-help>Precisa de Ajuda?</button>
+                        <button class="figma-cta figma-cta-blue" type="submit">Avançar</button>
+                    </div>
+                    <p class="form-message" data-register-message aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+
+        <section class="screen card-screen wait-screen" data-screen="wait-registration" aria-label="Aguardando cadastro">
+            <header class="flow-topbar">
+                <img class="google-startups-logo google-startups-logo-muted" src="public/assets/figma/google-startups-muted.png" alt="Google for Startups">
+            </header>
+            <div class="figma-card wait-card battle-card wait-card-battle">
+                <span class="yellow-tape" aria-hidden="true"></span>
+                <img class="wait-illustration" src="public/assets/figma/tv-waiting-players-illustration.png" alt="">
+                <div class="wait-copy">
+                    <h1>Aguardando jogadores</h1>
+                    <p>
+                        <span>Seu cadastro está concluído!</span>
+                        <span>Agora é só aguardar os outros jogadores entrarem na batalha.</span>
+                    </p>
+                    <div class="wait-player-grid" data-wait-players></div>
+                    <p class="form-message" data-wait-message aria-live="polite">Sincronizando sala...</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen card-screen" data-screen="manual" aria-label="Instruções do jogo">
+            <header class="flow-topbar">
+                <img class="battle-prompt-logo battle-prompt-logo-muted" src="public/assets/figma/battle-prompt-muted.png" alt="Batalha de Prompt">
+                <img class="google-startups-logo google-startups-logo-muted" src="public/assets/figma/google-startups-muted.png" alt="Google for Startups">
+            </header>
+            <div class="figma-card manual-card battle-card">
+                <span class="yellow-tape" aria-hidden="true"></span>
+                <div class="manual-illustration">
+                    <img src="public/assets/figma/manual-instructions-illustration.png" alt="">
+                </div>
+                <div class="manual-copy">
+                    <h1>Como funciona a batalha</h1>
+                    <p>
+                        <span>Serão 3 rounds, 3 desafios.</span>
+                        <span>Em cada rodada, você verá uma imagem, seu desafio é chegar o mais perto possível do prompt original que a gerou.</span>
+                        <span>Leia os detalhes, seja estratégico e afiado. Aqui, precisão é tudo.</span>
+                    </p>
+                    <h1>Quem vence?</h1>
+                    <p>
+                        <span>Quem chegar mais próximo do prompt correto nas 3 rodadas leva o título.</span>
+                        <span>Prepare-se, a batalha vai começar!</span>
+                    </p>
+                    <div class="manual-actions">
+                        <button class="help-button" type="button" data-help>Precisa de Ajuda?</button>
+                        <button class="figma-cta figma-cta-gradient" type="button" id="startMatchButton">Pronto para a batalha!</button>
+                    </div>
+                    <p class="form-message" data-manual-message aria-live="polite"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen play-screen" data-screen="play" aria-label="Jogo">
+            <header class="flow-topbar">
+                <button class="nav-action" type="button" data-help><span aria-hidden="true">?</span> Ajuda</button>
+                <img class="battle-prompt-logo battle-prompt-logo-muted" src="public/assets/figma/battle-prompt-muted.png" alt="Batalha de Prompt">
+                <img class="google-startups-logo google-startups-logo-muted" src="public/assets/figma/google-startups-muted.png" alt="Google for Startups">
+            </header>
+
+            <div class="play-layout">
+                <aside class="image-panel">
+                    <img id="promptImage" src="public/assets/figma/prompt-sample.png" alt="Imagem do desafio">
+                    <div class="image-gradient"></div>
+                    <div class="image-top-pills">
+                        <span class="glass-pill" data-attempt-pill>00/03</span>
+                    </div>
+                    <button class="image-help" type="button" data-help>Ajuda</button>
+                </aside>
+
+                <article class="play-card">
+                    <div class="game-info">
+                        <div>
+                            <span>Conquistas</span>
+                            <strong data-attempts>01/03</strong>
+                        </div>
+                        <div class="player-pill-wrap">
+                            <div class="player-pill">
+                                <img src="public/assets/figma/player-avatar.png" alt="">
+                                <strong data-player-name></strong>
+                            </div>
+                        </div>
+                        <div>
+                            <span>Tempo</span>
+                            <strong class="timer" data-timer>02:30</strong>
+                        </div>
+                    </div>
+
+                    <div class="prompt-copy">
+                        <p>Observe a imagem e descreva o prompt que você acredita que foi usado para gerá-la.</p>
+                        <span class="accuracy-pill" data-accuracy>Acerto: aguardando</span>
+                    </div>
+
+                    <form class="prompt-form" id="promptForm">
+                        <span class="prompt-icon">AI</span>
+                        <textarea name="prompt" id="promptInput" rows="1" placeholder="Escreva seu Prompt" maxlength="4000" required></textarea>
+                        <button class="send-button" type="submit" aria-label="Enviar prompt">
+                            <span>Enviar Resposta</span>
+                        </button>
+                    </form>
+                    <p class="form-message" data-play-message aria-live="polite"></p>
+                </article>
+            </div>
+        </section>
+
+        <section class="screen card-screen wait-screen" data-screen="wait-results" aria-label="Aguardando resultado">
+            <header class="flow-topbar">
+                <button class="nav-action" type="button" data-help><span aria-hidden="true">?</span> Ajuda</button>
+                <img class="battle-prompt-logo battle-prompt-logo-muted" src="public/assets/figma/battle-prompt-muted.png" alt="Batalha de Prompt">
+                <img class="google-startups-logo google-startups-logo-muted" src="public/assets/figma/google-startups-muted.png" alt="Google for Startups">
+            </header>
+            <div class="play-layout submitted-layout">
+                <aside class="image-panel">
+                    <img data-submitted-image src="public/assets/figma/prompt-sample.png" alt="Imagem do desafio">
+                </aside>
+                <article class="play-card submitted-card">
+                    <div class="game-info">
+                        <div>
+                            <span>Conquistas</span>
+                            <strong data-attempts>01/03</strong>
+                        </div>
+                        <div class="player-pill-wrap">
+                            <div class="player-pill">
+                                <img src="public/assets/figma/player-avatar.png" alt="">
+                                <strong data-player-name></strong>
+                            </div>
+                        </div>
+                        <div>
+                            <span>Tempo</span>
+                            <strong class="timer" data-timer>02:47</strong>
+                        </div>
+                    </div>
+                    <div class="submitted-prompt" data-submitted-prompt></div>
+                    <div class="wait-player-grid" data-result-players></div>
+                    <p class="form-message" data-result-message aria-live="polite">Aguardando resultado da rodada...</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="screen score-screen" data-screen="score" aria-label="Pontuação">
+            <header class="score-topbar">
+                <div class="round-loader"><img src="public/assets/figma/loader.png" alt=""><span data-final-percent>60</span></div>
+                <div class="battle-logo battle-logo-top battle-logo-white">
+                    <span>Batalha de</span>
+                    <strong>PROMPT</strong>
+                </div>
+                <img class="google-startups-logo google-startups-logo-white" src="public/assets/figma/google-startups-white.png" alt="Google for Startups">
+            </header>
+            <button class="image-help score-help" type="button" data-help>Ajuda</button>
+
+            <div class="figma-card score-card battle-card">
+                <span class="yellow-tape" aria-hidden="true"></span>
+                <section class="winner-pane">
+                    <h1 data-score-title>Fim do 1º Round!</h1>
+                    <span class="pink-scribble score-scribble" aria-hidden="true"></span>
+                    <img class="score-illustration" src="public/assets/figma/manual-illustration.png" alt="">
+                    <p>O próximo round já vai começar, prepare-se!</p>
+                </section>
+                <section class="ranking-pane">
+                    <h2 data-ranking-title>Veja sua pontuação:</h2>
+                    <img class="winner-avatar" src="public/assets/figma/player-avatar.png" alt="">
+                    <h2 data-score-name></h2>
+                    <div class="score-stats">
+                        <div class="score-conquests">
+                            <span>Conquistas</span>
+                            <strong data-score-conquests>00/03</strong>
+                        </div>
+                        <div class="score-number">
+                            <img src="public/assets/figma/star.png" alt="">
+                            <strong data-score-points>0</strong>
+                        </div>
+                    </div>
+                    <p data-score-position>Aguardando resultado da rodada.</p>
+                    <p class="tie-breaker-note" data-tie-breaker hidden></p>
+                    <div class="ranking-list" data-ranking-list></div>
+                </section>
+            </div>
+        </section>
+
+        <div class="toast" data-toast hidden></div>
+        <div class="lgpd-modal" data-lgpd-modal hidden>
+            <button class="lgpd-modal-backdrop" type="button" data-lgpd-close aria-label="Fechar modal de termos"></button>
+            <article class="lgpd-modal-card" role="dialog" aria-modal="true" aria-labelledby="lgpdModalTitle">
+                <button class="lgpd-modal-close" type="button" data-lgpd-close aria-label="Fechar termos">x</button>
+                <strong id="lgpdModalTitle">Termos de Privacidade (LGPD)</strong>
+                <div class="lgpd-modal-body">
+                    <p>Ao prosseguir, voce concorda com o tratamento dos dados informados neste cadastro para operacao do evento, geracao de ranking e metricas internas.</p>
+                    <p>Seus dados serao usados apenas para identificacao durante a dinamica, analise de resultados e melhoria da experiencia.</p>
+                    <p>O uso segue a Lei Geral de Protecao de Dados (Lei n. 13.709/2018). Em caso de duvida, procure a equipe organizadora.</p>
+                </div>
+            </article>
+        </div>
+    </main>
+    <script src="public/assets/js/app.js?v=1787867258"></script>
+</body>
+</html>

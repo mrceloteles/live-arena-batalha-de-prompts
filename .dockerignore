@@ -1,0 +1,36 @@
+# O contexto de build não é o diretório de trabalho. Medido em 17/09/2026 com
+# `node tmp/qa/contexto-docker.mjs`: o contexto carregava 1 323 MB, dos quais
+# 1 229 MB eram `tmp/` (capturas e diagnóstico de QA), 84 MB `output/` (saídas de
+# auditoria) e 1,1 MB `arena/` (inventário). Nada disso é servido nem carregado
+# pela aplicação: o servidor lê `src/` (incluindo o `schema.sql` em runtime) e
+# `public/`, e é isso que o `Dockerfile` copia.
+.git
+.github
+.devcontainer
+.agents
+.freebuff
+.env
+var
+data
+evidence
+test
+docs
+research
+scripts
+temp_undraw
+node_modules
+tmp
+output
+arena
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.zip
+*.log
+npm-debug.log
+coverage
+.DS_Store
+/*.mjs
+/*.cjs
+/*.png
+/*.jpg

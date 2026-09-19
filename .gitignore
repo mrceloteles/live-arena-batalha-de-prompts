@@ -1,0 +1,22 @@
+.env
+.env.*
+!.env.example
+# Estado local do Preview do Freebuff: pid, logs, project-id e o run.md que o
+# próprio app escreve. `project-id` chegou a ser versionado por engano e saiu do
+# índice — ele identifica ESTE checkout, não o projeto.
+.freebuff/
+data/
+node_modules/
+coverage/
+playwright-report/
+test-results/
+var/
+.worktrees/
+.superpowers/
+tmp/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.log
+.DS_Store
+temp_undraw/

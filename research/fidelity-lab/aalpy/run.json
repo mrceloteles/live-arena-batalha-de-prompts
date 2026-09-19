@@ -1,0 +1,17 @@
+{
+  "adapter": "/workspace/scratch/554a69c0dde7/audit-repo/research/fidelity-lab/aalpy/local-classic-adapter.py",
+  "adapter_sha256": "0d919cfa7b29e544511bb26722b13e0edc41e60d87d4e4f7e55ee4c128a4cfce",
+  "actions": [
+    "status",
+    "register_all",
+    "accept_all",
+    "submit_all",
+    "advance_window"
+  ],
+  "aalpy_version": "1.6.2",
+  "seed": 20260904,
+  "query_budget_steps": 4000,
+  "reset_probability": 0.12,
+  "state_count": 13,
+  "claim": "sampled black-box state-model inference; not universal source-code equivalence"
+}

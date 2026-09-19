@@ -1,0 +1,3 @@
+interface:
+  display_name: "AALpy State Inference"
+  short_description: "Infer and validate black-box application state machines"

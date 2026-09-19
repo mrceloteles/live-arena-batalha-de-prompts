@@ -1,0 +1,460 @@
+/* The shared player round only. Entry, waiting room, TV and admin keep their theme.
+   Reference: the event's strong blue, clear typography and yellow game accents.
+   Surface 24px; inset panels 12px; primary action pill. */
+/* A rodada é o RINGUE: o fundo é a listra diagonal azul da referência
+   (`--la-stripe-*`, de `refinement.css`) e a superfície de leitura é o cartão
+   branco flutuante com a fita de perigo na aresta. Antes o fundo era o cinza
+   #f6f8fc — e cinza chapado atrás de forma nova continua lendo como o mesmo
+   produto, que é justamente o que não se enxergava nesta rodada. */
+/* A regra declara SÓ a ambientação. A tinta que morava aqui (`color: #202124`)
+   saiu: sobre a listra ela media 2.82:1 — e o portão de contraste a reprovou com
+   razão. Texto de rodada não encosta na listra: ele vive nos cartões brancos
+   (workspace, HUD do modo Arena, cartão de voto e os do `arena-side`), e cada um
+   declara a própria tinta. Manter uma cor base de página só criaria a promessa
+   de um par que não existe. */
+body[data-page='arena'].round-active {
+  background-color: var(--la-stripe-a) !important;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--la-stripe-a) 0 32px,
+    var(--la-stripe-b) 32px 64px
+  ) !important;
+  background-attachment: fixed !important;
+}
+body[data-page='arena'].round-active .arena-lobby { background: transparent !important; }
+/* A mesma barra da sala de espera (64px, um respiro só) enquanto a missão roda. */
+body[data-page='arena'].round-active .arena-lobby-header {
+  background: #fff !important;
+  border-bottom: 1px solid #e2e6ed !important;
+  box-shadow: none !important;
+  min-height: 64px;
+  padding: 8px clamp(14px, 3vw, 32px) !important;
+}
+body[data-page='arena'].round-active .arena-lobby-header :is(.brand-identity-main, .arena-lobby-room-meta > strong) { color: #202124 !important; }
+body[data-page='arena'].round-active .arena-lobby-header .brand-identity-main b { color: #1967d2 !important; }
+body[data-page='arena'].round-active .arena-lobby-header .brand-identity-sub { color: var(--color-text-muted) !important; }
+body[data-page='arena'].round-active .arena-lobby-sep { background: #dadce0 !important; }
+body[data-page='arena'].round-active .arena-lobby-room-meta { gap: 10px; }
+body[data-page='arena'].round-active .arena-lobby-room-meta > strong { font-size: 14px !important; font-weight: 500 !important; }
+body[data-page='arena'].round-active .arena-lobby-stats { gap: 8px; }
+body[data-page='arena'].round-active .arena-lobby-stats > span {
+  color: #3c4043 !important; background: transparent !important; border: 0 !important;
+  box-shadow: none !important; font-weight: 500 !important; font-size: 12px !important; padding: 6px !important;
+}
+body[data-page='arena'].round-active .arena-lobby-header .arena-lobby-stats > span strong { color: #136c2f !important; font-size: 14px !important; }
+body[data-page='arena'].round-active .arena-lobby-stats > span::before { box-shadow: none !important; background: #188038 !important; }
+body[data-page='arena'].round-active .arena-lobby-header .ghost-link { color: var(--color-text-muted) !important; }
+body[data-page='arena'].round-active .arena-lobby-header .ghost-link:hover { background: #f1f3f4 !important; color: #202124 !important; }
+@media (max-width: 640px) {
+  body[data-page='arena'].round-active .arena-lobby-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 8px 12px !important;
+    min-height: 52px !important;
+    gap: 8px !important;
+  }
+  body[data-page='arena'].round-active .arena-lobby-header .brand-identity-sub,
+  body[data-page='arena'].round-active .arena-lobby-header .arena-lobby-room-meta > strong,
+  body[data-page='arena'].round-active .arena-lobby-header .arena-lobby-sep {
+    display: none !important;
+  }
+  body[data-page='arena'].round-active .arena-lobby-header .arena-lobby-brand {
+    min-width: 0 !important;
+    flex-shrink: 1 !important;
+    gap: 8px !important;
+  }
+  body[data-page='arena'].round-active .arena-lobby-header .arena-lobby-stats {
+    flex-shrink: 0 !important;
+    gap: 6px !important;
+  }
+  body[data-page='arena'].round-active .arena-lobby-header .arena-lobby-stats [data-arena-connected-label] {
+    display: none !important;
+  }
+  body[data-page='arena'].round-active .arena-lobby-header .ghost-link {
+    padding: 4px 8px !important;
+    font-size: 13px !important;
+  }
+}
+/* A MEDIDA da tela de jogo: a referência limita a superfície do aluno a 980 px.
+   Com 1320 px o texto do enunciado corria em linhas de ~120 caracteres e as duas
+   colunas ficavam largas demais para a leitura em pé (o olho perdia a linha). */
+body[data-page='arena'].round-active .arena-lobby-body {
+  width: min(1080px, 100%); padding: 24px 16px 40px;
+  grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important;
+}
+body[data-page='arena'].round-active .arena-mission-panel {
+  padding: 0 !important; border: 0 !important; background: transparent !important;
+  box-shadow: none !important; border-radius: 0 !important;
+}
+body[data-page='arena'].round-active .arena-mission-panel > .signal-tape { display: none !important; }
+/* O cartão do ringue: a área de trabalho inteira (cabeçalho da missão +
+   briefing + composer) é UMA superfície branca sobre a listra, com a fita de
+   perigo na aresta de cima. O `round-layout` interno perde a moldura — quem é o
+   cartão agora é o workspace, e duas molduras na mesma pilha só sombreiam uma
+   à outra. */
+body[data-page='arena'].round-active .round-workspace {
+  position: relative;
+  min-width: 0;
+  border-radius: var(--la-radius-card-lg);
+  background: #ffffff;
+  box-shadow: var(--la-shadow-card);
+  padding: calc(var(--la-tape-h) + clamp(20px, 2.2vw, 32px)) clamp(18px, 2.4vw, 34px) clamp(20px, 2.2vw, 32px);
+  overflow: hidden;
+}
+body[data-page='arena'].round-active .round-workspace::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: var(--la-tape-h);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--la-tape-yellow),
+    var(--la-tape-yellow) var(--la-tape-step),
+    var(--la-tape-ink) var(--la-tape-step),
+    var(--la-tape-ink) calc(var(--la-tape-step) * 2)
+  );
+}
+body[data-page='arena'].round-active .round-workspace .round-layout {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+/* A BANDA da partida (referência LA-03B): identidade da missão à esquerda, o
+   cronômetro à direita, e um fio separando a banda da área de trabalho. É o
+   mesmo desenho do cartão de cabeçalho da referência — o que muda é que aqui
+   ele é a faixa de cima do MESMO cartão, e não um segundo cartão empilhado. */
+body[data-page='arena'].round-active .round-workspace .arena-mission-top {
+  margin: 0 0 22px !important; align-items: center; gap: 12px;
+  display: flex; justify-content: space-between;
+  padding: 0 0 18px;
+  border-bottom: 1px solid #e9edf4;
+}
+body[data-page='arena'].round-active .round-workspace .arena-mission-meta { align-items: flex-start; flex-direction: column; gap: 8px; min-width: 0; }
+body[data-page='arena'].round-active .round-workspace .arena-round-count { color: var(--color-text-muted); font-size: 11px; letter-spacing: .08em; font-weight: 700; }
+body[data-page='arena'].round-active .round-workspace .arena-mission-badge {
+  border: 0 !important; background: #e8f0fe !important; color: #185abc !important;
+  font-size: 11px !important; font-weight: 600 !important; padding: 7px 10px !important;
+  border-radius: 6px !important; letter-spacing: .045em !important; margin: 0;
+}
+body[data-page='arena'].round-active .is-boss .arena-mission-badge {
+  background: #fce8e6 !important;
+  color: #b3261e !important;
+}
+.round-clock { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+/* O rótulo do tempo é micro-rótulo da referência: caixa alta, mono, 10 px. O
+   TEMPO é o objeto dominante da partida — ele cresce, o rótulo não. */
+.round-clock > span:first-child {
+  color: var(--color-text-muted);
+  font-family: var(--la-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+body[data-page='arena'].round-active .round-workspace .arena-timer {
+  background: #fef2ca !important; color: #3c4043 !important; box-shadow: none !important;
+  border: 1px solid #f2dda1 !important; border-radius: 14px !important;
+  font-size: 34px !important; line-height: 1.1; letter-spacing: -.03em;
+  font-weight: 700 !important; padding: 8px 20px !important; min-width: 142px; text-align: center;
+}
+body[data-page='arena'].round-active .round-workspace .arena-timer.is-danger { color: #a50e0e !important; background: #fce8e6 !important; border-color: #f5b7b1 !important; }
+body[data-page='arena'].round-active .round-workspace .arena-timer.is-paused { color: var(--color-text-muted) !important; background: #f1f3f4 !important; border-color: #dadce0 !important; }
+/* Missao sem cronometro (a rodada acaba quando o professor encerra): o lugar
+   do relogio fica discreto e diz "Sem limite", no lugar de um "--:--" que
+   parecia relogio que nao carregou. */
+body[data-page='arena'].round-active .round-workspace .arena-timer.is-untimed {
+  color: var(--color-text-muted) !important; background: #f1f3f4 !important; border-color: #dadce0 !important;
+  font-size: 13px !important; font-weight: 700 !important; letter-spacing: .06em !important;
+  padding: 11px 14px !important; min-width: 0 !important; text-transform: uppercase;
+}
+/* UMA superfície de trabalho (referência LA-03B). Aqui havia duas molduras: o
+   cartão do ringue (28 px, sombra flutuante, fita na aresta) e, dentro dele, um
+   `.round-layout` com borda própria de 1 px e raio de 24. Duas molduras dizendo
+   "aqui começa um grupo" é o mesmo defeito que a referência evita — ela tem UM
+   cartão e separa o que é diferente por ESPAÇO. A coluna do enunciado também
+   era azul (`#eaf1fc`): a ambiência é da PÁGINA, o cartão de leitura é branco, e
+   quem dá hierarquia ao enunciado é o tamanho do título, não o fundo da coluna. */
+.round-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+.round-briefing { min-width: 0; }
+body[data-page='arena'].round-active .round-workspace .round-briefing h1 {
+  font-weight: 600 !important; text-wrap: pretty; overflow-wrap: anywhere;
+}
+body[data-page='arena'].round-active .round-workspace .arena-mission-context { line-height: 1.7 !important; color: #485568 !important;
+  font-weight: 400 !important; padding: 0 !important; border: 0 !important;
+}
+body[data-page='arena'].round-active .round-workspace :is(.arena-rescue, .arena-scenario) blockquote {
+  font-size: 19px !important; line-height: 1.55 !important; font-style: normal !important;
+  color: #253858 !important; margin: 15px 0 0 !important; padding: 0 !important; border: 0 !important;
+}
+body[data-page='arena'].round-active .round-workspace .arena-mission-body { color: #485568 !important; line-height: 1.7 !important; margin: 22px 0 0 !important; }
+body[data-page='arena'].round-active .round-workspace .arena-mission-body:empty { display: none; }
+body[data-page='arena'].round-active .round-workspace :is(.arena-classic-stage, .arena-reversa) { margin: 24px 0 0; }
+body[data-page='arena'].round-active .round-workspace .arena-classic-figure { border-radius: 12px; }
+body[data-page='arena'].round-active .round-workspace .arena-classic-figure img { height: clamp(220px, 30vh, 320px) !important; object-fit: contain; }
+body[data-page='arena'].round-active .round-workspace .arena-reversa img { max-width: 100%; max-height: 340px; object-fit: contain; }
+.round-composer { min-width: 0; }
+/* O grupo das tentativas agora vive na banda da partida (ao lado do nome da
+   rodada), e não mais no topo do compositor: lá ele empilhava um segundo
+   micro-rótulo em caixa alta colado no rótulo do campo. */
+.round-attempts-group { display: inline-flex; align-items: center; gap: 8px; }
+.round-attempts-group > span {
+  color: var(--color-text-muted);
+  font-family: var(--la-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+/* A `design.css` fixa `margin: 12px 0 16px 0 !important` nos pontos — sem o
+   `!important` aqui, o grupo que subiu para a banda herdava 28 px de margem
+   vertical e desalinhava a faixa. */
+body[data-page='arena'].round-active .round-workspace .arena-attempts {
+  margin: 0 !important; gap: 5px !important;
+}
+body[data-page='arena'].round-active .round-workspace .arena-attempt-dot { font-size: 11px; background: #f1f3f4; border: 1px solid #e1e5ea; color: var(--color-text-muted); }
+body[data-page='arena'].round-active .round-workspace .arena-attempt-dot.is-scored { border-color: #b7dfc1; }
+body[data-page='arena'].round-active .round-workspace .arena-attempt-dot.is-pending { background: #fef2ca; border-color: #f2dda1; color: #674d00; }
+body[data-page='arena'].round-active .round-workspace .arena-prompt-form { margin: 0 !important; display: flex; flex-direction: column; gap: 0 !important; }
+/* HIERARQUIA (referência LA-03B). O rótulo do campo tinha 21 px — o MESMO
+   tamanho do título da missão —, então "Escreva seu prompt" disputava com o
+   enunciado. Na referência o rótulo do campo é micro-rótulo (`text-xs
+   font-black uppercase tracking-wider`) e quem é grande é o título. O campo não
+   perde presença: quem o anuncia é a própria caixa de escrita. */
+body[data-page='arena'].round-active .round-workspace .arena-field > span {
+  display: block;
+  color: var(--color-text-muted) !important;
+  font-family: var(--la-mono);
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+/* A linha do campo é [rótulo | contador], como na referência (`flex
+   justify-between` com o contador em mono). O contador morava sozinho embaixo da
+   caixa e o rótulo ocupava a linha inteira. Sem tocar na marcação: o `<label>`
+   continua envolvendo o campo, que é o que mantém o nome acessível do textarea. */
+body[data-page='arena'].round-active .round-workspace .arena-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 12px;
+  margin: 0;
+}
+body[data-page='arena'].round-active .round-workspace .arena-field > span {
+  grid-row: 1; grid-column: 1; margin-bottom: 0;
+}
+body[data-page='arena'].round-active .round-workspace .arena-field > .arena-counter {
+  grid-row: 1; grid-column: 2;
+  margin: 0; text-align: right;
+  font-family: var(--la-mono); font-size: 11px;
+}
+body[data-page='arena'].round-active .round-workspace .arena-field > textarea {
+  grid-row: 2; grid-column: 1 / -1; margin-top: 10px;
+}
+/* A ação da tela fica na PONTA da coluna, como na referência (a linha do envio
+   é `justify-between`, com a dica à esquerda e a pílula à direita). O
+   `margin-left: auto` do botão não valia nada: o pai era um `div` de bloco sem
+   regra nenhuma, então o botão nascia encostado à esquerda. */
+body[data-page='arena'].round-active .round-workspace .round-submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+body[data-page='arena'].round-active .arena-side h2::before { display: none !important; }
+body[data-page='arena'].round-active .arena-side .arena-empty { font-size: 12px !important; line-height: 1.6; color: #6b7280 !important; margin: 0; }
+body[data-page='arena'].round-active :is(button, a):focus-visible { outline: 3px solid #174ea6; outline-offset: 4px; }
+@media (min-width: 640px) {
+  body[data-page='arena'].round-active .arena-lobby-body { padding: 32px 28px 48px; }
+  body[data-page='arena'].round-active .round-workspace .arena-mission-meta { flex-direction: row; align-items: center; gap: 16px; }
+  .round-clock { flex-direction: row; align-items: center; gap: 12px; }
+  body[data-page='arena'].round-active .round-workspace .arena-submit { width: auto !important; margin-left: auto; }
+  body[data-page='arena'].round-active .arena-side { grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #dce3ed; }
+  body[data-page='arena'].round-active .arena-side .arena-card { border: 0 !important; padding: 6px 20px !important; }
+  body[data-page='arena'].round-active .arena-side .arena-card + .arena-card { border-left: 1px solid #dce3ed !important; }
+  body[data-page='arena'].round-active .arena-side { padding-top: 22px; }
+}
+@media (min-width: 1024px) {
+  body[data-page='arena'].round-active .arena-lobby-body { padding-top: 40px; }
+  .round-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: 44px; }
+  body[data-page='arena'].round-active .round-workspace .arena-field textarea { min-height: 280px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-page='arena'].round-active .round-workspace *, body[data-page='arena'].round-active .arena-side * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+body[data-page='arena'].round-active .round-workspace .arena-result-score {
+  background: transparent !important; box-shadow: none !important; padding: 0 !important;
+  border: 0 !important; color: #137333 !important; align-items: flex-start !important;
+}
+/* O valor que o cliente escreve é "N PTS" (contrato de teste) e em pt-BR ele é
+   LONGO: "50,88 PTS" a 32 px mede ~171 px e, dentro do anel de 132 px, quebrava
+   em duas linhas encostadas na aresta esquerda — medido no PNG do resultado em
+   celular (18/09: duas faixas verdes de 13 px e 6 px de largura, uma sobre a
+   outra). A consulta de contêiner faz o número caber SEMPRE, sem encurtar o
+   texto: 15cqw do anel é ~20 px para nove caracteres e ~30 px para dois. */
+body[data-page='arena'].round-active .round-workspace .arena-score-ring { container-type: inline-size; }
+body[data-page='arena'].round-active .round-workspace .arena-result-score strong {
+  /* `position: relative` não é enfeite: o disco branco do anel é `position:
+     absolute` e por isso pinta DEPOIS de qualquer filho em fluxo. Sem isto o
+     número fica atrás do disco e só aparece onde TRANSBORDA — foi o que a
+     medição de pixels do PNG pegou (duas faixas verdes de 13 px e 6 px na
+     aresta esquerda, em 18/09). A unidade já tinha `z-index: 1`; o valor não. */
+  position: relative;
+  z-index: 1;
+  color: #137333 !important;
+  font-size: clamp(17px, 15cqw, 30px) !important;
+  letter-spacing: -.02em;
+  max-width: 100%;
+  text-align: center;
+  white-space: nowrap;
+}
+body[data-page='arena'].round-active .round-workspace .arena-score-ring-unit { max-width: 100%; text-align: center; }
+body[data-page='arena'].round-active .round-workspace .arena-result-score span { color: #52647f !important; }
+body[data-page='arena'].round-active .round-workspace .arena-result-score::after,
+body[data-page='arena'].round-active .round-workspace .arena-result-score strong::after { content: none !important; }
+body[data-page='arena'].round-active .round-workspace .arena-feedback { background: transparent !important; border: 0 !important; padding: 0 !important; box-shadow: none !important; font-size: 14px !important; }
+body[data-page='arena'].round-active .round-workspace [data-arena-retry] { background: #1967d2 !important; border-radius: 999px !important; box-shadow: none !important; min-height: 48px; }
+body[data-page='arena'].round-active .round-workspace .arena-attempt-dot { width: 28px !important; height: 28px !important; border-radius: 50% !important; box-shadow: none !important; }
+body[data-page='arena'].round-active .round-workspace .arena-attempt-dot.is-scored { background: #e6f4ea !important; color: #12692c !important; }
+body[data-page='arena'].round-active .arena-side .arena-empty { font-style: normal !important; }
+
+/* O código da sala é referência, não manchete: o mesmo chip da sala de espera
+   (nada de PIN gigante empurrando "conectados"/Sair para fora da barra). */
+body[data-page='arena'].round-active .arena-lobby-room-meta { min-width: 0; overflow: hidden; }
+body[data-page='arena'].round-active .arena-lobby-room-meta .arena-room-code { flex: 0 0 auto; }
+body[data-page='arena'].round-active .arena-lobby-room-meta .arena-room-code::before {
+  content: none !important;
+}
+body[data-page='arena'].round-active .arena-lobby-body { padding-top: 24px !important; }
+body[data-page='arena'].round-active .round-workspace .arena-mission-top { margin-bottom: 16px !important; padding-bottom: 16px !important; }
+body[data-page='arena'].round-active .round-workspace .round-briefing h1 {
+  font-size: clamp(24px, 2.4vw, 30px) !important; line-height: 1.25 !important; color: var(--color-primary-dark) !important;
+  margin: 12px 0 22px !important; letter-spacing: -.03em !important;
+}
+body[data-page='arena'].round-active .round-workspace :is(.arena-rescue,.arena-scenario) {
+  background: #174ea6 !important; border: 0 !important; padding: 28px !important; margin: 0 0 22px !important;
+}
+body[data-page='arena'].round-active .round-workspace :is(.arena-rescue,.arena-scenario) > span {
+  color: #d2e3fc !important; font-size: 11px !important;
+}
+body[data-page='arena'].round-active .round-workspace :is(.arena-rescue,.arena-scenario) blockquote {
+  color: #fff !important; font-size: clamp(24px,2.3vw,32px) !important;
+  font-weight: 500 !important; line-height: 1.4 !important; letter-spacing: -.025em;
+}
+body[data-page='arena'].round-active .round-workspace :is(.arena-rescue,.arena-scenario) blockquote::before {
+  content: "“";
+  opacity: 0.5;
+  margin-right: 2px;
+}
+body[data-page='arena'].round-active .round-workspace :is(.arena-rescue,.arena-scenario) blockquote::after {
+  content: "”";
+  opacity: 0.5;
+  margin-left: 2px;
+}
+body[data-page='arena'].round-active .round-workspace .arena-mission-context { font-size: 14px !important; margin: 18px 0 0 !important; }
+body[data-page='arena'].round-active .round-workspace .arena-mission-body { font-size: 14px !important; margin-top: 14px !important; }
+body[data-page='arena'].round-active .round-workspace .arena-field textarea { min-height: 240px !important; }
+/* O respiro entre as tentativas e o campo era o maior pedaço de tela sem nada
+   dentro do compositor. Com as tentativas na banda da partida, o compositor
+   começa pelo rótulo do campo: nada a apertar aqui. */
+/* Celular: o campo comecava com 240px fixos e o botao de envio ficava fora da
+   tela na primeira missao. A altura acompanha a tela; a fonte e o enunciado
+   (que vive na coluna da esquerda) nao encolhem. */
+@media (max-width: 639px) {
+  /* Medido em 16/09 no celular: o campo nascia com 216 px — os oito `rows` do
+     markup venciam a `min-height`, então baixar o piso não mudava nada em tela.
+     Seis linhas é o começo confortável para escrever um prompt, e o campo segue
+     crescendo com o texto (e aceitando arrastar) sem tocar em fonte nenhuma. */
+  body[data-page='arena'].round-active .round-workspace .arena-field textarea {
+    height: clamp(120px, 20svh, 240px) !important;
+    min-height: 120px !important;
+  }
+  body[data-page='arena'].round-active .round-workspace :is(.arena-rescue,.arena-scenario) { padding: 22px !important; }
+}
+/* Reference media fills its column at its original proportions. */
+body[data-page='arena'].round-active .round-workspace .arena-classic-figure {
+  display: block !important; max-height: none !important; padding: 0 !important;
+  border: 0 !important; background: transparent !important; box-shadow: none !important;
+}
+body[data-page='arena'].round-active .round-workspace :is(.arena-classic-figure img, .arena-reversa img) {
+  display: block !important; width: 100% !important; height: auto !important;
+  max-width: none !important; max-height: none !important; aspect-ratio: auto !important;
+  object-fit: contain !important; margin: 0 !important; padding: 0 !important;
+  border: 0 !important; box-shadow: none !important;
+}
+body[data-page='arena'].round-active .round-workspace .arena-reversa {
+  padding: 0 !important; border: 0 !important; background: transparent !important; box-shadow: none !important;
+}
+body[data-page='arena'].round-active .round-workspace .arena-reversa > span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--color-text-muted);
+  font-family: var(--la-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+/* O clique que abre a imagem já existia em `arena.js` e a tela não dizia nada.
+   O selo é decorativo e SEM PALAVRA — o orçamento de cópia da tela do aluno está
+   no teto, e o convite precisa funcionar no toque (sem hover para revelar). */
+.arena-reversa-figure {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.arena-reversa-figure img { cursor: zoom-in; }
+.arena-reversa-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 2px 10px rgba(7, 31, 73, .22);
+  font-size: 15px;
+  line-height: 1;
+  pointer-events: none;
+}
+body[data-page='arena'].round-active .round-workspace .arena-reversa > p { font-size: 14px; margin-top: 14px; }
+/* The final standings remain visible when the round content closes. */
+body[data-page='arena'].round-active.round-finished .arena-lobby-body { grid-template-columns: minmax(0, 1fr) !important; }
+body[data-page='arena'].round-active.round-finished .arena-mission-panel { min-height: 0 !important; padding: 32px 0 8px !important; }
+body[data-page='arena'].round-active.round-finished .arena-mission-empty { max-width: none !important; }
+body[data-page='arena'].round-active.round-finished .arena-mission-empty::before { content: '🏆 RESULTADO FINAL 🎉'; background: #fef2ca; color: #845413; border: 1px solid #f2dda1; animation: none; font-weight: 700; padding: 6px 14px; border-radius: 99px; letter-spacing: .06em; font-size: 11px; }
+body[data-page='arena'].round-active.round-finished .arena-mission-empty h1 { color: #174ea6 !important; font-size: clamp(32px, 5vw, 46px) !important; font-weight: 800 !important; margin: 16px 0 !important; letter-spacing: -.03em; }
+body[data-page='arena'].round-active.round-finished .arena-mission-empty p { max-width: none !important; font-size: 17px !important; color: #3c4043 !important; font-weight: 500 !important; }
+body[data-page='arena'].round-active.round-finished .arena-side { display: flex !important; flex-direction: column; gap: 24px; border: 0; max-width: 900px; width: 100%; margin: 0 auto; }
+body[data-page='arena'].round-active.round-finished .arena-side .arena-ranking-panel { order: -1; background: #fff !important; padding: 28px !important; border: 1px solid #dce3ed !important; border-radius: 20px !important; }
+body[data-page='arena'].round-active.round-finished .arena-side .arena-ranking-panel h2 { font-size: 20px !important; color: #174ea6 !important; margin-bottom: 24px !important; }
+body[data-page='arena'].round-active.round-finished .arena-side .arena-card + .arena-card { border-left: 0 !important; }
+
+@keyframes championPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(235, 178, 30, 0.4); }
+  50% { transform: scale(1.03); box-shadow: 0 8px 24px 0 rgba(235, 178, 30, 0.5); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(235, 178, 30, 0); }
+}
+body[data-page='arena'].round-active.round-finished .arena-ranking-row.is-champion {
+  animation: championPulse 2.5s infinite ease-in-out;
+  border: 2px solid #f9cd46 !important;
+  background: linear-gradient(135deg, #fffcf0 0%, #fff6d9 100%) !important;
+  position: relative;
+  z-index: 10;
+  border-radius: 12px;
+}
+body[data-page='arena'].round-active.round-finished .arena-ranking-row.is-champion .arena-ranking-name strong {
+  font-size: 1.15em;
+  color: #845413;
+}

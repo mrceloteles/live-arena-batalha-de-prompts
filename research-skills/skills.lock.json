@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-15",
+  "policy": {
+    "independentExecution": true,
+    "integrationBoundary": "versioned-artifacts-only",
+    "changesSiteRuntime": false
+  },
+  "tools": [
+    {
+      "id": "ai-system-testing",
+      "kind": "external-agent-skill",
+      "repository": "petrkindlmann/qa-skills",
+      "path": "skills/ai-system-testing",
+      "ref": "b3bb61bd268b147476252c6ed5a0440c87b97441",
+      "license": "MIT",
+      "role": "golden datasets, statistical tests, model comparison and prompt regression"
+    },
+    {
+      "id": "promptfoo-evals",
+      "kind": "external-agent-skill",
+      "repository": "promptfoo/promptfoo",
+      "path": ".claude/skills/promptfoo-evals",
+      "ref": "81eac064f05d3534acb633c3874033c7f5fe1c4d",
+      "license": "MIT",
+      "role": "evaluation matrix execution, assertions, repetitions, transforms and CI"
+    },
+    {
+      "id": "aalpy-state-inference",
+      "kind": "project-agent-skill",
+      "path": ".agents/skills/aalpy-state-inference",
+      "dependency": {
+        "name": "aalpy",
+        "version": "1.6.2",
+        "repository": "DES-Lab/AALpy",
+        "ref": "454091e1b5fa53b4b33dca05551773d3c9da66a1",
+        "license": "MIT"
+      },
+      "role": "observable finite-state machine discovery and validation"
+    },
+    {
+      "id": "copia-de-interface",
+      "kind": "project-agent-skill",
+      "path": ".agents/skills/copia-de-interface",
+      "license": "MIT",
+      "role": "decidir e cortar o texto visivel das telas em pt-BR, com metas de palavras por tipo de string",
+      "sources": [
+        {
+          "id": "ux-writing-skill",
+          "repository": "content-designer/ux-writing-skill",
+          "ref": "98cacde4ba2dd10ed28df43a8d53eef1e321c539",
+          "license": "MIT",
+          "contribution": "estrutura: os quatro padroes (proposito, concisao, conversa, clareza), a ordem de edicao em quatro fases e as metas de palavras por tipo de texto"
+        },
+        {
+          "id": "product-content-strategist",
+          "repository": "xzjh/product-content-strategist",
+          "ref": "dde634042b4d46fa86f15981bcb158e47c715cf7",
+          "license": "MIT",
+          "contribution": "a regra 'cortar filler, nao fato' (principio 2 e a armadilha da brevidade), escrita depois de uma auditoria real em que a brevidade cortou informacao de confianca"
+        },
+        {
+          "id": "ux-writing",
+          "repository": "markj81/ux-writing",
+          "ref": "4e547bcadfbc446d34443672b38ff9f3000a9319",
+          "license": "MIT",
+          "contribution": "escala de severidade e a lista de anti-patterns de microcopy"
+        }
+      ]
+    }
+  ]
+}

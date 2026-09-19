@@ -1,0 +1,4198 @@
+/* ============================================================
+   ARENA DE ENGENHARIA DE PROMPT
+   ============================================================ */
+
+body[data-page='arena'],
+body[data-page='admin-arena'] {
+  overflow: auto !important;
+  height: auto !important;
+  min-height: 100% !important;
+  background: #f7f9ff;
+}
+
+.arena-shell {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.arena-screen {
+  display: none;
+}
+
+.arena-screen.is-active {
+  display: block;
+}
+
+/* ---------- Entrada (join) ---------- */
+
+.arena-screen[data-arena-screen='join'].is-active {
+  display: grid;
+}
+
+.arena-field > span {
+  color: var(--gray-2);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.arena-field input,
+.arena-field select,
+.arena-field textarea {
+  width: 100%;
+  border: 1px solid var(--gray-2);
+  border-radius: 12px;
+  background: #fff;
+  padding: 14px 16px;
+  color: #222;
+  font-size: 16px;
+  outline: none;
+}
+
+.arena-field input:focus,
+.arena-field select:focus,
+.arena-field textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.12);
+}
+
+.arena-field small {
+  min-height: 14px;
+  color: var(--gray);
+  font-size: 12px;
+}
+
+.arena-message {
+  min-height: 20px;
+  margin: 4px 0 0;
+  color: var(--gray);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.arena-message[data-tone='error'] {
+  color: #d93025;
+}
+
+.arena-message[data-tone='info'] {
+  color: var(--blue);
+}
+
+/* ---------- Lobby (aluno) ---------- */
+
+.arena-mission-panel,
+.arena-card {
+  border: 1px solid rgba(200, 218, 252, 0.75);
+  border-radius: 24px;
+  background: hsla(0, 0%, 100%, 0.88);
+  box-shadow: 0 16px 60px rgba(0, 28, 80, 0.08);
+}
+
+.arena-mission-body {
+  margin: 0 0 16px;
+}
+
+.arena-rescue,
+.arena-reversa {
+  margin-bottom: 16px;
+  border-radius: 16px;
+  background: #fff4f0;
+  padding: 16px 18px;
+}
+
+.arena-rescue span,
+.arena-reversa span {
+  color: #d93025;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.arena-reversa img {
+  width: 100%;
+  max-height: 380px;
+  margin: 10px 0;
+  border-radius: 12px;
+  object-fit: contain;
+  background: #d7e1e5;
+}
+
+.arena-reversa p {
+  margin: 0;
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.arena-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+/* Dobra: um detalhe que existe, mas não é a primeira leitura. O marcador do
+   navegador é o affordance (não se desenha outro) e a tecla funciona sozinha
+   — `summary` entra no `:focus-visible` global das folhas vivas. Mesmo padrão
+   do `Histórico` do sorteio e do `⚙ Configuração da partida`. */
+.arena-breakdown-fold {
+  margin: 12px 0 0;
+}
+
+.arena-breakdown-fold > summary {
+  cursor: pointer;
+  color: var(--gray-2);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+/* Dobra do painel do ALUNO. Mesmo defeito que a do relatório tinha: o `summary`
+   era `list-item` com um `h2` de bloco dentro, então o marcador do navegador caía
+   numa linha só para ele e o título começava abaixo — medido em 16/09, 24 px de
+   sobra e o caret acima do título. Aqui a linha vira flex e o caret é desenhado,
+   como nas alças do relatório e do painel do professor. */
+.arena-side .arena-card[data-arena-fold] > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.arena-side .arena-card[data-arena-fold] > summary::-webkit-details-marker {
+  display: none;
+}
+
+.arena-side .arena-card[data-arena-fold] > summary::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid currentColor;
+  transition: transform 0.18s ease;
+}
+
+.arena-side .arena-card[data-arena-fold][open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.arena-side .arena-card[data-arena-fold] > summary:hover,
+.arena-side .arena-card[data-arena-fold] > summary:focus-visible {
+  color: var(--blue);
+}
+
+/* O título deixa de ser manchete com régua: agora ele é a alça, e o caret já
+   diz que ali se abre. Sem o divisor e sem o respiro de bloco, a linha fica
+   uma só. */
+.arena-side .arena-card[data-arena-fold] > summary h2 {
+  flex: 1 1 auto;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-bottom: 0 !important;
+}
+
+/* Fechado, o cartão é uma linha clicável, não um bloco de conteúdo vazio: o
+   padding de conteúdo some (medido em 16/09: 105 px por cartão fechado, dois
+   deles empilhados = 210 px de tela sem nada dentro). */
+body[data-page='arena'] .arena-side .arena-card[data-arena-fold]:not([open]) {
+  padding: 10px 18px !important;
+}
+
+.arena-breakdown-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 48px;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.arena-breakdown-row span {
+  color: var(--gray-2);
+  font-weight: 700;
+}
+
+.arena-breakdown-row strong {
+  color: var(--navy);
+  text-align: right;
+}
+
+.arena-evolution {
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+/* ---------- Roster (lista de participantes) ---------- */
+
+/* ---------- Painel lateral (aluno) ---------- */
+
+/* No preset classico o aluno nao ve conceitos pedagogicos (missoes,
+   destaques): so o ranking geral e a lista de quem esta na sala. */
+body.arena-classic-room .arena-results-panel,
+body.arena-classic-room .arena-highlights-panel {
+  display: none;
+}
+
+.arena-empty {
+  margin: 0;
+  color: var(--gray);
+  font-size: 13px;
+}
+
+.arena-result-row {
+  border-bottom: 1px solid var(--gray-3);
+  padding: 10px 0;
+}
+
+.arena-result-row:last-child {
+  border-bottom: 0;
+}
+
+.arena-result-row-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.arena-result-row-head strong {
+  color: var(--blue);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+.arena-result-row-head span {
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.arena-result-row p {
+  margin: 4px 0;
+  color: var(--gray-2);
+  font-size: 13px;
+}
+
+.arena-mini-ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arena-mini-ranking li {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  padding: 6px 8px;
+  font-size: 13px;
+}
+
+.arena-mini-ranking li span {
+  color: var(--gray);
+  font-weight: 800;
+}
+
+.arena-mini-ranking li strong {
+  overflow: hidden;
+  color: var(--navy);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arena-mini-ranking li em {
+  color: var(--blue);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.arena-ranking-row,
+.arena-highlight-row {
+  display: grid;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--gray-3);
+  padding: 8px 0;
+  font-size: 13px;
+}
+
+.arena-ranking-row {
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+}
+
+/* Assets de campeao/vencedor: trofeu (1º/2º/3º), medalha de fita, avatar do
+   jogador e estrela de pontos — arquivos servidos pela base observada. */
+
+.arena-rank-medal,
+.arena-ranking-medal,
+.arena-points-star,
+.arena-medal-icon {
+  display: block;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.arena-ranking-medal {
+  width: 22px;
+  height: 22px;
+}
+
+.arena-ranking-player {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+}
+
+.arena-ranking-avatar {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border-radius: 999px;
+  background: var(--soft-blue);
+  object-fit: contain;
+}
+
+.arena-ranking-name {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.arena-ranking-place {
+  color: var(--gray-2);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.arena-ranking-row.is-champion {
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(251, 191, 36, 0.16), transparent 78%);
+  padding: 8px 10px;
+}
+
+.arena-ranking-row.is-champion .arena-ranking-place {
+  color: #845413;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.arena-medal-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: -4px;
+}
+
+.arena-highlight-row {
+  grid-template-columns: 26px 1fr auto;
+}
+
+.arena-ranking-row:last-child,
+.arena-highlight-row:last-child {
+  border-bottom: 0;
+}
+
+.arena-ranking-row strong,
+.arena-highlight-row strong {
+  overflow: hidden;
+  color: var(--navy);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arena-ranking-row em {
+  color: var(--blue);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.arena-highlight-row > span {
+  font-size: 20px;
+}
+
+.arena-highlight-row div {
+  display: flex;
+  flex-direction: column;
+}
+
+.arena-highlight-row em {
+  color: var(--gray);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.arena-highlight-row b {
+  color: var(--blue);
+}
+
+/* ---------- Painel do professor ---------- */
+
+.arena-admin {
+  min-height: 100svh;
+  background: radial-gradient(circle at 10% 10%, rgba(0, 82, 255, 0.14), transparent 28%), radial-gradient(circle at 90% 0, rgba(55, 217, 197, 0.22), transparent 30%), #f7f9ff;
+  padding: 32px;
+}
+
+.arena-admin > section {
+  width: min(1360px, 100%);
+  margin: 0 auto 20px;
+}
+
+.admin-arena-rooms h2,
+.admin-arena-challenges h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 22px;
+}
+
+.arena-status-badge {
+  display: inline-flex;
+  border-radius: 999px;
+  background: #eef0f5;
+  color: var(--gray-2);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+}
+
+.arena-status-badge.is-playing,
+.arena-status-badge.is-results {
+  background: #e6f6f2;
+  color: #12692c;
+}
+
+.arena-status-badge.is-ended,
+.arena-status-badge.is-closed {
+  background: #f1f1f4;
+  color: var(--color-text-muted);
+}
+
+.arena-status-badge.is-draft {
+  background: #fff4e5;
+  color: #845413;
+}
+
+.arena-status-badge.is-waiting,
+.arena-status-badge.is-open,
+.arena-status-badge.is-refinamento {
+  background: #eef3ff;
+  color: var(--color-primary);
+}
+
+.arena-status-badge.is-sprint {
+  background: #fdeaf2;
+  color: #b3261e;
+}
+
+.arena-room-card-actions,
+.arena-challenge-actions,
+.arena-detail-head .arena-room-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.arena-room-card-actions button,
+.arena-challenge-actions button {
+  border: 1px solid #d8dee9;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 8px 14px;
+}
+
+.arena-room-card-actions button:hover,
+.arena-challenge-actions button:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.arena-room-card-actions button.is-danger,
+.arena-challenge-actions button.is-danger {
+  border-color: rgba(217, 48, 37, 0.35);
+  color: #d93025;
+}
+
+/* Dobra do painel do professor. A alça nomeia o que está dentro — "Gerenciar
+   sala", "Participantes", "O aluno recebe", "Gabarito do juiz" — e o marcador do
+   navegador é o affordance. O painel se redesenha a cada leitura do servidor, e o
+   `data-fold-key` é o que devolve a escolha do professor depois de cada desenho
+   (ver `aplicarDobras` no cliente). */
+.arena-admin-tools,
+.arena-fold-block,
+.arena-round-fold {
+  min-width: 0;
+}
+
+.arena-admin-tools > summary,
+.arena-fold-block > summary,
+.arena-round-fold > summary {
+  cursor: pointer;
+  color: var(--gray-2);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.arena-admin-tools > summary {
+  border: 1px solid #d8dee9;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 8px 14px;
+}
+
+.arena-admin-tools[open] > summary {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.arena-admin-tools > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.arena-fold-block > summary h3 {
+  display: inline;
+}
+
+/* Fechada, a alça é a última linha do cartão: o respiro que separava a alça do
+   detalhe só vale quando o detalhe está à vista. */
+.arena-lesson-fold > summary {
+  margin-bottom: 0;
+}
+
+.arena-lesson-fold[open] > summary {
+  margin-bottom: 8px;
+}
+
+.arena-lesson-fold > summary:hover {
+  color: var(--blue);
+}
+
+.arena-detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.arena-detail-head span {
+  color: var(--gray-2);
+  font-size: 13px;
+  margin-right: 12px;
+}
+
+/* Quanto tempo de aula a sala soma (e quantas missoes ficam sem cronometro). */
+.arena-detail-head .arena-timing-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(0, 82, 255, 0.25);
+  border-radius: 999px;
+  background: #f3f6ff;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 5px 12px;
+}
+
+/* Cronometro de cada missao no card da sala. */
+.arena-round-timer {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(0, 82, 255, 0.22);
+  border-radius: 999px;
+  background: #f3f6ff;
+  color: var(--blue);
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 4px 10px;
+}
+
+.arena-round-timer.is-untimed {
+  border-color: rgba(120, 130, 150, 0.35);
+  background: #f4f5f7;
+  color: var(--gray-2);
+}
+
+.arena-detail-highlights {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.arena-detail-highlights span {
+  border-radius: 999px;
+  background: #eef3ff;
+  color: var(--navy);
+  font-size: 12px;
+  padding: 6px 12px;
+}
+
+.arena-detail-highlights b {
+  color: var(--blue);
+}
+
+.arena-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 18px;
+}
+
+.arena-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.arena-table th,
+.arena-table td {
+  border-bottom: 1px solid var(--gray-3);
+  padding: 9px 10px;
+  text-align: left;
+}
+
+.arena-table th {
+  color: var(--gray);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.arena-table tr.is-inactive td {
+  opacity: 0.45;
+}
+
+.arena-table button {
+  border: 0;
+  border-radius: 999px;
+  background: #eef3ff;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 12px;
+}
+
+.arena-table button.is-danger {
+  background: #fdeae7;
+  color: #b3261e;
+}
+
+.arena-rounds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.arena-round-card {
+  border: 1px solid #e7e8ef;
+  border-radius: 16px;
+  background: #fff;
+  padding: 14px;
+}
+
+.arena-round-card.is-open {
+  border-color: rgba(0, 82, 255, 0.4);
+  background: #f7faff;
+}
+
+.arena-round-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.arena-round-head strong {
+  color: var(--navy);
+  font-size: 14px;
+}
+
+.arena-round-head small {
+  color: var(--gray);
+  font-size: 12px;
+}
+
+/* Resumo da missão escolhida em "Adicionar missão": o que ela é e o que
+   faltaria para a sala abrir, sem o enunciado e o gabarito ocupando a tela. */
+.arena-round-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 10px;
+  border: 1px solid #e7e8ef;
+  border-radius: 12px;
+  background: #f7f9ff;
+  padding: 10px 12px;
+}
+
+.arena-round-summary img {
+  width: 96px;
+  height: 72px;
+  border-radius: 10px;
+  background: #fff;
+  object-fit: cover;
+}
+
+.arena-round-summary strong {
+  display: block;
+  color: var(--navy);
+  font-size: 14px;
+}
+
+.arena-round-summary small {
+  color: var(--gray);
+  font-size: 12px;
+}
+
+.arena-round-flag {
+  display: inline-block;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: #fff8e6;
+  color: #8a5300;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 3px 10px;
+}
+
+.arena-round-card p {
+  margin: 0 0 6px;
+  color: var(--gray-2);
+  font-size: 12px;
+}
+
+/* ---------- Banco de desafios ---------- */
+
+.admin-arena-challenge-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0;
+}
+
+.arena-challenge-criteria span {
+  border-radius: 999px;
+  background: #eef3ff;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+}
+
+/* ---------- Dialog / formulario de desafio ---------- */
+
+.arena-dialog::backdrop {
+  background: rgba(0, 28, 80, 0.55);
+}
+
+.arena-challenge-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.arena-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.arena-challenge-form .text-field {
+  margin: 0;
+}
+
+.arena-challenge-form textarea {
+  width: 100%;
+  border: 1px solid var(--gray-2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+/* O formulário tem três leituras e só: o que o aluno recebe, o que o juiz usa
+   para avaliar e os ajustes da rodada. Os dois grupos de trabalho ficam abertos —
+   nenhum campo obrigatório pode nascer dentro de grupo fechado — e o que é
+   opcional abre sob a alça, com o valor escolhido no próprio resumo. */
+.arena-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  margin: 0;
+  border: 1px solid #e7e8ef;
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.arena-form-group > legend {
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 900;
+  padding: 0 8px;
+}
+
+.arena-form-fold {
+  min-width: 0;
+  border: 1px solid #e7e8ef;
+  border-radius: 12px;
+  background: #fbfcff;
+  padding: 10px 12px;
+}
+
+/* Dentro de um grupo, a dobra é uma LINHA do grupo, não outra caixa: o grupo já
+   é a caixa com borda, e uma caixa com borda dentro dela era o "caixa dentro de
+   caixa" que o plano aponta. O que separa os grupos internos passa a ser o
+   divisor, e o título da dobra segue sendo a alça. */
+.arena-form-group .arena-form-fold {
+  border: 0;
+  border-top: 1px solid #e7e8ef;
+  border-radius: 0;
+  background: transparent;
+  padding: 10px 0 0;
+}
+
+.arena-form-fold[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.arena-form-fold > summary {
+  cursor: pointer;
+  color: var(--navy);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+
+.arena-form-fold > summary:hover,
+.arena-form-fold > summary:focus-visible {
+  color: var(--blue);
+}
+
+.arena-criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 8px;
+}
+
+.arena-criterion {
+  display: grid;
+  grid-template-columns: 22px 1fr 70px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  background: #f7f9ff;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.arena-criterion input[type='checkbox'] {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--blue);
+}
+
+.arena-criterion input[type='number'] {
+  width: 70px;
+  border: 1px solid #d8dee9;
+  border-radius: 8px;
+  padding: 6px;
+  text-align: center;
+}
+
+/* ---------- Resultados coletivos ---------- */
+
+.arena-report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.arena-report-grid h4 {
+  margin: 0 0 8px;
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.arena-report-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid var(--gray-3);
+  padding: 7px 0;
+  font-size: 13px;
+}
+
+.arena-report-row span {
+  color: var(--gray-2);
+}
+
+.arena-report-row strong {
+  color: var(--blue);
+}
+
+.arena-report-insight {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 14px;
+  border-radius: 14px;
+  background: #eef3ff;
+  padding: 14px 16px;
+}
+
+.arena-report-insight p {
+  margin: 0;
+  color: var(--navy);
+  font-size: 14px;
+}
+
+.arena-report-insight b {
+  color: var(--blue);
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 980px) {
+  .arena-lobby-body {
+    grid-template-columns: 1fr;
+  }
+
+  .arena-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .arena-admin {
+    padding: 18px 14px;
+  }
+
+  .arena-lobby-stats .ghost-link {
+    padding: 8px 12px;
+  }
+
+  .arena-breakdown-row {
+    grid-template-columns: 88px 1fr 42px;
+  }
+
+  .arena-report-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ---- Fase 5: cockpit ao vivo ---- */
+
+.arena-timer.is-paused {
+  color: #b45309;
+}
+
+.arena-round-countdown {
+  color: var(--blue);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.arena-round-countdown.is-danger {
+  color: #d93025;
+}
+
+.arena-round-countdown.is-paused {
+  color: #b45309;
+}
+
+.arena-round-card.is-paused {
+  border-color: #f59e0b;
+}
+
+.arena-mission-done {
+  color: #137333;
+  font-weight: 700;
+}
+
+.arena-mission-waiting {
+  color: #b45309;
+  font-weight: 700;
+}
+
+.arena-mini-ranking.is-evolution li {
+  grid-template-columns: 34px 1fr auto;
+}
+
+.arena-mini-ranking.is-evolution li small {
+  grid-column: 2 / -1;
+  color: var(--gray);
+  font-size: 11.5px;
+}
+
+.arena-mini-ranking li em.is-positive {
+  color: #137333;
+}
+
+.arena-mini-ranking li em.is-negative {
+  color: #d93025;
+}
+
+/* ---- Fase 6: modos avancados ---- */
+
+.arena-scenario {
+  margin: 10px 0;
+  border: 1px solid #ffd166;
+  border-left: 4px solid #f59e0b;
+  border-radius: 12px;
+  background: #fffaf0;
+  padding: 12px 14px;
+}
+
+.arena-scenario span {
+  display: block;
+  margin-bottom: 6px;
+  color: #92400e;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.arena-scenario blockquote {
+  margin: 0;
+  color: #78350f;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.arena-completo-hint {
+  margin: 10px 0;
+  border: 1px dashed var(--blue);
+  border-radius: 12px;
+  padding: 10px 14px;
+  background: #f0f6ff;
+}
+
+.arena-completo-hint span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.arena-completo-hint li {
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 10px;
+}
+
+.arena-mission-panel.is-boss .arena-mission {
+  border-color: #b91c1c;
+  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.18);
+}
+
+.arena-mission-panel.is-boss .arena-mission-badge {
+  background: linear-gradient(135deg, #b91c1c, #f59e0b);
+  box-shadow: 0 4px 14px rgba(185, 28, 28, 0.35);
+}
+
+/* `auto-fill`, e não `auto-fit`: com um cartão só, `auto-fit` colapsa as faixas
+   vazias e o cartão estica pela largura inteira do painel (medido em 16/09: uma
+   aula sozinha fazia 1030 px de largura contra 335 px dos cartões na grade
+   cheia). `auto-fill` mantém as faixas, então a largura do cartão não depende de
+   quantos irmãos ele tem. */
+.admin-arena-lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+}
+
+.arena-lesson-card {
+  /* O cartão é uma coluna: as ações descem para a base e os botões de dois
+     cartões da mesma linha começam na mesma altura, mesmo quando um deles tem
+     menos linhas de conteúdo (a Aula 4 começava 19 px acima das vizinhas). */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dce4f5;
+  border-radius: 14px;
+  background: #fbfcff;
+  padding: 14px;
+}
+
+.arena-lesson-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.arena-lesson-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.arena-lesson-head strong {
+  display: block;
+  color: var(--navy);
+  font-size: 14px;
+}
+
+.arena-lesson-head small {
+  display: block;
+  margin-top: 2px;
+  color: var(--gray);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* A enumeração completa das modalidades, que antes vivia na linha fechada. */
+.arena-lesson-mix {
+  margin: 0 0 10px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.arena-lesson-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.arena-lesson-chips li {
+  border-radius: 999px;
+  background: #eef3ff;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+}
+
+.arena-lesson-actions button[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.arena-lesson-card .form-message {
+  margin-top: 8px;
+}
+
+/* Fix: .reset-panel (display:flex) sobrescreve [hidden] do Tailwind — o cartao
+   de login continuava visivel apos autenticar. Atributo + classe vence. */
+[data-admin-arena-login-panel][hidden] { display: none !important; }
+
+/* Fix (mesma classe de bug do login): .arena-mission-empty tem display:flex e
+   sobrescrevia [hidden] — aluno via "Aguardando a proxima missao" POR CIMA da
+   missao ativa. Catch-all escopado: qualquer [hidden] dentro das telas da arena
+   tem que sumir de verdade. */
+[data-arena-screen] [hidden] { display: none !important; }
+
+/* Fix (mesma classe de bug): .text-field tem display:block com especificidade
+   igual a [hidden] e ganha na cascata — o campo "Participantes" continuava
+   visivel no preset Classico. Atributo + classe vence. */
+.text-field[hidden] { display: none !important; }
+
+/* Botao de envio travado apos a ultima tentativa.
+   A opacidade de 0.55 apagava o controle inteiro junto com o texto: "Enviar
+   prompt" e o atalho "Ctrl + Enter" ficavam em 2,83 e 2,24 de contraste
+   (medido no navegador). O estado desligado passa a ter paleta propria —
+   superficie neutra e tinta escura — que le como indisponivel e continua
+   legivel: 7,03 no rotulo e 7,30 no atalho. */
+.arena-submit:disabled {
+  opacity: 1 !important;
+  background: #e3e8f0 !important;
+  color: #414c60 !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+.arena-submit:disabled .arena-submit-hint {
+  background: #cbd3e1;
+  color: #333c52;
+}
+
+/* ============ Sala classica (preset classic) no lobby do aluno ============ */
+.arena-classic-stage {
+  display: block;
+  margin: 0 0 14px;
+}
+.arena-classic-figure {
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #090e1f;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 82, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 380px;
+}
+.arena-classic-figure img {
+  display: block;
+  width: 100%;
+  max-height: 380px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center 25%;
+}
+.arena-mission-panel.is-classic .arena-mission-body {
+  font-size: 1.05rem;
+  max-width: 620px;
+}
+.arena-result-row.is-classic {
+  border-left: 4px solid var(--color-primary);
+}
+body.arena-classic-room .arena-mission-badge {
+  background: rgba(0, 82, 255, 0.12);
+  color: #0052ff;
+}
+
+/* ============ M5: cockpit do host (PIN, preset, iniciar) ============ */
+.arena-preset-hint {
+  margin: 12px 0 0;
+  color: var(--gray, #666);
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+/* Cada modo carrega um par opaco: a tinta precisa sobreviver tanto no painel
+   claro quanto no topbar escuro da TV. O `is-arena` nao tinha par e herdava o
+   azul do tema claro — no topbar escuro dava 2,12 de contraste. */
+.arena-preset-chip.is-classic { background: #fff1de; color: #8f4700; }
+.arena-preset-chip.is-turma { background: #e3f2ff; color: #0052c2; }
+.arena-preset-chip.is-personalizado { background: #e9fbf4; color: #006650; }
+.arena-preset-chip.is-arena { background: #f5f7fc; color: #071f49; }
+.arena-cockpit.is-classic {
+  background: linear-gradient(135deg, #fff8ec 0%, #fff 58%, #f3fbff 100%);
+}
+.arena-cockpit.is-classic .arena-cockpit-code strong { color: var(--color-primary, #0052ff); }
+.arena-cockpit-code p { margin: 6px 0 0; color: #8a8fa3; font-size: 13px; line-height: 1.4; }
+.arena-cockpit-code p b { color: #3c4048; }
+.arena-copy-code {
+  align-self: flex-start;
+  border: 1px solid rgba(0, 82, 255, 0.3);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue, #0052ff);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.arena-cockpit-rules {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+.arena-cockpit-rules span:last-child { color: var(--gray, #666); font-size: 13.5px; }
+.arena-cockpit-start p b { color: var(--navy, #001c50); }
+.arena-start-big {
+  min-height: 52px;
+  padding: 14px 34px;
+  font-size: 17px;
+  box-shadow: 0 10px 26px rgba(0, 82, 255, 0.28);
+}
+.arena-start-big:disabled { opacity: 0.45; box-shadow: none; cursor: not-allowed; }
+@media (max-width: 900px) {
+  .arena-cockpit { flex-direction: column; }
+  .arena-cockpit-code { border-right: 0; border-bottom: 2px solid rgba(0, 82, 255, 0.12); padding: 0 0 16px; }
+}
+
+/* ============================================================
+   Compacidade vertical: a acao principal (Enviar prompt) deve
+   caber na tela sem rolar. Reduz a imagem e aperta o ritmo
+   vertical em janelas de ate 1000px de altura.
+   ============================================================ */
+@media (max-height: 1000px) {
+  .arena-mission-top {
+    margin-bottom: 12px;
+  }
+  .arena-mission h1 {
+    margin-bottom: 10px;
+  }
+  .arena-mission-body {
+    margin-bottom: 12px;
+  }
+  .arena-attempts {
+    margin-bottom: 10px;
+  }
+  .arena-field textarea {
+    min-height: 96px;
+  }
+}
+
+@media (max-height: 800px) {
+  .arena-classic-figure img {
+    max-height: 20vh;
+  }
+}
+
+@media (min-height: 801px) and (max-height: 1000px) {
+  .arena-classic-figure img {
+    max-height: 26vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .arena-classic-figure img {
+    max-height: 200px;
+  }
+}
+
+/* ============================================================
+   TV / PROJECAO DA SALA
+   ============================================================ */
+
+.arena-tv-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.arena-tv-room > strong {
+  overflow: hidden;
+  max-width: min(38vw, 520px);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(15px, 1.6vw, 22px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arena-tv .arena-preset-chip {
+  flex: none;
+}
+
+.arena-tv-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 8px clamp(16px, 3vw, 48px) clamp(20px, 4vh, 44px);
+}
+
+.arena-tv-content.is-connect {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+
+.arena-tv-content.is-connect h1,
+.arena-tv-error h1,
+.arena-tv-results-head h1 {
+  color: #fff;
+  font-size: clamp(30px, 4.4vw, 64px);
+  font-weight: 900;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.arena-tv-content.is-connect p,
+.arena-tv-error p,
+.arena-tv-results-head p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: clamp(15px, 1.8vw, 22px);
+  max-width: 62ch;
+}
+
+.arena-tv-spinner {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.18);
+  border-top-color: #37d9c5;
+  animation: arena-tv-spin 0.8s linear infinite;
+}
+
+@keyframes arena-tv-spin {
+  to { transform: rotate(360deg); }
+}
+
+.arena-tv-content.is-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arena-tv-error {
+  text-align: center;
+}
+
+/* ---------- Entrada por codigo curto de projecao (outro aparelho) ---------- */
+
+.arena-tv-code-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.arena-tv-code-message {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(15px, 1.7vw, 21px);
+  max-width: 56ch;
+}
+
+.arena-tv-code-form {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.arena-tv-code-form input {
+  width: min(300px, 72vw);
+  height: 64px;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-family: 'Google Sans', system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.arena-tv-code-form input:focus {
+  border-color: #37d9c5;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.arena-tv-code-form input::placeholder {
+  color: rgba(255, 255, 255, 0.34);
+  letter-spacing: 0.34em;
+}
+
+.arena-tv-code-submit:hover {
+  transform: translateY(-2px);
+}
+
+.arena-tv-code-submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.arena-tv-code-error {
+  margin: 2px 0 0;
+  color: #ff8fa3;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* ---------- Dialog de projecao no cockpit (codigo curto) ---------- */
+
+.arena-proj-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.arena-proj-lead {
+  margin: 0;
+  color: var(--gray);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.arena-proj-lead span {
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.arena-proj-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.arena-proj-actions .arena-proj-copy {
+  min-height: 49px;
+  border: 2px solid var(--soft-blue);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue);
+  padding: 14px 24px;
+}
+
+.arena-proj-hint {
+  margin: 2px 0 0;
+  color: var(--gray);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.arena-proj-hint b {
+  color: var(--navy);
+}
+
+.arena-proj-qr-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.arena-proj-qr {
+  width: 208px;
+  height: 208px;
+  padding: 10px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(20, 24, 51, 0.14);
+}
+
+.arena-proj-url {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--gray);
+  font-size: 12px;
+  font-family: var(--la-mono);
+}
+
+/* QR da tela de entrada dos alunos, no bloco do PIN do cockpit */
+.arena-qr-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 82, 255, 0.16);
+  border-radius: 14px;
+  background: #f8faff;
+}
+
+.arena-qr-entry-img {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.arena-qr-entry-url {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--la-mono);
+}
+
+.arena-qr-entry[hidden] {
+  display: none;
+}
+
+/* ---------- Lobby (PIN + participantes ao vivo) ---------- */
+
+.arena-tv-lobby {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 460px);
+  gap: clamp(20px, 3vw, 44px);
+  align-items: start;
+}
+
+.arena-tv-lobby-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.arena-tv-pin {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.arena-tv-pin small {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: clamp(11px, 1.1vw, 15px);
+  font-weight: 800;
+  letter-spacing: 0.24em;
+}
+
+.arena-tv-lobby-main > h1 {
+  margin: 6px 0 0;
+  color: #fff;
+  font-size: clamp(24px, 3vw, 42px);
+  font-weight: 900;
+}
+
+.arena-tv-waiting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(15px, 1.7vw, 22px);
+}
+
+.arena-tv-pulse {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #37d9c5;
+  box-shadow: 0 0 0 0 rgba(55, 217, 197, 0.55);
+  animation: arena-tv-pulse 1.6s ease-out infinite;
+}
+
+@keyframes arena-tv-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(55, 217, 197, 0.5); }
+  70% { box-shadow: 0 0 0 16px rgba(55, 217, 197, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(55, 217, 197, 0); }
+}
+
+.arena-tv-join {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(16px, 2.5vh, 28px);
+  padding: 14px 22px 14px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  text-align: left;
+}
+
+.arena-tv-join-qr {
+  width: 104px;
+  height: 104px;
+  flex: 0 0 auto;
+  padding: 6px;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.arena-tv-join-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.arena-tv-join-text strong {
+  color: #fff;
+  font-size: clamp(15px, 1.5vw, 20px);
+  font-weight: 800;
+}
+
+.arena-tv-join-text span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #37d9c5;
+  font-size: clamp(12px, 1.2vw, 15px);
+  font-weight: 700;
+  font-family: var(--la-mono);
+}
+
+.arena-tv-join-text small {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: clamp(11px, 1vw, 13px);
+}
+
+.arena-tv-join-text small b {
+  color: #fff;
+}
+
+.arena-tv-roster-panel {
+  width: 100%;
+  margin-top: clamp(18px, 3vh, 34px);
+}
+
+.arena-tv-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.arena-tv-block-head h2 {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: clamp(12px, 1.2vw, 16px);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.arena-tv-spots {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(13px, 1.4vw, 18px);
+}
+
+.arena-tv-spots b {
+  color: #37d9c5;
+}
+
+.arena-tv-roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arena-tv-roster li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 8px 12px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(13px, 1.3vw, 17px);
+}
+
+.arena-tv-roster li i {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff5c7a;
+}
+
+.arena-tv-roster li.is-on i {
+  background: #37d9c5;
+  box-shadow: 0 0 10px rgba(55, 217, 197, 0.8);
+}
+
+.arena-tv-empty-li {
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ---------- Ranking (resultados / final) ---------- */
+
+.arena-tv-rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arena-tv-rank-pos {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: clamp(15px, 1.5vw, 20px);
+  font-weight: 800;
+}
+
+.arena-tv-rank-player {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.arena-tv-rank-avatar {
+  width: clamp(28px, 2.4vw, 36px);
+  height: clamp(28px, 2.4vw, 36px);
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  object-fit: contain;
+}
+
+.arena-tv-rank-list-large .arena-tv-rank {
+  padding: 14px 22px;
+}
+
+.arena-tv-results,
+.arena-tv-results-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Final da batalha: o campeao aparece com o trofeu, o avatar do jogador e a
+   estrela de pontos exatamente como no ranking da base observada. */
+
+.arena-tv-champion-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+}
+
+.arena-tv-champion-star {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+/* ---------- Rodada ao vivo ---------- */
+
+.arena-tv-round {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vh, 22px);
+}
+
+.arena-tv-round-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.arena-tv-timer {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 20px;
+  color: #37d9c5;
+  font-size: clamp(30px, 4.4vw, 62px);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.arena-tv-timer.is-paused {
+  color: #ffc752;
+  font-size: clamp(18px, 2vw, 28px);
+}
+
+/* Missao sem cronometro: ocupa o mesmo lugar do relogio, sem fingir contagem. */
+.arena-tv-timer.is-untimed {
+  color: #cfe0ff;
+  font-size: clamp(16px, 1.8vw, 26px);
+  letter-spacing: 0.02em;
+}
+
+.arena-tv-round-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: center;
+}
+
+.arena-tv-figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.arena-tv-round-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.arena-tv-progress b {
+  color: #37d9c5;
+  font-size: clamp(18px, 2vw, 26px);
+}
+
+/* ---------- Botao do cockpit (abrir projecao) ---------- */
+
+.arena-tv-open {
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid rgba(0, 82, 255, 0.25);
+  border-radius: 10px;
+  background: rgba(0, 82, 255, 0.06);
+  padding: 7px 12px;
+  color: #0052ff;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.arena-tv-open:hover {
+  background: rgba(0, 82, 255, 0.12);
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 900px) {
+  .arena-tv-lobby {
+    grid-template-columns: 1fr;
+  }
+
+  .arena-tv-round-body {
+    grid-template-columns: 1fr;
+  }
+
+  .arena-tv-figure img {
+    max-height: 42vh;
+  }
+}
+
+@media (max-width: 560px) {
+  .arena-tv-topbar {
+    padding: 10px 14px;
+  }
+
+  .arena-tv-room > strong {
+    display: none;
+  }
+}
+
+/* ---------- Missoes da sala: o professor ve o que o aluno vai ver ---------- */
+
+.arena-room-missions-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d8dee9;
+  border-radius: 999px;
+  background: #f4f7ff;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+}
+
+.arena-round-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 116px;
+  margin: 0 0 10px;
+  overflow: hidden;
+  border: 1px solid #e7e8ef;
+  border-radius: 12px;
+  background: #f7f9ff;
+}
+
+.arena-round-preview img {
+  display: block;
+  width: 100%;
+  max-height: 240px;
+  /* A imagem de referência precisa aparecer inteira: é ela que o aluno vê. */
+  object-fit: contain;
+  background: #f1f6ff;
+}
+
+.arena-round-preview-empty {
+  padding: 20px 12px;
+  color: var(--gray);
+  font-size: 12px;
+  font-style: italic;
+  text-align: center;
+}
+
+.arena-round-mission,
+.arena-round-gabarito p {
+  margin: 0 0 8px;
+  color: var(--gray-2);
+  font-size: 12.5px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.arena-round-mission span,
+.arena-round-gabarito > span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--gray);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.arena-round-gabarito {
+  margin: 0 0 10px;
+  border-left: 3px solid var(--blue);
+  border-radius: 8px;
+  background: #f1f6ff;
+  padding: 8px 10px;
+}
+
+.arena-round-gabarito > span { color: #1967d2; }
+.arena-round-gabarito p { color: var(--navy); }
+.arena-round-gabarito p.is-alt { color: var(--gray-2); }
+
+.arena-round-gabarito.is-missing {
+  border-left-color: #f9ab00;
+  background: #fff8e6;
+}
+
+.arena-round-gabarito.is-missing > span { color: #a35c00; }
+.arena-round-gabarito.is-missing p { color: #7a4b00; }
+
+.arena-round-manage {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  border-top: 1px dashed #e7e8ef;
+  padding-top: 10px;
+}
+
+.arena-round-manage button {
+  min-height: 34px;
+  border: 1px solid #d8dee9;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 12px;
+}
+
+.arena-round-manage button:hover:not(:disabled) {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.arena-round-manage button:disabled {
+  opacity: 0.4;
+}
+
+.arena-round-manage button.is-danger {
+  margin-left: auto;
+  border-color: rgba(217, 48, 37, 0.35);
+  color: #d93025;
+}
+
+/* Seletor de missoes na criacao da sala (preset Personalizado) */
+
+.arena-room-missions {
+  margin: 4px 0 0;
+  border: 1px solid #e7e8ef;
+  border-radius: 14px;
+  background: #fbfcff;
+  padding: 12px 14px 14px;
+}
+
+.arena-room-missions[hidden] { display: none; }
+
+.arena-room-missions legend {
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0 6px;
+}
+
+.arena-room-missions-hint {
+  margin: 0 0 10px;
+  color: var(--gray);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Sem teto e sem rolagem própria: quem rola é o corpo do diálogo. Uma segunda
+   barra de rolagem dentro do diálogo (a lista tinha 320px fixos) escondia a
+   própria lista e prendia o toque no celular. */
+.arena-room-missions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.arena-room-mission-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e7e8ef;
+  border-radius: 12px;
+  background: #fff;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.arena-room-mission-option:hover { border-color: var(--blue); }
+
+.arena-room-mission-option input { width: 18px; height: 18px; }
+
+.arena-room-mission-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f1f6ff;
+}
+
+.arena-room-mission-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.arena-room-mission-thumb i { color: var(--gray); font-size: 10px; font-style: italic; text-align: center; }
+
+.arena-room-mission-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.arena-room-mission-text strong { color: var(--navy); font-size: 13px; }
+.arena-room-mission-text small { color: var(--gray); font-size: 11px; }
+
+.arena-room-missions-count {
+  margin: 10px 0 0;
+  color: #1967d2;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Formulario de desafio: explicacao do gabarito + preview da imagem */
+
+.arena-image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.arena-image-preview[hidden] { display: none; }
+
+.arena-image-preview img {
+  max-width: 100%;
+  max-height: 260px;
+  border: 1px solid #e7e8ef;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.arena-image-preview small { color: var(--gray); font-size: 11px; }
+
+.arena-image-preview button {
+  border: 1px solid rgba(217, 48, 37, 0.35);
+  border-radius: 999px;
+  background: #fff;
+  color: #b3261e;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 12px;
+}
+
+.arena-add-round-preview:not(:empty) {
+  margin: 4px 0 10px;
+  border: 1px solid #e7e8ef;
+  border-radius: 14px;
+  background: #fbfcff;
+  padding: 12px;
+}
+
+/* ---------- Sala que ainda nao pode abrir (missao incompleta) ---------- */
+
+.arena-room-blocked-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(217, 48, 37, 0.3);
+  border-radius: 999px;
+  background: #fdeae7;
+  color: #b3261e;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+}
+
+.arena-room-card-actions button.is-blocked {
+  border-color: rgba(249, 171, 0, 0.6);
+  background: #fff8e6;
+  color: #8a5300;
+}
+
+.arena-round-missing {
+  align-self: flex-start;
+  margin-top: 2px;
+  border-radius: 999px;
+  background: #fdeae7;
+  color: #b3261e;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+}
+
+.arena-blockers {
+  margin: 0 0 16px;
+  border: 1px solid rgba(249, 171, 0, 0.55);
+  border-left: 4px solid #f9ab00;
+  border-radius: 14px;
+  background: #fff8e6;
+  padding: 12px 14px;
+}
+
+.arena-blockers > strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #8a5300;
+  font-size: 14px;
+}
+
+.arena-blockers p {
+  margin: 8px 0 0;
+  color: #7a4b00;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.arena-blockers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arena-blockers-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 6px 10px;
+}
+
+.arena-blockers-list li strong { color: var(--navy); font-size: 13px; }
+
+.arena-blockers-list li span {
+  color: #b3261e;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.arena-blockers-lead {
+  margin: 0 0 10px;
+  color: var(--navy);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.arena-blockers-help {
+  margin: 10px 0 0;
+  color: var(--gray);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+/* =====================================================================
+   Quem enviou e ainda nao tem nota: a fila do patio na tela onde o
+   professor decide. O bloco so existe quando existe pendencia — um painel
+   que anuncia "nenhuma pendencia" ocupa a primeira tela para nao informar.
+   ===================================================================== */
+
+.arena-waiting {
+  margin: 0 0 16px;
+  border: 1px solid rgba(249, 171, 0, 0.55);
+  border-left: 4px solid #f9ab00;
+  border-radius: 14px;
+  background: #fff8e6;
+  padding: 12px 14px;
+}
+
+.arena-waiting-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.arena-waiting-head strong {
+  color: #8a5300;
+  font-size: 14px;
+}
+
+.arena-waiting-head span {
+  color: #7a4b00;
+  font-size: 12.5px;
+}
+
+.arena-waiting-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arena-waiting-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 6px 10px;
+}
+
+.arena-waiting-item strong {
+  color: var(--navy);
+  font-size: 13px;
+}
+
+.arena-waiting-mission,
+.arena-waiting-age {
+  /* O cinza da casa (`--gray`) da 2,9:1 sobre o ambar deste bloco: abaixo do teto
+     AA para 12px. Aqui vale o cinza escuro que o produto ja usa nas telas
+     classicas, que mantem a leitura secundaria sem apagar o texto. */
+  color: #5f6368;
+  font-size: 12px;
+}
+
+.arena-waiting-state {
+  color: #8a5300;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* O que NAO volta sozinha e a unica linha que pede acao do professor: ela sai
+   do ambar da espera e vira o vermelho que o produto ja usa para bloqueio. */
+.arena-waiting-item.is-esgotada .arena-waiting-state,
+.arena-waiting-item.is-encerrada .arena-waiting-state,
+.arena-waiting-item.is-fora-da-janela .arena-waiting-state {
+  color: #b3261e;
+}
+
+.arena-waiting-note {
+  flex-basis: 100%;
+  color: #7a4b00;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.arena-waiting-more {
+  margin: 8px 0 0;
+  color: #7a4b00;
+  font-size: 12.5px;
+}
+
+/* =====================================================================
+   Corrigir a missao sem sair da sala: o botao abre o desafio em edicao
+   direto no campo que falta (imagem ou gabarito).
+   ===================================================================== */
+
+.arena-fix-button {
+  flex: none;
+  min-height: 30px;
+  border: 1px solid rgba(249, 171, 0, 0.6);
+  border-radius: 999px;
+  background: #fff;
+  color: #8a5300;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.arena-fix-button:hover {
+  border-color: #f9ab00;
+  background: #fff8e6;
+  color: #6b3f00;
+}
+
+.arena-round-manage button.is-fix {
+  border-color: rgba(249, 171, 0, 0.6);
+  background: #fff8e6;
+  color: #8a5300;
+}
+
+.arena-round-manage button.is-fix:hover:not(:disabled) {
+  border-color: #f9ab00;
+  color: #6b3f00;
+}
+
+.arena-fix-callout {
+  margin: 0 0 14px;
+  border: 1px solid rgba(249, 171, 0, 0.55);
+  border-left: 4px solid #f9ab00;
+  border-radius: 12px;
+  background: #fff8e6;
+  padding: 10px 12px;
+}
+
+.arena-fix-callout strong {
+  display: block;
+  color: #8a5300;
+  font-size: 13px;
+}
+
+.arena-fix-callout p {
+  margin: 4px 0 0;
+  color: #7a4b00;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.arena-challenge-form .text-field.is-needs-fix {
+  border: 1px solid rgba(249, 171, 0, 0.6);
+  border-radius: 12px;
+  background: #fffaf0;
+  padding: 8px 10px;
+}
+
+@keyframes arena-fix-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 171, 0, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(249, 171, 0, 0.3); }
+}
+
+.arena-challenge-form .text-field.is-fix-pulse {
+  animation: arena-fix-pulse 1.2s ease-in-out 2;
+}
+
+.arena-fix-flash {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+  border: 1px solid rgba(249, 171, 0, 0.55);
+  border-left: 4px solid #f9ab00;
+  border-radius: 12px;
+  background: #fff8e6;
+  padding: 10px 12px;
+  color: #7a4b00;
+  font-size: 12.5px;
+}
+
+.arena-fix-flash.is-ready {
+  border-color: rgba(52, 168, 83, 0.45);
+  border-left-color: #34a853;
+  background: #eef9f0;
+  color: #1e5b31;
+}
+
+.arena-fix-flash button {
+  min-height: 28px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: #fff;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+/* =====================================================================
+   Tela unica das pendencias da sala: uma linha por missao, com o campo
+   que a trava, para destravar a sala inteira de uma vez.
+   ===================================================================== */
+
+.arena-bulk-form {
+  gap: 14px;
+}
+
+.arena-bulk-lead {
+  margin: 0;
+  color: var(--gray);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.arena-bulk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Colar o prompt uma vez e distribuir entre as missoes em branco */
+
+.arena-bulk-fill {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(0, 82, 255, 0.25);
+  border-radius: 16px;
+  background: #f3f6ff;
+  padding: 12px 14px 14px;
+}
+
+.arena-bulk-fill .text-field {
+  margin-bottom: 0;
+}
+
+.arena-bulk-fill-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.arena-bulk-fill-actions .figma-cta {
+  min-height: 38px;
+  font-size: 12.5px;
+  padding: 8px 16px;
+}
+
+.arena-bulk-fill-actions .figma-cta:disabled {
+  opacity: 0.5;
+}
+
+.arena-bulk-fill-hint,
+.arena-bulk-fill-message {
+  margin: 0;
+  color: var(--gray);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.arena-bulk-fill-message[data-tone='info'] {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.arena-bulk-fill-message[data-tone='error'] {
+  color: #d93025;
+  font-weight: 700;
+}
+
+.arena-bulk-item.is-filled {
+  border-color: rgba(0, 82, 255, 0.35);
+  background: #f7faff;
+}
+
+.arena-bulk-from {
+  display: block;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.arena-bulk-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  border: 1px solid #e7e8ef;
+  border-radius: 16px;
+  background: #fbfcff;
+  padding: 12px 14px 16px;
+}
+
+.arena-bulk-item legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.arena-bulk-item legend strong {
+  color: var(--navy);
+  font-size: 13.5px;
+}
+
+.arena-bulk-missing {
+  border: 1px solid rgba(249, 171, 0, 0.55);
+  border-radius: 999px;
+  background: #fff8e6;
+  color: #8a5300;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+}
+
+.arena-bulk-mission {
+  margin: 0;
+  color: var(--gray-2);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.arena-bulk-mission span {
+  display: block;
+  color: var(--blue);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.arena-bulk-item .text-field {
+  margin-bottom: 0;
+}
+
+.arena-bulk-item .arena-image-preview {
+  flex-direction: row;
+  align-items: center;
+}
+
+/* O chip de tempo e o atalho para ajustar: e um botao, nao um selo. */
+.arena-detail-head .arena-timing-chip {
+  cursor: pointer;
+  font-family: inherit;
+  gap: 8px;
+}
+
+.arena-detail-head .arena-timing-chip:hover,
+.arena-detail-head .arena-timing-chip:focus-visible {
+  border-color: var(--blue);
+  background: #e8efff;
+}
+
+.arena-timing-chip-edit {
+  border-left: 1px solid rgba(0, 82, 255, 0.3);
+  padding-left: 8px;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Ajuste dos tempos da sala: cada missao com a sua sugestao e o campo mm:ss. */
+.arena-timing-form {
+  gap: 14px;
+}
+
+.arena-timing-lead {
+  margin: 0;
+  color: var(--gray);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.arena-timing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Botão secundário: retângulo neutro, do mesmo tamanho e do mesmo peso em toda
+   a superfície. Ajuda (aceitar sugestão, usar sugestão) não disputa com a ação
+   da tela — quem carrega o azul e o gradiente é só a ação principal do diálogo. */
+.arena-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 38px;
+  max-width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: transparent;
+  color: #475569;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.3;
+  padding: 8px 14px;
+  text-align: center;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.arena-btn-secondary:hover {
+  border-color: #94a3b8;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+/* Dica de campo: texto auxiliar abaixo do controle, sem a reserva de altura nem
+   o respiro de mensagem de formulário (que a fazia parecer um campo a mais). */
+.arena-field-hint {
+  margin: 8px 0 0;
+  color: #52627a;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.arena-timing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.arena-timing-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  border: 1px solid #e7e8ef;
+  border-radius: 16px;
+  background: #fbfcff;
+  padding: 12px 14px 14px;
+}
+
+.arena-timing-item.is-invalid {
+  border-color: rgba(217, 48, 37, 0.6);
+  background: #fff7f6;
+}
+
+.arena-timing-item legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.arena-timing-item legend strong {
+  color: var(--navy);
+  font-size: 13.5px;
+}
+
+.arena-timing-modality {
+  border-radius: 999px;
+  background: #eef3ff;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+}
+
+/* O tempo que está NO AR, e só quando ele difere do campo: é o que o professor
+   confere depois de mexer, para não salvar às cegas. Enquanto campo e selo
+   diriam a mesma coisa, o selo não é pintado. */
+.arena-timing-now {
+  border-radius: 999px;
+  background: #eef9f0;
+  color: #1e5b31;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+}
+
+.arena-timing-now.is-untimed {
+  background: #fff8e6;
+  color: #8a5300;
+}
+
+/* Enunciado e justificativa da sugestão: lidos uma vez para decidir, abertos
+   sob a alça em vez de empurrar a decisão para fora da tela. */
+.arena-timing-reason > summary,
+.arena-timing-brief > summary {
+  cursor: pointer;
+  color: var(--gray-2);
+  font-size: 12px;
+}
+
+.arena-timing-reason > summary:hover,
+.arena-timing-reason > summary:focus-visible,
+.arena-timing-brief > summary:hover,
+.arena-timing-brief > summary:focus-visible {
+  color: var(--blue);
+}
+
+.arena-timing-reason > p,
+.arena-timing-brief > p {
+  margin: 6px 0 0;
+  color: var(--gray-2);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.arena-timing-mission {
+  margin: 0;
+  color: var(--gray-2);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.arena-timing-row {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.arena-timing-now[hidden] {
+  display: none;
+}
+
+.arena-timing-row .text-field {
+  flex: 1 1 150px;
+  margin-bottom: 0;
+}
+
+.arena-timing-suggest {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 2px;
+  color: var(--gray-2);
+  font-size: 12px;
+}
+
+.arena-timing-suggest b {
+  color: var(--blue);
+  font-size: 14px;
+}
+
+.arena-timing-suggest small {
+  display: block;
+  color: var(--gray-2);
+  font-size: 11px;
+}
+
+.arena-timing-none {
+  color: var(--gray-2);
+  font-size: 12px;
+}
+
+.arena-timing-shared {
+  margin: 0;
+  border-radius: 10px;
+  background: #fff8e6;
+  color: #8a5300;
+  font-size: 11.5px;
+  line-height: 1.45;
+  padding: 7px 10px;
+}
+
+.arena-timing-error {
+  margin: 0;
+  color: #d93025;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.arena-timing-error:empty {
+  display: none;
+}
+
+.arena-timing-total {
+  margin: 0;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.arena-timing-total.is-invalid {
+  color: #d93025;
+}
+
+.arena-fix-all {
+  margin-top: 10px;
+}
+
+/* =====================================================================
+   Previa da sala como o aluno ve: a tela e a mesma do aluno; esta barra
+   e o unico acrescimo, com navegacao entre as missoes e a volta ao painel.
+   ===================================================================== */
+
+body[data-arena-preview='1'] .arena-preview-bar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 14px;
+  border: 1px solid rgba(0, 82, 255, 0.28);
+  border-left: 4px solid var(--blue);
+  border-radius: 14px;
+  background: #f3f6ff;
+  padding: 12px 16px;
+}
+
+body[data-arena-preview='1'] .arena-preview-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--navy);
+  font-size: 13px;
+}
+
+body[data-arena-preview='1'] .arena-preview-tag {
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 5px 10px;
+}
+
+body[data-arena-preview='1'] .arena-preview-note {
+  color: var(--gray-2);
+  font-size: 12px;
+}
+
+/* A preparação da aula (código da sala, tempo somado) abre sob a alça, e o
+   próprio aviso de simulação é a alça: quem só quer navegar entre as missões não
+   atravessa três linhas de contexto administrativo antes de ver o aluno. */
+body[data-arena-preview='1'] .arena-preview-prep {
+  color: var(--gray-2);
+  font-size: 12px;
+}
+
+body[data-arena-preview='1'] .arena-preview-prep > summary {
+  cursor: pointer;
+}
+
+body[data-arena-preview='1'] .arena-preview-prep > summary:hover,
+body[data-arena-preview='1'] .arena-preview-prep > summary:focus-visible {
+  color: var(--blue);
+}
+
+body[data-arena-preview='1'] .arena-preview-prep-body {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+
+body[data-arena-preview='1'] .arena-preview-total {
+  border: 1px solid rgba(0, 82, 255, 0.25);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue);
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 4px 10px;
+}
+
+/* Seletor de estado da previa: missao aberta, o que o aluno ve depois de
+   responder e como a sala termina (resultado por missao + podio). */
+body[data-arena-preview='1'] .arena-preview-modes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+body[data-arena-preview='1'] .arena-preview-mode {
+  border: 1px solid #d8dee9;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 14px;
+}
+
+body[data-arena-preview='1'] .arena-preview-mode.is-current {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+body[data-arena-preview='1'] .arena-preview-sample {
+  margin-left: auto;
+  border: 1px solid rgba(52, 168, 83, 0.45);
+  border-radius: 999px;
+  background: #eef9f0;
+  color: #1e5b31;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 5px 12px;
+}
+
+body[data-arena-preview='1'] .arena-preview-sample.is-sample {
+  border-color: rgba(249, 171, 0, 0.55);
+  background: #fff8e6;
+  color: #8a5300;
+}
+
+body[data-arena-preview='1'] .arena-preview-back {
+  margin-left: auto;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #d8dee9;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 7px 14px;
+  text-decoration: none;
+}
+
+body[data-arena-preview='1'] .arena-preview-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--gray-2);
+}
+
+/* Com mais de uma missão, ir para outra é uma dobra: a alça é a PRÓPRIA
+   contagem ("Missão 1 de 3"), que já estava na tela — nenhuma palavra nova
+   entra na barra, e o professor continua vendo em que missão está. Com uma
+   missão só, a contagem fica sem dobra e sem botão nenhum dentro. O caret é
+   desenhado aqui porque a alça é uma linha flex, e o marcador do navegador só
+   existe em `list-item` (mesmo padrão da alça do relatório). */
+body[data-arena-preview='1'] .arena-preview-nav-fold {
+  min-width: 0;
+}
+
+body[data-arena-preview='1'] .arena-preview-nav-fold > summary.arena-preview-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+body[data-arena-preview='1'] .arena-preview-nav-fold > summary.arena-preview-count::-webkit-details-marker {
+  display: none;
+}
+
+body[data-arena-preview='1'] .arena-preview-nav-fold > summary.arena-preview-count::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid currentColor;
+  transition: transform 0.18s ease;
+}
+
+/* Aberta, a seta aponta para baixo — o mesmo caret, girado. */
+body[data-arena-preview='1'] .arena-preview-nav-fold[open] > summary.arena-preview-count::before {
+  transform: rotate(90deg);
+}
+
+body[data-arena-preview='1'] .arena-preview-nav-fold > summary.arena-preview-count:hover,
+body[data-arena-preview='1'] .arena-preview-nav-fold > summary.arena-preview-count:focus-visible {
+  color: var(--blue);
+}
+
+body[data-arena-preview='1'] .arena-preview-nav-fold > .arena-preview-nav-row,
+body[data-arena-preview='1'] .arena-preview-nav-fold > .arena-preview-jump {
+  margin-top: 8px;
+}
+
+body[data-arena-preview='1'] .arena-preview-nav button {
+  min-height: 34px;
+  border: 1px solid #d8dee9;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 12.5px;
+  font-weight: 800;
+  padding: 6px 14px;
+}
+
+body[data-arena-preview='1'] .arena-preview-nav button:disabled {
+  opacity: 0.4;
+}
+
+body[data-arena-preview='1'] .arena-preview-count {
+  color: var(--navy);
+}
+
+body[data-arena-preview='1'] .arena-preview-missing {
+  border: 1px solid rgba(249, 171, 0, 0.55);
+  border-radius: 999px;
+  background: #fff8e6;
+  color: #8a5300;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 4px 10px;
+}
+
+body[data-arena-preview='1'] .arena-preview-ok {
+  border: 1px solid rgba(52, 168, 83, 0.45);
+  border-radius: 999px;
+  background: #eef9f0;
+  color: #1e5b31;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 4px 10px;
+}
+
+body[data-arena-preview='1'] .arena-preview-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+body[data-arena-preview='1'] .arena-preview-jump button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d8dee9;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--gray-2);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+body[data-arena-preview='1'] .arena-preview-jump button.is-current {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+body[data-arena-preview='1'] .arena-preview-jump button.has-issue {
+  border-color: rgba(249, 171, 0, 0.7);
+  color: #8a5300;
+}
+
+body[data-arena-preview='1'] .arena-preview-jump button.has-issue.is-current {
+  color: #fff;
+}
+
+/* Missao sem cronometro: circulo tracejado, com legenda na propria linha. */
+body[data-arena-preview='1'] .arena-preview-jump button.is-untimed {
+  border-style: dashed;
+  border-color: rgba(120, 130, 150, 0.65);
+  background: #f4f5f7;
+  color: var(--gray-2);
+}
+
+body[data-arena-preview='1'] .arena-preview-jump button.is-untimed.is-current {
+  border-style: solid;
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+body[data-arena-preview='1'] .arena-preview-legend {
+  align-self: center;
+  color: var(--gray-2);
+  font-size: 11.5px;
+}
+
+/* O gabarito do juiz so aparece aqui, a pedido do professor: ele nunca entra
+   na tela do aluno (nem no payload do jogador). */
+body[data-arena-preview='1'] .arena-preview-gabarito-toggle {
+  margin-left: auto;
+  border: 1px dashed rgba(0, 82, 255, 0.5);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue);
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 6px 12px;
+}
+
+body[data-arena-preview='1'] .arena-preview-gabarito {
+  border: 1px solid rgba(0, 82, 255, 0.22);
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px 14px;
+}
+
+body[data-arena-preview='1'] .arena-preview-gabarito > span {
+  display: block;
+  color: var(--blue);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+body[data-arena-preview='1'] .arena-preview-gabarito p {
+  margin: 6px 0 0;
+  color: var(--navy);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Abrir a previa pelo cockpit mantem o desenho dos outros botoes do painel */
+.arena-preview-open {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  border: 1px solid rgba(0, 82, 255, 0.35);
+  border-radius: 999px;
+  background: #f3f6ff;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 14px;
+  text-decoration: none;
+}
+
+.arena-preview-open:hover {
+  border-color: var(--blue);
+  background: #e8efff;
+}
+
+/* A previa da TV e escura: o botao do painel nao pode se perder nela. */
+.arena-preview-open.is-tv {
+  border-color: rgba(20, 24, 51, 0.35);
+  background: #141833;
+  color: #fff;
+}
+
+.arena-preview-open.is-tv:hover {
+  border-color: #141833;
+  background: #1f2550;
+}
+
+/* =====================================================================
+   Previa da projecao (TV): a tela e a mesma da TV da turma; esta barra e o
+   unico acrescimo, com o seletor de estado (espera, rodada, resultado, fim) e
+   o atalho para abrir a projecao de verdade.
+   ===================================================================== */
+
+.arena-tv-preview-bar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px clamp(12px, 3vw, 40px) 0;
+  border: 1px dashed rgba(122, 169, 255, 0.55);
+  border-radius: 14px;
+  background: rgba(10, 16, 42, 0.86);
+  padding: 12px 16px;
+}
+
+.arena-tv-preview-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #eef2ff;
+  font-size: 13px;
+}
+
+.arena-tv-preview-tag {
+  border-radius: 999px;
+  background: #5a86ff;
+  color: #050a1c;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 5px 10px;
+}
+
+.arena-tv-preview-note {
+  color: #a7b3d6;
+  font-size: 12px;
+}
+
+.arena-tv-preview-sample {
+  margin-left: auto;
+  border: 1px solid rgba(120, 226, 160, 0.45);
+  border-radius: 999px;
+  background: rgba(24, 66, 44, 0.55);
+  color: #b8f2cd;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 5px 12px;
+}
+
+.arena-tv-preview-sample.is-sample {
+  border-color: rgba(249, 171, 0, 0.6);
+  background: rgba(92, 62, 6, 0.6);
+  color: #ffd98a;
+}
+
+.arena-tv-preview-back {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #eef2ff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+
+.arena-tv-preview-modes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.arena-tv-preview-mode,
+.arena-tv-preview-refresh,
+.arena-tv-preview-open {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #eef2ff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 14px;
+}
+
+.arena-tv-preview-mode.is-current {
+  border-color: #7aa9ff;
+  background: #7aa9ff;
+  color: #050a1c;
+}
+
+.arena-tv-preview-refresh {
+  margin-left: auto;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.arena-tv-preview-open {
+  border-style: dashed;
+  border-color: rgba(122, 169, 255, 0.7);
+  color: #cfe0ff;
+}
+
+.arena-tv-preview-message {
+  color: #ffb4b4;
+  font-size: 12px;
+}
+/* ---------- Sorteio da vez (quem joga agora) ---------- */
+
+.arena-draw {
+  margin: 0 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fbfcff;
+  padding: 14px 16px;
+}
+
+.arena-draw-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.arena-draw-head h3 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 16px;
+}
+
+.arena-draw-count {
+  color: var(--gray-2);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.arena-draw-count b { color: var(--navy); }
+
+.arena-draw-setup {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.arena-draw-modes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.arena-draw-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--navy);
+  cursor: pointer;
+  font-family: inherit;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.arena-draw-mode b { font-size: 13px; }
+
+.arena-draw-mode small {
+  color: var(--gray-2);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.arena-draw-mode:hover,
+.arena-draw-mode:focus-visible { border-color: var(--blue); }
+
+.arena-draw-mode.is-on {
+  border-color: var(--blue);
+  background: #eef3ff;
+  box-shadow: inset 0 0 0 1px rgba(0, 82, 255, 0.25);
+}
+
+.arena-draw-mode.is-on small { color: var(--blue); }
+
+.arena-draw-size {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--gray-2);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.arena-draw-size input {
+  width: 84px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 7px 10px;
+}
+
+.arena-draw-size input:focus-visible {
+  border-color: var(--blue);
+  outline: 2px solid rgba(0, 82, 255, 0.2);
+}
+
+.arena-draw-reset {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--gray-2);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 12px;
+}
+
+.arena-draw-reset:hover,
+.arena-draw-reset:focus-visible { border-color: var(--blue); color: var(--blue); }
+
+.arena-draw-hint {
+  margin: 10px 0 0;
+  color: var(--gray-2);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.arena-draw-cta { margin-top: 12px; }
+
+.arena-draw-fair {
+  margin: 8px 0 0;
+  color: var(--gray-2);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.arena-draw-fair b { color: var(--navy); }
+
+.arena-draw-blocked {
+  margin: 8px 0 0;
+  color: #8a5300;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+/* O grupo da vez: os nomes precisam ser lidos de longe (o professor fala em voz alta). */
+.arena-draw-current {
+  margin-top: 12px;
+  border: 1px solid rgba(0, 82, 255, 0.3);
+  border-radius: 14px;
+  background: #fff;
+  padding: 12px 14px;
+}
+
+.arena-draw-lead {
+  margin: 0 0 8px;
+  color: var(--gray-2);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.arena-draw-lead b { color: var(--navy); }
+
+.arena-draw-names {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.arena-draw-names li {
+  border-radius: 12px;
+  background: #eef3ff;
+  color: var(--blue);
+  font-size: 20px;
+  font-weight: 800;
+  padding: 8px 14px;
+}
+
+.arena-draw-pick {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.arena-draw-pick button {
+  border: 1px solid rgba(24, 128, 56, 0.4);
+  border-radius: 999px;
+  background: #eef9f0;
+  color: #1e5b31;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 14px;
+}
+
+.arena-draw-pick button:hover,
+.arena-draw-pick button:focus-visible { border-color: #188038; background: #ddf3e4; }
+
+.arena-draw-again {
+  margin-top: 12px;
+  border: 1px dashed rgba(0, 82, 255, 0.4);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--blue);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+}
+
+.arena-draw-again:hover,
+.arena-draw-again:focus-visible { border-style: solid; border-color: var(--blue); }
+
+.arena-draw-champion {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 12px;
+  border: 1px solid rgba(249, 171, 0, 0.6);
+  border-radius: 14px;
+  background: #fff8e6;
+  padding: 12px 14px;
+}
+
+.arena-draw-champion span {
+  color: #8a5300;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.arena-draw-champion strong { color: var(--navy); font-size: 22px; }
+
+.arena-draw-champion small { color: #8a5300; font-size: 12px; }
+
+.arena-draw-history { margin-top: 12px; }
+
+.arena-draw-history summary {
+  cursor: pointer;
+  color: var(--gray-2);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.arena-draw-history ol {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arena-draw-history li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  padding: 6px 10px;
+}
+
+.arena-draw-history li span { color: var(--gray-2); font-size: 11px; font-weight: 800; }
+.arena-draw-history li strong { color: var(--navy); font-size: 12.5px; }
+
+.arena-draw-history li em {
+  margin-left: auto;
+  color: #1e5b31;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.arena-draw-out {
+  margin: 8px 0 0;
+  color: var(--gray-2);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .arena-draw-names li { font-size: 17px; padding: 7px 12px; }
+  /* No celular os controles empilham: nada de esticar o "Recomeçar" até a
+     altura do campo (a pílula virava um bloco). */
+  .arena-draw-setup { align-items: flex-start; }
+  .arena-draw-size input { width: 100%; }
+}
+/* ---------- Sorteio da vez na projecao (TV) ---------- */
+
+.arena-tv-draw {
+  width: 100%;
+  margin-top: clamp(16px, 2.6vh, 30px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: clamp(12px, 1.4vw, 20px) clamp(14px, 1.6vw, 24px) clamp(14px, 1.6vw, 22px);
+  text-align: left;
+}
+
+.arena-tv-draw .arena-tv-block-head { margin-bottom: 8px; }
+
+.arena-tv-draw-mode {
+  color: #37d9c5;
+  font-size: clamp(11px, 1.1vw, 15px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.arena-tv-draw-now small {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: clamp(10px, 1vw, 13px);
+  font-weight: 800;
+  letter-spacing: 0.24em;
+}
+
+.arena-tv-draw-names {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(8px, 1vw, 14px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arena-tv-draw-names li {
+  border: 1px solid rgba(55, 217, 197, 0.45);
+  border-radius: 16px;
+  background: rgba(55, 217, 197, 0.14);
+  padding: clamp(6px, 0.8vh, 12px) clamp(14px, 1.6vw, 26px);
+  color: #fff;
+  font-size: clamp(26px, 3.4vw, 54px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-shadow: 0 0 30px rgba(55, 217, 197, 0.35);
+}
+
+.arena-tv-draw-champion {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(10px, 1.2vw, 18px);
+  border: 1px solid rgba(255, 199, 82, 0.4);
+  border-radius: 18px;
+  background: linear-gradient(120deg, rgba(255, 199, 82, 0.18), rgba(55, 217, 197, 0.08));
+  padding: clamp(10px, 1.2vh, 16px) clamp(16px, 1.8vw, 26px);
+}
+
+.arena-tv-draw-champion span {
+  color: rgba(255, 199, 82, 0.95);
+  font-size: clamp(11px, 1.1vw, 15px);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.arena-tv-draw-champion strong {
+  color: #fff;
+  font-size: clamp(28px, 3.6vw, 56px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.arena-tv-draw-last {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(15px, 1.7vw, 24px);
+}
+
+.arena-tv-draw-last span {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: clamp(10px, 1vw, 13px);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.arena-tv-draw-last b { color: #ffc752; }
+
+.arena-tv-draw-bracket {
+  margin-top: clamp(10px, 1.4vh, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.arena-tv-draw-bracket p {
+  margin: 0;
+  font-size: clamp(12px, 1.25vw, 17px);
+  line-height: 1.45;
+}
+
+.arena-tv-draw-bracket .is-in { color: rgba(255, 255, 255, 0.86); }
+
+.arena-tv-draw-bracket .is-in b { color: #37d9c5; }
+
+.arena-tv-draw-bracket .is-out { color: rgba(255, 255, 255, 0.5); }
+
+.arena-tv-draw-bracket .is-out b { color: #ff8fa3; }
+
+/* Quem esta em campo durante a rodada: uma linha, sem competir com a missao. */
+.arena-tv-round-vez {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 6px 0 0;
+  border-left: 3px solid rgba(55, 217, 197, 0.7);
+  padding: 2px 0 2px 12px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(13px, 1.4vw, 19px);
+  align-self: flex-start;
+}
+
+.arena-tv-round-vez b { color: #fff; }
+/* ==========================================================================
+   MODO ARENA — TURMA VS. JUIZ
+   --------------------------------------------------------------------------
+   Uma nova modalidade da mesma Batalha de Prompts: reaproveita os tokens,
+   raios, tipografia e sombras que o produto já usa. Não cria identidade nova —
+   adiciona só o que o modo precisa (corações do Juiz, energia, voto da turma).
+   ========================================================================== */
+
+/* ------------------------------ peças comuns ----------------------------- */
+.arena-hearts { display: inline-flex; gap: 4px; align-items: center; line-height: 1; }
+.arena-heart { font-style: normal; font-size: 18px; display: inline-block; }
+.arena-heart.is-full { animation: arena-heart-in .45s ease both; }
+.arena-hearts.is-big { gap: 8px; }
+.arena-hearts.is-big .arena-heart { font-size: 38px; }
+
+@keyframes arena-heart-in {
+  from { transform: scale(1.5); filter: drop-shadow(0 0 12px rgba(217, 48, 37, .55)); }
+  to { transform: scale(1); filter: none; }
+}
+
+.arena-energy { display: inline-flex; align-items: center; gap: 8px; }
+.arena-energy-track {
+  display: inline-block; width: 96px; height: 8px; border-radius: 999px;
+  background: var(--arena-energy-soft); overflow: hidden;
+}
+.arena-energy-track > i {
+  display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--arena-energy), #ffcf4d);
+  transition: width .6s cubic-bezier(.2, .8, .2, 1);
+}
+.arena-energy > b { font-size: 12px; font-weight: 700; color: #071f49; }
+.arena-energy.is-tv .arena-energy-track { width: 220px; height: 12px; }
+.arena-energy.is-tv > b { font-size: 18px; }
+
+.arena-accuracy { font-size: 13px; color: #667085; }
+.arena-accuracy > b { color: var(--arena-boss); }
+
+/* --------------------------- aluno: HUD coletivo ------------------------- */
+.arena-mode-hud {
+  display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center;
+  justify-content: space-between;
+  margin: 0 0 14px; padding: 12px 18px;
+  background: #fff; border: 1px solid rgba(7,31,73,.12);
+  border-radius: 20px; box-shadow: 0 6px 16px rgba(11, 87, 208, 0.05);
+}
+.arena-mode-boss { display: inline-flex; align-items: center; gap: 10px; }
+.arena-mode-boss-label,
+.arena-mode-energy-label {
+  font-size: 11px; letter-spacing: .12em; font-weight: 700; color: #667085;
+}
+.arena-mode-energy { display: inline-flex; align-items: center; gap: 8px; }
+.arena-mode-energy-track {
+  display: inline-block; width: 110px; height: 8px; border-radius: 999px;
+  background: var(--arena-energy-soft); overflow: hidden;
+}
+.arena-mode-energy-track > i {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--arena-energy), #ffcf4d);
+  transition: width .6s cubic-bezier(.2, .8, .2, 1);
+}
+.arena-mode-team {
+  font-size: 11px; font-weight: 700; letter-spacing: .08em; color: #071f49;
+  background: #f5f7fc; border: 1px solid rgba(7,31,73,.12);
+  border-radius: 999px; padding: 4px 10px;
+}
+
+/* --------------------------- aluno: cartão de voto ----------------------- */
+.arena-mode-vote {
+  grid-column: 1 / -1;
+  background: #fff; border: 1px solid rgba(7,31,73,.12);
+  border-radius: 20px; box-shadow: 0 6px 16px rgba(11, 87, 208, 0.05);
+  padding: 22px 24px; display: flex; flex-direction: column; gap: 14px;
+}
+.arena-mode-vote-kicker {
+  font-size: 11px; letter-spacing: .14em; font-weight: 700; color: #0b57d0;
+}
+.arena-mode-vote h2 { margin: 0; font-size: 22px; line-height: 1.25; color: #071f49; }
+.arena-mode-vote-intro { margin: 0; color: #667085; font-size: 14px; line-height: 1.5; }
+.arena-mode-vote-prompt {
+  margin: 0; padding: 14px 16px; background: #f5f7fc;
+  border-left: 3px solid #0b57d0; border-radius: 10px;
+  font-size: 14px; line-height: 1.6; white-space: pre-wrap; color: #0d2c61;
+  max-height: 240px; overflow: auto;
+}
+.arena-mode-vote-options { display: flex; flex-direction: column; gap: 10px; }
+.arena-vote-option {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  padding: 14px 16px; border-radius: 10px;
+  border: 1.5px solid rgba(7,31,73,.12); background: #fff;
+  font: inherit; color: #071f49; cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, transform .1s ease;
+}
+.arena-vote-option:hover { border-color: #0b57d0; background: rgba(11, 87, 208, .04); }
+.arena-vote-option:active { transform: scale(.99); }
+.arena-vote-option.is-picked {
+  border-color: #0b57d0; background: rgba(11, 87, 208, .08);
+  box-shadow: 0 0 0 3px rgba(11, 87, 208, .12);
+}
+.arena-vote-option > b {
+  flex: 0 0 34px; height: 34px; display: grid; place-items: center;
+  border-radius: 50%; background: #f5f7fc; color: #0b57d0;
+  font-size: 15px; font-weight: 700;
+}
+.arena-vote-option > span { flex: 1; font-size: 14px; line-height: 1.45; }
+.arena-vote-option.is-small { flex: 0 1 auto; padding: 10px 18px; font-size: 14px; font-weight: 600; justify-content: center; }
+.arena-mode-confidence { display: flex; flex-direction: column; gap: 8px; }
+.arena-mode-confidence > span { font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #667085; }
+.arena-mode-confidence-options { display: flex; gap: 10px; flex-wrap: wrap; }
+.arena-mode-vote-status { margin: 0; font-size: 13px; color: #667085; }
+.arena-mode-vote-status[data-tone="ok"] { color: var(--arena-good); }
+.arena-mode-vote-status[data-tone="error"] { color: #d93025; }
+
+/* --------------------------- painel do professor ------------------------- */
+.arena-mode-panel {
+  margin: 18px 0; padding: 20px 22px; border-radius: 20px;
+  background: #fff; border: 1px solid rgba(7,31,73,.12);
+  box-shadow: 0 6px 16px rgba(11, 87, 208, 0.05);
+}
+.arena-mode-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.arena-mode-kicker { font-size: 11px; letter-spacing: .14em; font-weight: 700; color: #0b57d0; }
+.arena-mode-head h3 { margin: 4px 0 0; font-size: 18px; color: #071f49; }
+/* Os tres numeros da partida (Juiz, energia e acerto) ficam na faixa de
+   indicadores do cartao da sala — a `.arena-detail-stats`, em `refinement.css`.
+   Aqui no painel eles apareciam uma segunda vez, e o que sobra e o contexto da
+   rodada: poderes disponiveis e ataques que ainda cabem nela. */
+.arena-mode-round-context { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 14px 0 0; color: #667085; font-size: 12.5px; font-weight: 600; }
+.arena-mode-round-context > b, .arena-mode-round-context > span > b { color: #071f49; font-family: var(--la-mono, monospace); }
+
+.arena-mode-field { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 10px; }
+.arena-mode-field > li {
+  display: flex; gap: 12px; padding: 12px 14px; border-radius: 10px;
+  border: 1px solid rgba(7,31,73,.12); background: #fff;
+}
+.arena-mode-slot {
+  flex: 0 0 34px; height: 34px; display: grid; place-items: center; border-radius: 50%;
+  background: #0b57d0; color: #fff; font-weight: 700;
+}
+.arena-mode-field > li > div { min-width: 0; }
+.arena-mode-field strong { display: block; font-size: 15px; color: #071f49; }
+.arena-mode-field-prompt {
+  margin: 6px 0 0; font-size: 13px; line-height: 1.5; color: #667085;
+  white-space: pre-wrap; word-break: break-word;
+}
+.arena-mode-tag {
+  display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px;
+  background: var(--arena-energy-soft); color: #8a5a00; font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; font-style: normal;
+}
+.arena-mode-hint { margin: 8px 0; font-size: 13px; color: #667085; }
+.arena-mode-next { margin: 8px 0; font-size: 13px; color: #667085; }
+
+.arena-mode-dynamics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.arena-mode-dynamics > button {
+  padding: 9px 14px; border-radius: 10px; border: 1px solid rgba(7,31,73,.12);
+  background: #fff; font: inherit; font-size: 13px; color: #071f49; cursor: pointer;
+}
+.arena-mode-dynamics > button:hover { border-color: #0b57d0; color: #0b57d0; }
+.arena-mode-next-attack { margin: 12px 0; font-size: 13px; color: #667085; }
+
+.arena-mode-attack {
+  display: flex; flex-direction: column; gap: 4px; margin: 14px 0; padding: 16px 18px;
+  border-radius: 10px; background: var(--arena-good-soft);
+}
+.arena-mode-attack.is-damage { background: var(--arena-boss-soft); animation: arena-shake .5s ease 1; }
+.arena-mode-attack strong { font-size: 20px; color: #071f49; }
+.arena-mode-attack.is-damage strong { color: var(--arena-boss); }
+.arena-mode-attack > span { font-size: 13px; color: #667085; }
+
+@keyframes arena-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+
+.arena-mode-wildcard, .arena-mode-dynamic {
+  margin: 12px 0; padding: 16px 18px; border-radius: 10px;
+  border: 1px dashed rgba(7,31,73,.12); background: #f5f7fc;
+}
+.arena-mode-wildcard-head, .arena-mode-dynamic-head {
+  display: block; font-size: 11px; letter-spacing: .12em; font-weight: 700; color: #667085;
+  margin-bottom: 10px;
+}
+.arena-mode-dynamic h4 { margin: 0 0 10px; font-size: 17px; color: #071f49; }
+.arena-mode-wildcard ol { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 8px; }
+.arena-mode-wildcard li {
+  display: grid; grid-template-columns: 28px 1fr 40px; gap: 10px; align-items: start;
+  padding: 10px 12px; background: #fff; border-radius: 10px;
+}
+.arena-mode-wildcard li b { color: #0b57d0; }
+.arena-mode-wildcard li span { font-size: 13px; line-height: 1.5; color: #667085; }
+.arena-mode-wildcard li em { text-align: right; font-style: normal; font-weight: 700; color: #071f49; }
+.arena-mode-dynamic-prompt {
+  margin: 0 0 10px; padding: 12px 14px; background: #fff; border-radius: 10px;
+  font-size: 13px; line-height: 1.55; white-space: pre-wrap; color: #0d2c61; max-height: 200px; overflow: auto;
+}
+.arena-mode-dynamic-options { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.arena-mode-dynamic-options li {
+  padding: 6px 12px; border-radius: 999px; background: #fff;
+  border: 1px solid rgba(7,31,73,.12); font-size: 13px; color: #071f49;
+}
+.arena-mode-dynamic-options b { color: #0b57d0; margin-right: 6px; }
+
+.arena-mode-notes { margin: 14px 0; padding: 14px 16px; border-radius: 10px; background: #f5f7fc; }
+.arena-mode-notes > span { font-size: 11px; letter-spacing: .12em; font-weight: 700; color: #667085; }
+.arena-mode-notes p { margin: 8px 0 0; font-size: 13px; line-height: 1.55; color: #0d2c61; }
+
+.arena-mode-attacks { list-style: none; margin: 14px 0; padding: 0; display: grid; gap: 6px; }
+.arena-mode-attacks li {
+  display: grid; grid-template-columns: 36px 1fr auto; gap: 10px; align-items: center;
+  padding: 8px 12px; border-radius: 10px; background: #f5f7fc; font-size: 13px;
+}
+.arena-mode-attacks li.is-damage { background: var(--arena-boss-soft); }
+.arena-mode-attacks span { font-weight: 700; color: #667085; }
+.arena-mode-attacks em { font-style: normal; font-weight: 700; color: #071f49; }
+
+.arena-mode-awards { margin: 16px 0; padding: 16px 18px; border-radius: 10px; background: #f5f7fc; }
+.arena-mode-awards > strong { display: block; font-size: 16px; color: #071f49; margin-bottom: 10px; }
+.arena-mode-awards ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.arena-mode-awards li { font-size: 14px; color: #0d2c61; }
+.arena-mode-awards li b { color: #071f49; }
+.arena-mode-awards li em { font-style: normal; color: #667085; margin-left: 6px; }
+
+.arena-mode-config { margin: 16px 0 0; border-top: 1px solid rgba(7,31,73,.12); padding-top: 12px; }
+.arena-mode-config > summary { cursor: pointer; font-size: 13px; font-weight: 700; color: #667085; }
+.arena-mode-config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 14px 0; }
+.arena-mode-config-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #667085; }
+.arena-mode-config-grid label.is-check { flex-direction: row; align-items: center; gap: 8px; }
+.arena-mode-config-grid input[type="number"] {
+  padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(7,31,73,.12);
+  font: inherit; color: #071f49;
+}
+.arena-mode-config-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.arena-mode-config-actions > button:not(.figma-cta) {
+  padding: 9px 14px; border-radius: 10px; border: 1px solid rgba(7,31,73,.12);
+  background: #fff; font: inherit; font-size: 13px; color: #071f49; cursor: pointer;
+}
+.arena-mode-teams { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 14px; }
+.arena-mode-teams > div { padding: 10px 12px; border-radius: 10px; background: #f5f7fc; }
+.arena-mode-teams span { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: #667085; }
+.arena-mode-teams p { margin: 4px 0 0; font-size: 13px; color: #071f49; }
+.arena-mode-powers { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.arena-mode-powers > button {
+  padding: 9px 14px; border-radius: 10px; border: 1px dashed rgba(7,31,73,.12);
+  background: #fff; font: inherit; font-size: 13px; color: #071f49; cursor: pointer;
+}
+.arena-mode-powers > button:not(:disabled):hover { border-style: solid; border-color: #0b57d0; color: #0b57d0; }
+.arena-mode-powers > button:disabled { opacity: .55; cursor: not-allowed; }
+
+/* Ajustes do modo Arena na criacao da sala: dobra igual as do formulario de
+   desafio, com o valor escolhido no resumo e os campos sempre no formulario
+   (recolher esconde, nao apaga). O atributo escondido precisa do aviso: a mesma
+   classe de bug de .arena-room-missions e do login do painel. */
+.arena-room-arena[hidden] { display: none; }
+
+.arena-arena-config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 12px; }
+.arena-arena-config-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #667085; }
+.arena-arena-config-grid input {
+  padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(7,31,73,.12); font: inherit;
+}
+
+/* --------------------------------- TV ------------------------------------ */
+.arena-tv-mode {
+  margin: 18px 0; padding: 22px 26px; border-radius: 20px;
+  background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .14);
+  color: #fff;
+}
+.arena-tv-mode-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.arena-tv-mode-round { font-size: 13px; letter-spacing: .16em; font-weight: 700; color: #37d9c5; }
+.arena-tv-mode-phase { font-size: 13px; color: rgba(255, 255, 255, .7); }
+.arena-tv-mode-boss { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin: 14px 0; }
+.arena-tv-mode-boss-label { font-size: 14px; letter-spacing: .14em; font-weight: 700; color: rgba(255, 255, 255, .75); }
+.arena-tv-mode .arena-energy > b { color: #fff; }
+.arena-tv-mode .arena-energy-track { background: rgba(255, 255, 255, .16); }
+.arena-tv-mode-competitors { margin: 6px 0 0; font-size: 15px; color: rgba(255, 255, 255, .78); }
+.arena-tv-mode-competitors b { color: #fff; }
+
+/* Faixa da rodada em andamento: enquanto a turma escreve, o Juiz continua na
+   parede — uma linha so, sem repetir o cabecalho da rodada. */
+.arena-tv-mode.is-strip {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  margin: 12px 0; padding: 12px 20px; border-radius: 14px;
+}
+.arena-tv-mode.is-strip .arena-tv-mode-boss { margin: 0; gap: 16px; }
+.arena-tv-mode.is-strip .arena-tv-mode-competitors { margin: 0; font-size: 14px; }
+
+.arena-tv-question { margin-top: 16px; }
+.arena-tv-question > small {
+  display: block; font-size: 12px; letter-spacing: .14em; font-weight: 700; color: #ffdd00;
+  margin-bottom: 8px;
+}
+.arena-tv-question h2 { margin: 0 0 12px; font-size: 30px; line-height: 1.2; color: #fff; }
+.arena-tv-question-prompt {
+  margin: 0 0 14px; padding: 14px 18px; border-radius: 10px;
+  background: rgba(255, 255, 255, .08); font-size: 17px; line-height: 1.55; color: rgba(255, 255, 255, .88);
+  white-space: pre-wrap; max-height: 220px; overflow: hidden;
+}
+.arena-tv-options { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.arena-tv-options li {
+  display: grid; grid-template-columns: 44px 1fr auto; gap: 14px; align-items: center;
+  padding: 12px 16px; border-radius: 10px; background: rgba(255, 255, 255, .07);
+  font-size: 18px;
+}
+.arena-tv-options b {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: #ffdd00; color: #071f49; font-size: 16px;
+}
+.arena-tv-options span { color: rgba(255, 255, 255, .9); }
+.arena-tv-options em { font-style: normal; font-weight: 700; color: #37d9c5; }
+.arena-tv-question-foot { margin: 10px 0 0; font-size: 14px; color: rgba(255, 255, 255, .65); }
+
+.arena-tv-attack { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+.arena-tv-attack-accuracy { font-size: 62px; font-weight: 800; line-height: 1; color: #ffdd00; }
+.arena-tv-attack strong {
+  font-size: clamp(36px, 3.6vw, 72px); font-weight: 900; line-height: 1.06; letter-spacing: .01em;
+  text-wrap: balance;
+}
+.arena-tv-attack.is-damage strong { color: #ff8a80; animation: arena-shake .5s ease 1; }
+.arena-tv-attack.is-resist strong { color: rgba(255, 255, 255, .78); }
+.arena-tv-attack small { font-size: 16px; color: rgba(255, 255, 255, .62); }
+/* O Juiz cai: o último coração quebra, escorrega e some — só então a manchete
+   de vitória entra. O palco guarda altura para ninguém pular de lugar. */
+.arena-tv-mode.is-fall {
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 420px; text-align: center;
+}
+.arena-tv-mode.is-fall .arena-tv-mode-boss { margin: 26px 0 0; justify-content: center; gap: 26px; }
+.arena-tv-mode.is-fall .arena-hearts.is-big .arena-heart { font-size: clamp(48px, 4vw, 76px); }
+.arena-tv-mode.is-fall .arena-heart:not(.is-breaking) { opacity: .3; }
+.arena-heart.is-breaking {
+  animation: arena-heart-breaking 1.35s cubic-bezier(.5, .05, .7, .35) .5s both;
+}
+@keyframes arena-heart-breaking {
+  0% { transform: translateY(0) scale(1) rotate(0); opacity: 1; filter: drop-shadow(0 0 22px rgba(217, 48, 37, .7)); }
+  16% { transform: translateY(-12px) scale(1.34) rotate(-8deg); opacity: 1; }
+  28% { transform: translateY(0) scale(1.06) rotate(7deg); }
+  100% { transform: translateY(170px) scale(.55) rotate(42deg); opacity: 0; filter: none; }
+}
+.arena-tv-attack.is-verdict { margin-top: 10px; gap: 10px; }
+.arena-tv-attack.is-verdict.is-in strong { animation: arena-tv-verdict-in .62s cubic-bezier(.18, .9, .2, 1) both; }
+.arena-tv-attack.is-verdict.is-in small,
+.arena-tv-attack.is-verdict.is-in .arena-tv-awards { animation: arena-tv-verdict-sub .5s ease .4s both; }
+@keyframes arena-tv-verdict-in {
+  0% { opacity: 0; transform: scale(.9); }
+  55% { opacity: 1; transform: scale(1.03); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes arena-tv-verdict-sub {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arena-heart.is-breaking,
+  .arena-tv-attack.is-verdict.is-in strong,
+  .arena-tv-attack.is-verdict.is-in small,
+  .arena-tv-attack.is-verdict.is-in .arena-tv-awards { animation: none; }
+}
+/* Veredito final: a manchete da vitória precisa ser lida do fundo da sala. */
+.arena-tv-attack.is-verdict strong { font-size: clamp(54px, 6.4vw, 124px); line-height: 1; letter-spacing: -.005em; }
+.arena-tv-verdict-mark { font-size: .74em; vertical-align: .04em; }
+.arena-tv-attack.is-verdict small { font-size: clamp(17px, 1.4vw, 23px); color: rgba(255, 255, 255, .74); }
+.arena-tv-attack-energy { margin: 2px 0 0; font-size: 16px; font-weight: 700; color: #ffdd00; }
+.arena-tv-question-hint {
+  margin: 0 0 14px; padding: 12px 16px; border-radius: 10px;
+  background: rgba(255, 221, 0, .12); border-left: 4px solid #ffdd00;
+  font-size: 17px; line-height: 1.5; color: #fff8d6;
+}
+.arena-tv-awards { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
+.arena-tv-awards li {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 14px; align-items: center;
+  padding: 10px 16px; border-radius: 10px; background: rgba(255, 255, 255, .07);
+  font-size: 17px;
+}
+.arena-tv-awards span { color: rgba(255, 255, 255, .72); }
+.arena-tv-awards b { color: #fff; }
+.arena-tv-awards em { font-style: normal; color: #37d9c5; font-weight: 700; }
+
+/* ------------------------------ responsivo ------------------------------- */
+@media (max-width: 720px) {
+  .arena-mode-hud { padding: 10px 12px; gap: 8px 14px; }
+  .arena-mode-energy-track { width: 74px; }
+  .arena-mode-vote { padding: 18px 16px; }
+  .arena-mode-vote h2 { font-size: 19px; }
+  .arena-vote-option { padding: 12px 12px; }
+  .arena-vote-option > b { flex-basis: 30px; height: 30px; font-size: 14px; }
+  .arena-energy.is-tv .arena-energy-track { width: 140px; }
+  .arena-tv-attack-accuracy { font-size: 44px; }
+  .arena-tv-attack strong { font-size: 24px; }
+  .arena-tv-attack.is-verdict strong { font-size: clamp(30px, 8.6vw, 42px); }
+  .arena-tv-mode.is-fall { min-height: 300px; }
+  .arena-tv-mode.is-fall .arena-hearts.is-big .arena-heart { font-size: 40px; }
+  .arena-tv-question h2 { font-size: 22px; }
+  .arena-tv-options li { grid-template-columns: 36px 1fr auto; font-size: 15px; padding: 10px 12px; }
+  .arena-tv-awards li { font-size: 14px; grid-template-columns: 1fr auto; }
+  .arena-tv-awards em { grid-column: 2; }
+}
+
+.arena-mode-rotation { display: block; margin-top: 4px; font-size: 12px; color: #667085; }

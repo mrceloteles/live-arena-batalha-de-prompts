@@ -1,0 +1,115 @@
+{
+  "folhasCarregadas": [
+    "app-authorial.css",
+    "arena.css",
+    "design.css",
+    "refinement.css",
+    "round.css"
+  ],
+  "telas": {
+    "portal__1440x900": {
+      "elementos": 30,
+      "hash": "0c98274c80e9384a"
+    },
+    "entrada-do-aluno__1440x900": {
+      "elementos": 174,
+      "hash": "48f7a058af275ceb"
+    },
+    "entrada-do-aluno-com-codigo__1440x900": {
+      "elementos": 174,
+      "hash": "cdd2f95e4e32303d"
+    },
+    "painel-login__1440x900": {
+      "elementos": 32,
+      "hash": "afac998c9991b473"
+    },
+    "painel-do-professor__1440x900": {
+      "elementos": 282,
+      "hash": "69252b22c91823e7"
+    },
+    "sala-em-destaque-em-espera__1440x900": {
+      "elementos": 498,
+      "hash": "8e0b4388e5ab5c0c"
+    },
+    "sala-em-destaque-em-jogo__1440x900": {
+      "elementos": 509,
+      "hash": "085fcf0404aa5ecd"
+    },
+    "previa-do-aluno__1440x900": {
+      "elementos": 174,
+      "hash": "bac14ebd047af671"
+    },
+    "previa-da-tv__1440x900": {
+      "elementos": 32,
+      "hash": "d26731b34c10d4d8"
+    },
+    "projecao-da-tv__1440x900": {
+      "elementos": 71,
+      "hash": "7238b29ddfe0a6ce"
+    },
+    "projecao-da-tv-rodada-viva__1440x900": {
+      "elementos": 52,
+      "hash": "1c3958b4f189e11b"
+    },
+    "projecao-da-tv-placar__1440x900": {
+      "elementos": 85,
+      "hash": "8892c4a7ae4d3f01"
+    },
+    "relatorio__1440x900": {
+      "elementos": 608,
+      "hash": "234f6df990700b6f"
+    },
+    "portal__390x844": {
+      "elementos": 30,
+      "hash": "ce2f56e141c69168"
+    },
+    "entrada-do-aluno__390x844": {
+      "elementos": 174,
+      "hash": "392dcfe227fbb6e8"
+    },
+    "entrada-do-aluno-com-codigo__390x844": {
+      "elementos": 174,
+      "hash": "7c8c0f601af49538"
+    },
+    "painel-login__390x844": {
+      "elementos": 32,
+      "hash": "c3c61b0fd1ab2f26"
+    },
+    "painel-do-professor__390x844": {
+      "elementos": 282,
+      "hash": "5024769cdd5d20ac"
+    },
+    "sala-em-destaque-em-espera__390x844": {
+      "elementos": 498,
+      "hash": "f21bbe2e2750abe4"
+    },
+    "sala-em-destaque-em-jogo__390x844": {
+      "elementos": 509,
+      "hash": "9c5247770c689ed2"
+    },
+    "previa-do-aluno__390x844": {
+      "elementos": 174,
+      "hash": "d882087857620e0f"
+    },
+    "previa-da-tv__390x844": {
+      "elementos": 32,
+      "hash": "337c9965fcc0a3f8"
+    },
+    "projecao-da-tv__390x844": {
+      "elementos": 71,
+      "hash": "cce1acc955ae47be"
+    },
+    "projecao-da-tv-rodada-viva__390x844": {
+      "elementos": 52,
+      "hash": "38a6898f09f80a39"
+    },
+    "projecao-da-tv-placar__390x844": {
+      "elementos": 85,
+      "hash": "215b16432f4b8ee6"
+    },
+    "relatorio__390x844": {
+      "elementos": 608,
+      "hash": "603179e39a3bb806"
+    }
+  }
+}

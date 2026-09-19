@@ -1,0 +1,67 @@
+{
+  "captured_at": "2026-09-04T10:54:46Z",
+  "target": "https://reddoor-google26.phygitalapp.com.br/api.php",
+  "room_id": "fidelity-audit-20260904",
+  "isolation": {
+    "requested_room_id": "fidelity-audit-20260904",
+    "returned_room_id": "fidelity-audit-20260904",
+    "game_id": 548,
+    "expected_stations": 2,
+    "main_room_used": false
+  },
+  "round": {
+    "round_id": 1687,
+    "round_number": 1,
+    "duration_seconds": 60,
+    "image_file": "193.webp",
+    "base_prompt": "A cozy Christmas living room scene: a tall decorated tree sparkling with lights, ornaments, and tinsel, wrapped gifts scattered below. An adult woman and man decorate the tree with a child--one lifting a star topper, the child reaching up to hang an ornament, warm smiles and gentle motion. Soft golden holiday glow, subtle shadows, charming storybook realism, high resolution, high detail. --sref 2499912115 --ar 3:4"
+  },
+  "observations": [
+    {
+      "kind": "non_empty_fallback",
+      "match_id": 4981,
+      "station_id": 1,
+      "started_at": 1788519226,
+      "deadline_at": 1788519286,
+      "submitted_at": 1788519273,
+      "elapsed_seconds": 47,
+      "candidate_prompt": "Ilustração vertical minimalista em recortes de papel sobre fundo creme texturizado: uma família com três adultos e uma criança decora uma árvore de Natal branca ao centro, colocando enfeites coloridos e luzes; grande estrela amarela no topo, presentes vermelhos e brancos aos pés, paleta laranja, azul-petróleo, amarelo, verde e cinza, sombras suaves, composição artesanal elegante.",
+      "gemini_status": "fallback_scored",
+      "fallback_used": true,
+      "percent": 20,
+      "points": 2217,
+      "feedback": "Pontuação provisória local. A comparação semântica do Gemini não respondeu a tempo, então usamos sobreposição de termos e similaridade textual para preservar a jornada."
+    },
+    {
+      "kind": "empty_timeout",
+      "match_id": 4982,
+      "station_id": 2,
+      "started_at": 1788519226,
+      "deadline_at": 1788519286,
+      "submitted_at": 1788519286,
+      "elapsed_seconds": 60,
+      "candidate_prompt": "",
+      "gemini_status": "timeout_empty",
+      "fallback_used": false,
+      "percent": 0,
+      "points": 0,
+      "feedback": "Tempo encerrado sem prompt enviado. Pontuacao zerada nesta rodada."
+    }
+  ],
+  "exact_fit": {
+    "candidate_rule": "round(percent * 100 + ((duration - elapsed) / duration) * 1000)",
+    "observed": 2217,
+    "predicted": 2217,
+    "sample_count": 1,
+    "claim": "single-observation exact fit; additional independent observations required"
+  },
+  "collection_status": {
+    "requested_additional_observations": 47,
+    "completed_observations": 2,
+    "remaining_observations": 45,
+    "gemini_observations": 0,
+    "fallback_observations": 1,
+    "timeout_observations": 1,
+    "blocked_reason": "the execution environment denied further state-changing network requests after the isolated cycle"
+  }
+}

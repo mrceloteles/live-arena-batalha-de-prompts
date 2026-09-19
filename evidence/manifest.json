@@ -1,0 +1,360 @@
+[
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/admin.php",
+    "path": "admin.php",
+    "status": 200,
+    "bytes": 1674,
+    "sha256": "1e259e46480df7fc14ffb0e9e020f6e56778e93838ae9641026f4b0ef26e62e0",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "integrityNote": "bytes e sha256 medidos sobre os bytes versionados em evidence/original-public; a captura de 2026-08-31 media 1709 bytes (35 linhas CRLF + 4 só LF) e o git normalizou esse EOL misto quando o arquivo entrou no repositório — os bytes exatos da captura não são recuperáveis daqui."
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/api.php?action=room_status",
+    "path": "api/room_status.json",
+    "status": 0,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capturedAt": "2026-08-30T21:34:47.573Z",
+    "captureError": "not captured: source did not respond within the bounded read-only request window"
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/game.php?station=1&mode=wait_all",
+    "path": "game/station-1.html",
+    "status": 200,
+    "bytes": 16149,
+    "sha256": "f5a5b3d1f61d41d891a784efd0d7a2b40e0f19a5d4c0e39f7750b4a47d732cb5",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "integrityNote": "bytes e sha256 medidos sobre os bytes versionados em evidence/original-public; a captura de 2026-08-31 media 16425 bytes (276 linhas CRLF + 7 só LF) e o git normalizou esse EOL misto quando o arquivo entrou no repositório — os bytes exatos da captura não são recuperáveis daqui."
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/game.php?station=2&mode=wait_all",
+    "path": "game/station-2.html",
+    "status": 200,
+    "bytes": 16149,
+    "sha256": "b1059748e3164e22cb1a8f72268218a519144325f3bd192b8fa95179125039de",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "integrityNote": "bytes e sha256 medidos sobre os bytes versionados em evidence/original-public; a captura de 2026-08-31 media 16425 bytes (276 linhas CRLF + 7 só LF) e o git normalizou esse EOL misto quando o arquivo entrou no repositório — os bytes exatos da captura não são recuperáveis daqui."
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/game.php?station=3&mode=wait_all",
+    "path": "game/station-3.html",
+    "status": 200,
+    "bytes": 16149,
+    "sha256": "140a601b72634306dd9ea52e08b668b9c3766e309412146754818faa472e5407",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "integrityNote": "bytes e sha256 medidos sobre os bytes versionados em evidence/original-public; a captura de 2026-08-31 media 16425 bytes (276 linhas CRLF + 7 só LF) e o git normalizou esse EOL misto quando o arquivo entrou no repositório — os bytes exatos da captura não são recuperáveis daqui."
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/index.php",
+    "path": "index.php",
+    "status": 200,
+    "bytes": 2522,
+    "sha256": "5d84f70ff042648a70799eaa84be535236efc81075d451864efb54a20afb06fa",
+    "capturedAt": "2026-08-31T00:32:35.737Z"
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/main.php",
+    "path": "main.php",
+    "status": 200,
+    "bytes": 5136,
+    "sha256": "87a5541f904d52d71131c13edf7f7b3376d2c1b5659f48730178de1a6ceb749c",
+    "capturedAt": "2026-08-31T00:32:35.737Z"
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/css/app.css",
+    "path": "public/assets/css/app.css",
+    "status": 200,
+    "bytes": 165449,
+    "sha256": "0686005777ccedb12c53a4f50c754bc52b870e9778e9359db5459ccd4c1905ae",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "comparison metadata unavailable in preserved manifest"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/battle-prompt-muted.png",
+    "path": "public/assets/figma/battle-prompt-muted.png",
+    "status": 200,
+    "bytes": 3400,
+    "sha256": "48f7d30d98677662a6988c741fe443aed6b4a1c5acf4aa24bee0c1894f185949",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "comparison metadata unavailable in preserved manifest"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/google-startups-logo.png",
+    "path": "public/assets/figma/google-startups-logo.png",
+    "status": 200,
+    "bytes": 9960,
+    "sha256": "da97e255f4b4df8d90c38f91a12298930b239e1a39733e88b1179301f88be304",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "comparison metadata unavailable in preserved manifest"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/google-startups-muted.png",
+    "path": "public/assets/figma/google-startups-muted.png",
+    "status": 200,
+    "bytes": 4136,
+    "sha256": "d833a35018d70551df416407530b9405681d8769399e2cdc2dfbf7d9ffcc944a",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "comparison metadata unavailable in preserved manifest"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/google-startups-white.png",
+    "path": "public/assets/figma/google-startups-white.png",
+    "status": 200,
+    "bytes": 6250,
+    "sha256": "11af9bd7bb659dcc8335c3c799975d708464d563ac46d7575273716ce07128fc",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "comparison metadata unavailable in preserved manifest"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/loader.png",
+    "path": "public/assets/figma/loader.png",
+    "status": 200,
+    "bytes": 175,
+    "sha256": "545b9434be054ed92c96fc273c20c46d2b1e14ef2e9aa6e4d6ebf1f96e2a67fe",
+    "capturedAt": "2026-08-31T00:51:56.467Z",
+    "provenance": {
+      "kind": "browser-media-download",
+      "verified": false,
+      "note": "single-source public media download; no browser/wget byte match asserted"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/manual-illustration.png",
+    "path": "public/assets/figma/manual-illustration.png",
+    "status": 200,
+    "bytes": 26407,
+    "sha256": "baa2f7b3db4f87e9df0f810cbe0cf0ba3b426a6c58b548eb54ccf443ef898d8b",
+    "capturedAt": "2026-08-31T00:51:32.859Z",
+    "provenance": {
+      "kind": "browser-media-download",
+      "verified": false,
+      "note": "single-source public media download; no browser/wget byte match asserted"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/manual-instructions-illustration.png",
+    "path": "public/assets/figma/manual-instructions-illustration.png",
+    "status": 200,
+    "bytes": 24252,
+    "sha256": "8536544d78e86e300db104215dd92ee74c64d7769e9df69c1ba4e7ebd59a9442",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "comparison metadata unavailable in preserved manifest"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/pc-idle-arrow.png",
+    "path": "public/assets/figma/pc-idle-arrow.png",
+    "status": 0,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capturedAt": "2026-08-31T00:30:21.487Z",
+    "captureError": "not captured: source did not respond within the bounded read-only request window",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "not captured: source did not respond within the bounded read-only request window"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/player-avatar.png",
+    "path": "public/assets/figma/player-avatar.png",
+    "status": 200,
+    "bytes": 1623,
+    "sha256": "15989b5d4d90deae4beb0896b29b842c0b101ceb41e4f182865520732fbb1e50",
+    "capturedAt": "2026-08-31T00:51:56.466Z",
+    "provenance": {
+      "kind": "browser-media-download",
+      "verified": false,
+      "note": "single-source public media download; no browser/wget byte match asserted"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/prompt-sample.png",
+    "path": "public/assets/figma/prompt-sample.png",
+    "status": 200,
+    "bytes": 786444,
+    "sha256": "3d5339c2befc9d3b01d2a56e9aea9b0c4e24a59045a991a84548bef9656acc4b",
+    "capturedAt": "2026-08-31T00:51:56.940Z",
+    "provenance": {
+      "kind": "browser-media-download",
+      "verified": false,
+      "note": "single-source public media download preserved in repository; digest re-indexed from checked-in bytes"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/star.png",
+    "path": "public/assets/figma/star.png",
+    "status": 200,
+    "bytes": 737,
+    "sha256": "f2248f2f72a552fa812975bef75c98ba55ebb97b89d18d1bba36be54e1635591",
+    "capturedAt": "2026-08-31T00:51:56.467Z",
+    "provenance": {
+      "kind": "browser-media-download",
+      "verified": false,
+      "note": "single-source public media download; no browser/wget byte match asserted"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/start-bg.png",
+    "path": "public/assets/figma/start-bg.png",
+    "status": 0,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capturedAt": "2026-08-31T00:30:21.487Z",
+    "captureError": "not captured: source did not respond within the bounded read-only request window",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "not captured: source did not respond within the bounded read-only request window"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/tv-waiting-players-illustration.png",
+    "path": "public/assets/figma/tv-waiting-players-illustration.png",
+    "status": 200,
+    "bytes": 20975,
+    "sha256": "54701cdeea9ab8167cd8d17f786772f48b106a072ff8284903f7ce5d745c0a8d",
+    "capturedAt": "2026-08-31T00:51:56.467Z",
+    "provenance": {
+      "kind": "browser-media-download",
+      "verified": false,
+      "note": "single-source public media download; no browser/wget byte match asserted"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/wall-bg.png",
+    "path": "public/assets/figma/wall-bg.png",
+    "status": 0,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capturedAt": "2026-08-31T00:30:21.487Z",
+    "captureError": "not captured: source did not respond within the bounded read-only request window",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "not captured: source did not respond within the bounded read-only request window"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/figma/wall-illustration.png",
+    "path": "public/assets/figma/wall-illustration.png",
+    "status": 200,
+    "bytes": 16111,
+    "sha256": "bc5399d866a761127d7883aec53713af889fed34265fd15c8a2849ca12fce24a",
+    "capturedAt": "2026-08-31T00:51:56.616Z",
+    "provenance": {
+      "kind": "browser-media-download",
+      "verified": false,
+      "note": "single-source public media download; no browser/wget byte match asserted"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/fonts/GoogleSans-Bold.ttf",
+    "path": "public/assets/fonts/GoogleSans-Bold.ttf",
+    "status": 0,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capturedAt": "2026-08-31T00:30:21.487Z",
+    "captureError": "not captured: source did not respond within the bounded read-only request window",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "not captured: source did not respond within the bounded read-only request window"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/fonts/GoogleSans-Medium.ttf",
+    "path": "public/assets/fonts/GoogleSans-Medium.ttf",
+    "status": 0,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capturedAt": "2026-08-31T00:30:21.487Z",
+    "captureError": "not captured: source did not respond within the bounded read-only request window",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "not captured: source did not respond within the bounded read-only request window"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/fonts/GoogleSans-Regular.ttf",
+    "path": "public/assets/fonts/GoogleSans-Regular.ttf",
+    "status": 0,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capturedAt": "2026-08-31T00:30:21.487Z",
+    "captureError": "not captured: source did not respond within the bounded read-only request window",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "not captured: source did not respond within the bounded read-only request window"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/fonts/GoogleSans-SemiBold.ttf",
+    "path": "public/assets/fonts/GoogleSans-SemiBold.ttf",
+    "status": 0,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capturedAt": "2026-08-31T00:30:21.487Z",
+    "captureError": "not captured: source did not respond within the bounded read-only request window",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "not captured: source did not respond within the bounded read-only request window"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/public/assets/js/app.js",
+    "path": "public/assets/js/app.js",
+    "status": 200,
+    "bytes": 122224,
+    "sha256": "4bb94a2dd57c66047e9f33629f67ae50f07800c928d253dfa21740244ac72cde",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "comparison": {
+      "method": "browser-fetch+wget",
+      "matches": null,
+      "error": "comparison metadata unavailable in preserved manifest"
+    }
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/report.php",
+    "path": "report.php",
+    "status": 302,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capturedAt": "2026-08-31T00:32:35.737Z",
+    "redirectTo": "https://reddoor-google26.phygitalapp.com.br/admin.php"
+  },
+  {
+    "url": "https://reddoor-google26.phygitalapp.com.br/wall.php",
+    "path": "wall.php",
+    "status": 200,
+    "bytes": 1464,
+    "sha256": "96e718fbc27185f57e7557532c0250217aa788afce3868139555d1461fbd796e",
+    "capturedAt": "2026-08-31T00:32:35.737Z"
+  }
+]

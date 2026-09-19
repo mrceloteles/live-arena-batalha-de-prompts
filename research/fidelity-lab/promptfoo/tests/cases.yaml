@@ -1,0 +1,24 @@
+- description: 'Recovered package score 1'
+  vars:
+    reference_prompt: 'Um astronauta flutuando no espaço sideral com a Terra refletida no capacete, iluminação dramática de cinema, estilo fotorrealista 8k, lentes anamórficas e cores neon sutis.'
+    candidate_prompt: 'Astronauta no espaco com capacete refletivo e luz neon dramatica 8k'
+    expected_percent: 29.071
+  assert:
+    - type: equals
+      value: '29.071'
+- description: 'Recovered package score 2'
+  vars:
+    reference_prompt: 'Um astronauta flutuando no espaço sideral com a Terra refletida no capacete, iluminação dramática de cinema, estilo fotorrealista 8k, lentes anamórficas e cores neon sutis.'
+    candidate_prompt: 'Pessoa com roupa espacial na orbita da terra com estrelas'
+    expected_percent: 18.6325
+  assert:
+    - type: equals
+      value: '18.6325'
+- description: 'Recovered package score 3'
+  vars:
+    reference_prompt: 'Um astronauta flutuando no espaço sideral com a Terra refletida no capacete, iluminação dramática de cinema, estilo fotorrealista 8k, lentes anamórficas e cores neon sutis.'
+    candidate_prompt: 'Um homem flutuando no espaco'
+    expected_percent: 12.6992
+  assert:
+    - type: equals
+      value: '12.6992'

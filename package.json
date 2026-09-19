@@ -1,0 +1,26 @@
+{
+  "name": "descubra-o-prompt-base",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server/start.mjs",
+    "validar-integridade": "node scripts/validar-integridade.mjs",
+    "backup-banco": "node scripts/backup.mjs",
+    "carga": "node scripts/carga.mjs",
+    "carga:http": "node scripts/carga-http.mjs",
+    "restaurar-banco": "node scripts/restaurar.mjs",
+    "test:browser": "node --test --test-concurrency=1 test/browser/*.test.mjs",
+    "test": "node --test test/*.test.mjs test/api/*.test.mjs test/copia/*.test.mjs test/css/*.test.mjs test/db/*.test.mjs test/domain/*.test.mjs test/evidence/*.test.mjs test/judge/*.test.mjs test/smoke/*.test.mjs test/web/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.10.0"
+  }
+}

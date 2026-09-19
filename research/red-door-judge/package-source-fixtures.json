@@ -1,0 +1,48 @@
+{
+  "provenance": {
+    "source": "user-supplied batalha_prompt.zip",
+    "database": "batalha_prompt/data/database.sqlite",
+    "code": "batalha_prompt/api.php",
+    "scope": "source-package behavior only; not proof of deployed Red Door backend",
+    "verified_at": "2026-09-03"
+  },
+  "judge_source": {
+    "gemini": {
+      "model": "gemini-2.0-flash",
+      "temperature": 0.1,
+      "max_output_tokens": 10,
+      "curl_timeout_seconds": 8,
+      "failure_behavior": "falls back to scorePromptFallback"
+    },
+    "fallback": {
+      "text_similarity_weight": 0.4,
+      "keyword_coverage_weight": 0.6,
+      "empty_percent": 0,
+      "non_empty_floor": 5,
+      "non_empty_ceiling": 98.5,
+      "precision_decimals": 4
+    }
+  },
+  "reference_prompt": "Um astronauta flutuando no espaço sideral com a Terra refletida no capacete, iluminação dramática de cinema, estilo fotorrealista 8k, lentes anamórficas e cores neon sutis.",
+  "fixtures": [
+    {
+      "candidate_prompt": "Astronauta no espaco com capacete refletivo e luz neon dramatica 8k",
+      "stored_percent": 29.071,
+      "stored_points": 2907,
+      "fallback_recomputed_percent": 29.071
+    },
+    {
+      "candidate_prompt": "Pessoa com roupa espacial na orbita da terra com estrelas",
+      "stored_percent": 18.6325,
+      "stored_points": 1863,
+      "fallback_recomputed_percent": 18.6325
+    },
+    {
+      "candidate_prompt": "Um homem flutuando no espaco",
+      "stored_percent": 12.6992,
+      "stored_points": 1270,
+      "fallback_recomputed_percent": 12.6992
+    }
+  ],
+  "important_note": "The package schema contains fallback_used INTEGER DEFAULT 0, but the supplied PHP does not update this field. Therefore fallback_used=0 cannot be used to infer that Gemini produced a stored score."
+}

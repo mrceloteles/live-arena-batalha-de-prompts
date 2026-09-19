@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: 'Red Door recovered judge regression'
+
+prompts:
+  - file://prompts/judge.txt
+
+providers:
+  - file://reference-provider.cjs
+  - file://candidate-provider.cjs
+
+tests: file://tests/cases.yaml
