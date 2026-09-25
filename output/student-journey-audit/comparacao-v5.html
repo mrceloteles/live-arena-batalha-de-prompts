@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Arena — comparação visual do aluno com V5</title>
+  <style>
+    :root { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #0f1f3d; background: #edf3fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 40px clamp(20px, 4vw, 64px); background: #0e2147; color: white; }
+    h1 { font-size: clamp(28px, 3vw, 44px); line-height: 1.1; margin: 8px 0 14px; }
+    h2 { font-size: 25px; margin: 0 0 8px; }
+    p { line-height: 1.55; }
+    header p { max-width: 850px; color: #d7e3f5; margin: 0; }
+    .eyebrow { color: #ffd21f; font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    nav { display: flex; gap: 8px; flex-wrap: wrap; padding: 15px clamp(20px, 4vw, 64px); background: white; border-bottom: 1px solid #dce6f3; position: sticky; top: 0; z-index: 1; }
+    nav a { padding: 9px 13px; border-radius: 999px; text-decoration: none; color: #1649b7; background: #edf4ff; font-size: 13px; font-weight: 700; }
+    main { max-width: 1800px; margin: 0 auto; padding: 24px clamp(20px, 4vw, 64px) 64px; }
+    section { background: white; border: 1px solid #dce6f3; border-radius: 16px; padding: clamp(18px, 2.5vw, 32px); margin: 0 0 24px; scroll-margin-top: 90px; box-shadow: 0 10px 24px rgba(15,31,61,.04); }
+    .judgment { margin: 0 0 18px; color: #415572; max-width: 1150px; }
+    .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    figure { margin: 0; min-width: 0; background: #f4f7fc; border: 1px solid #dae4f2; border-radius: 12px; overflow: hidden; }
+    figcaption { background: white; padding: 12px 16px; font-weight: 800; border-bottom: 1px solid #dae4f2; }
+    figure img { display: block; width: 100%; height: auto; }
+    .note { margin: 14px 0 0; padding: 12px 15px; background: #fff9dc; border-left: 4px solid #f4c400; font-size: 14px; }
+    .single { max-width: 980px; }
+    @media (max-width: 850px) { .pair { grid-template-columns: 1fr; } nav { position: static; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Comparação a partir dos prints reais enviados</div>
+    <h1>Área do aluno: projeto atual × V5</h1>
+    <p>O V5 tem a direção visual mais marcante para a arena. O fluxo atual é mais fiel às ações disponíveis e mais curto. A melhoria certa é aplicar a linguagem visual do V5 aos estados reais da jornada, sem importar campos, comandos e placares de demonstração.</p>
+  </header>
+  <nav aria-label="Ir para etapa">
+    <a href="#home">Início</a><a href="#entrada">Entrada</a><a href="#espera">Espera</a><a href="#como">Como funciona</a><a href="#missao">Missão</a><a href="#resultado">Resultado</a>
+  </nav>
+  <main>
+    <section id="home">
+      <h2>Início</h2>
+      <p class="judgment">O V5 acerta na primeira impressão: palco azul, título grande e um ponto de ação claro. Os quatro benefícios no rodapé voltam a encher a tela de texto e “3 rodadas” não deve ser fixo se a sala permite outra configuração.</p>
+      <figure class="single"><figcaption>Referência V5</figcaption><img src="v5/home.png" alt="Tela inicial V5 enviada pelo usuário" loading="lazy"></figure>
+    </section>
+    <section id="entrada">
+      <h2>Entrada na sala</h2>
+      <p class="judgment">A composição em duas metades do V5 é melhor trabalhada e parece um produto próprio. O formulário atual é o correto para o aluno: código e nome. E-mail, cargo, instituição, aceite e uma etapa extra criariam atrito sem corresponder ao fluxo existente.</p>
+      <div class="pair"><figure><figcaption>Projeto atual</figcaption><img src="after/01-entrada-desktop.png" alt="Entrada atual do aluno" loading="lazy"></figure><figure><figcaption>Referência V5</figcaption><img src="v5/entrada.png" alt="Entrada V5 enviada pelo usuário" loading="lazy"></figure></div>
+    </section>
+    <section id="espera">
+      <h2>Sala de espera</h2>
+      <p class="judgment">“Você já está dentro” é uma confirmação melhor que um aviso genérico de espera. A arte autoral do V5 reforça a marca; a ilustração do projeto atual parece genérica. No V5, porém, o QR cobre parte do código na captura e “Simular início da aula” é controle de protótipo, inadequado para o aluno.</p>
+      <div class="pair"><figure><figcaption>Projeto atual</figcaption><img src="after/02-espera-desktop.png" alt="Espera atual do aluno" loading="lazy"></figure><figure><figcaption>Referência V5</figcaption><img src="v5/espera.png" alt="Espera V5 enviada pelo usuário" loading="lazy"></figure></div>
+    </section>
+    <section id="como">
+      <h2>Como funciona</h2>
+      <p class="judgment">O diagrama visual do V5 explica melhor a dinâmica de observar, escrever e evoluir. Ele repete a explicação em texto, três cartões e uma faixa final. O projeto atual é mais enxuto. A síntese ideal é um único diagrama curto com detalhes opcionais; iniciar a rodada continua sendo tarefa do professor.</p>
+      <div class="pair"><figure><figcaption>Projeto atual</figcaption><img src="after/03-como-funciona-desktop.png" alt="Explicação atual do aluno" loading="lazy"></figure><figure><figcaption>Referência V5</figcaption><img src="v5/como-funciona.png" alt="Explicação V5 enviada pelo usuário" loading="lazy"></figure></div>
+    </section>
+    <section id="missao">
+      <h2>Missão e escrita</h2>
+      <p class="judgment">Esta é a maior oportunidade visual: o V5 dá protagonismo à referência e deixa a escrita parecer o centro da ação. Isso deve valer quando a missão realmente tiver imagem; outras missões precisam de composição própria. Ranking e conquista abaixo da escrita só devem aparecer se os dados e regras reais justificarem. O print V5 foi feito com o navegador em 80% de zoom, então sua aparente compactação não prova que caiba a 100% ou no celular.</p>
+      <div class="pair"><figure><figcaption>Projeto atual</figcaption><img src="after/04-missao-desktop.png" alt="Missão atual do aluno" loading="lazy"></figure><figure><figcaption>Referência V5</figcaption><img src="v5/missao.png" alt="Missão V5 enviada pelo usuário" loading="lazy"></figure></div>
+      <p class="note">Prioridade de uso: enunciado, referência, campo de prompt, tempo e confirmação de envio visíveis sem distrações. Informações secundárias podem ficar depois.</p>
+    </section>
+    <section id="resultado">
+      <h2>Resultado da rodada</h2>
+      <p class="judgment">O V5 cria um momento de recompensa mais forte com a nota grande e os critérios organizados. O projeto atual explica a nota com menos texto e já indica o que melhorar. “Preparar próximo round” e “Ver encerramento” no V5 parecem comandos do aluno, mas essas transições dependem da condução da sala; não devem ser importados como botões funcionais.</p>
+      <div class="pair"><figure><figcaption>Projeto atual</figcaption><img src="after/06-nota-desktop.png" alt="Resultado atual do aluno" loading="lazy"></figure><figure><figcaption>Referência V5</figcaption><img src="v5/resultado.png" alt="Resultado V5 enviado pelo usuário" loading="lazy"></figure></div>
+    </section>
+  </main>
+</body>
+</html>

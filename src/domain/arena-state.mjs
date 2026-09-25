@@ -9,6 +9,11 @@
  *   ended   -> ultima rodada encerrada pelo professor
  *   archived-> professor arquivou a sala
  *
+ * `ended` e o fim de uma BATALHA, nao da sala: o professor pode comecar uma
+ * batalha nova na mesma sala (mesmo codigo, mesmas missoes, nova pontuacao) e a
+ * sala volta a `open`. As rodadas das batalhas anteriores ficam no banco, presas
+ * ao ciclo delas — ver `room_rounds.cycle`.
+ *
  * Join is allowed while the room is joinable (waiting/open/playing) unless the
  * teacher blocked entry; the global Arena gate is enforced separately by the
  * API (settings arena.global_open).
@@ -61,8 +66,11 @@ const ROOM_TRANSITIONS = Object.freeze({
   draft: new Set(['waiting']),
   waiting: new Set(['open', 'playing', 'ended']),
   open: new Set(['playing', 'ended']),
-  playing: new Set(['ended']),
-  ended: new Set(['archived']),
+  // A volta a `open` e a BATALHA NOVA (mesma sala, ciclo seguinte): `playing`
+  // porque a batalha em andamento e fechada antes, e `ended` porque e o estado
+  // de quem acabou de jogar e vai jogar de novo. Nenhuma das duas apaga dado.
+  playing: new Set(['ended', 'open']),
+  ended: new Set(['archived', 'open']),
   archived: new Set([]),
 });
 

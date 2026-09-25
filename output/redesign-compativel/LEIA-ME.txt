@@ -1,0 +1,4 @@
+Abra code.html com conexão à internet.
+Envie todos os arquivos deste pacote à IA integradora, junto com o projeto atual.
+Leia MAPA-INTEGRACAO.md antes de implementar.
+O visual foi corrigido; as operações continuam simuladas.

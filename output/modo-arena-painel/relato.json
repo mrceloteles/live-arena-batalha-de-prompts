@@ -1,0 +1,75 @@
+{
+  "sala": "RWST44",
+  "erro": [],
+  "faltando": [],
+  "relato": [
+    {
+      "largura": 390,
+      "painel": true,
+      "controles": [
+        "arena-reset",
+        "arena-config",
+        "arena-teams",
+        "arena-power",
+        "arena-power",
+        "arena-power",
+        "arena-power"
+      ],
+      "larguraDoPainel": 358,
+      "alturaDoPainel": 349,
+      "rolagemLateral": false,
+      "visivel": true
+    },
+    {
+      "largura": 768,
+      "painel": true,
+      "controles": [
+        "arena-reset",
+        "arena-config",
+        "arena-teams",
+        "arena-power",
+        "arena-power",
+        "arena-power",
+        "arena-power"
+      ],
+      "larguraDoPainel": 722,
+      "alturaDoPainel": 241,
+      "rolagemLateral": false,
+      "visivel": true
+    },
+    {
+      "largura": 1440,
+      "painel": true,
+      "controles": [
+        "arena-reset",
+        "arena-config",
+        "arena-teams",
+        "arena-power",
+        "arena-power",
+        "arena-power",
+        "arena-power"
+      ],
+      "larguraDoPainel": 462,
+      "alturaDoPainel": 489,
+      "rolagemLateral": false,
+      "visivel": true
+    },
+    {
+      "largura": 1920,
+      "painel": true,
+      "controles": [
+        "arena-reset",
+        "arena-config",
+        "arena-teams",
+        "arena-power",
+        "arena-power",
+        "arena-power",
+        "arena-power"
+      ],
+      "larguraDoPainel": 590,
+      "alturaDoPainel": 376,
+      "rolagemLateral": false,
+      "visivel": true
+    }
+  ]
+}

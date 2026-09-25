@@ -1,0 +1,877 @@
+{
+  "base": "http://127.0.0.1:3000",
+  "titulo": "QA SINCRONIA 2026-09-20 01:31",
+  "passos": [
+    "professor entra no painel e confere se a Arena esta aberta",
+    "professor cria a sala pelo formulario (preset padrao da tela)",
+    "tres alunos entram (contexto de navegador por aluno)",
+    "a TV projeta pelo codigo curto, em outro aparelho",
+    "professor inicia a rodada 1 pelo botao da lista",
+    "os tres alunos recebem a missao (mesma rodada nas tres telas)",
+    "Ana envia com CLIQUE DUPLO",
+    "Bia e Carla enviam tambem",
+    "o professor ve os tres envios",
+    "a queda forcada de rede na Carla, com o professor encerrando a rodada",
+    "a conexao volta: a tela se recupera sozinha, sem recarregar",
+    "professor fecha os resultados e abre a rodada 2 pelo painel",
+    "coerencia final: a MESMA rodada nas quatro telas"
+  ],
+  "falhas": [],
+  "erros": [
+    "[QA Carla] Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+    "[QA Carla] Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+  ],
+  "rede": [
+    {
+      "rotulo": "professor",
+      "acao": "arena_admin_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_challenges",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_lessons",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_create_room",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_admin_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_challenges",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_lessons",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_qr",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_qr",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_join",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_join",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_join",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_tv_token",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv_code",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_admin_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_challenges",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_lessons",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_start_round",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_admin_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_qr",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_challenges",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_lessons",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_submit",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_submit",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_submit",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_admin_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_challenges",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_lessons",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_qr",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_end_round",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_admin_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_challenges",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_lessons",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_close_round",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_admin_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_challenges",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_lessons",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Carla",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Bia",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_start_round",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "tv",
+      "acao": "arena_tv",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "QA Ana",
+      "acao": "arena_lobby",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_admin_status",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_challenges",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_list_lessons",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    },
+    {
+      "rotulo": "professor",
+      "acao": "arena_room_detail",
+      "status": 200,
+      "ok": true,
+      "erro": null
+    }
+  ],
+  "sala": {
+    "id": "c89c5d35-414b-41cd-9f31-362614200d41",
+    "codigo": "856 051"
+  },
+  "finais": {
+    "professor": {
+      "rota": "/admin-arena.php",
+      "recarregou": true,
+      "avisoDeQueda": false,
+      "chipDaTv": false,
+      "titulo": "",
+      "rodada": "",
+      "botaoDeEnvio": null,
+      "mensagem": "",
+      "campo": false,
+      "corpo": "LIVE ARENA BATALHA DE PROMPTS Visão Geral Salas Ativas Banco de Desafios Aulas e Trilhas Relatório Analytics Sair da conta Painel da Arena Operação ao vivo Analytics Portal Arena aberta Fechar Arena SALAS 53 EM ANDAMENTO 22 ALUNOS 78 ONLINE"
+    },
+    "tv": {
+      "rota": "/tv.php?pin=856051",
+      "recarregou": true,
+      "avisoDeQueda": false,
+      "chipDaTv": false,
+      "titulo": "QA SINCRONIA 2026-09-20 01:31",
+      "rodada": "",
+      "botaoDeEnvio": null,
+      "mensagem": "",
+      "campo": false,
+      "corpo": "LIVE ARENA BATALHA DE PROMPTS TURMA QA SINCRONIA 2026-09-20 01:31 ⛶ Tela cheia RODADA 02/03 — ADIVINHE O PROMPT 0:56 Escreva o prompt que criou esta imagem A imagem veio de um prompt real. 0 de 3 prompts recebidos"
+    },
+    "QA Ana": {
+      "rota": "/play",
+      "recarregou": false,
+      "avisoDeQueda": false,
+      "chipDaTv": false,
+      "titulo": "QA SINCRONIA 2026-09-20 01:31",
+      "rodada": "Escreva o prompt que criou esta imagem",
+      "botaoDeEnvio": {
+        "rotulo": "Enviar prompt",
+        "estado": "livre"
+      },
+      "mensagem": "",
+      "campo": true,
+      "corpo": "LIVE ARENA BATALHA DE PROMPTS QA SINCRONIA 2026-09-20 01:31 856051 3 conectados Sair RODADA 02/03 ADIVINHE O PROMPT TENTATIVAS 1 TEMPO RESTANTE 0:56 Escreva o prompt que criou esta imagem Observe a imagem e escreva o prompt original que a g"
+    },
+    "QA Bia": {
+      "rota": "/play",
+      "recarregou": false,
+      "avisoDeQueda": false,
+      "chipDaTv": false,
+      "titulo": "QA SINCRONIA 2026-09-20 01:31",
+      "rodada": "Escreva o prompt que criou esta imagem",
+      "botaoDeEnvio": {
+        "rotulo": "Enviar prompt",
+        "estado": "livre"
+      },
+      "mensagem": "",
+      "campo": true,
+      "corpo": "LIVE ARENA BATALHA DE PROMPTS QA SINCRONIA 2026-09-20 01:31 856051 3 conectados Sair RODADA 02/03 ADIVINHE O PROMPT TENTATIVAS 1 TEMPO RESTANTE 0:56 Escreva o prompt que criou esta imagem Observe a imagem e escreva o prompt original que a g"
+    },
+    "QA Carla": {
+      "rota": "/play",
+      "recarregou": false,
+      "avisoDeQueda": false,
+      "chipDaTv": false,
+      "titulo": "QA SINCRONIA 2026-09-20 01:31",
+      "rodada": "Escreva o prompt que criou esta imagem",
+      "botaoDeEnvio": {
+        "rotulo": "Enviar prompt",
+        "estado": "livre"
+      },
+      "mensagem": "",
+      "campo": true,
+      "corpo": "LIVE ARENA BATALHA DE PROMPTS QA SINCRONIA 2026-09-20 01:31 856051 3 conectados Sair RODADA 02/03 ADIVINHE O PROMPT TENTATIVAS 1 TEMPO RESTANTE 0:56 Escreva o prompt que criou esta imagem Observe a imagem e escreva o prompt original que a g"
+    }
+  },
+  "avisos": [],
+  "resumoDaRede": {
+    "professor arena_admin_status 200": 8,
+    "professor arena_list_challenges 200": 8,
+    "professor arena_list_lessons 200": 8,
+    "professor arena_create_room 200": 1,
+    "professor arena_room_detail 200": 11,
+    "professor arena_qr 200": 4,
+    "QA Ana arena_status 200": 1,
+    "QA Ana arena_join 200": 1,
+    "QA Ana arena_lobby 200": 15,
+    "QA Bia arena_status 200": 1,
+    "QA Bia arena_join 200": 1,
+    "QA Bia arena_lobby 200": 13,
+    "QA Carla arena_status 200": 1,
+    "QA Carla arena_join 200": 1,
+    "QA Carla arena_lobby 200": 13,
+    "professor arena_tv_token 200": 1,
+    "tv arena_tv_code 200": 1,
+    "tv arena_tv 200": 11,
+    "professor arena_start_round 200": 2,
+    "QA Ana arena_submit 200": 1,
+    "QA Bia arena_submit 200": 1,
+    "QA Carla arena_submit 200": 1,
+    "professor arena_end_round 200": 1,
+    "professor arena_close_round 200": 1
+  }
+}

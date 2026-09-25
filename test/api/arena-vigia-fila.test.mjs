@@ -34,7 +34,15 @@ test('o vigia recolhe a avaliação que perdeu o relógio, sem reiniciar o proce
   // O provedor recusa na primeira avaliação (a do envio) e responde nas
   // seguintes: é o provedor que piscou e voltou dentro da mesma aula.
   let avaliacoes = 0;
-  const parking = createEvaluationParking({ baseDelayMs: 5, maxDelayMs: 10, maxAttempts: 4 });
+  // A espera do patio e LONGA de proposito, e nao por descuido: o defeito
+  // medido aqui e a espera que SOME. Com poucos milissegundos, a repeticao do
+  // proprio patio disparava antes do `parking.stop()` e resolvia a avaliacao — a
+  // submissao chegava ao vigia JA com nota, e as asserções de `resolved === 0`
+  // e `avaliacoes === 2` mediam a velocidade da maquina (reprovou sob carga: um
+  // dos dois desfechos acontecia antes da linha seguinte). Com a espera longa, a
+  // perda e deterministica: nada resolvido no patio, e a submissao sem nota e
+  // exatamente o que o vigia tem de recolher.
+  const parking = createEvaluationParking({ baseDelayMs: 10_000, maxDelayMs: 10_000, maxAttempts: 4 });
   const handler = createApplication({
     repositories,
     judge: createFakeJudge(),
@@ -106,12 +114,15 @@ test('o vigia recolhe a avaliação que perdeu o relógio, sem reiniciar o proce
       ...envio, prompt: 'Crie um cartaz A3 com data, local e contato para a feira de ciências.',
     });
     assert.equal(primeiro.parked, true, 'o provedor recusou e a avaliação foi estacionada');
+    // A espera EXISTIA — e ela que vai embora na perda. Sem esta linha o teste
+    // poderia passar com um patio vazio desde o inicio.
+    assert.equal(parking.state().parked, 1, 'a espera do pátio está agendada para esta submissão');
 
     // A PERDA: as esperas do pátio vão embora e o processo continua de pé. É o
     // recorte do defeito — sem o vigia, ninguém mais olharia para esta submissão.
     parking.stop();
     assert.equal(parking.state().parked, 0, 'nada na fila deste processo');
-    assert.equal(parking.state().resolved, 0);
+    assert.equal(parking.state().resolved, 0, 'e nada foi resolvido pelo pátio: a nota ainda não existe');
 
     const vigia = handler.iniciarVigiaDaFila();
     assert.equal(vigia.rodando, true, 'o vigia entra em operação');

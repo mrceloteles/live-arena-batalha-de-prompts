@@ -137,7 +137,7 @@ test('backup de origem doente é recusado antes de gerar uma cópia com cara de 
     database: {
       prepare(sql) {
         if (sql.includes('integrity_check')) return { get: async () => ({ integrity_check: 'database disk image is malformed' }) };
-        if (sql.includes('user_version')) return { get: async () => ({ user_version: 7 }) };
+        if (sql.includes('user_version')) return { get: async () => ({ user_version: 8 }) };
         return { get: async () => undefined, all: async () => [], run: async () => ({ changes: 0 }) };
       },
     },

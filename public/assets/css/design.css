@@ -291,17 +291,6 @@ body {
   margin: 4px 0 6px;
   font-weight: 900;
 }
-.arena-cockpit-info {
-  min-width: 0;
-}
-.arena-cockpit-start {
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.arena-cockpit-start p {
-  margin: 0;
-  line-height: 1.35;
-}
 body[data-page='tv'] {
   overflow: hidden !important;
   height: 100svh !important;
@@ -527,8 +516,13 @@ body[data-page='index'] {
   font-size: 15px;
 }
 .brand-identity--small .brand-identity-sub {
-  font-size: 7px;
-  letter-spacing: 0.14em;
+  /* 7 px não é sub-linha, é sujeira: em 768 a sonda da jornada mediu o texto de
+     apoio da marca MENOR que qualquer outra coisa na tela, e ilegível é pior que
+     ausente. 9 px é o piso em que a caixa alta com entreletra ainda se lê, e a
+     marca pequena aparece no cabeçalho da sala — a barra que o aluno encara a
+     aula inteira. */
+  font-size: 9px;
+  letter-spacing: 0.1em;
   margin-top: 2px;
 }
 
@@ -563,20 +557,52 @@ body[data-page='index'] {
   align-items: center;
   gap: 8px;
 }
+/* LOCKUP EM DOIS DEGRAUS (referência LA-01).
+   A referência escreve "Descubra o" no corpo do texto e "PROMPT" no corpo do
+   display, quase o dobro — a palavra é o herói da tela, não a frase.
+   Antes as duas partes tinham o MESMO corpo (um `clamp` só no título) e a
+   segunda carregava um gradiente azul/verde: a hierarquia sumia e o título
+   inteiro lia como uma linha só. Cada parte passa a ter o seu corpo e a cor é
+   a da marca nos dois degraus, como na referência (o degrau maior um tom mais
+   vivo que o menor). */
 .portal-hero-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0;
-  font-size: clamp(38px, 5.2vw, 68px);
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  color: #071f49;
+  /* O corpo declarado aqui é o degrau MENOR do lockup (o de "Descubra o"), e
+     é o que fica valendo para um título de uma parte só — a página de rota
+     inexistente usa esta mesma classe com um título simples, e sem um corpo
+     próprio ela cairia no padrão do `h1` da folha base. */
+  font-size: clamp(30px, 4.4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
   line-height: 1.05;
+  color: var(--color-primary-deep);
 }
-.portal-hero-headline span {
-  background: linear-gradient(90deg, #0b57d0 0%, #00875a 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #0b57d0;
+.portal-hero-headline .portal-hero-overline {
+  font-family: var(--font-sans);
+  font-size: clamp(30px, 4.4vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+}
+.portal-hero-headline .portal-hero-word {
+  font-family: var(--la-display);
+  font-size: clamp(56px, 8.2vw, 112px);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.88;
+  color: var(--color-primary);
+}
+/* A linha que explica o produto, entre o lockup e as ações (referência LA-01).
+   Ela existia na composição aprovada da HOME e não estava na tela. */
+.portal-hero-tagline {
+  max-width: 690px;
+  margin: 0 auto;
+  color: var(--color-text-muted);
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 /* Regras de marca unificadas exclusivamente em .brand-identity */
@@ -1086,13 +1112,51 @@ body.arena-classic-room .arena-mission-badge,
 }
 
 /* Main Content Area */
-.arena-topbar-title b {
+/* O título do painel, no topo da barra lateral (a faixa que o hospedava saiu). */
+.arena-sidebar-title {
+  margin: 0 0 4px;
+  padding: 0 8px;
+}
+.arena-sidebar-title b {
   display: block;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 800;
   color: #071f49;
   letter-spacing: -0.01em;
 }
+.arena-sidebar-title small {
+  display: block;
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+/* O PORTÃO DA ARENA, no cartão da Visão Geral.
+
+   O estado da entrada e a ação que a abre ou fecha, um do lado do outro. Ele
+   era uma pilha de largura inteira no pé da barra lateral, onde o bloco de
+   operação ficava no canto da conta; aqui ele divide a linha com a ação
+   primária do painel. Por isso o botão perde a largura de coluna (ele era
+   `width: 100%` de uma pilha) e o selo alinha pelo meio, não pelo topo. */
+/* O bloco dos dois controles do painel: o portão da Arena e a ação primária.
+   `margin-left: auto` mantém os dois encostados à direita também quando eles
+   descem juntos para a linha de baixo. */
+.arena-hero-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+.arena-hero-gate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+/* O tamanho do BOTÃO do portão não se declara aqui: `.figma-cta` (mais abaixo
+   nesta folha) já manda em `min-height`, `padding` e `font-size`, e a regra
+   compacta que existia neste ponto nascia morta. Quem desenha os dois estados
+   dele é `refinement.css`, na família secundária. */
 
 /* Tela de Login do Admin Dedicada */
 .admin-login-brand {
@@ -1129,8 +1193,14 @@ body.arena-classic-room .arena-mission-badge,
 }
 
 /* Container de seÃ§Ã£o */
+/* A largura das seções NÃO é mais declarada aqui: quem manda na coluna do painel
+   é o contêiner (`[data-admin-arena-content]`, logo abaixo), que subiu de 1240
+   para 1440 px nesta rodada — a medida da referência clara. Duas declarações de
+   largura para a mesma coluna (1080 aqui, 1240 lá) eram duas donas da mesma
+   chave, e a de 1080 ganhava por último: medido com a sonda, a sala em destaque
+   media 1080 numa janela de 1920 e um terço da tela ficava vazio dos dois lados. */
 .arena-admin-layout section {
-  width: min(1080px, 100%);
+  width: 100%;
   margin: 0 auto 24px;
 }
 .arena-admin-layout .report-panel h2 {
@@ -1407,52 +1477,6 @@ body.arena-classic-room .arena-mission-badge,
   color: var(--color-primary-dark);
   margin-top: 2px;
 }
-.arena-cockpit-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 12px;
-}
-.arena-cockpit-rules strong {
-  display: block;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 8px 0 4px;
-}
-.arena-cockpit-start {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-top: 0;
-  padding-top: 12px;
-  border-top: 1px solid #f1f5f9;
-}
-
-/* Convite durante a atividade: a aula em andamento vale mais que o convite, mas
-   quem chega atrasado precisa do código. A dobra deixa o PIN na alça e o QR,
-   o link e a projeção a um clique — sem empurrar a missão para baixo. */
-.arena-invite-fold {
-  margin-bottom: 18px;
-}
-.arena-invite-fold > summary {
-  cursor: pointer;
-  color: var(--color-text-muted);
-  font-size: 13px;
-  font-weight: 600;
-}
-.arena-invite-fold > summary b {
-  color: var(--color-primary-dark);
-  letter-spacing: 0.02em;
-}
-.arena-invite-fold[open] > summary {
-  margin-bottom: 10px;
-}
-.arena-cockpit-start p {
-  color: var(--color-text-muted);
-  font-size: 14px;
-}
 
 /* ============================================================
    TV / PROJEÃ‡ÃƒO â€” leitura Ã  distÃ¢ncia (navy + acentos)
@@ -1705,8 +1729,7 @@ body[data-page='index'] .portal-enter::before {
   display: none !important;
 }
 .arena-rescue,
-.arena-scenario,
-.arena-completo-hint {
+.arena-scenario {
   border-radius: 12px !important;
   border: 1px solid #e2e8f0 !important;
   border-left: 4px solid var(--color-primary) !important;
@@ -1714,14 +1737,18 @@ body[data-page='index'] .portal-enter::before {
   padding: 14px 18px !important;
 }
 .arena-rescue > span,
-.arena-scenario > span,
-.arena-completo-hint > span {
+.arena-scenario > span {
   color: var(--color-primary) !important;
   font-size: 11px !important;
   font-weight: 700 !important;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+/* O `.arena-completo-hint` saiu deste grupo (e do cartão tracejado de
+   `arena.css`): os chips de dica da missão agora vivem no cabeçalho do editor,
+   e a moldura de bloco de enunciado era justamente o que os afastava do campo.
+   O desenho deles — as pílulas — continua em `design.css`, algumas linhas
+   abaixo; o LUGAR é declarado por `round.css`, a folha dona da rodada. */
 .arena-prompt-form textarea {
   min-height: 140px;
   font-family: inherit !important;
@@ -2299,47 +2326,6 @@ html:has(body[data-page='admin-arena']) {
   overflow-y: auto !important;
 }
 
-/* Topo claro â€” neutraliza o bloco navy herdado de report/admin */
-body[data-page='admin-arena'] .report-header.arena-admin-head {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: stretch !important;
-  gap: 0 !important;
-  width: min(1240px, 100%) !important;
-  margin: 0 auto 26px !important;
-  padding: 0 0 22px !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  color: var(--color-text) !important;
-  box-shadow: none !important;
-}
-body[data-page='admin-arena'] .arena-admin-head::after {
-  display: none !important;
-}
-body[data-page='admin-arena'] .arena-admin-head h1 {
-  margin: 6px 0 6px !important;
-  color: var(--color-primary-dark) !important;
-  font-size: clamp(26px, 2.6vw, 36px) !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.03em !important;
-  line-height: 1.05 !important;
-}
-body[data-page='admin-arena'] .arena-admin-head p {
-  margin: 0 !important;
-  color: var(--color-text-muted) !important;
-  font-size: 15px !important;
-  opacity: 1 !important;
-  max-width: 760px;
-}
-body[data-page='admin-arena'] .arena-admin-head .ghost-link {
-  background: transparent !important;
-  color: var(--color-primary) !important;
-}
-body[data-page='admin-arena'] .arena-admin-head .ghost-link:hover {
-  color: var(--color-primary-deep) !important;
-  background: rgba(0, 82, 255, 0.06) !important;
-}
-
 /* linha superior: marca Ã  esquerda, navegaÃ§Ã£o + status Ã  direita */
 .arena-admin-topbar {
   display: flex;
@@ -2348,19 +2334,14 @@ body[data-page='admin-arena'] .arena-admin-head .ghost-link:hover {
   gap: 14px;
   flex-wrap: wrap;
 }
+/* Do cabecalho do relatorio (report.php): o painel da arena nao tem mais faixa
+   de topo, mas a folha serve as duas telas e esta e a linha de acoes dele. */
 .arena-admin-topright {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
 }
-.arena-admin-crumb {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 2px;
-}
-
 .arena-admin-kicker {
   display: block;
   margin-top: 10px;
@@ -2370,7 +2351,7 @@ body[data-page='admin-arena'] .arena-admin-head .ghost-link:hover {
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-.arena-admin-status.status-live { margin-left: auto; }
+.arena-admin-status.status-live { margin: 0; align-self: center; }
 .status-live.is-closed {
   background: #fbecef !important;
   color: #9f2a49 !important;
@@ -2381,9 +2362,9 @@ body[data-page='admin-arena'] .arena-admin-head .ghost-link:hover {
   box-shadow: 0 0 0 4px rgba(196, 61, 75, 0.14) !important;
 }
 
-/* ConteÃºdo em largura controlada, alinhada ao topo */
+/* ConteÃºdo em largura controlada, alinhada ao topo — a coluna de 1440 px. */
 .arena-admin > [data-admin-arena-content] {
-  width: min(1240px, 100%);
+  width: min(1440px, 100%);
   margin: 0 auto;
 }
 [data-admin-arena-content][hidden] { display: none !important; }
@@ -2468,6 +2449,10 @@ body[data-page='admin-arena'] .arena-admin-head .ghost-link:hover {
   margin-bottom: 6px;
 }
 .arena-detail-close {
+  /* O botão fecha a PRIMEIRA linha do cabeçalho, junto dos selos: `margin-left:
+     auto` o joga para a ponta direita dessa linha, e não para o fim de um
+     cabeçalho que a faixa de estado pode empurrar para baixo. */
+  margin-left: auto;
   font-size: 13px !important;
   color: var(--color-text-muted) !important;
   padding: 6px 14px !important;
@@ -2499,91 +2484,6 @@ body[data-page='admin-arena'] .arena-admin-head .ghost-link:hover {
 .arena-room-counter-pill:empty {
   display: none;
 }
-.arena-admin .arena-room-card {
-  display: grid !important;
-  flex-shrink: 0 !important;
-  grid-template-columns: minmax(280px, 1.4fr) minmax(220px, 1fr) auto;
-  align-items: center;
-  gap: 24px;
-  padding: 16px 20px !important;
-  border-radius: 16px !important;
-  border: 1px solid #e2e8f0 !important;
-  background: #f1f5f9 !important; /* Mais escuro (slate-100) */
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.arena-admin .arena-room-card:hover {
-  background: #ffffff !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  min-height: 80px !important;
-}
-.arena-admin .arena-room-card:hover {
-  border-color: rgba(11, 87, 208, 0.28) !important;
-  box-shadow: 0 8px 24px rgba(11, 87, 208, 0.08) !important;
-  transform: translateY(-1px);
-}
-.arena-admin .arena-room-card.is-selected {
-  border-color: var(--color-primary) !important;
-  box-shadow: 0 0 0 3px rgba(11, 87, 208, 0.14) !important;
-}
-
-/* Coluna 1: TÃ­tulo e Badges */
-.arena-admin .arena-room-card-main {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 0;
-}
-.arena-admin .arena-room-card-title strong {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--color-primary-dark);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-}
-.arena-admin .arena-room-card-badges {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.arena-admin .arena-room-card-badges .arena-room-code {
-  margin: 0;
-}
-.arena-admin .arena-room-card-badges .arena-status-badge,
-.arena-admin .arena-room-card-badges .arena-preset-chip {
-  margin: 0;
-}
-
-/* No cartão, código, contagem de missões e modalidade são metadados: viram texto
-   simples, com separador, e param de disputar atenção com o estado da sala.
-   O que continua com fundo é o que muda decisão — o estado e o aviso de missão
-   pendente. As classes seguem as mesmas: o que muda é o tratamento. */
-.arena-admin .arena-room-card-badges .arena-room-code,
-.arena-admin .arena-room-card-badges .arena-room-missions-badge,
-.arena-admin .arena-room-card-badges .arena-preset-chip {
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: none !important;
-  color: var(--color-text-muted) !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0 !important;
-  padding: 0 !important;
-  text-transform: none !important;
-}
-.arena-admin .arena-room-card-badges .arena-room-code::before {
-  content: 'PIN ';
-  font-weight: 700;
-}
-.arena-admin .arena-room-card-badges .arena-room-missions-badge::before,
-.arena-admin .arena-room-card-badges .arena-preset-chip::before {
-  content: '·';
-  margin-right: 8px;
-}
-
 /* A família de botões do detalhe é a mesma dos cartões (retângulo de 8px, 12,5px
    de texto): o que parecia botão de outro sistema eram a alça do "Gerenciar
    sala" e o chip de tempo, ambos em pílula. A alça e o chip passam a ler a
@@ -2650,66 +2550,11 @@ body[data-page='admin-arena'] .arena-admin-head .ghost-link:hover {
   padding-left: 6px !important;
   text-decoration: underline;
 }
-.arena-admin .arena-admin-tools > summary {
-  border: 1px solid #e2e8f0 !important;
-  border-radius: 8px !important;
-  background: #f8fafc !important;
-  color: #1e293b !important;
-  font-size: 12.5px !important;
-  font-weight: 600 !important;
-  padding: 6px 14px !important;
-}
-
-/* Coluna 2: EstatÃ­sticas Premium */
-.arena-admin .arena-room-card-stats {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: #f8fafd;
-  padding: 8px 16px;
-  border-radius: 12px;
-  border: 1px solid #eef2f8;
-}
-.arena-admin .arena-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.arena-admin .arena-stat b {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--color-primary-dark);
-  line-height: 1;
-}
-.arena-admin .arena-stat b.is-live {
-  color: #10b981;
-}
-.arena-admin .arena-stat span {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-.arena-admin .arena-stat-divider {
-  width: 1px;
-  height: 24px;
-  background: #e2e8f0;
-}
 
 /* Coluna 3: AÃ§Ãµes */
 
 /* Responsividade do Card Premium */
 @media (max-width: 1000px) {
-  .arena-admin .arena-room-card {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 16px !important;
-  }
-  .arena-admin .arena-room-card-stats {
-    width: 100%;
-    justify-content: center;
-  }
   .arena-admin .arena-room-card-actions {
     justify-content: flex-start;
   }
@@ -2964,7 +2809,18 @@ body[data-page='index'] .portal-hero::after,
   margin-top: 20px;
 }
 .arena-message:empty, .form-message:empty { display: none !important; margin: 0; min-height: 0; padding: 0; border: none; }
-.arena-admin > [data-admin-arena-content]:not([hidden]) { display: grid; gap: 1.25rem; }
+/* A TRILHA ÚNICA é declarada, não deixada implícita: sem ela o navegador
+   dimensiona a coluna pelo CONTEÚDO, e o cartão da sala em destaque (cuja
+   largura mínima vem da faixa de quatro indicadores, 912 px) empurrava a coluna
+   para fora do painel — medido em 1024×768: o cartão e a faixa de indicadores iam
+   até 1187 px numa janela de 1024, e a barra de rolagem horizontal aparecia
+   dentro da área de conteúdo. Com `minmax(0, 1fr)` a coluna obedece ao painel e
+   quem se ajusta é o conteúdo, dentro da largura que existe. */
+.arena-admin > [data-admin-arena-content]:not([hidden]) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
 .arena-admin [data-admin-arena-content] > .report-panel { margin: 0; }
 /* `auto-fill`: com um desafio só, `auto-fit` esticava o cartão pela largura
    inteira do painel (medido em 16/09: 1030 px contra 333 px na grade cheia). */
@@ -3110,7 +2966,11 @@ body[data-page='index'] .portal-hero::after,
   font-size: 11px !important;
   font-weight: 800 !important;
   letter-spacing: 0.12em !important;
-  color: #94a3b8 !important;
+  /* #94a3b8 media 2,43:1 sobre o branco do cartão — reprovado por AA, e medido
+     pela sonda da jornada do aluno (tmp/qa/auditoria/jornada.mjs). O cinza daqui
+     é o mesmo `--color-text-muted` que o resto do produto usa para micro-rótulo:
+     um valor aprovado em vez de um cinza só desta linha. */
+  color: var(--color-text-muted) !important;
   text-transform: uppercase !important;
   margin-bottom: 14px !important;
 }
@@ -3439,16 +3299,6 @@ body[data-page='index'] .portal-hero::after,
 .arena-lobby-brand {
   flex: none;
 }
-
-/* ============================================================
-   COCKPIT PROFESSOR â€” BOTÃ•ES DE CÃ“DIGO E LINK DIRETO
-   ============================================================ */
-.arena-cockpit-copy-group {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin: 6px 0 8px;
-}
 .arena-copy-link {
   background: var(--color-primary-light, #e8f0fe);
   border-color: rgba(11, 87, 208, 0.25);
@@ -3626,6 +3476,91 @@ body[data-page='index'] .portal-hero::after,
     transform: translate(-50%, 0);
     opacity: 1;
   }
+}
+
+/* ============================================================
+   FAIXA DO PAINEL E AVISO DA TV (sessao vencida / conexao caida)
+   ============================================================ */
+/* A faixa fica DENTRO do conteudo autenticado do painel: quando o login volta
+   a aparecer, ela sai junto com o conteudo — em vez de flutuar sobre a tela
+   errada. Mesmo estilo do banner de instabilidade, em barra e nao em pilula,
+   porque aqui ela convive com o cartao da sala logo abaixo. */
+.arena-session-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+  padding: 10px 16px;
+  border: 1px solid #f9ab00;
+  border-radius: 14px;
+  background: #fef7e0;
+  color: #7a4100;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+.arena-session-banner[hidden] {
+  display: none !important;
+}
+.arena-session-banner > span {
+  flex: 1 1 auto;
+  min-width: 240px;
+}
+.arena-session-banner > button,
+.arena-session-banner .arena-session-retry > button {
+  height: 32px;
+  min-height: 32px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+/* A reentrada dentro da faixa: senha curta e botao na mesma linha, no lugar do
+   botao que a revelou — a altura da faixa nao muda quando o campo aparece. */
+.arena-session-banner .arena-session-retry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+.arena-session-banner .arena-session-retry[hidden] {
+  display: none !important;
+}
+.arena-session-banner .arena-session-retry input {
+  height: 32px;
+  min-height: 32px;
+  width: 190px;
+  padding: 0 10px;
+  border: 1px solid #f9ab00;
+  border-radius: 10px;
+  background: #fff;
+  color: #202124;
+  font-size: 13px;
+}
+
+/* O aviso da parede: um chip no alto do palco, e nao uma tela de erro — o
+   ultimo estado valido continua visivel (placar de dois minutos atras ainda e
+   o placar). */
+.arena-tv-reconnect {
+  display: flex;
+  justify-content: center;
+  padding: 10px 24px 0;
+}
+.arena-tv-reconnect[hidden] {
+  display: none !important;
+}
+.arena-tv-reconnect > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border: 1px solid #f9ab00;
+  border-radius: 999px;
+  background: #fef7e0;
+  color: #7a4100;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 /* BotÃ£o de alternar tela cheia na projeÃ§Ã£o da TV */

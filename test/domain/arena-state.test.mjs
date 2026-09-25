@@ -18,6 +18,20 @@ test('room statuses follow the classroom lifecycle', () => {
   assert.throws(() => nextRoomStatus('playing', 'draft'), /cannot transition/);
 });
 
+// A sala não tem um fim só: `ended` é o fim de uma BATALHA, e a mesma sala
+// recebe outra (mesmo código, mesmas missões) voltando a `open`. As duas arestas
+// existem para que a máquina de estados diga isso, em vez de o caminho da
+// batalha nova escrever o status por fora dela.
+test('a nova batalha volta a sala para open, do jogo e do fim', () => {
+  assert.equal(nextRoomStatus('playing', 'open'), 'open');
+  assert.equal(nextRoomStatus('ended', 'open'), 'open');
+  assert.equal(nextRoomStatus('open', 'open'), 'open');
+  // Rascunho e arquivada continuam sem essa volta: quem nunca abriu não repete,
+  // e arquivar é o fim da sala (criar outra é o caminho).
+  assert.throws(() => nextRoomStatus('draft', 'open'), /cannot transition/);
+  assert.throws(() => nextRoomStatus('archived', 'open'), /cannot transition/);
+});
+
 test('round statuses progress and never rewind', () => {
   assert.equal(nextRoundStatus('pending', 'open'), 'open');
   assert.equal(nextRoundStatus('open', 'results'), 'results');

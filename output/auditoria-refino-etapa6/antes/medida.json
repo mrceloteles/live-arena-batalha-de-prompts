@@ -1,0 +1,636 @@
+{
+  "rotulo": "antes",
+  "medidas": {
+    "portal1440": {
+      "alturaDaJanela": 900,
+      "alturaDoHero": 330,
+      "larguraDoHero": 720,
+      "topoDoHero": 285,
+      "baseDoHero": 615,
+      "cabeNaPrimeiraTela": true,
+      "filhos": [
+        {
+          "classe": "portal-hero-brand",
+          "topo": 310,
+          "altura": 30
+        },
+        {
+          "classe": "portal-hero-callout",
+          "topo": 363,
+          "altura": 143
+        },
+        {
+          "classe": "figma-cta",
+          "topo": 534,
+          "altura": 56
+        }
+      ],
+      "texturaDoPortal": {
+        "imagem": "radial-gradient(rgba(11, 87, 208, 0.035) 1px, rgba(0, 0, 0, 0) 1px)",
+        "tamanho": "24px 24px",
+        "mascara": "radial-gradient(70% 60%, rgb(0, 0, 0) 40%, rgba(0, 0, 0, 0) "
+      },
+      "fundoDaCasca": "rgb(248, 250, 253)",
+      "texto": "LIVE ARENA\nBATALHA DE PROMPTS\nDescubra o PROMPT\nEntrar na Arena"
+    },
+    "portal390": {
+      "alturaDaJanela": 844,
+      "alturaDoHero": 273,
+      "larguraDoHero": 358,
+      "topoDoHero": 285,
+      "baseDoHero": 559,
+      "cabeNaPrimeiraTela": true,
+      "margemLateral": 16,
+      "titulo": "37.05px"
+    },
+    "entrada1440": {
+      "alturaDaJanela": 900,
+      "alturaDoCartao": 549,
+      "larguraDoCartao": 440,
+      "topoDoCartao": 176,
+      "baseDoCartao": 724,
+      "cabeNaPrimeiraTela": true,
+      "titulo": "Entrar na batalha",
+      "kicker": "O código vem do professor.",
+      "elementosDoCartao": [
+        "join-head",
+        "arena-kicker",
+        "arena-form",
+        "ghost-link"
+      ],
+      "botaoEntrar": {
+        "largura": 366,
+        "altura": 48,
+        "raio": "10px",
+        "padding": "12px 24px",
+        "fonte": "15px",
+        "peso": "600",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": true,
+        "sombra": "rgba(0, 82, 255, 0.3) 0px 4px 16px 0px",
+        "anel": "3px none rgb(255, 255, 255) / 0px"
+      },
+      "botaoDeReferencia": {
+        "largura": 366,
+        "altura": 48,
+        "raio": "10px",
+        "padding": "12px 24px",
+        "fonte": "15px",
+        "peso": "600",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": true,
+        "sombra": "rgba(0, 82, 255, 0.3) 0px 4px 16px 0px",
+        "anel": "3px none rgb(255, 255, 255) / 0px"
+      },
+      "rotuloDoBotao": "Entrar",
+      "fundoDoCartao": "rgb(255, 255, 255)",
+      "raioDoCartao": "16px",
+      "sombraDoCartao": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px"
+    },
+    "focoEntrada": {
+      "alvo": "input[name=code]",
+      "aneis": [
+        "sombra rgba(0, 82, 255, 0.16) 0px 0px 0px 3px"
+      ],
+      "quantosAneis": 1,
+      "borda": "1px rgb(208, 215, 226)"
+    },
+    "entrada390": {
+      "alturaDaJanela": 844,
+      "alturaDoCartao": 525,
+      "larguraDoCartao": 358,
+      "topoDoCartao": 160,
+      "baseDoCartao": 684,
+      "cabeNaPrimeiraTela": true,
+      "titulo": "Entrar na batalha",
+      "kicker": "O código vem do professor.",
+      "elementosDoCartao": [
+        "join-head",
+        "arena-kicker",
+        "arena-form",
+        "ghost-link"
+      ],
+      "botaoEntrar": {
+        "largura": 308,
+        "altura": 48,
+        "raio": "10px",
+        "padding": "12px 24px",
+        "fonte": "15px",
+        "peso": "600",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": true,
+        "sombra": "rgba(0, 82, 255, 0.3) 0px 4px 16px 0px",
+        "anel": "3px none rgb(255, 255, 255) / 0px"
+      },
+      "botaoDeReferencia": {
+        "largura": 308,
+        "altura": 48,
+        "raio": "10px",
+        "padding": "12px 24px",
+        "fonte": "15px",
+        "peso": "600",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": true,
+        "sombra": "rgba(0, 82, 255, 0.3) 0px 4px 16px 0px",
+        "anel": "3px none rgb(255, 255, 255) / 0px"
+      },
+      "rotuloDoBotao": "Entrar",
+      "fundoDoCartao": "rgb(255, 255, 255)",
+      "raioDoCartao": "16px",
+      "sombraDoCartao": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px"
+    },
+    "login1440": {
+      "alturaDaJanela": 900,
+      "alturaDoCartao": 432,
+      "larguraDoCartao": 440,
+      "topoDoCartao": 234,
+      "baseDoCartao": 666,
+      "cabeNaPrimeiraTela": true,
+      "titulo": "Entrar no painel",
+      "botaoEntrar": {
+        "largura": 358,
+        "altura": 50,
+        "raio": "999px",
+        "padding": "12px 24px",
+        "fonte": "16px",
+        "peso": "900",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": true,
+        "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+        "anel": "3px none rgb(255, 255, 255) / 0px"
+      },
+      "voltar": {
+        "largura": 178,
+        "altura": 44,
+        "raio": "10px",
+        "padding": "8px 10px",
+        "fonte": "13px",
+        "peso": "700",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": false,
+        "sombra": null,
+        "anel": "3px none rgb(84, 91, 97) / 0px"
+      },
+      "texto": "LIVE ARENA\nBATALHA DE PROMPTS\nEntrar no painel\nSenha Administrativa\nEntrar\n\n‹ Voltar ao início da Arena"
+    },
+    "focoLogin": {
+      "alvo": "input[name=password]",
+      "aneis": [
+        "sombra rgba(12, 92, 255, 0.1) 0px 0px 0px 4px"
+      ],
+      "quantosAneis": 1,
+      "borda": "1px rgb(12, 92, 255)"
+    },
+    "login390": {
+      "alturaDaJanela": 844,
+      "alturaDoCartao": 403,
+      "larguraDoCartao": 358,
+      "topoDoCartao": 221,
+      "baseDoCartao": 623,
+      "cabeNaPrimeiraTela": true,
+      "titulo": "Entrar no painel",
+      "botaoEntrar": {
+        "largura": 300,
+        "altura": 50,
+        "raio": "999px",
+        "padding": "12px 24px",
+        "fonte": "16px",
+        "peso": "900",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": true,
+        "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+        "anel": "3px none rgb(255, 255, 255) / 0px"
+      },
+      "voltar": {
+        "largura": 178,
+        "altura": 44,
+        "raio": "10px",
+        "padding": "8px 10px",
+        "fonte": "13px",
+        "peso": "700",
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": false,
+        "sombra": null,
+        "anel": "3px none rgb(84, 91, 97) / 0px"
+      },
+      "texto": "LIVE ARENA\nBATALHA DE PROMPTS\nEntrar no painel\nSenha Administrativa\nEntrar\n\n‹ Voltar ao início da Arena"
+    },
+    "tv1920x1080": {
+      "lobby": {
+        "alturaDaBarra": 126,
+        "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+        "colunas": "168.188px 1560.86px 46.9531px",
+        "filhos": [
+          {
+            "classe": "arena-tv-brand",
+            "topo": 18,
+            "altura": 30,
+            "largura": 168
+          },
+          {
+            "classe": "arena-tv-room",
+            "topo": 16,
+            "altura": 33,
+            "largura": 346
+          },
+          {
+            "classe": "arena-tv-fullscreen-btn",
+            "topo": 73,
+            "altura": 36,
+            "largura": 109
+          }
+        ],
+        "linhasDeTopo": [
+          16,
+          18,
+          73
+        ],
+        "topoDoBotao": 73,
+        "botaoSozinhoNaLinha": true,
+        "alturaDoBotao": 36,
+        "topoDoPalco": 238,
+        "topoDoConteudo": 353,
+        "alturaDoConteudo": 576,
+        "rolagemDaPagina": 1080,
+        "barraDaPrevia": 100
+      },
+      "round": {
+        "alturaDaBarra": 126,
+        "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+        "colunas": "168.188px 1560.86px 46.9531px",
+        "filhos": [
+          {
+            "classe": "arena-tv-brand",
+            "topo": 18,
+            "altura": 30,
+            "largura": 168
+          },
+          {
+            "classe": "arena-tv-room",
+            "topo": 16,
+            "altura": 33,
+            "largura": 346
+          },
+          {
+            "classe": "arena-tv-fullscreen-btn",
+            "topo": 73,
+            "altura": 36,
+            "largura": 109
+          }
+        ],
+        "linhasDeTopo": [
+          16,
+          18,
+          73
+        ],
+        "topoDoBotao": 73,
+        "botaoSozinhoNaLinha": true,
+        "alturaDoBotao": 36,
+        "topoDoPalco": 238,
+        "topoDoConteudo": 440,
+        "alturaDoConteudo": 402,
+        "rolagemDaPagina": 1080,
+        "barraDaPrevia": 100
+      },
+      "results": {
+        "alturaDaBarra": 126,
+        "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+        "colunas": "168.188px 1560.86px 46.9531px",
+        "filhos": [
+          {
+            "classe": "arena-tv-brand",
+            "topo": 18,
+            "altura": 30,
+            "largura": 168
+          },
+          {
+            "classe": "arena-tv-room",
+            "topo": 16,
+            "altura": 33,
+            "largura": 346
+          },
+          {
+            "classe": "arena-tv-fullscreen-btn",
+            "topo": 73,
+            "altura": 36,
+            "largura": 109
+          }
+        ],
+        "linhasDeTopo": [
+          16,
+          18,
+          73
+        ],
+        "topoDoBotao": 73,
+        "botaoSozinhoNaLinha": true,
+        "alturaDoBotao": 36,
+        "topoDoPalco": 238,
+        "topoDoConteudo": 246,
+        "alturaDoConteudo": 960,
+        "rolagemDaPagina": 1080,
+        "barraDaPrevia": 100
+      },
+      "final": {
+        "alturaDaBarra": 126,
+        "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+        "colunas": "168.188px 1560.86px 46.9531px",
+        "filhos": [
+          {
+            "classe": "arena-tv-brand",
+            "topo": 18,
+            "altura": 30,
+            "largura": 168
+          },
+          {
+            "classe": "arena-tv-room",
+            "topo": 16,
+            "altura": 33,
+            "largura": 346
+          },
+          {
+            "classe": "arena-tv-fullscreen-btn",
+            "topo": 73,
+            "altura": 36,
+            "largura": 109
+          }
+        ],
+        "linhasDeTopo": [
+          16,
+          18,
+          73
+        ],
+        "topoDoBotao": 73,
+        "botaoSozinhoNaLinha": true,
+        "alturaDoBotao": 36,
+        "topoDoPalco": 238,
+        "topoDoConteudo": 246,
+        "alturaDoConteudo": 960,
+        "rolagemDaPagina": 1080,
+        "barraDaPrevia": 100
+      }
+    },
+    "tv1280x720": {
+      "lobby": {
+        "alturaDaBarra": 123,
+        "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+        "colunas": "168.188px 940.078px 46.9531px",
+        "filhos": [
+          {
+            "classe": "arena-tv-brand",
+            "topo": 17,
+            "altura": 30,
+            "largura": 168
+          },
+          {
+            "classe": "arena-tv-room",
+            "topo": 16,
+            "altura": 31,
+            "largura": 332
+          },
+          {
+            "classe": "arena-tv-fullscreen-btn",
+            "topo": 71,
+            "altura": 36,
+            "largura": 109
+          }
+        ],
+        "linhasDeTopo": [
+          16,
+          17,
+          71
+        ],
+        "topoDoBotao": 71,
+        "botaoSozinhoNaLinha": true,
+        "alturaDoBotao": 36,
+        "topoDoPalco": 235,
+        "topoDoConteudo": 243,
+        "alturaDoConteudo": 540,
+        "rolagemDaPagina": 720,
+        "barraDaPrevia": 100
+      },
+      "round": {
+        "alturaDaBarra": 123,
+        "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+        "colunas": "168.188px 940.078px 46.9531px",
+        "filhos": [
+          {
+            "classe": "arena-tv-brand",
+            "topo": 17,
+            "altura": 30,
+            "largura": 168
+          },
+          {
+            "classe": "arena-tv-room",
+            "topo": 16,
+            "altura": 31,
+            "largura": 332
+          },
+          {
+            "classe": "arena-tv-fullscreen-btn",
+            "topo": 71,
+            "altura": 36,
+            "largura": 109
+          }
+        ],
+        "linhasDeTopo": [
+          16,
+          17,
+          71
+        ],
+        "topoDoBotao": 71,
+        "botaoSozinhoNaLinha": true,
+        "alturaDoBotao": 36,
+        "topoDoPalco": 235,
+        "topoDoConteudo": 281,
+        "alturaDoConteudo": 372,
+        "rolagemDaPagina": 720,
+        "barraDaPrevia": 100
+      },
+      "results": {
+        "alturaDaBarra": 123,
+        "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+        "colunas": "168.188px 940.078px 46.9531px",
+        "filhos": [
+          {
+            "classe": "arena-tv-brand",
+            "topo": 17,
+            "altura": 30,
+            "largura": 168
+          },
+          {
+            "classe": "arena-tv-room",
+            "topo": 16,
+            "altura": 31,
+            "largura": 332
+          },
+          {
+            "classe": "arena-tv-fullscreen-btn",
+            "topo": 71,
+            "altura": 36,
+            "largura": 109
+          }
+        ],
+        "linhasDeTopo": [
+          16,
+          17,
+          71
+        ],
+        "topoDoBotao": 71,
+        "botaoSozinhoNaLinha": true,
+        "alturaDoBotao": 36,
+        "topoDoPalco": 235,
+        "topoDoConteudo": 243,
+        "alturaDoConteudo": 600,
+        "rolagemDaPagina": 720,
+        "barraDaPrevia": 100
+      },
+      "final": {
+        "alturaDaBarra": 123,
+        "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+        "colunas": "168.188px 940.078px 46.9531px",
+        "filhos": [
+          {
+            "classe": "arena-tv-brand",
+            "topo": 17,
+            "altura": 30,
+            "largura": 168
+          },
+          {
+            "classe": "arena-tv-room",
+            "topo": 16,
+            "altura": 31,
+            "largura": 332
+          },
+          {
+            "classe": "arena-tv-fullscreen-btn",
+            "topo": 71,
+            "altura": 36,
+            "largura": 109
+          }
+        ],
+        "linhasDeTopo": [
+          16,
+          17,
+          71
+        ],
+        "topoDoBotao": 71,
+        "botaoSozinhoNaLinha": true,
+        "alturaDoBotao": 36,
+        "topoDoPalco": 235,
+        "topoDoConteudo": 243,
+        "alturaDoConteudo": 618,
+        "rolagemDaPagina": 720,
+        "barraDaPrevia": 100
+      }
+    },
+    "tvReal1920x1080": {
+      "alturaDaBarra": 126,
+      "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+      "colunas": "168.188px 1560.86px 46.9531px",
+      "filhos": [
+        {
+          "classe": "arena-tv-brand",
+          "topo": 18,
+          "altura": 30,
+          "largura": 168
+        },
+        {
+          "classe": "arena-tv-room",
+          "topo": 16,
+          "altura": 33,
+          "largura": 346
+        },
+        {
+          "classe": "arena-tv-fullscreen-btn",
+          "topo": 73,
+          "altura": 36,
+          "largura": 109
+        }
+      ],
+      "linhasDeTopo": [
+        16,
+        18,
+        73
+      ],
+      "topoDoBotao": 73,
+      "botaoSozinhoNaLinha": true,
+      "alturaDoBotao": 36,
+      "topoDoPalco": 126,
+      "topoDoConteudo": 297,
+      "alturaDoConteudo": 576,
+      "rolagemDaPagina": 1080,
+      "trechoDoPalco": "CODIGO DA SALA\nDNLF49\n\nAguardando o professor iniciar a batalha…\n\nEntrem no celu"
+    },
+    "tvReal1280x720": {
+      "alturaDaBarra": 123,
+      "fundoDaBarra": "rgba(3, 15, 39, 0.34)",
+      "colunas": "168.188px 940.078px 46.9531px",
+      "filhos": [
+        {
+          "classe": "arena-tv-brand",
+          "topo": 17,
+          "altura": 30,
+          "largura": 168
+        },
+        {
+          "classe": "arena-tv-room",
+          "topo": 16,
+          "altura": 31,
+          "largura": 332
+        },
+        {
+          "classe": "arena-tv-fullscreen-btn",
+          "topo": 71,
+          "altura": 36,
+          "largura": 109
+        }
+      ],
+      "linhasDeTopo": [
+        16,
+        17,
+        71
+      ],
+      "topoDoBotao": 71,
+      "botaoSozinhoNaLinha": true,
+      "alturaDoBotao": 36,
+      "topoDoPalco": 123,
+      "topoDoConteudo": 141,
+      "alturaDoConteudo": 540,
+      "rolagemDaPagina": 720,
+      "trechoDoPalco": "CODIGO DA SALA\nDNLF49\n\nAguardando o professor iniciar a batalha…\n\nEntrem no celu"
+    },
+    "projecao": {
+      "ordemNoDom": [
+        "arena-proj-lead",
+        "arena-proj-qr-slot",
+        "arena-proj-code",
+        "arena-proj-actions",
+        "arena-proj-hint"
+      ],
+      "topoDoQr": 277,
+      "alturaDoQr": 234,
+      "topoDoCodigo": 525,
+      "alturaDoCodigo": 96,
+      "fonteDoCodigo": "56px",
+      "pesoDoCodigo": "900",
+      "primeiroNaTela": [
+        "qr",
+        "codigo",
+        "acoes",
+        "pista"
+      ],
+      "alturaDoCartao": 480,
+      "enderecoEscrito": "http://192.168.101.5:65423/tv.php?code=627207",
+      "vezesQueOEnderecoAparece": 1,
+      "vezesQueOPinAparece": 0,
+      "temAlternativaPorEndereco": true,
+      "rotulosDasAcoes": [
+        "Copiar código",
+        "Abrir neste computador"
+      ],
+      "pista": "Escaneie o QR code — ou abra o endereço e digite o código.",
+      "texto": "×\nProjeção da sala\n\nCódigo de projeção — para a TV\n\nhttp://192.168.101.5:65423/tv.php?code=627207\n627 207\nCopiar código\nAbrir neste computador\n\nEscaneie o QR code — ou abra o endereço e digite o código."
+    }
+  },
+  "pendentes": []
+}

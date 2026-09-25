@@ -1,15 +1,15 @@
 {
-  "conferidos": 236,
+  "conferidos": 317,
   "contexto": {
-    "candidato": 57,
-    "escrito": 179
+    "candidato": 60,
+    "escrito": 257
   },
-  "piso": 5.08,
+  "piso": 4.78,
   "pulados": {
-    "cor do texto não resolvida": 6,
+    "cor do texto não resolvida": 7,
     "gradiente não resolvido": 1,
     "imagem de fundo": 1,
-    "texto pintado com o fundo": 1,
-    "tinta sem fundo na chave": 490
+    "regra com opacity": 2,
+    "tinta sem fundo na chave": 549
   }
 }

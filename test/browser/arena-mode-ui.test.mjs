@@ -186,23 +186,41 @@ test('browser: o Modo Arena conduz aluna, TV e professor até derrubar o Juiz', 
     await carregar(painel, `${base}/admin-arena.php`);
     await esperarPor(painel, (id) => Boolean(document.querySelector(`[data-room-id="${id}"]`)),
       { descricao: 'a sala aparecer na lista do professor', args: room.id });
+    // O ESTADO DA PARTIDA (Juiz, energia, acerto) mora na FAIXA DE INDICADORES do
+    // cartão da sala desde a reorganização — ele é lido logo abaixo. O PAINEL da
+    // partida é outra coisa: é a montagem dos CONTROLES, e é por ele que a
+    // abertura do detalhe é esperada aqui, porque foi ele que se perdeu na
+    // reorganização da sala (`arenaPanel()` seguiu escrito em `arena.js` e a
+    // chamada, que existia em c82359e, sumiu do template do detalhe).
     await clicarAte(painel, `[data-room-id="${room.id}"] [data-action="detail"]`,
       () => Boolean(document.querySelector('[data-arena-mode-panel]')),
-      { descricao: 'o painel do Modo Arena abrir no detalhe da sala' });
-    const textoPainel = () => painel.$eval('[data-arena-mode-panel]', (n) => n.textContent.replace(/\s+/g, ' ').trim());
-    // Poderes e times vivem no bloco recolhido da configuração: abrir é o que o
-    // professor faz antes de clicar neles.
+      { descricao: 'o detalhe da sala do Modo Arena abrir com o painel da partida' });
+    const textoPainel = () => painel.$eval('.arena-metrics', (n) => n.textContent.replace(/\s+/g, ' ').trim());
     const abrirConfig = () => painel.evaluate(() => {
       const detalhes = document.querySelector('.arena-mode-config');
       if (detalhes) detalhes.open = true;
     });
-    // O estado do Juiz e a energia da turma passaram a viver na faixa de
-    // indicadores do cartao da sala, e nao mais nos quadros do painel do modo:
-    // estavam escritos duas vezes na mesma tela (LA-06). A guarda continua
-    // perguntando o mesmo — o professor PRECISA ver os dois na tela do detalhe.
-    const textoDetalhe = () => painel.$eval('[data-arena-detail-body]', (n) => n.textContent.replace(/\s+/g, ' ').trim());
-    assert.match(await textoDetalhe(), /JUIZ IA/);
-    assert.match(await textoDetalhe(), /ENERGIA DA TURMA/);
+    const textoDetalhe = () => painel.$eval('[data-arena-detail]', (n) => n.textContent.replace(/\s+/g, ' ').trim());
+    assert.match(await textoPainel(), /Juiz \/ Boss/i, 'o Juiz da partida precisa estar na faixa de indicadores');
+    assert.match(await textoPainel(), /Energia da turma/i, 'com a energia da turma ao lado');
+    assert.match(await textoPainel(), /Acerto da turma/i, 'e o acerto calculado em tempo real');
+
+    // OS CONTROLES DA PARTIDA PRECISAM ESTAR NA TELA.
+    //
+    // Os botões que conduzem a partida (sortear, próximo, reiniciar, Wild Card,
+    // ataque dinâmico, poderes e times) são escritos em `arenaPanel()`
+    // (`arena.js`) e só chegam à tela se o detalhe da sala chamar a função. A
+    // chamada se perdeu na reorganização e voltou; sem esta checagem, apagá-la de
+    // novo passaria despercebido — o portão morria antes num tempo limite de 60 s,
+    // dizendo "demorou" em vez de "falta isto".
+    const controlesDaPartida = await painel.evaluate(() => [...document.querySelectorAll('[data-arena-mode-panel] [data-action]')]
+      .map((no) => no.dataset.action)
+      .filter((acao) => /^(arena-(draw|next|reset|power|teams|config|wildcard|dynamic))/.test(acao || '')));
+    assert.ok(
+      controlesDaPartida.includes('arena-power') && controlesDaPartida.includes('arena-teams'),
+      'os controles da partida do Modo Arena (poderes e times entre eles) precisam estar na tela do professor: '
+        + `a lista veio ${JSON.stringify(controlesDaPartida)} — eles vivem em arenaPanel(), que o detalhe da sala monta`,
+    );
 
     // --- uma rodada inteira -------------------------------------------------
     const rodada = async (numero) => {
@@ -248,10 +266,10 @@ test('browser: o Modo Arena conduz aluna, TV e professor até derrubar o Juiz', 
       assert.match(naTv, /❤️/, 'a turma precisa ver os corações enquanto escreve');
       assert.match(naTv, /⚡\s*\d+\/\d+/, 'a energia da turma precisa continuar visível');
       await tv.waitForFunction(
-        () => document.querySelector('.arena-tv-round-head')?.textContent.includes('MISSAO'),
+        () => document.querySelector('.arena-tv-round-head')?.textContent.includes('MISSÃO'),
       );
       const cabecalhoTv = (await tv.$eval('.arena-tv-round-head', (n) => n.textContent.replace(/\s+/g, ' '))).trim();
-      assert.match(cabecalhoTv, new RegExp(`MISSAO 0?${numero}/0?2`));
+      assert.match(cabecalhoTv, new RegExp(`MISSÃO 0?${numero}/0?2`));
 
       for (const [index, sessao] of turma.entries()) {
         const resposta = await fetch(`${base}/api.php?action=arena_submit`, {
@@ -534,10 +552,19 @@ test('browser: o Modo Arena conduz aluna, TV e professor até derrubar o Juiz', 
     const premios = await tv.$$eval('.arena-tv-awards li', (linhas) => linhas.length);
     assert.ok(premios >= 2, `o fim precisa reconhecer mais de uma competência, veio ${premios}`);
 
+    // A parede e o painel chegam ao fim por caminhos diferentes (SSE da TV e
+    // releitura do detalhe), e ler o painel no instante da TV media a corrida,
+    // não o painel: sob carga este portão ficava intermitente com o painel ainda
+    // no "Desafio da turma" da rodada anterior. A espera é pelo VEREDITO.
+    //
+    // A frase "Partida encerrada" morava no painel do modo (a seção que não é
+    // montada). Onde o professor lê o fim agora é o cartão do Juiz, na faixa de
+    // indicadores: ele diz "derrotado" quando os corações acabam.
+    await esperarPor(painel, () => /derrotado/.test(
+      document.querySelector('.arena-metric.is-boss')?.textContent || '',
+    ), { descricao: 'o painel anunciar o fim da partida depois da parede' });
     const painelFinal = await textoPainel();
-    assert.match(painelFinal, /Partida encerrada/);
-    // "derrotado" mora na faixa de indicadores do cartão da sala (LA-06), não
-    // mais no quadro do painel: é no detalhe que o professor lê o veredito.
+    assert.match(painelFinal, /derrotado/, 'o veredito do Juiz aparece na faixa de indicadores');
     assert.match(await textoDetalhe(), /derrotado/);
 
     // A aluna não fica olhando uma tela morta no fim: ela lê o veredito.

@@ -325,7 +325,14 @@ test('o reinício não descarta: a submissão sem nota volta para a fila e receb
   assert.equal(retomada.exhausted, 0);
   assert.equal(parking.state().parked, 1, 'a avaliação está na fila do processo novo');
   // Piso de 1 s: retomar não pode virar rajada no mesmo instante em que sobe.
-  assert.ok(parking.state().next_retry_ms >= 1_000, `a retomada não dispara na subida (leu ${parking.state().next_retry_ms}ms)`);
+  //
+  // A folga de 50 ms é do INSTRUMENTO, não do piso: `next_retry_ms` é o tempo
+  // que FALTA, medido depois do agendamento — os milissegundos que correram
+  // desde então já saíram da conta, e numa máquina carregada 1 ms basta para a
+  // leitura fechar em 999. O defeito que esta linha persegue é outro: a retomada
+  // imediata, que devolveria 0 a poucos ms. Exigir o valor exato media o
+  // relógio, não a regra (a suíte reprovava com 999 ms e passava isolada).
+  assert.ok(parking.state().next_retry_ms >= 950, `a retomada não dispara na subida (leu ${parking.state().next_retry_ms}ms)`);
   assert.equal(chamadas.length, chamadasAntesDoReinicio, 'e nada foi chamado antes da hora');
 
   await parking.idle();

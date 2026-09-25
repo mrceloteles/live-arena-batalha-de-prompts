@@ -1,0 +1,350 @@
+{
+ "erros": [],
+ "problemas": {},
+ "produto": {
+  "390": {
+   "linhas": [
+    {
+     "quando": "antes de enviar (missão no ar)",
+     "rotulo": "Enviar prompt",
+     "estado": "livre",
+     "travado": false,
+     "y": 809,
+     "yRetry": 61,
+     "yResultado": 61,
+     "rolagem": 61,
+     "foco": "TEXTAREA.",
+     "composer": "block",
+     "briefing": {
+      "h": 197,
+      "y": 247
+     },
+     "campoVazio": 253
+    },
+    {
+     "quando": "nota na tela (t+0)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1702,
+     "yRetry": 1048,
+     "yResultado": 265,
+     "rolagem": 65,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 197,
+      "y": 1140
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+500ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1702,
+     "yRetry": 1048,
+     "yResultado": 265,
+     "rolagem": 1135,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 197,
+      "y": 1140
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+1500ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1702,
+     "yRetry": 1048,
+     "yResultado": 265,
+     "rolagem": 1135,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 197,
+      "y": 1140
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+3000ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1702,
+     "yRetry": 1048,
+     "yResultado": 265,
+     "rolagem": 1135,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 197,
+      "y": 1140
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+5000ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1702,
+     "yRetry": 1048,
+     "yResultado": 265,
+     "rolagem": 1135,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 197,
+      "y": 1140
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+8000ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1702,
+     "yRetry": 1048,
+     "yResultado": 265,
+     "rolagem": 1135,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 197,
+      "y": 1140
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois de digitar a 2a resposta",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1702,
+     "yRetry": 1048,
+     "yResultado": 265,
+     "rolagem": 1135,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 197,
+      "y": 1140
+     },
+     "campoVazio": 318
+    },
+    {
+     "quando": "segunda nota na tela",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": true,
+     "y": 265,
+     "yRetry": 265,
+     "yResultado": 265,
+     "rolagem": 265,
+     "foco": "BODY.round-active",
+     "composer": "contents",
+     "briefing": {
+      "h": 197,
+      "y": 1092
+     },
+     "campoVazio": 0
+    }
+   ],
+   "segundaNota": {
+    "numero": "78 PTS",
+    "unidade": "de 100",
+    "titulo": "Tentativa 2 de 2",
+    "pilula": "Resposta avaliada",
+    "evolucao": null,
+    "criterios": [
+     "Contexto 18/20",
+     "Restrições 16/20",
+     "Clareza 16/20",
+     "Objetivo 12/20"
+    ],
+    "dobraAberta": false,
+    "rolagem": 265
+   }
+  },
+  "1440": {
+   "linhas": [
+    {
+     "quando": "antes de enviar (missão no ar)",
+     "rotulo": "Enviar prompt",
+     "estado": "livre",
+     "travado": false,
+     "y": 736,
+     "yRetry": 0,
+     "yResultado": 0,
+     "rolagem": 0,
+     "foco": "TEXTAREA.",
+     "composer": "block",
+     "briefing": {
+      "h": 157,
+      "y": 223
+     },
+     "campoVazio": 253
+    },
+    {
+     "quando": "nota na tela (t+0)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1262,
+     "yRetry": 646,
+     "yResultado": 241,
+     "rolagem": 0,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 157,
+      "y": 748
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+500ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1262,
+     "yRetry": 646,
+     "yResultado": 241,
+     "rolagem": 489,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 157,
+      "y": 748
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+1500ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1262,
+     "yRetry": 646,
+     "yResultado": 241,
+     "rolagem": 489,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 157,
+      "y": 748
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+3000ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1262,
+     "yRetry": 646,
+     "yResultado": 241,
+     "rolagem": 489,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 157,
+      "y": 748
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+5000ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1262,
+     "yRetry": 646,
+     "yResultado": 241,
+     "rolagem": 489,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 157,
+      "y": 748
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois do clique (t+8000ms)",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1262,
+     "yRetry": 646,
+     "yResultado": 241,
+     "rolagem": 489,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 157,
+      "y": 748
+     },
+     "campoVazio": 0
+    },
+    {
+     "quando": "depois de digitar a 2a resposta",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": false,
+     "y": 1262,
+     "yRetry": 646,
+     "yResultado": 241,
+     "rolagem": 489,
+     "foco": "TEXTAREA.",
+     "composer": "contents",
+     "briefing": {
+      "h": 157,
+      "y": 748
+     },
+     "campoVazio": 318
+    },
+    {
+     "quando": "segunda nota na tela",
+     "rotulo": "Enviado ✓",
+     "estado": "confirmado",
+     "travado": true,
+     "y": 37,
+     "yRetry": 37,
+     "yResultado": 241,
+     "rolagem": 37,
+     "foco": "BODY.round-active",
+     "composer": "contents",
+     "briefing": {
+      "h": 157,
+      "y": 700
+     },
+     "campoVazio": 0
+    }
+   ],
+   "segundaNota": {
+    "numero": "78 PTS",
+    "unidade": "de 100",
+    "titulo": "Tentativa 2 de 2",
+    "pilula": "Resposta avaliada",
+    "evolucao": null,
+    "criterios": [
+     "Contexto 18/20",
+     "Restrições 16/20",
+     "Clareza 16/20",
+     "Objetivo 12/20"
+    ],
+    "dobraAberta": false,
+    "rolagem": 37
+   }
+  }
+ }
+}

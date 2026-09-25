@@ -30,6 +30,12 @@ function room(row) {
     preset: row.preset ?? 'personalizado',
     expectedPlayers: Number(row.expected_players),
     settings: parseSettings(row.settings_json),
+    // Batalha viva desta sala. A sala pode ser jogada mais de uma vez: ver
+    // `room_rounds.cycle`.
+    currentCycle: Number(row.current_cycle ?? 1),
+    // Versao MONOTONA do estado da sala (ver o comentario de `revision` no
+    // schema). Ela so sobe, e quem le compara antes de pintar.
+    revision: Number(row.revision ?? 0),
     entryBlocked: bool(row.entry_blocked),
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -105,6 +111,7 @@ function round(row) {
   return {
     id: row.id,
     roomId: row.room_id,
+    cycle: Number(row.cycle ?? 1),
     position: Number(row.position),
     challengeId: row.challenge_id,
     modality: row.modality,
@@ -150,6 +157,25 @@ export function createArenaRepositories(database) {
     async list() {
       return (await database.prepare('SELECT * FROM arena_rooms ORDER BY created_at DESC').all()).map(room);
     },
+    /**
+     * Sobe a revisao da sala em um e devolve o valor NOVO.
+     *
+     * Chamado pelo funil unico de mutacao (`onRoomChanged`), e nao por cada
+     * handler: e o unico ponto por onde TODA mudanca de sala passa, entao uma
+     * mutacao nova nasce contando sem ninguem lembrar de incrementar. O que a
+     * leitura usa e o valor da linha; o que o evento leva e este valor novo.
+     */
+    async bumpRevision({ id, now: timestamp }) {
+      now(timestamp);
+      const result = await database.prepare(`UPDATE arena_rooms
+        SET revision = revision + 1, updated_at = ?
+        WHERE id = ?`)
+        .run(timestamp, id);
+      if (result.changes !== 1) throw new Error('arena room not found');
+      const row = await database.prepare('SELECT revision FROM arena_rooms WHERE id = ?').get(id);
+      return Number(row?.revision ?? 0);
+    },
+
     async updateStatus({ id, status, now: timestamp, startedAt, endedAt }) {
       now(timestamp);
       requireRoomStatus(status);
@@ -159,6 +185,24 @@ export function createArenaRepositories(database) {
             ended_at = COALESCE(?, ended_at)
         WHERE id = ?`)
         .run(status, timestamp, startedAt ?? null, endedAt ?? null, id);
+      if (result.changes !== 1) throw new Error('arena room not found');
+      return rooms.getById(id);
+    },
+    /**
+     * Devolve a sala ao estado de espera para a BATALHA NOVA.
+     *
+     * `started_at`/`ended_at` voltam a NULL porque sao da batalha, nao da sala:
+     * quem quiser o inicio da batalha anterior le a rodada dela (o relatorio faz
+     * isso). Os horarios antigos nao se perdem — ficam nas rodadas do ciclo
+     * anterior, que e de onde o historico os le.
+     */
+    async reopenForNewBattle({ id, cycle, now: timestamp }) {
+      now(timestamp);
+      requireRoomStatus('open');
+      const result = await database.prepare(`UPDATE arena_rooms
+        SET status = 'open', current_cycle = ?, started_at = NULL, ended_at = NULL, updated_at = ?
+        WHERE id = ?`)
+        .run(cycle, timestamp, id);
       if (result.changes !== 1) throw new Error('arena room not found');
       return rooms.getById(id);
     },
@@ -318,6 +362,20 @@ export function createArenaRepositories(database) {
       if (result.changes !== 1) throw new Error('participant not found');
       return participants.getById(id);
     },
+    /**
+     * Tira a turma inteira da sala, para a batalha nova com a PRÓXIMA turma.
+     *
+     * O registro não é apagado — `active = 0` é o mesmo caminho de "remover
+     * participante" e é o que mantém nome, e-mail e notas no relatório. Os
+     * tokens morrem junto, então quem estava na tela volta ao formulário de
+     * entrada em vez de continuar jogando na batalha que não é dele.
+     */
+    async deactivateAll({ roomId, now: timestamp }) {
+      now(timestamp);
+      const result = await database.prepare('UPDATE arena_participants SET active = 0, last_seen_at = ? WHERE room_id = ? AND active = 1')
+        .run(timestamp, roomId);
+      return Number(result.changes || 0);
+    },
     async rename({ id, name, now: timestamp }) {
       now(timestamp);
       const clean = String(name).trim();
@@ -431,12 +489,12 @@ export function createArenaRepositories(database) {
   };
 
   const rounds = {
-    async add({ id, roomId, position, challengeId, modality, now: timestamp }) {
+    async add({ id, roomId, cycle, position, challengeId, modality, now: timestamp }) {
       now(timestamp);
       const result = await database.prepare(`INSERT INTO room_rounds
-        (id, room_id, position, challenge_id, modality, status, created_at)
-        VALUES (?, ?, ?, ?, ?, 'pending', ?)`)
-        .run(id, roomId, position, challengeId, modality, timestamp);
+        (id, room_id, cycle, position, challenge_id, modality, status, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, 'pending', ?)`)
+        .run(id, roomId, cycle ?? 1, position, challengeId, modality, timestamp);
       if (result.changes !== 1) throw new Error('could not add round');
       return rounds.getById(id);
     },
@@ -451,8 +509,85 @@ export function createArenaRepositories(database) {
         .get(String(challengeId), String(roomId));
       return Number(row?.rooms || 0);
     },
+    /**
+     * As rodadas da BATALHA VIVA da sala.
+     *
+     * O recorte e do ciclo corrente (`arena_rooms.current_cycle`), e nao de
+     * todas as rodadas da sala: quem consome esta leitura — prontidao, avanco
+     * automatico, painel, tela do aluno, TV, ranking — esta perguntando pelo
+     * jogo de agora. As rodadas das batalhas anteriores continuam no banco, com
+     * os envios e as notas presos a elas, e sao lidas por `listByRoomCycle`.
+     *
+     * Passar o ciclo pelo chamador teria 30 oportunidades de esquecer; o
+     * `current_cycle` e uma coluna, e nao um `MAX(cycle)`, justamente para que
+     * apagar as missoes do ciclo novo nao faca a tela voltar para a batalha
+     * anterior.
+     */
     async listByRoom(roomId) {
-      return (await database.prepare('SELECT * FROM room_rounds WHERE room_id = ? ORDER BY position').all(roomId)).map(round);
+      const rows = await database.prepare(`SELECT room_rounds.* FROM room_rounds
+        JOIN arena_rooms ON arena_rooms.id = room_rounds.room_id
+          AND arena_rooms.current_cycle = room_rounds.cycle
+        WHERE room_rounds.room_id = ?
+        ORDER BY room_rounds.position`).all(roomId);
+      return rows.map(round);
+    },
+    /** As rodadas de UM ciclo — o caminho do historico e do relatorio. */
+    async listByRoomCycle(roomId, cycle) {
+      return (await database.prepare('SELECT * FROM room_rounds WHERE room_id = ? AND cycle = ? ORDER BY position')
+        .all(roomId, cycle)).map(round);
+    },
+    /**
+     * As batalhas da sala, da primeira para a ultima, com o que a tela precisa
+     * para dizer "o que ja foi jogado aqui": quantas missoes, quando comecou e
+     * quando terminou a ultima delas.
+     */
+    async cycles(roomId) {
+      const rows = await database.prepare(`SELECT cycle, COUNT(*) AS rounds,
+          MIN(created_at) AS created_at,
+          MAX(COALESCE(ended_at, started_at)) AS last_at,
+          SUM(CASE WHEN status <> 'pending' THEN 1 ELSE 0 END) AS started
+        FROM room_rounds WHERE room_id = ? GROUP BY cycle ORDER BY cycle`).all(roomId);
+      return rows.map((row) => ({
+        cycle: Number(row.cycle),
+        rounds: Number(row.rounds),
+        started: Number(row.started || 0),
+        createdAt: Number(row.created_at),
+        lastAt: row.last_at === null || row.last_at === undefined ? null : Number(row.last_at),
+      }));
+    },
+    /**
+     * A batalha nova: clona as rodadas do ciclo atual como `pending` no ciclo
+     * seguinte, com ids novos.
+     *
+     * Tudo numa transacao porque o numero do ciclo e o `MAX(cycle)` lido la
+     * dentro: duas requisicoes simultaneas leriam o mesmo N e a segunda colidiria
+     * na chave `(room_id, cycle, position)`. A originalidade das rodadas vem de
+     * `id` novo — reaproveitar os ids faria as submissoes do ciclo anterior
+     * aparecerem como se fossem desta batalha.
+     */
+    async cloneForNewCycle({ roomId, now: timestamp }) {
+      now(timestamp);
+      return database.transaction(async (tx) => {
+        const source = await tx.prepare(`SELECT * FROM room_rounds WHERE room_id = ? AND cycle = (
+            SELECT current_cycle FROM arena_rooms WHERE id = ?) ORDER BY position`).all(roomId, roomId);
+        if (source.length === 0) return { rounds: [], cycle: null, room: undefined };
+        const cycle = Number((await tx.prepare('SELECT COALESCE(MAX(cycle), 0) AS cycle FROM room_rounds WHERE room_id = ?').get(roomId)).cycle) + 1;
+        const insert = tx.prepare(`INSERT INTO room_rounds
+          (id, room_id, cycle, position, challenge_id, modality, status, created_at)
+          VALUES (?, ?, ?, ?, ?, ?, 'pending', ?)`);
+        for (const row of source) {
+          await insert.run(randomUUID(), roomId, cycle, Number(row.position), row.challenge_id, row.modality, timestamp);
+        }
+        // O ponteiro da batalha e o estado da sala viram NA MESMA transacao: um
+        // ciclo clonado que nao se torna o corrente seria uma batalha invisivel,
+        // e o proximo pedido criaria outro ciclo em cima dele.
+        const reopened = await rooms.reopenForNewBattle({ id: roomId, cycle, now: timestamp });
+        return {
+          cycle,
+          room: reopened,
+          rounds: source.map((row) => ({ position: Number(row.position), challengeId: row.challenge_id })),
+        };
+      });
     },
     async remove(id) {
       await database.transaction(async (db) => {
@@ -565,6 +700,12 @@ export function createArenaRepositories(database) {
      *
      * `since` corta o passado distante: uma submissão de uma semana atrás numa
      * sala que continua aberta não é motivo para chamar o provedor no boot.
+     *
+     * O JOIN com `room_rounds` e a igualdade com `current_cycle` são a guarda da
+     * BATALHA: a sala que voltou a `open` para uma batalha nova continua sendo
+     * uma sala viva, e sem esse recorte o vigia sairia reavaliando envios da
+     * batalha anterior — cota gasta e nota velha escrita muito depois de a aula
+     * ter acabado.
      */
     async listAwaitingScore({ since = 0, limit = 500, roomStatuses = AWAITING_ROOM_STATUSES } = {}) {
       now(since);
@@ -576,6 +717,7 @@ export function createArenaRepositories(database) {
           (SELECT MAX(a.created_at) FROM arena_judge_attempts a WHERE a.submission_id = s.id) AS last_attempt_at
         FROM arena_submissions s
         JOIN arena_rooms r ON r.id = s.room_id
+        JOIN room_rounds rr ON rr.id = s.round_id AND rr.cycle = r.current_cycle
         LEFT JOIN arena_scores sc ON sc.submission_id = s.id
         WHERE sc.id IS NULL AND s.submitted_at >= ? AND r.status IN (${placeholders})
         ORDER BY s.submitted_at

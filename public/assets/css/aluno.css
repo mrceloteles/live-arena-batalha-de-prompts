@@ -1,0 +1,830 @@
+/* ============================================================
+   JORNADA DO ALUNO — o dono único das telas que esta frente construiu.
+
+   REGRA DE CASA. O que esta frente construir para o aluno mora AQUI, e as telas
+   que ainda faltam portar (entrada, rodada, resultado) ATERRISSAM AQUI — não no
+   fim de `refinement.css`. Aquela folha é a "última palavra" da cascata do
+   produto inteiro e, por isso mesmo, virou o lugar onde três passadas
+   empilharam blocos: quem chegasse depois não tinha como saber que aquele fim
+   de arquivo era a jornada do aluno.
+
+   O QUE ESTA FOLHA POSSUI
+     · a ENTRADA do aluno — o palco de duas colunas (referência LA-02);
+     · a ESPERA com o caminho de entrada (referência LA-02B);
+     · a leitura "Como a batalha funciona" (referência LA-04).
+
+   ONDE AS PRÓXIMAS TELAS ATERRISSAM (e por que aqui, e não no fim de outra folha).
+   A marcação de cada tela é uma `<section class="arena-screen" data-arena-screen>`
+   em `src/web/pages/index.mjs`, ao lado das duas que já existem; a folha é ESTA;
+   e quem troca de tela é `telaDoLobby()` / `showScreen()` em
+   `public/assets/js/arena.js`, que continua sendo o único dono da decisão de qual
+   tela o aluno vê.   Ordem de porte: `join` (FEITO nesta passada), depois `round` (a rodada, que
+   hoje já tem desenho em `round.css` — só a casca da jornada entra aqui),
+   depois `result`.
+
+   O QUE ELA NÃO POSSUI (e continua sendo dos donos antigos)
+     · a base das telas: cartões `.arena-card`, lista `.arena-roster`, cabeçalho
+       da sala, tokens e tipografia vivem em `design.css` / `arena.css`;
+     · a rodada em si, que é de `round.css`.
+
+   ORDEM DE CARGA. Esta folha entra IMEDIATAMENTE depois de `refinement.css` e
+   antes de `round.css` — exatamente o lugar que estes seletores ocupavam dentro
+   de `refinement.css`. Ela é a última palavra da JORNADA DO ALUNO; para o resto
+   do produto, a última palavra continua sendo `refinement.css`.
+
+   O QUE SAIU NA MUDANÇA (medido, não achado por leitura). Uma varredura que
+   tira a declaração da regra pela CSSOM e relê o computado apontou o que não
+   pintava nada aqui, e cada caso foi cortado:
+     · `.arena-how-card .arena-kicker` inteiro (tinta, corpo e margem): os três
+       perdem para o `!important` de `design.css .arena-kicker`, que é quem pinta
+       hoje. Repetir o valor não é dono — é cópia.
+     · `padding: 0` e `list-style: none` da lista de tipos de missão: o reset de
+       `app-authorial.css` (`menu, ol, ul`) já os zera — a altura de cada item
+       não muda sem eles (95 px, medido).
+
+   O QUE SAIU NESTA PASSADA (cada corte com o DONO nomeado que já pintava). Saiu
+   só o que era cópia de outro dono, nunca declaração que decidia sozinha:
+     · `.arena-how` — `min-height: 100svh`: é de `.arena-lobby` (design.css), a
+       classe que a marcação põe no MESMO elemento.
+     · `.arena-how-card` — `background: #ffffff` (`arena.css .arena-card`),
+       `box-shadow` (perde para o `!important` de `design.css .arena-card`) e
+       `overflow: hidden` (recorte da fita: é do `.brand-tape`, no mesmo
+       elemento). O `margin: 0 auto` estava nesta lista e VOLTOU — ver abaixo.
+     · `.arena-how-copy p` — `line-height: 1.5`: herdado de `html` (preflight).
+     · `.arena-wait-entry` — `width: 100%`: a própria caixa é um grid de nível
+       bloco, que já ocupa a linha.
+     · `.arena-wait-qr` — `margin: 0`: o preflight zera `figure`.
+     · `.arena-wait-qr img` — `display: block` e `height: auto`: o preflight já
+       dá os dois a todo `img`.
+     · `.arena-wait-qr img` — `width: clamp(112px, 22vw, 168px)`: o tamanho é do
+       atributo `width` da marcação e da regra de mídia de 620 px; o `clamp`
+       repetia os dois.
+   O QUE A VARREDURA ERROU NESTA PASSADA (e é o aviso para a próxima). Ela mede
+   a declaração com a TELA EM CENA e só nos elementos que casam com os meus
+   seletores. O `margin: 0 auto` do `.arena-how-card` passou nos dois testes e
+   não era inerte: o cartório de render, que tira o retrato da página INTEIRA
+   (com as telas escondidas), acusou 6 telas. Bisseção de quatro rodadas até
+   sobrar ele. Portanto: varredura por declaração sugere, cartório de render
+   decide.
+
+   O que NÃO saiu, mesmo acusado (4 declarações, e o motivo fica escrito):
+   `background: var(--color-primary)` e `font-weight: 700` do `.arena-how-open`,
+   o `margin-left: auto` do `.ghost-link` na faixa da dica e o `background` do
+   `:hover` do botão. A varredura diz que não pintam, mas não consegui nomear
+   quem pinta no lugar — e cortar no escuro é como nasceu o `border: 0` que
+   quase custou pixels. Ficam até haver prova de quem herda o papel.
+
+   A LIÇÃO SOBRE A VARREDURA, que quase me custou pixels: ela mede DECLARAÇÃO
+   A DECLARAÇÃO, e uma declaração pode ser inerte sem que o grupo seja. `border: 0`
+   parecia sem efeito (`border-top-width` continua 0 sem ela, porque o reset já
+   zera o estilo) — mas tirada INTEIRA, a borda de `.arena-card` volta e o cartão
+   perde 2 px de largura de conteúdo. Grupo de declarações só sai com a medida
+   do grupo.
+     · no parágrafo do código, `font-size`, `line-height`, `color` e `max-width`:
+       `design.css .arena-mission-empty p` os impõe com `!important`. Ficou só o
+       `margin-top`, que é o único que pinta.
+   ============================================================ */
+
+/* ============================================================
+   COMO A BATALHA FUNCIONA — a leitura entre a espera e a rodada.
+
+   A tela vem da referência LA-04 (`how`): um cabeçalho, o caminho da rodada
+   com a ilustração ao lado, os tipos de missão em três cartões e a faixa da
+   dica fechando. O que ela NÃO copia é a fita amarela transparente de 210 px da
+   referência — aqui a aresta de cima é a NOSSA `.brand-tape`, o mesmo pintor do
+   cartão de entrada e do portal. Uma tela nova não estreia pintor de fita.
+
+   A SUPERFÍCIE também é emprestada: `.arena-lobby` já declara a identidade
+   (gradiente azul, menta e lavanda), e `.arena-how` só centraliza o cartão
+   dentro dela. Repetir o gradiente numa classe nova faria duas donas da mesma
+   ambientação — foi assim que o produto chegou a cinco raios para dizer
+   "aqui começa um grupo".
+
+   Sem prosa nova sobre o produto: cada frase aqui é um comportamento que
+   existe (a missão pede um prompt; o juiz devolve nota e critérios) ou um tipo
+   do catálogo de missões. Nada de "três rodadas" — quantas rodadas a sala tem
+   é decisão do professor, não da tela.
+   ============================================================ */
+body[data-page='arena'] .arena-how {
+  display: grid;
+  place-items: center;
+  /* Sem `min-height`: quem dá a altura da tela é `.arena-lobby` (design.css),
+     a classe que a marcação põe no MESMO elemento. */
+  padding: clamp(20px, 4vw, 44px) clamp(16px, 4vw, 32px);
+}
+
+/* Entre missões, a sala não volta a parecer uma entrada ainda não iniciada. */
+body[data-page='arena'].round-between .arena-mission-panel:has(.arena-mission-empty:not([hidden])) {
+  min-height: 0 !important;
+  background: #fff !important;
+}
+body[data-page='arena'].round-between .arena-mission-empty::before {
+  content: 'PRÓXIMO PASSO';
+  color: #164b9f;
+  background: #e9f1ff;
+  border-color: #c9dbfa;
+  animation: none;
+}
+body[data-page='arena'].round-between .arena-wait-illustration,
+body[data-page='arena'].round-between .arena-wait-entry,
+body[data-page='arena'].round-between .arena-roster { display: none !important; }
+body[data-page='arena'].round-between .arena-mission-empty h1 { margin: 0 !important; }
+body[data-page='arena'].round-between .arena-between-copy { margin: 0 !important; }
+body[data-page='arena'].round-between .arena-between-score {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(360px, 100%);
+  margin: 8px auto 0;
+  padding: 15px 18px;
+  background: #f1f6ff;
+  color: #173b77;
+}
+body[data-page='arena'].round-between .arena-between-score strong { font-size: 24px; white-space: nowrap; }
+@media (max-width: 620px) {
+  body[data-page='arena'].round-between .arena-between-score { flex-direction: column; align-items: center; gap: 2px; }
+}
+body[data-page='arena'] .arena-how-card {
+  min-width: 0;
+  /* O `margin: 0 auto` FICA, e a história vale: a varredura por declaração
+     (`tmp/qa/auditoria-aluno.mjs`) disse que ele era inerte; o cartório de
+     render do projeto (`npm run test:browser`) disse que não — 6 telas mudam de
+     estilo computado sem ele. Quatro rodadas de bisseção até sobrar este
+     `margin`. O portão ganha: quem tira o retrato da página INTEIRA, com as
+     telas escondidas, vê o que a varredura de tela em cena não vê. */
+  margin: 0 auto;
+  /* O `border: 0` NÃO é decoração: ele suprime a borda de `.arena-card` (1 px),
+     e sem ele o cartão ganha 2 px de largura de conteúdo a menos e 2 px de
+     altura a mais — medido em 1920 (968 -> 966 e 619 -> 621). Fica. */
+  border: 0;
+  text-align: center;
+}
+body[data-page='arena'] .arena-how-card h1 {
+  margin: 4px 0 0;
+  font-weight: 800;
+}
+body[data-page='arena'] .arena-how-rounds {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 20px 0 0;
+  text-align: left;
+}
+body[data-page='arena'] .arena-how-rounds li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+  padding: 14px;
+}
+/* OS TRÊS TIPOS SÃO NUMERADOS, como na referência: lá cada cartão abre com um
+   quadrado azul (1, 2, 3) e é o número que diz "isto é uma sequência, não uma
+   lista". O número é do CSS (`counter`), não da marcação: nenhuma palavra nova
+   entra no orçamento de cópia e o tipo do catálogo continua sendo UM item de
+   lista — a ordem que o aluno lê é a ordem do documento. */
+body[data-page='arena'] .arena-how-rounds {
+  counter-reset: tipo-de-missao;
+}
+body[data-page='arena'] .arena-how-rounds li {
+  counter-increment: tipo-de-missao;
+}
+body[data-page='arena'] .arena-how-rounds li::before {
+  content: counter(tipo-de-missao);
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+}
+body[data-page='arena'] .arena-how-rounds strong { color: #0b244e; font-size: 14px; }
+body[data-page='arena'] .arena-how-rounds span { color: var(--color-text-muted); font-size: 13px; line-height: 1.45; }
+
+/* A PORTA DA EXPLICAÇÃO, na espera: pílula discreta da família dos links da
+   sala, com os 44 px de alvo de toque que o `.ghost-link` já garante. */
+body[data-page='arena'] .arena-how-open {
+  margin-top: 4px;
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--color-primary);
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+}
+body[data-page='arena'] .arena-how-open:hover { background: #f2f6ff; }
+
+@media (max-width: 720px) {
+  body[data-page='arena'] .arena-how-rounds { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ============================================================
+   A ESPERA E O CAMINHO DE ENTRADA — o código é a peça central.
+
+   Referência LA-02B (linhas 125–145): na espera o código da sala aparece em
+   tamanho de leitura com o QR ao lado, e a lista de quem já entrou logo abaixo.
+   A nossa espera já tinha o título, a ilustração e a lista; faltava o que a
+   referência trata como peça principal — o caminho para quem ainda não entrou.
+
+   O QR é o MESMO da projeção: `entryQrForRoom` no servidor, cacheado por
+   sala+URL, servido no `arena_lobby` (ver `src/server/arena-api.mjs`). O
+   `arena_qr` do cliente não serve aqui porque exige sessão de professor
+   (`requireAdmin`) e o aluno não tem uma — então esta tela não estreia um
+   segundo gerador, ela consome o que o telão já gerou. Quando o servidor não
+   consegue montar o endereço, a caixa do QR sai e fica o código, que é o que
+   o aluno realmente lê.
+
+   A faixa (`signal-tape`), a ambientação (`.arena-lobby`) e o cartão
+   (`.arena-mission-panel`) continuam sendo os que a espera já tinha: aqui só
+   entra a peça que faltava, com os tokens do projeto.
+   ============================================================ */
+body[data-page='arena'] .arena-wait-entry {
+  display: grid;
+  align-items: center;
+  gap: clamp(14px, 3vw, 24px);
+  margin: 4px 0 2px;
+  border: 1px solid #dde5f0;
+  text-align: left;
+}
+body[data-page='arena'] .arena-wait-code { min-width: 0; }
+body[data-page='arena'] .arena-wait-code-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+body[data-page='arena'] .arena-wait-code strong {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--la-mono);
+  font-weight: 900;
+  line-height: 1.05;
+}
+/* SÓ a margem: corpo, entrelinha, tinta e largura máxima do parágrafo são do
+   design system (`.arena-mission-empty p` em `design.css`, com `!important`). */
+body[data-page='arena'] .arena-wait-code p { margin-top: 6px; }
+body[data-page='arena'] .arena-wait-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+/* O TAMANHO do QR não é desta regra: quem manda é o atributo `width="168"` da
+   marcação (`index.mjs`) e, abaixo de 620 px, a regra de mídia desta mesma
+   seção (104 px). O `clamp` que morava aqui só repetia os dois — medido
+   inerte em 1440, 768 e 390. Fica a caixa: recorte, borda e respiro. */
+body[data-page='arena'] .arena-wait-qr img {
+  padding: 6px;
+  border: 1px solid #e3e9f3;
+  background: #ffffff;
+}
+body[data-page='arena'] .arena-wait-qr figcaption {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+/* A largura do cartão da espera, COM o caminho de entrada em cena, é a do palco
+   — quem limita é a coluna de `.arena-lobby-body` (680 px), não um teto próprio.
+   O `none` levanta o teto de 580 px que o design system dá ao cartão de espera
+   VAZIO, e nada mais: medido em 1440 o bloco vai de 580 para 590, e em 768 de
+   580 para 617, que é a largura da coluna menos o respiro do painel.
+   (Este `none` já foi um `max-width: 760px` — um número que nunca era alcançado
+   porque a coluna sempre é menor. Número que não manda é peso morto para ler:
+   o que esta regra faz é dizer quem manda.) */
+body[data-page='arena'] .arena-mission-panel:has(.arena-wait-entry:not([hidden])) .arena-mission-empty {
+  max-width: none !important;
+}
+
+/* A ilustração: na referência ela é uma coluna lateral, e aqui, empilhada acima
+   do código, empurraria a peça principal para fora da primeira dobra. */
+body[data-page='arena'] .arena-mission-panel:has(.arena-wait-entry:not([hidden])) .arena-wait-illustration {
+  width: min(220px, 52vw);
+}
+
+/* Estreito: as duas colunas viram uma, e o QR deita ao lado da legenda para não
+   gastar uma dobra inteira num bloco de 104 px. */
+@media (max-width: 620px) {
+  body[data-page='arena'] .arena-wait-qr {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  body[data-page='arena'] .arena-wait-qr figcaption { text-align: left; }
+}
+/* ============================================================
+   A ESPERA USA A LARGURA (telas largas).
+
+   Medido em 1440 (tmp/qa/auditoria/medir-caixas.mjs): a espera ocupava 680 dos
+   1200 px de conteúdo — 43% da tela era margem —, com o cartão de 839 px de
+   altura empilhando ilustração, título, código e lista numa coluna estreita,
+   enquanto a coluna lateral da sala estava escondida (sem nota, ela não existe).
+   A referência não faz isso: ela desenha a espera como um palco largo, com o
+   contexto de um lado e a entrada do outro.
+
+   Aqui as duas colunas são as que JÁ existem na marcação — a arte (decorativa)
+   à esquerda, e à direita o que o aluno lê e faz: o título, o código com o QR e
+   a lista de quem chegou. Nada de conteúdo novo: é a mesma peça, deitada.
+
+   O `:has()` escolhe o estado pelo que está na tela (a espera com o caminho de
+   entrada em cena) e não por uma classe que alguém precisa lembrar de
+   sincronizar — o mesmo cuidado do resto desta folha. O `::before` (a pílula
+   "sala de espera", que é do CSS de `design.css`) entra na primeira linha da
+   grade: sem endereço ele seria auto-posicionado numa quinta linha implícita.
+   ============================================================ */
+@media (min-width: 1180px) {
+  body[data-page='arena'] .arena-lobby-body:has(.arena-wait-entry:not([hidden])) {
+    grid-template-columns: minmax(0, 1120px) !important;
+  }
+  body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    align-items: center !important;
+    justify-content: initial !important;
+    column-gap: clamp(24px, 3vw, 46px);
+    row-gap: 16px;
+    text-align: left !important;
+  }
+  body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden]))::before {
+    grid-area: selo;
+    justify-self: start;
+    margin-bottom: 0;
+  }
+  body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) > .arena-wait-illustration {
+    grid-area: arte;
+    justify-self: center;
+    width: 100%;
+    max-width: 340px;
+  }
+  body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) > h1 {
+    grid-area: titulo;
+  }
+  body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) > .arena-wait-entry {
+    grid-area: caminho;
+  }
+  body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) > .arena-roster {
+    grid-area: lista;
+    max-width: none !important;
+    align-items: flex-start;
+  }
+  body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) > .arena-how-open {
+    grid-area: botao;
+    justify-self: start;
+  }
+}
+
+/* ============================================================
+   A ENTRADA DO ALUNO — o palco de duas colunas.
+
+   Referência LA-02 (linhas 100–123): contexto à esquerda (imagem, pílula, título
+   grande e um parágrafo) e formulário estreito à direita. A nossa entrada era um
+   cartão único centralizado; o que veio da referência é a ESTRUTURA, não o
+   formulário dela.
+
+   O QUE NÃO VEIO, E POR QUÊ. A referência pede nome completo, e-mail, cargo,
+   empresa/instituição e aceite de termos. O nosso `arena_join` coleta CÓDIGO DA
+   SALA e NOME — só. Campo sem uso no produto é dado pessoal coletado à toa e
+   promessa que a tela não cumpre, então nenhum deles entrou.
+
+   A FAIXA é a NOSSA (`brand-tape`, a mesma da espera e do portal). A referência
+   usa `signal-tape` amarela de 12 px; copiá-la faria o produto ter um quarto
+   pintor da mesma banda.
+
+   A SUPERFÍCIE também é emprestada: o cartão é `.arena-card` (pele, borda e
+   sombra em `design.css`) e o ambiente é o `.arena-bg` que a entrada já tinha
+   desde antes — a tela nova não estreia fundo próprio.
+
+   A IMAGEM é o único empréstimo imperfeito e fica anotado: a referência traz uma
+   ilustração própria de entrada (celular + QR), e nós temos três — esta é a de
+   participantes conectando (`tv-waiting-players`, a mesma da espera), adaptada
+   como "entrar na sala". Quando existir a quarta, é aqui que ela entra.
+   ============================================================ */
+body[data-page='arena'] .arena-join-stage {
+  display: grid;
+  align-items: center;
+  text-align: left !important;
+}
+body[data-page='arena'] .arena-join-context {
+  display: grid;
+  justify-items: start;
+  min-width: 0;
+}
+body[data-page='arena'] .arena-join-context .join-head {
+  align-items: flex-start;
+  gap: 4px;
+  margin: 0;
+  text-align: left;
+}
+body[data-page='arena'] .arena-join-context .arena-kicker {
+  margin: 0 !important;
+  text-align: left;
+}
+body[data-page='arena'] .arena-join-note {
+  margin: 0;
+  max-width: 42ch;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+body[data-page='arena'] .arena-join-form h2 {
+  margin: 0;
+  color: #0b244e;
+  font-weight: 800;
+}
+body[data-page='arena'] .arena-join-hint {
+  margin: -8px 0 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+body[data-page='arena'] .arena-join-back { margin-top: 2px; }
+
+/* Estreito: uma coluna, contexto primeiro (a referência empilha na mesma ordem).
+   Em 860 px o formulário ainda caberia ao lado, mas com a coluna de texto
+   espremida — e "caberia" não é "lê bem". */
+@media (max-width: 860px) {
+}
+
+/* No celular, entrar é a tarefa inteira. A ilustração e a explicação longa
+   cedem a primeira dobra aos dois campos e ao botão. */
+@media (max-width: 620px) {
+  body[data-page='arena'] .arena-screen[data-arena-screen='join'] { padding: 12px; }
+  body[data-page='arena'] .arena-join-stage {
+    gap: 18px;
+  }
+  body[data-page='arena'] .arena-join-context { gap: 4px; }
+  body[data-page='arena'] .arena-join-context .join-head { gap: 3px; }
+  body[data-page='arena'] .arena-join-context .arena-kicker { display: none; }
+  body[data-page='arena'] .arena-join-note{ display: none; }
+  body[data-page='arena'] .arena-join-form {
+    gap: 12px;
+    border: 0;
+    background: transparent;
+  }
+  body[data-page='arena'] .arena-join-form h2,
+  body[data-page='arena'] .arena-join-hint { display: none; }
+  body[data-page='arena'] .arena-join-back { margin-top: 0; }
+
+  body[data-page='arena'] .arena-mission-panel:has(.arena-wait-entry:not([hidden])) {
+    padding: calc(var(--la-tape-h) + 18px) 18px 22px !important;
+    min-height: 0;
+  }
+  body[data-page='arena'] .arena-wait-illustration {
+    width: 112px !important;
+    max-height: 96px;
+    object-fit: contain;
+  }
+  body[data-page='arena'] .arena-mission-empty h1 {
+    font-size: 24px !important;
+    margin: 4px 0 10px !important;
+  }
+  body[data-page='arena'] .arena-wait-code strong {
+    letter-spacing: .06em;
+  }
+  body[data-page='arena'] .arena-wait-code p,
+  body[data-page='arena'] .arena-wait-qr figcaption { display: none !important; }
+  body[data-page='arena'] .arena-wait-qr { justify-content: center; }
+  body[data-page='arena'] .arena-wait-qr img { width: 92px; padding: 4px; }
+  body[data-page='arena'] .arena-how-rounds { gap: 0; margin-top: 12px; }
+  body[data-page='arena'] .arena-how-rounds li {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr);
+    column-gap: 10px;
+    border: 0;
+    border-top: 1px solid #e2e8f0;
+    border-radius: 0;
+    background: transparent;
+    padding: 10px 0;
+  }
+  body[data-page='arena'] .arena-how-rounds li::before { grid-row: 1 / 3; }
+}
+body[data-page='arena'] .arena-how-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+body[data-page='arena'] .arena-how-steps li {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dbe5f4;
+}
+body[data-page='arena'] .arena-how-steps span {
+  display: grid;
+  place-items: center;
+  color: white;
+  font-family: var(--la-mono);
+  font-weight: 800;
+}
+body[data-page='arena'] .arena-how-steps strong { color: #102449; line-height: 1.25; }
+body[data-page='arena'] .arena-how-types {
+  margin: 0 0 18px;
+  border: 1px solid #dbe5f4;
+  text-align: left;
+  overflow: hidden;
+}
+body[data-page='arena'] .arena-how-types summary { padding: 14px 18px; color: #1759bd; font-weight: 700; cursor: pointer; }
+body[data-page='arena'] .arena-how-types .arena-how-rounds { margin: 0; padding: 0 18px 18px; }
+body[data-page='arena'] .arena-how-back { width: 100%; min-height: 48px; }
+@media (max-width: 620px) {
+  body[data-page='arena'] .arena-how-steps { grid-template-columns: minmax(0, 1fr); }
+  body[data-page='arena'] .arena-mission-panel:has(.arena-wait-entry:not([hidden])) .arena-wait-illustration { display: none !important; }
+}
+
+/* V5 aplicado às superfícies principais do aluno. A jornada e os formulários
+   continuam com os mesmos dados e ações; esta camada muda só a apresentação. */
+body[data-page='arena'] .arena-screen[data-arena-screen='join'] .arena-bg,
+body[data-page='arena'] .arena-how,
+body[data-page='arena']:not(.round-active) .arena-lobby:has(.arena-wait-entry:not([hidden])) {
+  background-color: #edf3fb !important;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.98) 1.7px, transparent 2px),
+    radial-gradient(ellipse at 86% 8%, rgba(21,103,227,.14), transparent 40%) !important;
+  background-size: 32px 32px, auto !important;
+  background-position: 0 0 !important;
+  background-repeat: repeat, no-repeat !important;
+}
+body[data-page='arena'] :is(.arena-join-stage, .arena-how-card).brand-tape::before {
+  left: 50%;
+  right: auto;
+  width: min(220px, 48%);
+  height: 12px;
+  transform: translateX(-50%);
+}
+body[data-page='arena'] .arena-join-stage {
+  width: min(1120px, calc(100vw - 40px)) !important;
+  min-height: min(600px, calc(100dvh - 64px));
+  grid-template-columns: minmax(0, 1fr) minmax(0, .95fr);
+  gap: 0;
+  padding: 42px 0 !important;
+  border: 1px solid #d9e4f3;
+  border-radius: 0 !important;
+  box-shadow: 0 24px 65px rgba(11, 34, 76, .13) !important;
+  background: #fff;
+}
+body[data-page='arena'] .arena-join-context {
+  align-content: center;
+  gap: 12px;
+  padding: 20px clamp(32px, 4vw, 64px);
+  border-right: 1px solid #dbe5f3;
+}
+body[data-page='arena'] .arena-join-context h1 {
+  max-width: 11ch;
+  color: #0d1c37 !important;
+  font-size: clamp(38px, 4.3vw, 58px) !important;
+  line-height: 1.03;
+  letter-spacing: -.055em;
+}
+body[data-page='arena'] .arena-join-context .brand-swoosh {
+  width: 126px;
+  height: 7px;
+  margin: 14px 0 0;
+}
+body[data-page='arena'] .arena-join-context .arena-join-note {
+  max-width: 36ch;
+  font-size: 16px;
+  line-height: 1.5;
+}
+body[data-page='arena'] .arena-join-form {
+  align-self: center;
+  gap: 15px;
+  margin: 0;
+  padding: 20px clamp(32px, 4vw, 64px);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+body[data-page='arena'] .arena-join-form h2 {
+  font-size: clamp(24px, 2.5vw, 32px);
+  letter-spacing: -.035em;
+}
+body[data-page='arena'] .arena-join-form .arena-field input {
+  min-height: 58px;
+  border-radius: 10px;
+  background: #fff;
+}
+body[data-page='arena'] .arena-join-form .arena-submit {
+  min-height: 54px;
+  margin-top: 4px;
+  background: #0c5cff;
+  box-shadow: 0 14px 24px rgba(12,92,255,.16);
+}
+/* O aparelho é uma ilustração decorativa: nenhum código ou QR falso. */
+body[data-page='arena'] .arena-join-art {
+  position: relative;
+  width: min(300px, 100%);
+  height: 205px;
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid #d8e3f4;
+  border-radius: 0;
+  background: #f4f8ff;
+}
+body[data-page='arena'] .arena-join-art-ring {
+  position: absolute;
+  left: -28px;
+  bottom: -96px;
+  width: 235px;
+  height: 235px;
+  border: 26px solid #1d62f2;
+  border-radius: 50%;
+}
+body[data-page='arena'] .arena-join-art-phone {
+  position: absolute;
+  left: 72px;
+  top: 20px;
+  width: 110px;
+  height: 170px;
+  border: 12px solid #0c1c3c;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 14px 25px rgba(11,34,76,.16);
+}
+body[data-page='arena'] .arena-join-art-phone i {
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin: 29px auto 0;
+  background:
+    linear-gradient(90deg, #0c1c3c 50%, transparent 0) 0 0 / 20px 20px,
+    linear-gradient(#0c1c3c 50%, transparent 0) 5px 5px / 20px 20px;
+}
+body[data-page='arena'] .arena-join-art-phone span {
+  display: block;
+  width: 48px;
+  height: 6px;
+  margin: 18px auto 0;
+  border-radius: 99px;
+  background: #36c5c4;
+}
+body[data-page='arena'] .arena-join-art-bolt {
+  position: absolute;
+  top: 19px;
+  right: 8px;
+  width: 106px;
+  height: 170px;
+  clip-path: polygon(49% 0, 100% 0, 65% 44%, 98% 44%, 25% 100%, 40% 56%, 10% 56%);
+  background: #ffd700;
+}
+
+/* Espera: a arte do V5 ocupa a coluna de contexto, com código e QR legíveis. */
+body[data-page='arena']:not(.round-active):not(.round-between) .arena-mission-panel:has(.arena-wait-entry:not([hidden])) {
+  position: relative;
+  padding: clamp(24px, 3.2vw, 42px) !important;
+  border: 1px solid #d9e4f3 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  box-shadow: 0 24px 65px rgba(11,34,76,.12) !important;
+}
+body[data-page='arena']:not(.round-active) .arena-mission-panel:has(.arena-wait-entry:not([hidden])) .signal-tape {
+  left: 50%;
+  right: auto;
+  width: min(220px, 48%);
+  transform: translateX(-50%);
+}
+body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) h1 {
+  color: #0d1c37 !important;
+  font-size: clamp(30px, 3.4vw, 44px) !important;
+  letter-spacing: -.045em !important;
+  line-height: 1.08;
+}
+body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) .arena-wait-illustration {
+  width: min(360px, 100%) !important;
+  max-height: 280px;
+  object-fit: contain;
+}
+body[data-page='arena'] .arena-wait-entry {
+  grid-template-columns: minmax(0, 1fr) auto;
+  border-radius: 10px;
+  background: #f2f6ff;
+  padding: 17px 20px;
+}
+body[data-page='arena'] .arena-wait-code strong {
+  color: #0c5cff;
+  font-size: clamp(34px, 4.4vw, 58px);
+  letter-spacing: .04em;
+  overflow-wrap: anywhere;
+}
+body[data-page='arena'] .arena-wait-qr img { border-radius: 6px; }
+body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) .arena-roster {
+  border-top: 1px solid #dce6f3 !important;
+}
+
+/* Ajuda opcional: o mesmo fluxo curto ganha uma leitura gráfica mais forte. */
+body[data-page='arena'] .arena-how-card {
+  width: min(1020px, 100%);
+  max-width: 1020px;
+  border-radius: 0 !important;
+  box-shadow: 0 24px 65px rgba(11,34,76,.12) !important;
+  padding: 46px clamp(22px, 4vw, 56px) 34px;
+}
+body[data-page='arena'] .arena-how-card h1 {
+  color: #0d1c37;
+  font-size: clamp(32px, 4vw, 48px);
+  letter-spacing: -.05em;
+}
+body[data-page='arena'] .arena-how-steps {
+  gap: 16px;
+  margin: 32px 0 24px;
+}
+body[data-page='arena'] .arena-how-steps li {
+  position: relative;
+  min-height: 200px;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+  border-radius: 0;
+  background: #f5f8ff;
+}
+body[data-page='arena'] .arena-how-steps li:nth-child(2) { background: #edf4ff; }
+body[data-page='arena'] .arena-how-steps li:nth-child(3) { background: #0c1c3c; border-color: #0c1c3c; }
+body[data-page='arena'] .arena-how-steps li:nth-child(3) strong { color: #fff; }
+body[data-page='arena'] .arena-how-steps li:nth-child(3) span { background: #ffd700; color: #0c1c3c; }
+body[data-page='arena'] .arena-how-steps span {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  background: #0c5cff;
+  font-size: 17px;
+}
+body[data-page='arena'] .arena-how-steps strong { font-size: clamp(18px, 2vw, 24px); letter-spacing: -.03em; }
+body[data-page='arena'] .arena-how-types { border-radius: 0; }
+body[data-page='arena'] .arena-how-back { max-width: 260px; background: #0c5cff; }
+
+@media (max-width: 860px) {
+  body[data-page='arena'] .arena-join-stage { min-height: 0; grid-template-columns: minmax(0, 1fr); }
+  body[data-page='arena'] .arena-join-context { border-right: 0; border-bottom: 1px solid #dbe5f3; }
+  body[data-page='arena'] .arena-join-art { display: none; }
+}
+@media (max-width: 620px) {
+  body[data-page='arena'] .arena-join-stage {
+    width: 100% !important;
+    padding: 26px 0 14px !important;
+    border-radius: 0 !important;
+  }
+  body[data-page='arena'] .arena-join-context { padding: 10px 22px 16px; }
+  body[data-page='arena'] .arena-join-context h1 { font-size: 34px !important; }
+  body[data-page='arena'] .arena-join-form { padding: 17px 22px 14px; }
+  body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) h1 { font-size: 28px !important; }
+  body[data-page='arena'] .arena-wait-entry { grid-template-columns: minmax(0, 1fr) 96px; gap: 8px; padding: 12px; }
+  body[data-page='arena'] .arena-wait-code strong { font-size: clamp(26px, 8vw, 36px); }
+  body[data-page='arena'] .arena-how-card { padding: 28px 20px 20px; }
+  body[data-page='arena'] .arena-how-steps { gap: 9px; margin: 20px 0 16px; }
+  body[data-page='arena'] .arena-how-steps li { min-height: 0; flex-direction: row; align-items: center; gap: 14px; padding: 14px; }
+  body[data-page='arena'] .arena-how-steps strong { font-size: 16px; }
+  body[data-page='arena'] .arena-how-back { max-width: none; }
+}
+
+/* A pausa entre missões pertence à mesma arena da rodada seguinte. */
+body[data-page='arena'].round-between .arena-lobby {
+  background-color: #0c5cff !important;
+  background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,.06) 0 54px, transparent 54px 108px),
+    linear-gradient(125deg, #1989ee, #0c5cff) !important;
+}
+body[data-page='arena'].round-between .arena-lobby-body {
+  width: min(900px, 100%);
+}
+body[data-page='arena'].round-between .arena-mission-panel:has(.arena-mission-empty:not([hidden])) {
+  position: relative;
+  width: 100%;
+  margin: clamp(24px, 5vh, 48px) auto;
+  padding: 44px clamp(24px, 5vw, 56px) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 24px 60px rgba(0,27,84,.2) !important;
+}
+body[data-page='arena'].round-between .arena-mission-panel:has(.arena-mission-empty:not([hidden])) .signal-tape {
+  left: 50%;
+  right: auto;
+  width: min(220px, 48%);
+  transform: translateX(-50%);
+}
+body[data-page='arena'].round-between .arena-between-score {
+  border-radius: 8px;
+}
+@media (max-width: 620px) {
+  body[data-page='arena'].round-between .arena-mission-panel:has(.arena-mission-empty:not([hidden])) {
+    margin: 18px auto;
+    padding: 32px 20px !important;
+  }
+}
+@media (min-width: 1180px) {
+  body[data-page='arena'] .arena-mission-empty:has(.arena-wait-entry:not([hidden])) {
+    grid-template-areas:
+      'arte selo'
+      'arte titulo'
+      'arte caminho'
+      'arte lista'
+      'arte botao';
+  }
+}

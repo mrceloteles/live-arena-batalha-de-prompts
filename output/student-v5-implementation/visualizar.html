@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Arena — nova experiência do aluno</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #0c1c3c; background: #eaf1fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 32px clamp(16px, 4vw, 64px); color: white; background: #0c1c3c; }
+    h1 { margin: 0 0 10px; font-size: clamp(28px, 4vw, 44px); letter-spacing: -.04em; }
+    header p { max-width: 800px; margin: 0; line-height: 1.5; color: #dce8fb; }
+    main { max-width: 1800px; margin: auto; padding: 24px clamp(16px, 4vw, 64px); }
+    section { margin-bottom: 24px; padding: clamp(14px, 2vw, 26px); border: 1px solid #d6e2f2; border-radius: 12px; background: white; }
+    h2 { margin: 0 0 16px; font-size: 24px; }
+    .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 390px); gap: 16px; align-items: start; }
+    .compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    figure { min-width: 0; margin: 0; border: 1px solid #d6e2f2; border-radius: 9px; overflow: hidden; background: #eaf1fb; }
+    figcaption { padding: 10px 14px; background: #f8fbff; font-weight: 700; }
+    img { display: block; width: 100%; height: auto; }
+    @media (max-width: 850px) { .pair, .compare { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Área do aluno — nova direção visual</h1>
+    <p>Capturas do projeto local após aplicar a linguagem visual do V5. Sala, nomes, código e notas vêm de uma simulação isolada usada apenas para conferir as telas.</p>
+  </header>
+  <main>
+    <section><h2>Rodada escolhida · referência e projeto</h2><div class="compare"><figure><figcaption>Design escolhido no print</figcaption><img src="referencia-escolhida.png" alt="Print escolhido: um cartão branco central no fundo azul, missão à esquerda e escrita à direita"></figure><figure><figcaption>Projeto atual · 1900 × 900</figcaption><img src="06-missao-imagem-referencia-viewport.png" alt="Rodada do aluno no mesmo palco, com a imagem da missão inteira"></figure></div></section>
+    <section><h2>Uso do espaço · antes e depois</h2><div class="compare"><figure><figcaption>Antes deste ajuste</figcaption><img src="06-missao-imagem-desktop-compacta.png" alt="Rodada com imagem antes de ampliar a área"></figure><figure><figcaption>Depois</figcaption><img src="06-missao-imagem-desktop.png" alt="Rodada com imagem após ampliar a área"></figure></div></section>
+    <section><h2>Missão com imagem · antes e depois</h2><div class="compare"><figure><figcaption>Antes</figcaption><img src="06-missao-imagem-desktop-antes.png" alt="Missão com imagem antes do ajuste"></figure><figure><figcaption>Depois</figcaption><img src="06-missao-imagem-desktop.png" alt="Missão com imagem após o ajuste"></figure></div></section>
+    <section><h2>Resultado · antes e depois</h2><div class="compare"><figure><figcaption>Antes</figcaption><img src="05-resultado-desktop-antes.png" alt="Resultado antes do ajuste"></figure><figure><figcaption>Depois</figcaption><img src="05-resultado-desktop.png" alt="Resultado após o ajuste"></figure></div></section>
+    <section><h2>Notebook · 1366 × 768</h2><div class="compare"><figure><figcaption>Missão com imagem</figcaption><img src="06-missao-imagem-laptop.png" alt="Missão com imagem em notebook"></figure><figure><figcaption>Resultado</figcaption><img src="05-resultado-laptop.png" alt="Resultado em notebook"></figure></div></section>
+    <section><h2>Entrada</h2><div class="pair"><figure><figcaption>Desktop · 1440 × 900</figcaption><img src="01-entrada-desktop.png" alt="Nova entrada em desktop"></figure><figure><figcaption>Celular · 390 × 844</figcaption><img src="01-entrada-mobile.png" alt="Nova entrada em celular"></figure></div></section>
+    <section><h2>Espera</h2><div class="pair"><figure><figcaption>Desktop</figcaption><img src="02-espera-desktop.png" alt="Nova sala de espera em desktop"></figure><figure><figcaption>Celular</figcaption><img src="02-espera-mobile.png" alt="Nova sala de espera em celular"></figure></div></section>
+    <section><h2>Como jogar</h2><div class="pair"><figure><figcaption>Desktop</figcaption><img src="03-como-funciona-desktop.png" alt="Nova explicação em desktop"></figure><figure><figcaption>Celular</figcaption><img src="03-como-funciona-mobile.png" alt="Nova explicação em celular"></figure></div></section>
+    <section><h2>Missão de texto</h2><div class="pair"><figure><figcaption>Desktop</figcaption><img src="04-missao-desktop.png" alt="Nova missão de texto em desktop"></figure><figure><figcaption>Celular</figcaption><img src="04-missao-mobile.png" alt="Nova missão de texto em celular"></figure></div></section>
+    <section><h2>Missão com imagem</h2><div class="pair"><figure><figcaption>Desktop</figcaption><img src="06-missao-imagem-desktop.png" alt="Nova missão com referência visual em desktop"></figure><figure><figcaption>Celular</figcaption><img src="06-missao-imagem-mobile.png" alt="Nova missão com referência visual em celular"></figure></div></section>
+    <section><h2>Resultado</h2><div class="pair"><figure><figcaption>Desktop</figcaption><img src="05-resultado-desktop.png" alt="Novo resultado em desktop"></figure><figure><figcaption>Celular</figcaption><img src="05-resultado-mobile.png" alt="Novo resultado em celular"></figure></div></section>
+    <section><h2>Encerramento</h2><div class="pair"><figure><figcaption>Desktop</figcaption><img src="07-final-desktop.png" alt="Encerramento em desktop"></figure><figure><figcaption>Celular</figcaption><img src="07-final-mobile.png" alt="Encerramento em celular"></figure></div></section>
+  </main>
+</body>
+</html>

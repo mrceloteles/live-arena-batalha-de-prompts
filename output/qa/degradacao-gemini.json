@@ -1,0 +1,82 @@
+{
+  "rotulo": "degradacao 403 gemini",
+  "alvo": "http://127.0.0.1:59579",
+  "instalacao": {
+    "perfil": "volume-persistente",
+    "juiz": "gemini",
+    "versao": null,
+    "avisos": [
+      "juiz apontando para um endpoint alternativo (http://127.0.0.1:59578): use isto so em homologacao/medicao, com um destino que voce controla. Em producao, remova GEMINI_BASE_URL para voltar ao provedor oficial."
+    ],
+    "tipo": "processo_local",
+    "provedor": "controlado",
+    "endpoint_controlado": true,
+    "banco_em_arquivo": true,
+    "base_do_provedor": "http://127.0.0.1:59578/v1beta",
+    "preflight": null,
+    "submit_wait_ms": 8000,
+    "concorrencia_do_teto": 4
+  },
+  "alunos": 6,
+  "missoes": 1,
+  "latencia_do_provedor_ms": 20,
+  "modo_do_juiz": "gemini",
+  "orcamento": null,
+  "envios": 6,
+  "pendentes": 0,
+  "falhas": 0,
+  "amostra_de_erro": null,
+  "status": [
+    200
+  ],
+  "envio_p50_ms": 80,
+  "envio_p95_ms": 91,
+  "envio_max_ms": 91,
+  "conclusao_das_notas_ms": 9,
+  "notas_gravadas": 6,
+  "chamadas_ao_provedor": 6,
+  "fonte_das_chamadas": "contador_do_provedor_controlado",
+  "chamadas_por_submissao": 1,
+  "provedor_pico_simultaneo": 1,
+  "streams_abertos": 6,
+  "stream_bytes_total": 5220,
+  "stream_bytes_p50": 870,
+  "eventos_sse": 48,
+  "bytes_lobby": 2220,
+  "procedencia_das_notas": {
+    "total": 6,
+    "local": 6,
+    "provedor": "fallback"
+  },
+  "degradacao": {
+    "injecao": 403,
+    "modo_do_juiz": "gemini",
+    "esperado": "nota local silenciosa em todos os envios",
+    "observado": {
+      "notas_gravadas": 6,
+      "notas_locais": 6,
+      "envios_ok": 6
+    }
+  },
+  "teto_antes": {
+    "active": 0,
+    "queued": 0,
+    "concurrency": 4,
+    "per_hour": 400,
+    "spent_last_hour": 0,
+    "remaining_last_hour": 400
+  },
+  "teto_depois": {
+    "active": 0,
+    "queued": 0,
+    "concurrency": 4,
+    "per_hour": 400,
+    "spent_last_hour": 6,
+    "remaining_last_hour": 394
+  },
+  "encerramento": {
+    "saiu": true,
+    "drenou": null,
+    "cancelou": null
+  }
+}

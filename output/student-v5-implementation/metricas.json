@@ -1,0 +1,105 @@
+[
+  {
+    "name": "desktop",
+    "viewport": 1440,
+    "document": 1440,
+    "resultVisible": true,
+    "workspaceRadius": "0px",
+    "rankingRadius": "0px"
+  },
+  {
+    "name": "mobile",
+    "viewport": 390,
+    "document": 390,
+    "resultVisible": true,
+    "workspaceRadius": "0px",
+    "rankingRadius": "0px"
+  },
+  {
+    "name": "third",
+    "viewport": 1024,
+    "document": 1024,
+    "resultVisible": true,
+    "workspaceRadius": "0px",
+    "rankingRadius": "0px"
+  },
+  {
+    "name": "final-desktop",
+    "viewport": 1440,
+    "document": 1440,
+    "finalRadius": "0px"
+  },
+  {
+    "name": "final-mobile",
+    "viewport": 390,
+    "document": 390,
+    "finalRadius": "0px"
+  },
+  {
+    "name": "final-third",
+    "viewport": 1024,
+    "document": 1024,
+    "finalRadius": "0px"
+  },
+  {
+    "name": "imagem-1900",
+    "viewport": 1900,
+    "document": 1900,
+    "buttonBottom": 787,
+    "viewportHeight": 900,
+    "imageTop": 329,
+    "textareaTop": 329,
+    "imageBottom": 719,
+    "textareaBottom": 719,
+    "referenceLabelTop": 301,
+    "referenceLabelBottom": 317,
+    "promptLabelTop": 301,
+    "promptLabelBottom": 317,
+    "counterBottom": 317,
+    "textareaMarginTop": "12px",
+    "fieldRowGap": "0px"
+  },
+  {
+    "name": "imagem-laptop",
+    "viewport": 1366,
+    "document": 1366,
+    "buttonBottom": 665,
+    "viewportHeight": 768
+  },
+  {
+    "name": "imagem-1024",
+    "viewport": 1024,
+    "document": 1024,
+    "buttonBottom": 660,
+    "viewportHeight": 768,
+    "imageNatural": "1600x1253",
+    "figureSize": "446x270",
+    "imageFit": "contain",
+    "imageRadius": "0px",
+    "figureBackground": "rgb(12, 28, 60)",
+    "imageBackground": "rgba(0, 0, 0, 0)",
+    "imageTop": 322,
+    "textareaTop": 322,
+    "imageBottom": 592,
+    "textareaBottom": 592
+  },
+  {
+    "name": "imagem-desktop",
+    "viewport": 1440,
+    "document": 1440,
+    "imageVisible": true
+  },
+  {
+    "name": "imagem-mobile",
+    "viewport": 390,
+    "document": 390,
+    "buttonBottom": 727,
+    "viewportHeight": 844
+  },
+  {
+    "name": "imagem-fluxo",
+    "ampliacao": true,
+    "envio": true,
+    "resultado": true
+  }
+]

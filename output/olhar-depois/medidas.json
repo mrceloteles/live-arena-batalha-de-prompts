@@ -1,0 +1,738 @@
+{
+  "telas": [
+    {
+      "alvo": "1920x1080",
+      "largura": 1920,
+      "colados": [],
+      "vazios": [],
+      "tipografia": [
+        {
+          "chave": "40px/800",
+          "n": 1,
+          "exemplo": "STRONG — \"SXZZ87\""
+        },
+        {
+          "chave": "34px/800",
+          "n": 1,
+          "exemplo": "H1 — \"Aula em jogo\""
+        },
+        {
+          "chave": "30px/800",
+          "n": 3,
+          "exemplo": "B — \"0\""
+        },
+        {
+          "chave": "20px/800",
+          "n": 1,
+          "exemplo": "H4 — \"Cartaz da feira 1789889827\""
+        },
+        {
+          "chave": "19px/800",
+          "n": 5,
+          "exemplo": "arena-metric-idle — \"pausada\""
+        },
+        {
+          "chave": "16px/400",
+          "n": 2,
+          "exemplo": "arena-timing-chip — \"⏱ 10 min de aulaajustar\""
+        },
+        {
+          "chave": "16px/800",
+          "n": 2,
+          "exemplo": "arena-detail-primary — \"Retomar missão\""
+        },
+        {
+          "chave": "16px/900",
+          "n": 1,
+          "exemplo": "figma-cta.figma-cta-blue.arena-draw-cta — \"🎲 Sortear 3\""
+        },
+        {
+          "chave": "15px/700",
+          "n": 1,
+          "exemplo": "SUMMARY — \"•••\""
+        },
+        {
+          "chave": "14px/400",
+          "n": 1,
+          "exemplo": "arena-empty — \"Ainda sem pontuação.\""
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1,
+          "exemplo": "is-danger — \"Encerrar sala\""
+        },
+        {
+          "chave": "13px/700",
+          "n": 10,
+          "exemplo": "arena-copy-code — \"⧉ Copiar código\""
+        },
+        {
+          "chave": "13px/600",
+          "n": 1,
+          "exemplo": "arena-hero-meta — \"Personalizado · 3 lugares\""
+        },
+        {
+          "chave": "13px/400",
+          "n": 5,
+          "exemplo": "arena-metric-icon — \"◎\""
+        },
+        {
+          "chave": "13px/800",
+          "n": 1,
+          "exemplo": "arena-round-num — \"1\""
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1,
+          "exemplo": "B — \"Retomar missão\""
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        362
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 502.1,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "table-row"
+      }
+    },
+    {
+      "alvo": "1440x900",
+      "largura": 1440,
+      "colados": [],
+      "vazios": [],
+      "tipografia": [
+        {
+          "chave": "40px/800",
+          "n": 1,
+          "exemplo": "STRONG — \"SXZZ87\""
+        },
+        {
+          "chave": "34px/800",
+          "n": 1,
+          "exemplo": "H1 — \"Aula em jogo\""
+        },
+        {
+          "chave": "30px/800",
+          "n": 3,
+          "exemplo": "B — \"0\""
+        },
+        {
+          "chave": "20px/800",
+          "n": 1,
+          "exemplo": "H4 — \"Cartaz da feira 1789889827\""
+        },
+        {
+          "chave": "19px/800",
+          "n": 5,
+          "exemplo": "arena-metric-idle — \"pausada\""
+        },
+        {
+          "chave": "16px/400",
+          "n": 2,
+          "exemplo": "arena-timing-chip — \"⏱ 10 min de aulaajustar\""
+        },
+        {
+          "chave": "16px/800",
+          "n": 2,
+          "exemplo": "arena-detail-primary — \"Retomar missão\""
+        },
+        {
+          "chave": "16px/900",
+          "n": 1,
+          "exemplo": "figma-cta.figma-cta-blue.arena-draw-cta — \"🎲 Sortear 3\""
+        },
+        {
+          "chave": "15px/700",
+          "n": 1,
+          "exemplo": "SUMMARY — \"•••\""
+        },
+        {
+          "chave": "14px/400",
+          "n": 1,
+          "exemplo": "arena-empty — \"Ainda sem pontuação.\""
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1,
+          "exemplo": "is-danger — \"Encerrar sala\""
+        },
+        {
+          "chave": "13px/700",
+          "n": 10,
+          "exemplo": "arena-copy-code — \"⧉ Copiar código\""
+        },
+        {
+          "chave": "13px/600",
+          "n": 1,
+          "exemplo": "arena-hero-meta — \"Personalizado · 3 lugares\""
+        },
+        {
+          "chave": "13px/400",
+          "n": 5,
+          "exemplo": "arena-metric-icon — \"◎\""
+        },
+        {
+          "chave": "13px/800",
+          "n": 1,
+          "exemplo": "arena-round-num — \"1\""
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1,
+          "exemplo": "B — \"Retomar missão\""
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        276
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 325.2,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "alvo": "1280x720",
+      "largura": 1280,
+      "colados": [],
+      "vazios": [],
+      "tipografia": [
+        {
+          "chave": "40px/800",
+          "n": 1,
+          "exemplo": "STRONG — \"SXZZ87\""
+        },
+        {
+          "chave": "34px/800",
+          "n": 1,
+          "exemplo": "H1 — \"Aula em jogo\""
+        },
+        {
+          "chave": "30px/800",
+          "n": 3,
+          "exemplo": "B — \"0\""
+        },
+        {
+          "chave": "20px/800",
+          "n": 1,
+          "exemplo": "H4 — \"Cartaz da feira 1789889827\""
+        },
+        {
+          "chave": "19px/800",
+          "n": 5,
+          "exemplo": "arena-metric-idle — \"pausada\""
+        },
+        {
+          "chave": "16px/400",
+          "n": 2,
+          "exemplo": "arena-timing-chip — \"⏱ 10 min de aulaajustar\""
+        },
+        {
+          "chave": "16px/800",
+          "n": 2,
+          "exemplo": "arena-detail-primary — \"Retomar missão\""
+        },
+        {
+          "chave": "16px/900",
+          "n": 1,
+          "exemplo": "figma-cta.figma-cta-blue.arena-draw-cta — \"🎲 Sortear 3\""
+        },
+        {
+          "chave": "15px/700",
+          "n": 1,
+          "exemplo": "SUMMARY — \"•••\""
+        },
+        {
+          "chave": "14px/400",
+          "n": 1,
+          "exemplo": "arena-empty — \"Ainda sem pontuação.\""
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1,
+          "exemplo": "is-danger — \"Encerrar sala\""
+        },
+        {
+          "chave": "13px/700",
+          "n": 10,
+          "exemplo": "arena-copy-code — \"⧉ Copiar código\""
+        },
+        {
+          "chave": "13px/600",
+          "n": 1,
+          "exemplo": "arena-hero-meta — \"Personalizado · 3 lugares\""
+        },
+        {
+          "chave": "13px/400",
+          "n": 5,
+          "exemplo": "arena-metric-icon — \"◎\""
+        },
+        {
+          "chave": "13px/800",
+          "n": 1,
+          "exemplo": "arena-round-num — \"1\""
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1,
+          "exemplo": "B — \"Retomar missão\""
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        276
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 233.3,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "alvo": "1024x768",
+      "largura": 1024,
+      "colados": [],
+      "vazios": [],
+      "tipografia": [
+        {
+          "chave": "34.8px/800",
+          "n": 1,
+          "exemplo": "STRONG — \"SXZZ87\""
+        },
+        {
+          "chave": "30.7px/800",
+          "n": 1,
+          "exemplo": "H1 — \"Aula em jogo\""
+        },
+        {
+          "chave": "30px/800",
+          "n": 3,
+          "exemplo": "B — \"0\""
+        },
+        {
+          "chave": "20px/800",
+          "n": 1,
+          "exemplo": "H4 — \"Cartaz da feira 1789889827\""
+        },
+        {
+          "chave": "19px/800",
+          "n": 5,
+          "exemplo": "arena-metric-idle — \"pausada\""
+        },
+        {
+          "chave": "16px/400",
+          "n": 2,
+          "exemplo": "arena-timing-chip — \"⏱ 10 min de aulaajustar\""
+        },
+        {
+          "chave": "16px/800",
+          "n": 2,
+          "exemplo": "arena-detail-primary — \"Retomar missão\""
+        },
+        {
+          "chave": "16px/900",
+          "n": 1,
+          "exemplo": "figma-cta.figma-cta-blue.arena-draw-cta — \"🎲 Sortear 3\""
+        },
+        {
+          "chave": "15px/700",
+          "n": 1,
+          "exemplo": "SUMMARY — \"•••\""
+        },
+        {
+          "chave": "14px/400",
+          "n": 1,
+          "exemplo": "arena-empty — \"Ainda sem pontuação.\""
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1,
+          "exemplo": "is-danger — \"Encerrar sala\""
+        },
+        {
+          "chave": "13px/700",
+          "n": 10,
+          "exemplo": "arena-copy-code — \"⧉ Copiar código\""
+        },
+        {
+          "chave": "13px/600",
+          "n": 1,
+          "exemplo": "arena-hero-meta — \"Personalizado · 3 lugares\""
+        },
+        {
+          "chave": "13px/400",
+          "n": 5,
+          "exemplo": "arena-metric-icon — \"◎\""
+        },
+        {
+          "chave": "13px/800",
+          "n": 1,
+          "exemplo": "arena-round-num — \"1\""
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1,
+          "exemplo": "B — \"Retomar missão\""
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        275
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 407.3,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "alvo": "768x1024",
+      "largura": 768,
+      "colados": [],
+      "vazios": [],
+      "tipografia": [
+        {
+          "chave": "34px/800",
+          "n": 1,
+          "exemplo": "STRONG — \"SXZZ87\""
+        },
+        {
+          "chave": "30px/800",
+          "n": 3,
+          "exemplo": "B — \"0\""
+        },
+        {
+          "chave": "26px/800",
+          "n": 1,
+          "exemplo": "H1 — \"Aula em jogo\""
+        },
+        {
+          "chave": "20px/800",
+          "n": 1,
+          "exemplo": "H4 — \"Cartaz da feira 1789889827\""
+        },
+        {
+          "chave": "19px/800",
+          "n": 5,
+          "exemplo": "arena-metric-idle — \"pausada\""
+        },
+        {
+          "chave": "16px/400",
+          "n": 2,
+          "exemplo": "arena-timing-chip — \"⏱ 10 min de aulaajustar\""
+        },
+        {
+          "chave": "16px/800",
+          "n": 2,
+          "exemplo": "arena-detail-primary — \"Retomar missão\""
+        },
+        {
+          "chave": "16px/900",
+          "n": 1,
+          "exemplo": "figma-cta.figma-cta-blue.arena-draw-cta — \"🎲 Sortear 3\""
+        },
+        {
+          "chave": "15px/700",
+          "n": 1,
+          "exemplo": "SUMMARY — \"•••\""
+        },
+        {
+          "chave": "14px/400",
+          "n": 1,
+          "exemplo": "arena-empty — \"Ainda sem pontuação.\""
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1,
+          "exemplo": "is-danger — \"Encerrar sala\""
+        },
+        {
+          "chave": "13px/700",
+          "n": 10,
+          "exemplo": "arena-copy-code — \"⧉ Copiar código\""
+        },
+        {
+          "chave": "13px/600",
+          "n": 1,
+          "exemplo": "arena-hero-meta — \"Personalizado · 3 lugares\""
+        },
+        {
+          "chave": "13px/400",
+          "n": 5,
+          "exemplo": "arena-metric-icon — \"◎\""
+        },
+        {
+          "chave": "13px/800",
+          "n": 1,
+          "exemplo": "arena-round-num — \"1\""
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1,
+          "exemplo": "B — \"Retomar missão\""
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        23
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 410.6,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "alvo": "390x844",
+      "largura": 390,
+      "colados": [],
+      "vazios": [],
+      "tipografia": [
+        {
+          "chave": "34px/800",
+          "n": 1,
+          "exemplo": "STRONG — \"SXZZ87\""
+        },
+        {
+          "chave": "30px/800",
+          "n": 3,
+          "exemplo": "B — \"0\""
+        },
+        {
+          "chave": "26px/800",
+          "n": 1,
+          "exemplo": "H1 — \"Aula em jogo\""
+        },
+        {
+          "chave": "20px/800",
+          "n": 1,
+          "exemplo": "H4 — \"Cartaz da feira 1789889827\""
+        },
+        {
+          "chave": "19px/800",
+          "n": 5,
+          "exemplo": "arena-metric-idle — \"pausada\""
+        },
+        {
+          "chave": "16px/400",
+          "n": 2,
+          "exemplo": "arena-timing-chip — \"⏱ 10 min de aulaajustar\""
+        },
+        {
+          "chave": "16px/800",
+          "n": 2,
+          "exemplo": "arena-detail-primary — \"Retomar missão\""
+        },
+        {
+          "chave": "16px/900",
+          "n": 1,
+          "exemplo": "figma-cta.figma-cta-blue.arena-draw-cta — \"🎲 Sortear 3\""
+        },
+        {
+          "chave": "15px/700",
+          "n": 1,
+          "exemplo": "SUMMARY — \"•••\""
+        },
+        {
+          "chave": "14px/400",
+          "n": 1,
+          "exemplo": "arena-empty — \"Ainda sem pontuação.\""
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1,
+          "exemplo": "is-danger — \"Encerrar sala\""
+        },
+        {
+          "chave": "13px/700",
+          "n": 10,
+          "exemplo": "arena-copy-code — \"⧉ Copiar código\""
+        },
+        {
+          "chave": "13px/600",
+          "n": 1,
+          "exemplo": "arena-hero-meta — \"Personalizado · 3 lugares\""
+        },
+        {
+          "chave": "13px/400",
+          "n": 5,
+          "exemplo": "arena-metric-icon — \"◎\""
+        },
+        {
+          "chave": "13px/800",
+          "n": 1,
+          "exemplo": "arena-round-num — \"1\""
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1,
+          "exemplo": "B — \"Retomar missão\""
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        16
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 46.7,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    }
+  ],
+  "erros": [],
+  "sala": "e682a564-911e-45e6-bf33-dd97a5d548be",
+  "reversaoDoResumo": {
+    "folga": 2.2,
+    "mesmaLinha": true
+  },
+  "reversaoDoPiso": {
+    "comPiso": 0,
+    "semPiso": 28,
+    "semPisoLista": [
+      {
+        "o": "arena-copy-code",
+        "h": 32,
+        "diz": "⧉ Copiar código"
+      },
+      {
+        "o": "ghost-link.arena-detail-close",
+        "h": 30,
+        "diz": "✕"
+      },
+      {
+        "o": "arena-timing-chip",
+        "h": 24,
+        "diz": "⏱ 10 min de aulaajusta"
+      },
+      {
+        "o": "arena-hero-action.arena-copy-link",
+        "h": 22,
+        "diz": "Copiar acesso"
+      },
+      {
+        "o": "arena-hero-action.arena-tv-open",
+        "h": 20,
+        "diz": "Abrir telão"
+      },
+      {
+        "o": "BUTTON",
+        "h": 14,
+        "diz": "Editar"
+      },
+      {
+        "o": "BUTTON",
+        "h": 14,
+        "diz": "Bloquear"
+      },
+      {
+        "o": "is-danger",
+        "h": 14,
+        "diz": "Excluir"
+      },
+      {
+        "o": "is-danger",
+        "h": 20,
+        "diz": "Encerrar sala"
+      },
+      {
+        "o": "arena-draw-mode.is-on",
+        "h": 38,
+        "diz": "Sorteio livre"
+      },
+      {
+        "o": "arena-draw-mode",
+        "h": 38,
+        "diz": "Mata-mata"
+      },
+      {
+        "o": "INPUT",
+        "h": 40,
+        "diz": ""
+      },
+      {
+        "o": "SUMMARY",
+        "h": 19,
+        "diz": "Participantes conectad"
+      },
+      {
+        "o": "is-on",
+        "h": 21,
+        "diz": "Todos (3)"
+      },
+      {
+        "o": "BUTTON",
+        "h": 21,
+        "diz": "Enviados (0)"
+      },
+      {
+        "o": "BUTTON",
+        "h": 21,
+        "diz": "Respondendo (3)"
+      }
+    ]
+  }
+}

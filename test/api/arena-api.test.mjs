@@ -106,6 +106,47 @@ test('join validates code, capacity and duplicate names', async () => {
   await assert.rejects(api('arena_join', { code: room.code, name: 'Caio' }), (error) => error.status === 409);
 });
 
+test('batalha aceita uma resposta por missão mesmo quando um cliente pede duas tentativas', async () => {
+  const { room } = await setupRoom();
+  const ana = await api('arena_join', { code: room.code, name: 'Ana' });
+  const detail = (await api('arena_start_round', { ...admin(), room_id: room.id })).room;
+  const roundId = detail.rounds[0].id;
+  const first = await api('arena_submit', {
+    participant_id: ana.participant.id, token: ana.token, round_id: roundId,
+    prompt: 'Crie um cartaz A3 para a feira de tecnologia, com data, local e convite aos alunos.',
+  });
+  assert.ok(first.submission?.id || first.submission_id);
+  const lobby = (await api('arena_lobby', { participant_id: ana.participant.id, token: ana.token })).lobby;
+  assert.equal(lobby.current_round.attempts, 1);
+  assert.equal(lobby.rounds[0].attempts_allowed, 1);
+  await assert.rejects(api('arena_submit', {
+    participant_id: ana.participant.id, token: ana.token, round_id: roundId,
+    attempt: 2, prompt: 'Outra resposta para a mesma missão.',
+  }), (error) => error.status === 409);
+  assert.equal((await repositories.arena.submissions.listByRound(roundId)).length, 1);
+});
+
+test('resultado final espera a nota antes de anunciar o campeão', async () => {
+  const { room } = await setupRoom();
+  const ana = await api('arena_join', { code: room.code, name: 'Ana' });
+  const detail = (await api('arena_start_round', { ...admin(), room_id: room.id })).room;
+  const roundId = detail.rounds[0].id;
+  const submission = await repositories.arena.submissions.create({
+    id: 'pending-final-score', roomId: room.id, participantId: ana.participant.id,
+    roundId, attempt: 1, prompt: 'Cartaz A3 para a feira de tecnologia.', submittedAt: clock + 1,
+  });
+  await api('arena_end_room', { ...admin(), room_id: room.id });
+  const pending = (await api('arena_lobby', { participant_id: ana.participant.id, token: ana.token })).lobby;
+  assert.equal(pending.results_pending, 1);
+  await repositories.arena.scores.record({
+    id: 'final-score', submissionId: submission.id, percent: 87,
+    breakdown: { objetivo: 17 }, feedback: 'Objetivo claro.', now: clock + 2,
+  });
+  const finished = (await api('arena_lobby', { participant_id: ana.participant.id, token: ana.token })).lobby;
+  assert.equal(finished.results_pending, 0);
+  assert.equal(finished.ranking[0].name, 'Ana');
+});
+
 test('full mission lifecycle: start, submit, quality ordering, timeout and results', async () => {
   const { room } = await setupRoom();
   const ana = await api('arena_join', { code: room.code, name: 'Ana' });
@@ -314,7 +355,7 @@ test('essencial enforces the 250-character limit', async () => {
   assert.ok(ok.submission.percent > 0);
 });
 
-test('refinement mode awards a second attempt and records evolution', async () => {
+test('refinement mode allows one answer even when legacy settings request two attempts', async () => {
   await api('arena_set_open', { ...admin(), open: true });
   const room = (await api('arena_create_room', { ...admin(), title: 'Turma', expected_players: 1 })).room;
   const challenge = (await api('arena_save_challenge', {
@@ -328,22 +369,20 @@ test('refinement mode awards a second attempt and records evolution', async () =
 
   const detail = (await api('arena_start_round', { ...admin(), room_id: room.id })).room;
   const roundId = detail.rounds[0].id;
+  assert.equal(challenge.attempts, 1);
+  assert.equal(detail.rounds[0].attempts, 1);
   clock += 2;
   const v1 = await api('arena_submit', { participant_id: ana.participant.id, token: ana.token, round_id: roundId, prompt: 'Crie um infográfico sobre energia solar.' });
-  const v2 = await api('arena_submit', {
-    participant_id: ana.participant.id, token: ana.token, round_id: roundId,
-    prompt: 'Crie um infográfico educativo e colorido sobre energia solar, em formato vertical A4, para alunos do 6º ano, com 5 seções. Não use termos técnicos sem explicação.',
-  });
   assert.equal(v1.submission.attempt, 1);
-  assert.equal(v2.submission.attempt, 2);
-  assert.equal(v2.submission.evolution, Math.round((v2.submission.percent - v1.submission.percent) * 100) / 100);
-  assert.ok(v2.submission.evolution >= 0);
-
-  // Terceira tentativa bloqueada (attempts = 2).
   await assert.rejects(api('arena_submit', {
     participant_id: ana.participant.id, token: ana.token, round_id: roundId,
-    prompt: 'uma terceira versao qualquer',
+    prompt: 'Crie um infográfico educativo e colorido sobre energia solar, em formato vertical A4, para alunos do 6º ano, com 5 seções. Não use termos técnicos sem explicação.',
   }), (error) => error.status === 409);
+  await assert.rejects(api('arena_submit', {
+    participant_id: ana.participant.id, token: ana.token, round_id: roundId,
+    attempt: 2, prompt: 'outra versao qualquer',
+  }), (error) => error.status === 409);
+  assert.equal((await repositories.arena.submissions.listByRound(roundId)).length, 1);
 });
 
 test('challenge bank: save, validate, duplicate and delete with usage guard', async () => {

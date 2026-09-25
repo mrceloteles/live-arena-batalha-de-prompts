@@ -1,0 +1,83 @@
+{
+  "rotulo": "429 nas 4 primeiras (reconferencia)",
+  "alvo": "http://127.0.0.1:63631",
+  "instalacao": {
+    "perfil": "volume-persistente",
+    "juiz": "gemini",
+    "versao": null,
+    "avisos": [
+      "juiz apontando para um endpoint alternativo (http://127.0.0.1:63630): use isto so em homologacao/medicao, com um destino que voce controla. Em producao, remova GEMINI_BASE_URL para voltar ao provedor oficial."
+    ],
+    "tipo": "processo_local",
+    "provedor": "controlado",
+    "endpoint_controlado": true,
+    "banco_em_arquivo": true,
+    "base_do_provedor": "http://127.0.0.1:63630/v1beta",
+    "preflight": null,
+    "submit_wait_ms": 8000,
+    "concorrencia_do_teto": 4
+  },
+  "alunos": 4,
+  "missoes": 1,
+  "latencia_do_provedor_ms": 20,
+  "modo_do_juiz": "gemini",
+  "orcamento": null,
+  "envios": 4,
+  "pendentes": 0,
+  "falhas": 0,
+  "amostra_de_erro": null,
+  "status": [
+    200
+  ],
+  "envio_p50_ms": 1127,
+  "envio_p95_ms": 1130,
+  "envio_max_ms": 1130,
+  "conclusao_das_notas_ms": 20,
+  "notas_gravadas": 4,
+  "chamadas_ao_provedor": 8,
+  "fonte_das_chamadas": "contador_do_provedor_controlado",
+  "chamadas_por_submissao": 2,
+  "provedor_pico_simultaneo": 4,
+  "streams_abertos": 4,
+  "stream_bytes_total": 2512,
+  "stream_bytes_p50": 628,
+  "eventos_sse": 24,
+  "bytes_lobby": 2045,
+  "procedencia_das_notas": {
+    "total": 4,
+    "local": 0,
+    "provedor": "gemini"
+  },
+  "degradacao": {
+    "injecao": 429,
+    "falha_apenas_nas_primeiras": 4,
+    "modo_do_juiz": "gemini",
+    "esperado": "o provedor volta e a nota é dele: nenhuma nota local",
+    "observado": {
+      "notas_gravadas": 4,
+      "notas_locais": 0,
+      "envios_ok": 4
+    }
+  },
+  "teto_antes": {
+    "active": 0,
+    "queued": 0,
+    "concurrency": 4,
+    "per_hour": 400,
+    "spent_last_hour": 0,
+    "remaining_last_hour": 400
+  },
+  "teto_depois": {
+    "active": 0,
+    "queued": 0,
+    "concurrency": 4,
+    "per_hour": 400,
+    "spent_last_hour": 4,
+    "remaining_last_hour": 396
+  },
+  "encerramento": {
+    "saiu": true,
+    "drenou": null,
+    "cancelou": null
+  }
+}

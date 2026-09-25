@@ -87,7 +87,7 @@ test('browser recovers a lost submission response without spending another attem
   }
 });
 
-test('browser explains the used attempt and never reports the same criterion as easiest and hardest', { timeout: ESPERA.teste }, async () => {
+test('browser confirms the single answer and never reports the same criterion as easiest and hardest', { timeout: ESPERA.teste }, async () => {
   const opened = openDatabase(':memory:');
   await opened.migrate();
   const repositories = createRepositories(opened.database);
@@ -133,12 +133,18 @@ test('browser explains the used attempt and never reports the same criterion as 
     // explicação (o aluno digitava e nada acontecia).
     const esgotado = await page.evaluate(() => ({
       composerEscondido: Boolean(document.querySelector('[data-arena-prompt-form]')?.hidden),
+      repetirEscondido: Boolean(document.querySelector('[data-arena-retry]')?.hidden),
+      campeaoPrematuro: document.querySelectorAll('[data-arena-ranking] .is-champion').length,
+      rankingTitulo: document.querySelector('[data-arena-ranking-heading]')?.textContent,
       enviarDesabilitado: Boolean(document.querySelector('[data-arena-send]')?.disabled),
       mensagem: document.querySelector('[data-arena-mission-message]')?.textContent.trim(),
     }));
     assert.equal(esgotado.composerEscondido, true, 'sem tentativa restante o composer sai de cena');
+    assert.equal(esgotado.repetirEscondido, true, 'não há botão para uma segunda resposta');
+    assert.equal(esgotado.campeaoPrematuro, 0, 'uma nota durante a batalha não declara campeão');
+    assert.equal(esgotado.rankingTitulo, 'Classificação parcial');
     assert.equal(esgotado.enviarDesabilitado, true);
-    assert.match(esgotado.mensagem, /já foi usada|já foram usadas/);
+    assert.match(esgotado.mensagem, /Resposta enviada/);
     assert.match(esgotado.mensagem, /Aguarde o professor/);
 
     // Relatório do professor: o mesmo critério não pode ser a facilidade E a
@@ -429,7 +435,7 @@ test('browser preserves challenge fields through editing and renders entry pages
     assert.equal(recolhido.criterios, false, 'os critérios começam recolhidos, com o resumo no lugar do rótulo');
     assert.equal(recolhido.resumo, 'Critérios e pesos — 1 critério · 100%', 'o resumo diz quantos critérios e quanto eles somam');
     assert.equal(recolhido.opcionais, false);
-    assert.equal(recolhido.ajustes, 'Ajustes da rodada — 1× · 1:30 · Influencia alta');
+    assert.equal(recolhido.ajustes, 'Ajustes da rodada — 1:30 · Influencia alta');
     assert.equal(recolhido.imagem, true, 'a missão que tem imagem abre o campo da imagem');
     // Erro dentro da dobra não fica escondido: submetido sem critério nenhum, o
     // grupo abre e o foco vai para o primeiro critério.
@@ -632,6 +638,9 @@ test('browser reviews a room mission by mission the way the student will see it'
       criterios: document.querySelectorAll('[data-arena-breakdown] .arena-breakdown-row').length,
       feedback: document.querySelector('[data-arena-feedback]')?.textContent,
       composerEscondido: Boolean(document.querySelector('[data-arena-prompt-form]')?.hidden),
+      repetirEscondido: Boolean(document.querySelector('[data-arena-retry]')?.hidden),
+      campeaoPrematuro: document.querySelectorAll('[data-arena-ranking] .is-champion').length,
+      rankingTitulo: document.querySelector('[data-arena-ranking-heading]')?.textContent,
       criteriosRecolhidos: document.querySelector('[data-arena-breakdown-fold]')?.open === false,
       selo: document.querySelector('.arena-preview-sample')?.textContent,
       // O anel da nota e o diagnóstico (referência LA-03D): o anel tem de
@@ -651,6 +660,9 @@ test('browser reviews a room mission by mission the way the student will see it'
     assert.equal(resultado.criterios >= 1, true, 'a nota mostra os criterios');
     assert.match(resultado.feedback, /^Exemplo de retorno do juiz/);
     assert.equal(resultado.composerEscondido, true, 'na rodada encerrada o form sai de cena');
+    assert.equal(resultado.repetirEscondido, true, 'a batalha não oferece segunda resposta para a missão');
+    assert.equal(resultado.campeaoPrematuro, 0, 'a prévia do resultado da missão não anuncia campeão');
+    assert.equal(resultado.rankingTitulo, 'Classificação parcial');
     const qualidade = Number(resultado.anel);
     assert.equal(
       resultado.anel !== '' && Number.isFinite(qualidade) && qualidade >= 0 && qualidade <= 100,
@@ -692,13 +704,20 @@ test('browser reviews a room mission by mission the way the student will see it'
     assert.match(resultado.selo, /NÚMEROS DE EXEMPLO/);
     // Fim da sala: resultado por missao, podio com campeao e destaques.
     await preview.click('[data-preview-mode=fim]');
-    await preview.waitForFunction(() => document.querySelector('[data-arena-empty-title]')?.textContent.includes('Batalha encerrada'));
+    await preview.waitForFunction(() => /Temos um campeão|Batalha encerrada/.test(document.querySelector('[data-arena-empty-title]')?.textContent || ''));
     const fim = await preview.evaluate(() => ({
       resultados: document.querySelectorAll('[data-arena-results-list] .arena-result-row').length,
       resultadosRecolhidos: document.querySelector('[data-arena-results-panel]')?.open === false,
       destaquesRecolhidos: document.querySelector('.arena-highlights-panel')?.open === false,
       classificacao: document.querySelectorAll('[data-arena-ranking] .arena-ranking-row').length,
       campeao: document.querySelectorAll('[data-arena-ranking] .arena-ranking-row.is-champion').length,
+      vencedor: document.querySelector('[data-arena-victory] .arena-victory-copy strong')?.textContent,
+      podio: [...document.querySelectorAll('[data-arena-victory] .arena-victory-place')].map((place) => ({
+        posicao: place.className.match(/is-place-(\d)/)?.[1],
+        nome: place.querySelector('strong')?.textContent,
+      })),
+      confetes: document.querySelectorAll('[data-arena-victory] .arena-victory-confetti i').length,
+      rankingTitulo: document.querySelector('[data-arena-ranking-heading]')?.textContent,
       destaques: document.querySelectorAll('[data-arena-highlights] .arena-highlight-row').length,
       missaoVisivel: !document.querySelector('[data-arena-mission]')?.hidden,
       navegacaoMissao: Boolean(document.querySelector('[data-preview-jump]')),
@@ -707,6 +726,12 @@ test('browser reviews a room mission by mission the way the student will see it'
     assert.equal(fim.resultados, 2, 'uma linha de resultado por missao da sala');
     assert.equal(fim.classificacao, 4);
     assert.equal(fim.campeao, 1, 'so o primeiro lugar e campeao');
+    assert.ok(fim.vencedor?.trim(), 'o campeão tem nome no destaque principal');
+    assert.deepEqual(fim.podio.map((place) => place.posicao), ['2', '1', '3'], 'o pódio coloca o campeão no centro');
+    assert.equal(fim.podio[0].nome?.trim().length > 0, true);
+    assert.equal(fim.podio[2].nome?.trim().length > 0, true);
+    assert.equal(fim.confetes, 64, 'a vitória tem uma celebração própria');
+    assert.equal(fim.rankingTitulo, 'Demais colocados');
     assert.equal(fim.destaques, 4);
     // No encerramento a leitura principal e a classificacao: resultado por missao
     // e destaques continuam na tela, a um clique.
@@ -1019,7 +1044,7 @@ test('browser reviews the TV projection state by state, including the champion',
     assert.match(rodada.selo, /nenhuma missão está aberta/);
     // Na rodada em andamento o selo fica: ali ele dá o número, que o título da
     // missão não dá. É o que separa "selo redundante" de "selo informativo".
-    assert.match(rodada.seloTv, /^MISSAO \d{2}\/\d{2}$/);
+    assert.match(rodada.seloTv, /^MISSÃO \d{2}\/\d{2}$/);
 
     // Resultado da rodada: sem campeao, é o resto da tela que muda.
     await page.click('[data-tv-preview-mode=results]');
@@ -1979,6 +2004,13 @@ test('a faixa da TV cabe numa linha e as duas entradas usam o mesmo botão e o m
     };
     await post('arena_set_open', { open: true });
     const { room } = await post('arena_create_room', { title: 'Sala na TV', preset: 'personalizado', expected_players: 4 });
+    // A sala e renomeada, pela propria ação do painel, com o nome do TAMANHO
+    // MÁXIMO que a API aceita (120 caracteres). A "Sala na TV" curta provava a
+    // faixa de uma linha, mas não provava que o nome aparece inteiro — e era
+    // exatamente ele que a parede cortava com reticências, em toda largura.
+    const tituloLongo = 'Aula 003 — Turma B do período noturno, oficina de prompts para o cartaz da feira de tecnologia, com três rodadas'.slice(0, 120);
+    const { room: salaRenomeada } = await post('arena_update_room', { room_id: room.id, title: tituloLongo });
+    const tituloGravado = String(salaRenomeada.title);
     const { challenge } = await post('arena_save_challenge', {
       title: 'Cartaz da feira', modality: 'precisao', mission: 'Escreva o prompt do cartaz.',
       reference_text: 'Cartaz A3 da feira, com data, local e contato.',
@@ -2038,6 +2070,13 @@ test('a faixa da TV cabe numa linha e as duas entradas usam o mesmo botão e o m
 
     // Quem lê a barra é a GEOMETRIA: a faixa de cada filho, com 20 px de
     // tolerância, porque marca e botão não ficam alinhados no pixel.
+    //
+    // O selo LIVE fica de fora desta contagem de propósito, e a ausência dele
+    // era a lacuna: ele é um `::after` da própria barra — um ITEM DE GRADE de
+    // verdade, colocado na terceira coluna — e pseudo-elemento não aparece em
+    // `barra.children`. Se ele descesse para uma segunda faixa, a contagem por
+    // filhos continuaria dizendo "uma linha" enquanto a barra dobrava de
+    // altura. Quem o mede é `seloDividindoALinha`, pelo efeito na barra.
     const lerBarra = () => page.evaluate(() => {
       const barra = document.querySelector('.arena-tv-topbar');
       const rb = barra.getBoundingClientRect();
@@ -2056,17 +2095,49 @@ test('a faixa da TV cabe numa linha e as duas entradas usam o mesmo botão e o m
         const v = Math.min(a.caixa.bottom, b.caixa.bottom) - Math.max(a.caixa.top, b.caixa.top);
         if (h > 0 && v > 0) sobreposicao = Math.max(sobreposicao, Math.round(Math.min(h, v)));
       }
+      const botao = document.querySelector('[data-tv-fullscreen]').getBoundingClientRect();
+      const selo = getComputedStyle(barra, '::after');
+      const nome = document.querySelector('[data-tv-room-title]');
       return {
+        // O nome da sala: é ele que a parede precisa mostrar INTEIRO. `escondido`
+        // soma o que o texto tem a mais do que a caixa entrega — vertical (linha
+        // além do limite, cortada pelo clamp) e horizontal (o antigo reticências).
+        titulo: (() => {
+          if (!nome || getComputedStyle(nome).display === 'none') return null;
+          const r = nome.getBoundingClientRect();
+          const linha = Number.parseFloat(getComputedStyle(nome).lineHeight) || 0;
+          return {
+            texto: nome.textContent.trim(),
+            linhas: linha ? Math.round(r.height / linha) : 0,
+            escondido: Math.max(0, nome.scrollHeight - Math.ceil(r.height))
+              + Math.max(0, nome.scrollWidth - Math.ceil(r.width)),
+          };
+        })(),
         altura: Math.round(rb.height),
         faixas: faixas.sort((a, b) => a.topo - b.topo).map((f) => f.itens.sort().join('+')),
         sobreposicao,
-        topoDoBotao: Math.round(document.querySelector('[data-tv-fullscreen]').getBoundingClientRect().top - rb.top),
+        topoDoBotao: Math.round(botao.top - rb.top),
         topoDaMarca: Math.round(document.querySelector('.arena-tv-brand').getBoundingClientRect().top - rb.top),
         palco: Math.round(document.querySelector('[data-tv-stage]').getBoundingClientRect().top),
+        botao: { altura: Math.round(botao.height), largura: Math.round(botao.width) },
+        // O selo LIVE é lido AQUI, e não por um A/B de folha injetada: ele é um
+        // `::after` com lugar próprio na grade (linha 1, coluna 3), então o
+        // lugar pedido é a medição direta — e a caixa usada diz que ele está
+        // pintado, não zerado. Foi esta leitura que faltava quando a contagem de
+        // faixas por filho-elemento não enxergava o selo.
+        selo: {
+          linha: selo.gridRowStart,
+          coluna: selo.gridColumnStart,
+          largura: Math.round(Number.parseFloat(selo.width) || 0),
+          altura: Math.round(Number.parseFloat(selo.height) || 0),
+        },
+        // A barra não pode empurrar a página de lado: uma faixa que "cabe" mas
+        // estoura o `scrollWidth` é a mesma quebra vista de outro ângulo.
+        rolagemHorizontal: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       };
     });
 
-    for (const [largura, altura] of [[1920, 1080], [1280, 720]]) {
+    for (const [largura, altura] of [[1920, 1080], [1440, 900], [1280, 720], [1024, 768]]) {
       await page.setViewport({ width: largura, height: altura });
       await page.goto(`${base}/tv-preview.php?room=${room.id}`);
       await esperarPor(page, () => Boolean(document.querySelector('.arena-tv-topbar')), { descricao: `a barra da TV em ${largura}px` });
@@ -2079,10 +2150,26 @@ test('a faixa da TV cabe numa linha e as duas entradas usam o mesmo botão e o m
       );
       assert.equal(barra.altura <= 80, true, `cabeçalho de ${barra.altura}px em ${largura}×${altura} — era 126`);
       assert.equal(barra.sobreposicao, 0, `nada se sobrepõe na barra em ${largura}×${altura}`);
+      assert.equal(barra.rolagemHorizontal, 0, `a barra não cria rolagem horizontal em ${largura}×${altura}`);
+      assert.equal(barra.botao.altura >= 32 && barra.botao.largura >= 80, true,
+        `o botão Tela cheia continua tocável em ${largura}×${altura} (${barra.botao.largura}×${barra.botao.altura})`);
+      assert.equal(barra.selo.linha, '1',
+        `em ${largura}×${altura} o selo LIVE mora na linha 1 da barra, como as ferramentas (linha ${barra.selo.linha})`);
+      assert.equal(barra.selo.coluna, '3', `em ${largura}×${altura} o selo LIVE é a terceira coluna (coluna ${barra.selo.coluna})`);
+      assert.equal(barra.selo.largura > 0 && barra.selo.altura > 0, true,
+        `em ${largura}×${altura} o selo LIVE está pintado (${barra.selo.largura}×${barra.selo.altura})`);
+      assert.equal(barra.titulo?.texto, tituloGravado, `em ${largura}×${altura} a barra mostra o nome da sala gravado`);
+      assert.equal(barra.titulo?.escondido, 0,
+        `em ${largura}×${altura} o nome da sala aparece INTEIRO, sem texto escondido: ${JSON.stringify(barra.titulo)}`);
+      assert.equal(barra.titulo.linhas <= 2, true,
+        `em ${largura}×${altura} o nome da sala usa no máximo duas linhas (${barra.titulo.linhas}) — é o teto que mantém a barra abaixo de 80px`);
     }
 
     // A projeção DE VERDADE: é ela que não tem a barra da prévia no meio, e é
     // nela que "o palco começa onde a barra termina" significa alguma coisa.
+    // Medida em quatro telas, e não só em 1920: 1280×720 é a resolução em que a
+    // faixa já dobrou uma vez (126 px de cabeçalho), e é a projeção real — sem a
+    // barra da prévia por cima — que a aula usa.
     const token = await fetch(`${base}/api.php?action=arena_tv_token`, {
       method: 'POST', headers: { cookie, 'content-type': 'application/json' }, body: JSON.stringify({ room_id: room.id }),
     });
@@ -2093,9 +2180,7 @@ test('a faixa da TV cabe numa linha e as duas entradas usam o mesmo botão e o m
       cookie: { name: cookieTv.split('=')[0], value: cookieTv.slice(cookieTv.indexOf('=') + 1), domain: '127.0.0.1', path: '/' },
     });
     tv.on('pageerror', (error) => errors.push(error.message));
-    await tv.goto(`${base}/tv.php?pin=${encodeURIComponent(room.pin || room.code)}`);
-    await esperarPor(tv, () => Boolean(document.querySelector('[data-tv-content]')), { descricao: 'a projeção real' });
-    const projecao = await tv.evaluate(() => {
+    const lerProjecao = () => tv.evaluate(() => {
       const barra = document.querySelector('.arena-tv-topbar');
       const rb = barra.getBoundingClientRect();
       const filhos = [...barra.children].map((nó) => ({ classe: String(nó.className).split(' ')[0], caixa: nó.getBoundingClientRect() }));
@@ -2106,17 +2191,44 @@ test('a faixa da TV cabe numa linha e as duas entradas usam o mesmo botão e o m
         if (faixa) faixa.itens.push(filho.classe);
         else faixas.push({ topo, itens: [filho.classe] });
       }
+      const nome = document.querySelector('[data-tv-room-title]');
       return {
         altura: Math.round(rb.height),
-        faixas: faixas.length,
+        faixas: faixas.sort((a, b) => a.topo - b.topo).map((f) => f.itens.sort().join('+')),
         palco: Math.round(document.querySelector('[data-tv-stage]').getBoundingClientRect().top),
+        rolagemHorizontal: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         barraDaPrevia: Boolean(document.querySelector('[data-tv-preview-bar]')),
+        titulo: (() => {
+          if (!nome || getComputedStyle(nome).display === 'none') return null;
+          const r = nome.getBoundingClientRect();
+          const linha = Number.parseFloat(getComputedStyle(nome).lineHeight) || 0;
+          return {
+            texto: nome.textContent.trim(),
+            linhas: linha ? Math.round(r.height / linha) : 0,
+            escondido: Math.max(0, nome.scrollHeight - Math.ceil(r.height))
+              + Math.max(0, nome.scrollWidth - Math.ceil(r.width)),
+          };
+        })(),
       };
     });
+    for (const [largura, altura] of [[1920, 1080], [1280, 720], [1024, 768]]) {
+      await tv.setViewport({ width: largura, height: altura });
+      await tv.goto(`${base}/tv.php?pin=${encodeURIComponent(room.pin || room.code)}`);
+      await esperarPor(tv, () => Boolean(document.querySelector('[data-tv-content]')), { descricao: `a projeção real em ${largura}×${altura}` });
+      await esperarPor(tv, () => !document.querySelector('[data-tv-content]').classList.contains('is-connect'), { descricao: `a sala carregar na projeção em ${largura}×${altura}` });
+      const projecao = await lerProjecao();
+      assert.equal(projecao.barraDaPrevia, false, 'a projeção real não carrega a barra da prévia');
+      assert.equal(projecao.faixas.length, 1, `a faixa de ferramentas também é única na projeção real em ${largura}×${altura}: ${JSON.stringify(projecao.faixas)}`);
+      assert.equal(projecao.rolagemHorizontal, 0, `a projeção real não rola de lado em ${largura}×${altura}`);
+      assert.equal(projecao.palco, projecao.altura, `o palco começa onde a barra termina em ${largura}×${altura} (barra ${projecao.altura}, palco ${projecao.palco})`);
+      // A parede de verdade tem de mostrar o nome inteiro — é ela que a turma lê.
+      assert.equal(projecao.titulo?.texto, tituloGravado, `a projeção real mostra o nome da sala em ${largura}×${altura}`);
+      assert.equal(projecao.titulo?.escondido, 0,
+        `na projeção real o nome da sala aparece INTEIRO em ${largura}×${altura}: ${JSON.stringify(projecao.titulo)}`);
+      assert.equal(projecao.titulo.linhas <= 2, true,
+        `na projeção real o nome usa no máximo duas linhas em ${largura}×${altura} (${projecao.titulo.linhas})`);
+    }
     await tv.close();
-    assert.equal(projecao.barraDaPrevia, false, 'a projeção real não carrega a barra da prévia');
-    assert.equal(projecao.faixas, 1, 'a faixa de ferramentas também é única na projeção real');
-    assert.equal(projecao.palco, projecao.altura, `o palco começa onde a barra termina (barra ${projecao.altura}, palco ${projecao.palco})`);
 
     // Estreito: a sala desce para a segunda faixa (regra própria do cabeçalho) e
     // o botão continua na primeira, sem sobreposição.
@@ -2127,6 +2239,17 @@ test('a faixa da TV cabe numa linha e as duas entradas usam o mesmo botão e o m
     assert.equal(estreita.faixas.length, 2, `a 640px só a sala muda de faixa: ${JSON.stringify(estreita.faixas)}`);
     assert.match(estreita.faixas[0], /arena-tv-brand\+arena-tv-fullscreen-btn/, 'marca e botão seguem juntos na primeira faixa');
     assert.equal(estreita.sobreposicao, 0);
+
+    // Celular: a marca e o botão continuam na primeira faixa, a entrada da sala
+    // desce (regra própria do cabeçalho) e NADA desaparece nem rola de lado.
+    await page.setViewport({ width: 390, height: 844 });
+    await page.goto(`${base}/tv-preview.php?room=${room.id}`);
+    await esperarPor(page, () => Boolean(document.querySelector('.arena-tv-topbar')), { descricao: 'a barra da TV a 390px' });
+    const celular = await lerBarra();
+    assert.equal(celular.faixas.length, 2, `a 390px só a sala muda de faixa: ${JSON.stringify(celular.faixas)}`);
+    assert.match(celular.faixas[0], /arena-tv-brand\+arena-tv-fullscreen-btn/, 'a 390px marca e botão seguem juntos na primeira faixa');
+    assert.equal(celular.sobreposicao, 0, 'a 390px nada se sobrepõe na barra');
+    assert.equal(celular.rolagemHorizontal, 0, 'a 390px a barra não cria rolagem horizontal');
 
     assert.deepEqual(errors, []);
   } finally {

@@ -66,7 +66,9 @@ export function sameScope(saved, current) {
  * regra aqui dentro.
  *
  * `broadcast` continua anunciando a sala de origem no payload (`room_id`), agora
- * como trilha do que foi roteado: o cliente nao precisa mais descartar nada.
+ * como trilha do que foi roteado: o cliente nao precisa mais descartar nada. O
+ * numero monotonico da sala (`revision`) viaja junto quando existe — e o que
+ * permite a tela descartar a releitura de um aviso que ja pintou.
  */
 export function createRoomEventHub({ keepaliveMs = DEFAULT_KEEPALIVE_MS, revalidateMs = DEFAULT_REVALIDATE_MS } = {}) {
   // Duas visoes do mesmo conjunto: o mapa por resposta responde "qual e o meu
@@ -168,10 +170,23 @@ export function createRoomEventHub({ keepaliveMs = DEFAULT_KEEPALIVE_MS, revalid
     return encerrar;
   }
 
-  function broadcast(action, { serverNow = Date.now() / 1000, roomId = null } = {}) {
+  function broadcast(action, { serverNow = Date.now() / 1000, roomId = null, revision = null } = {}) {
     // `room_id` so entra quando existe: evento global mantem o payload antigo,
     // e o cliente trata a ausencia como "vale para a sala que eu estou vendo".
-    const data = JSON.stringify(roomId ? { action, server_now: serverNow, room_id: roomId } : { action, server_now: serverNow });
+    //
+    // `revision` e a versao da sala DEPOIS da mutacao que gerou este aviso
+    // (quem sobe o numero e `anunciarSala`, e ele sobe ANTES de publicar). Ela
+    // viaja para a tela poder dispensar a releitura de um aviso que ela ja
+    // pintou: uma rajada de eventos deixa de virar uma rajada de consultas.
+    // `null`/ausente NAO viram 0 (`Number(null)` e zero): um evento antigo, sem
+    // versao, tem de continuar sem o campo — e nao anunciando a revisao 0.
+    const versao = revision === null || revision === undefined ? NaN : Number(revision);
+    const data = JSON.stringify({
+      action,
+      server_now: serverNow,
+      ...(roomId ? { room_id: roomId } : {}),
+      ...(Number.isFinite(versao) ? { revision: versao } : {}),
+    });
     const event = `event: room\ndata: ${data}\n\n`;
     // Evento de sala vai SO para quem provou seguir aquela sala. Evento global
     // (abrir/fechar a entrada da arena) vai para todos, inclusive para a conexao

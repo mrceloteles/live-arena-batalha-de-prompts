@@ -297,8 +297,28 @@ export function createArenaApi({
   if (!repositories) throw new TypeError('repositories are required');
   if (typeof judge !== 'function') throw new TypeError('judge is required');
   const classicJudger = classicJudge || createFakeJudge();
+  /**
+   * A credencial do painel, com a CAUSA da recusa.
+   *
+   * O status nao muda (401 nos tres casos — o comportamento do servidor e o
+   * mesmo), mas o corpo passa a dizer QUAL foi: sessao ausente, vencida ou
+   * invalida. Antes, as tres saiam como a mesma frase, e a tela do professor
+   * nao tinha como distinguir "o cookie venceu no meio da aula" (entre de novo)
+   * de "esta aba nunca teve sessao" (faca login) — as duas terminavam no mesmo
+   * poll silencioso de 401.
+   */
   const requireAdmin = (token) => {
-    if (!adminAuth || !adminAuth.verify(token)) throw new ApiError(401, 'Acesso administrativo invalido ou expirado.');
+    const veredito = adminAuth?.check
+      ? adminAuth.check(token)
+      : { ok: Boolean(adminAuth?.verify(token)), reason: 'session_invalid' };
+    if (veredito.ok) return;
+    const motivos = {
+      not_configured: 'Acesso administrativo ainda nao configurado.',
+      session_missing: 'Sessao administrativa ausente. Entre no painel.',
+      session_expired: 'Sessao administrativa expirada. Entre novamente.',
+      session_invalid: 'Credencial administrativa invalida.',
+    };
+    throw new ApiError(401, motivos[veredito.reason] || motivos.session_invalid, { reason: veredito.reason });
   };
 
   const arenaOpen = async () => Boolean(await repositories.settings.get(ARENA_OPEN_KEY));
@@ -357,8 +377,15 @@ export function createArenaApi({
 
   const participantSession = async (participantId, token) => {
     const participant = await participantForSession(repositories, participantId, token);
-    if (!participant) throw new ApiError(401, 'Sessao invalida ou expirada.');
-    return participant;
+    if (participant) return participant;
+    // A causa, para a tela saber o que dizer: sem id/token a sessao nunca
+    // existiu nesta aba; com os dois e sem linha no banco, ela perdeu a
+    // validade (o professor removeu o participante, ou a sala foi limpa).
+    const missing = participantId === undefined || participantId === null || String(participantId).length === 0
+      || typeof token !== 'string' || token.length === 0;
+    throw new ApiError(401, missing ? 'Sessao ausente. Entre na sala de novo.' : 'Sessao expirada. Entre na sala de novo.', {
+      reason: missing ? 'session_missing' : 'session_expired',
+    });
   };
 
   const roomById = async (roomId) => {
@@ -366,6 +393,17 @@ export function createArenaApi({
     if (!room) throw new ApiError(404, 'Sala não encontrada.');
     return room;
   };
+
+  /**
+   * A revisao da sala como toda tela a le (ver `revision` no schema).
+   *
+   * Vai em TODA leitura de estado — a do aluno, a do painel e a da TV —, e e a
+   * mesma para as tres na mesma sala: o que separa as telas e o recorte (o
+   * ranking geral, o detalhe do professor, o placar), nao a versao. Quem ja
+   * pintou a revisao 7 recusa a 6, e a corrida entre uma resposta de acao
+   * atrasada e um evento de tempo real deixa de ter vencedor pelo relogio.
+   */
+  const roomRevision = (room) => Number(room?.revision ?? 0);
 
   /** Ids dos participantes ativos, na ordem em que entraram: o balaio do sorteio. */
   async function drawRoster(roomId) {
@@ -793,7 +831,7 @@ export function createArenaApi({
       return 'A turma pode recomendar uma melhoria a um competidor antes da decisão final — a palavra final continua sendo dele.';
     }
     if (key === 'revisao') {
-      return 'Uma revisão curta do prompt do competidor antes da decisão final. Reescrever não é trapaça: é o que a segunda tentativa existe para ensinar.';
+      return 'Confira clareza, contexto e restrições antes do envio. Nesta missão, a resposta é única.';
     }
     if (key === 'regra') {
       return 'A turma escolhe entre duas condições para o próximo desafio. A decisão é estratégica: ninguém ganha nem perde ponto por ela.';
@@ -896,6 +934,13 @@ export function createArenaApi({
     return isClassicRules(room) ? Number(room.settings?.maxPlayers || 3) : 0;
   };
 
+  /**
+   * A batalha viva da sala. Toda leitura de jogo (`rounds.listByRoom`) ja vem
+   * recortada nela; isto existe para quem ESCREVE uma rodada nova, que precisa
+   * dizer a qual batalha ela pertence.
+   */
+  const roomCycle = (room) => Number(room?.currentCycle ?? 1);
+
   /** Duracao efetiva de uma rodada: do desafio, ou do preset quando classico. */
   const roundDurationSeconds = (room, challenge) => {
     if (challenge?.durationSeconds) return Number(challenge.durationSeconds);
@@ -954,7 +999,7 @@ export function createArenaApi({
         durationSeconds: spec.durationSeconds ?? room.settings?.roundDuration ?? null,
       });
       await repositories.arena.rounds.add({
-        id: id(), roomId: room.id, position: existing.length + index + 1,
+        id: id(), roomId: room.id, cycle: roomCycle(room), position: existing.length + index + 1,
         challengeId: challenge.id, modality: challenge.modality, now: timestamp,
       });
     }
@@ -1700,7 +1745,9 @@ export function createArenaApi({
       duration_seconds: challenge?.durationSeconds ?? null,
       speed_weight: challenge?.speedWeight ?? 'none',
       judge_kind: judgeKind,
-      attempts: challenge?.attempts ?? 1,
+      // A batalha concede um único envio por missão, inclusive quando um
+      // desafio antigo do banco ainda registra mais tentativas.
+      attempts: 1,
       started_at: round.startedAt,
       deadline_at: round.deadlineAt,
       paused_at: round.pausedAt ?? null,
@@ -1728,9 +1775,14 @@ export function createArenaApi({
     const roundSummaries = [];
     let currentRound = null;
     const resultsRounds = [];
+    let pendingResults = 0;
     for (const round of rounds) {
       const challenge = await repositories.arena.challenges.getById(round.challengeId);
-      const mySubmissions = (await repositories.arena.submissions.listByRound(round.id))
+      const submissions = await repositories.arena.submissions.listByRound(round.id);
+      const scored = new Set((await repositories.arena.scores.listByRound(round.id))
+        .map((entry) => String(entry.submissionId)));
+      pendingResults += submissions.filter((entry) => !scored.has(String(entry.id))).length;
+      const mySubmissions = submissions
         .filter((entry) => String(entry.participantId) === String(participant.id));
       const myScores = [];
       for (const submission of mySubmissions) {
@@ -1752,7 +1804,7 @@ export function createArenaApi({
         started_at: round.startedAt,
         deadline_at: round.deadlineAt,
         attempts_used: mySubmissions.length,
-        attempts_allowed: challenge?.attempts ?? 1,
+        attempts_allowed: 1,
         best_percent: best,
         best_points: bestPoints,
         my_scores: myScores,
@@ -1817,6 +1869,7 @@ export function createArenaApi({
         participants: participants.length,
         connected,
         entry_blocked: room.entryBlocked,
+        revision: roomRevision(room),
       },
       me: { id: participant.id, name: participant.name },
       roster: participants.map((entry) => ({
@@ -1830,6 +1883,7 @@ export function createArenaApi({
       current_round: currentRound,
       results: resultsRounds,
       ranking: (await overallRanking(room)),
+      results_pending: pendingResults,
       highlights: (await computeHighlights(room, timestamp)),
       // Modo Arena: a camada coletiva vai inteira para o aluno (corações do
       // Boss, desafio da vez, Wild Card, time). Em sala fora do modo, vem
@@ -1852,9 +1906,16 @@ export function createArenaApi({
     const roundCards = [];
     let currentRound = null;
     const resultsRounds = [];
+    let pendingResults = 0;
     for (const round of rounds) {
       const challenge = await repositories.arena.challenges.getById(round.challengeId);
       const judgeKind = challenge?.judgeKind ?? 'criteria';
+      const submissions = await repositories.arena.submissions.listByRound(round.id);
+      const scores = await repositories.arena.scores.listByRound(round.id);
+      const scored = new Set(scores.map((entry) => String(entry.submissionId)));
+      // A sala pode encerrar antes de o juiz terminar. A TV aguarda as mesmas
+      // notas que o aluno, em vez de celebrar o líder de um placar incompleto.
+      pendingResults += submissions.filter((entry) => !scored.has(String(entry.id))).length;
       roundCards.push({
         id: round.id,
         position: round.position,
@@ -1867,7 +1928,6 @@ export function createArenaApi({
         paused_at: round.pausedAt ?? null,
       });
       if (round.status === 'open') {
-        const submissions = await repositories.arena.submissions.listByRound(round.id);
         const submitted = new Set(submissions.map((entry) => String(entry.participantId))).size;
         currentRound = {
           id: round.id,
@@ -1885,7 +1945,6 @@ export function createArenaApi({
         };
       }
       if (round.status === 'results' || round.status === 'closed') {
-        const scores = await repositories.arena.scores.listByRound(round.id);
         const rankedScores = isClassicRules(room)
           ? [...scores].sort((left, right) => (left.position ?? 99) - (right.position ?? 99))
           : bestRoundScores(scores);
@@ -1926,6 +1985,7 @@ export function createArenaApi({
         participants: participants.length,
         connected,
         entry_blocked: room.entryBlocked,
+        revision: roomRevision(room),
       },
       server_now: timestamp,
       roster: participants.map((entry) => ({
@@ -1937,6 +1997,7 @@ export function createArenaApi({
       current_round: currentRound,
       results: resultsRounds,
       ranking: (await overallRanking(room)),
+      results_pending: pendingResults,
       total_rounds: rounds.length,
       // Sorteio da vez na parede: quem a turma espera ver em campo, o ultimo
       // resultado e, no mata-mata, quem continua no jogo. Sao os mesmos nomes
@@ -2024,10 +2085,21 @@ export function createArenaApi({
     // ninguém mais vai buscá-la.
     const salaViva = AWAITING_ROOM_STATUSES.includes(room.status);
     const waiting = [];
+    // O que a BATALHA VIVA tem, para o diálogo de "nova batalha" poder dizer o
+    // que está sendo fechado (quantas missões já correram, quantos envios). Sai
+    // de graça: as mesmas leituras abaixo já contam envios e status por rodada.
+    const battle = {
+      cycle: roomCycle(room),
+      rounds_played: 0,
+      submissions: 0,
+      started_at: roomRounds.find((entry) => Number.isFinite(entry.startedAt))?.startedAt ?? null,
+    };
     for (const round of roomRounds) {
       const challenge = await repositories.arena.challenges.getById(round.challengeId);
       const missing = readiness.missingByRound.get(round.id) || [];
       const submissions = await repositories.arena.submissions.listByRound(round.id);
+      if (round.status !== 'pending') battle.rounds_played += 1;
+      battle.submissions += submissions.length;
       const scores = await repositories.arena.scores.listByRound(round.id);
       const ordered = isClassic
         ? [...scores].sort((a, b) => (a.position ?? 99) - (b.position ?? 99))
@@ -2149,7 +2221,12 @@ export function createArenaApi({
         // Gabarito resolvido para exibição: no juiz clássico o texto de
         // referência é o prompt preservado do pacote-base.
         gabarito_text: challenge?.referenceText || challenge?.expectedResult || challenge?.referencePrompt || '',
-        attempts: challenge?.attempts ?? 1,
+        // OS CRITÉRIOS DA RÉGUA, na ordem em que o juiz os pesa. Eles já eram
+        // lidos para o ranking (`breakdown` de cada nota) e não subiam para o
+        // detalhe da sala: o professor via a nota sem ver com que o juiz a
+        // compôs. É o mesmo dado do banco, uma leitura só.
+        criteria: (challenge?.criteria ?? []).map((entry) => ({ criterion: entry.criterion, weight: Number(entry.weight) })),
+        attempts: 1,
         duration_seconds: challenge?.durationSeconds ?? null,
         // Sugestao de tempo (modalidade + tamanho da missao) e quantas outras
         // salas usam este desafio: aceitar a sugestao muda o tempo la tambem.
@@ -2177,7 +2254,12 @@ export function createArenaApi({
         expected_players: room.expectedPlayers, entry_blocked: room.entryBlocked,
         settings: { ...(room.settings || {}) },
         created_at: room.createdAt, started_at: room.startedAt, ended_at: room.endedAt,
+        current_cycle: roomCycle(room),
+        revision: roomRevision(room),
       },
+      // A batalha viva: é ela que o professor repete em "Nova batalha nesta
+      // sala". `rounds_played` e `submissions` dizem se há o que fechar.
+      battle,
       participants,
       blockers,
       ready: blockers.length === 0,
@@ -2217,7 +2299,8 @@ export function createArenaApi({
       throw new ApiError(422, 'Revise os campos enviados.', { reference_image: 'Imagem muito grande (máximo ~1,5 MB).' });
     }
     const expectedResult = text(payload.expected_result ?? '', 'expected_result', { min: 0, max: 4000 });
-    const attempts = integer(payload.attempts ?? 1, 'attempts', { min: 1, max: 3 });
+    // Desafios novos não podem reintroduzir uma segunda resposta na batalha.
+    const attempts = 1;
     let durationSeconds = null;
     if (payload.duration_seconds !== undefined && payload.duration_seconds !== null && payload.duration_seconds !== '') {
       durationSeconds = integer(payload.duration_seconds, 'duration_seconds', { min: 15, max: 3600 });
@@ -2613,11 +2696,36 @@ export function createArenaApi({
         await repositories.arena.participants.heartbeat({ id: participant.id, now: timestamp });
         let room = await roomById(participant.roomId);
         room = await advanceArena(room, timestamp);
-        return {
-          ok: true,
-          lobby: (await studentLobby(room, participant, timestamp)),
-          server_now: timestamp,
-        };
+        const lobby = await studentLobby(room, participant, timestamp);
+        // A ESPERA é a única tela do aluno que oferece o caminho de entrada para
+        // quem ainda não entrou (referência LA-02B: o código é a peça central,
+        // com o QR ao lado).
+        //
+        // O QR é o MESMO da projeção — `entryQrForRoom`, já cacheado por
+        // sala+URL, então o batimento de 2,5 s não regera PNG. Não é um segundo
+        // gerador: o `arena_qr` do cliente não serve ao aluno porque exige
+        // sessão de professor (`requireAdmin`), e o aluno não tem uma.
+        //
+        // Só na espera: com missão no ar o aluno não precisa do caminho de
+        // entrada, e a resposta do batimento não carrega dado que ela não usa.
+        //
+        // ESTE CAMPO É O LADO SERVIDOR DA JORNADA DO ALUNO, cujo desenho e cujas
+        // telas moram em `public/assets/css/aluno.css` (dona da espera com o
+        // caminho de entrada e da leitura "Como funciona"). Se um dia entrar
+        // mais dado privado de tela do aluno no `lobby`, ele entra aqui — e a
+        // folha que pinta é aquela.
+        if (!lobby.current_round && lobby.room.phase !== 'finished'
+          && lobby.room.status !== 'ended' && lobby.room.status !== 'archived') {
+          try {
+            lobby.entry_qr = await entryQrForRoom(
+              room.id, String(meta?.host || '').trim(), room.pin || room.code, meta?.protocol,
+            );
+          } catch {
+            // QR é decorativo: sem ele a espera continua com o código, que é o
+            // que o aluno realmente lê.
+          }
+        }
+        return { ok: true, lobby, server_now: timestamp };
       }
 
       case 'arena_submit': {
@@ -2635,7 +2743,7 @@ export function createArenaApi({
         const attempt = payload.attempt === undefined || payload.attempt === null || payload.attempt === ''
           ? nextAttempt
           : integer(payload.attempt, 'attempt', { min: 1, max: 3 });
-        if (attempt < 1 || attempt > challenge.attempts) throw new ApiError(409, 'Limite de tentativas atingido nesta missao.');
+        if (attempt !== 1) throw new ApiError(409, 'Esta missão aceita uma única resposta.');
 
         const promptMax = challenge.modality === 'essencial' ? 250 : 4000;
         const candidatePrompt = text(payload.prompt, 'prompt', { min: 3, max: promptMax });
@@ -2790,7 +2898,14 @@ export function createArenaApi({
             can_start: ['waiting', 'open', 'playing'].includes(room.status)
               && rounds.some((round) => round.status === 'pending')
               && !rounds.some((round) => ['open', 'submitting', 'judging', 'results'].includes(round.status))
-              && (!isClassicRules(room) || participants.filter((person) => person.active).length === roomCapacity(room)),
+              // Quem exige a sala cheia para comecar e `rosterLocksAtStart` (o
+              // preset Classico, de 3 lugares fixos), NAO a familia do juiz. A
+              // lista estava mais exigente que a acao: `arena_start_round`
+              // sempre olhou esta bandeira, e aqui ela era ignorada -- numa sala
+              // do preset Turma (judgeKind classico, cadastro livre) o botao de
+              // iniciar desaparecia com 3 alunos de 35, e nada dizia por que.
+              && (!isClassicRules(room) || !room.settings?.rosterLocksAtStart
+                || participants.filter((person) => person.active).length === roomCapacity(room)),
           });
         }
         return {
@@ -2864,6 +2979,9 @@ export function createArenaApi({
           }));
           await seedClassicRounds(roomRow, seeds, timestamp);
         }
+        // A resposta devolve a LINHA da sala, e nao a vista: `pin: null` aqui e
+        // o contrato (preset fora do classico nao tem PIN numerico — o codigo
+        // alfabetico faz esse papel), e quem le escolhe `pin || code`.
         return { ok: true, room: (await repositories.arena.rooms.getById(room.id)), server_now: timestamp };
       }
 
@@ -2980,6 +3098,7 @@ export function createArenaApi({
             status: room.status,
             judge_kind: judgeKind,
             total_rounds: rounds.length,
+            revision: roomRevision(room),
           },
           missions,
           end,
@@ -3084,6 +3203,76 @@ export function createArenaApi({
         return { ok: true, room: updated, server_now: timestamp };
       }
 
+      /**
+       * NOVA BATALHA NESTA SALA.
+       *
+       * O professor repete a aula na MESMA sala: mesmo codigo/PIN, mesmo preset,
+       * mesma configuracao e as mesmas missoes, na mesma ordem. O que zera e o
+       * JOGO — tentativas e pontuacao —, e o que fica e o HISTORICO: o ciclo
+       * anterior continua no banco com os envios, as notas e as tentativas de
+       * juiz presos as rodadas dele (que viraram `closed`), e o relatorio o le
+       * como uma batalha a parte.
+       *
+       * Como nasce o ciclo novo: as rodadas do ciclo corrente sao CLONADAS como
+       * `pending` (ids novos — e por isso nenhuma nota antiga pode ser confundida
+       * com uma nota desta batalha) e a sala volta a `open`, que e o estado de
+       * espera do professor. Nada e apagado em nenhum caminho.
+       *
+       * `cycle` no payload e o que o painel viu: um segundo clique (ou um painel
+       * desatualizado) nao cria um terceiro ciclo — ele recebe `already`.
+       */
+      case 'arena_new_battle': {
+        requireAdmin(payload.admin_token);
+        const room = await roomById(payload.room_id);
+        if (room.status === 'draft') throw new ApiError(409, 'Esta sala ainda está em rascunho: publique e jogue a primeira batalha antes de repeti-la.');
+        if (room.status === 'archived') throw new ApiError(409, 'Esta sala está arquivada. Desarquivar não é possível: crie uma sala nova com as mesmas missões.');
+        // A maquina de estados e quem diz o alvo; aqui so confirmamos que ele e
+        // `open` (a volta da batalha, declarada em arena-state.mjs).
+        nextRoomStatus(room.status, 'open');
+        const rounds = await repositories.arena.rounds.listByRoom(room.id);
+        if (rounds.length === 0) throw new ApiError(409, 'Esta sala ainda não tem missões para jogar.');
+        const current = roomCycle(room);
+        if (payload.cycle !== undefined && payload.cycle !== null && payload.cycle !== '') {
+          const visto = integer(payload.cycle, 'cycle', { min: 1, max: 9999 });
+          if (visto !== current) {
+            return { ok: true, already: true, room: (await adminRoomDetail(room, timestamp)), server_now: timestamp };
+          }
+        }
+        if (!rounds.some((entry) => entry.status !== 'pending')) {
+          throw new ApiError(409, 'Esta sala ainda não tem uma batalha para repetir.');
+        }
+        // Fecha a batalha que estiver no ar pela MESMA porta do professor
+        // (`arena_close_round`): quem nao enviou recebe o zero do tempo esgotado
+        // e o classico recalcula pontos e posicao. Repetir a batalha nao pode
+        // deixar a antiga pela metade.
+        await closeOpenRound(room, timestamp);
+        for (const entry of await repositories.arena.rounds.listByRoom(room.id)) {
+          if (entry.status === 'pending' || entry.status === 'closed') continue;
+          await repositories.arena.rounds.updateStatus({ id: entry.id, status: 'closed', now: timestamp, endedAt: timestamp });
+        }
+        // Os alunos: manter a turma (padrao) ou liberar a sala para a proxima.
+        const keepParticipants = payload.keep_participants === undefined
+          ? true : Boolean(payload.keep_participants);
+        if (!keepParticipants) {
+          await repositories.arena.participants.deactivateAll({ roomId: room.id, now: timestamp });
+        }
+        // Sorteio da vez e estado coletivo do Modo Arena (Boss, energia, votos,
+        // dinamicas) sao DA BATALHA, nao da sala. Os tokens da TV ficam: a
+        // projecao e a mesma sala, e o telao nao deve pedir codigo de novo no
+        // meio da aula.
+        await repositories.settings.delete(drawKey(room.id));
+        await repositories.settings.delete(arenaModeKey(room.id));
+        const clone = await repositories.arena.rounds.cloneForNewCycle({ roomId: room.id, now: timestamp });
+        onRoomChanged(room.id);
+        return {
+          ok: true,
+          already: false,
+          battle: { cycle: clone.cycle, rounds: clone.rounds.length },
+          room: (await adminRoomDetail(clone.room ?? room, timestamp)),
+          server_now: timestamp,
+        };
+      }
+
       case 'arena_add_round': {
         requireAdmin(payload.admin_token);
         const room = await roomById(payload.room_id);
@@ -3097,7 +3286,7 @@ export function createArenaApi({
         if (!challenge) throw new ApiError(404, 'Desafio nao encontrado.');
         const rounds = await repositories.arena.rounds.listByRoom(room.id);
         const round = await repositories.arena.rounds.add({
-          id: id(), roomId: room.id, position: rounds.length + 1,
+          id: id(), roomId: room.id, cycle: roomCycle(room), position: rounds.length + 1,
           challengeId: challenge.id, modality: challenge.modality, now: timestamp,
         });
         return { ok: true, round, server_now: timestamp };
@@ -3358,7 +3547,7 @@ export function createArenaApi({
           if (room) {
             const rounds = await repositories.arena.rounds.listByRoom(room.id);
             const round = await repositories.arena.rounds.add({
-              id: id(), roomId: room.id, position: rounds.length + 1,
+              id: id(), roomId: room.id, cycle: roomCycle(room), position: rounds.length + 1,
               challengeId: challenge.id, modality: challenge.modality, now: timestamp,
             });
             addedRounds.push(round);
@@ -3758,6 +3947,9 @@ export function createArenaApi({
   const pending = new Map();
   const roomControls = new Set([
     'arena_start_round', 'arena_pause_round', 'arena_resume_round', 'arena_end_round', 'arena_close_round', 'arena_end_room',
+    // A batalha nova fecha rodada, zera estado e clona missoes: e a maior
+    // leitura-modificacao-escrita da sala e entra na mesma fila dela.
+    'arena_new_battle',
     // O sorteio e ler-mexer-gravar o mesmo estado: serializado por sala, dois
     // cliques rapidos no sorteio nao se atropelam.
     'arena_draw_setup', 'arena_draw_next', 'arena_draw_settle', 'arena_draw_reset',

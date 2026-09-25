@@ -26,6 +26,15 @@
     livre: 'Livre',
   };
 
+  // O LIMITE DE CARACTERES DO CAMPO DO ALUNO, em um lugar só.
+  // A regra já estava escrita duas vezes (o campo da missão e a prévia), e a
+  // "Rodada ativa" do painel passou a escrevê-la uma terceira: três lugares
+  // decidindo o mesmo número é como duas telas acabam discordando na frente do
+  // aluno. `essencial` é a modalidade da objetividade, e é ela que limita.
+  const LIMITE_ESSENCIAL = 250;
+  const LIMITE_PADRAO = 4000;
+  const limiteDeCaracteres = (modality) => (modality === 'essencial' ? LIMITE_ESSENCIAL : LIMITE_PADRAO);
+
   const CRITERION_LABELS = {
     objetivo: 'Objetivo',
     contexto: 'Contexto',
@@ -90,7 +99,14 @@
     closed: 'Encerrada',
   };
 
-  const SESSION_KEYS = { participantId: 'arena.participant_id', token: 'arena.token' };
+  // `roomCode` fica junto da sessao para reconhecer um SEGUNDO clique no mesmo
+  // codigo (ver o tratador do formulario de entrada): sem ele, a unica forma de
+  // saber se o aluno ja esta na sala seria perguntar ao servidor, que responde
+  // 409 ("nome ja em uso") — verdade para ele e erro nenhum para quem ja entrou.
+  const SESSION_KEYS = { participantId: 'arena.participant_id', token: 'arena.token', roomCode: 'arena.room_code' };
+
+  /** O codigo da sala so com os digitos: "890 897" e "890897" sao o mesmo PIN. */
+  const soDigitos = (valor) => String(valor ?? '').replace(/\D+/g, '');
 
   // Modelos do sorteio da vez (quem joga agora). O rotulo curto fica no botao;
   // a explicacao completa vai no title e no hint abaixo deles.
@@ -235,7 +251,13 @@
     [/cancelled/, 'encerramento do servidor'],
     [/timeout/, 'tempo esgotado no provedor'],
     [/unreadable_text/, 'texto ilegível'],
+    // Resposta 200 sem número para pontuar. É o motivo da aula relatada
+    // (`gemini_invalid_numeric_output`), que a tela mostrava como "motivo não
+    // catalogado (gemini_invalid_numeric_output)" — o professor lia o código
+    // cru justamente na falha que precisava dele para entender a fila.
+    [/invalid_numeric_output/, 'provedor respondeu sem número'],
     [/429/, 'cota do provedor'],
+    [/http_4\d\d/, 'acesso recusado pelo provedor'],
     [/http_5\d\d/, 'erro do provedor'],
     [/invalid_response/, 'resposta do provedor fora do formato'],
   ];
@@ -307,10 +329,30 @@
    * que chega, porque so chega o que ela provou seguir. Trocar de sala reabre a
    * conexao — o mesmo caminho que o painel ja usava ao trocar de detalhe.
    */
-  function subscribeRoomEvents(onEvent, query = '') {
+  // A superficie diz o que fazer quando o stream CAI e quando ele VOLTA: sao
+  // duas acoes diferentes do mesmo dono (quem assina), e sem elas o EventSource
+  // volta em silencio — a tela fica "ao vivo" sem ter relido o estado.
+  let roomEventsReconnect = null;
+  let roomEventsDrop = null;
+  // Ja houve uma conexao aberta nesta sessao? A primeira abertura nao e
+  // "reconexao": quem acabou de assinar le o estado logo depois, por conta.
+  let roomEventsOpened = false;
+
+  function subscribeRoomEvents(onEvent, query = '', { onReconnect = null, onDrop = null } = {}) {
     roomEventHandlers.add(onEvent);
     const url = `/events${query}`;
-    if (roomEventSource && roomEventUrl !== url) closeRoomEvents();
+    // Mesma URL (outra parte da mesma tela assinando): os ganchos sao do dono
+    // novo, que e quem sabe reler o estado desta superficie.
+    if (onReconnect) roomEventsReconnect = onReconnect;
+    if (onDrop) roomEventsDrop = onDrop;
+    if (roomEventSource && roomEventUrl !== url) {
+      closeRoomEvents();
+      // A conexao mudou de SALA: a versao pintada era da anterior e nao diz
+      // nada sobre esta. Sem esquecer, o primeiro aviso da sala nova podia ser
+      // dispensado por parecer velho (ver `eventoAvanca`) — e a tela so voltaria
+      // ao estado certo no tique seguinte do poll.
+      revisoes.clear();
+    }
     if (!roomEventSource) openRoomEvents(url);
     return () => {
       roomEventHandlers.delete(onEvent);
@@ -322,8 +364,25 @@
     roomEventUrl = url;
     roomEventsAlive = false;
     roomEventSource = new EventSource(url);
-    roomEventSource.onopen = () => { roomEventsAlive = true; };
-    roomEventSource.onerror = () => { roomEventsAlive = false; };
+    roomEventSource.onopen = () => {
+      const reconectou = roomEventsOpened && !roomEventsAlive;
+      roomEventsAlive = true;
+      roomEventsOpened = true;
+      // RELEITURA na volta do stream: o que passou durante a queda pode ter
+      // escapado do poll (aba oculta, espera progressiva), e estado so se sabe
+      // perguntando. Sem isto, a tela volta a receber eventos novos sem nunca
+      // ter buscado o que perdeu.
+      if (reconectou) {
+        pollSteps.clear();
+        try { roomEventsReconnect?.(); } catch { /* o poll cobre */ }
+      }
+    };
+    roomEventSource.onerror = () => {
+      const caiu = roomEventsAlive;
+      roomEventsAlive = false;
+      // `onerror` dispara a cada tentativa do navegador; o aviso e UM, na queda.
+      if (caiu) { try { roomEventsDrop?.(); } catch { /* segue no poll */ } }
+    };
     roomEventSource.addEventListener('room', (event) => {
       roomEventsAlive = true;
       let data = {};
@@ -347,6 +406,10 @@
     roomEventSource = null;
     roomEventUrl = '';
     roomEventsAlive = false;
+    roomEventsOpened = false;
+    roomEventsReconnect = null;
+    roomEventsDrop = null;
+    pollSteps.clear();
   }
 
   /**
@@ -382,13 +445,130 @@
 
   // Campos que mudam em toda leitura sem aparecer na tela. Sem descarta-los,
   // nenhuma leitura seria igual a anterior e o redesenho aconteceria sempre.
-  const VOLATILE_FIELDS = new Set(['server_now', 'last_seen_at']);
+  //
+  // `revision` entra na lista pelo mesmo motivo: ela sobe a cada mutacao, mas
+  // quem decide redesenhar e o conteudo (rodada, envios, nota), e nao a versao.
+  // Fora daqui, um toque no nome de um participante trocaria a revisao e o
+  // painel redesenhasse por baixo do campo que o professor esta digitando.
+  const VOLATILE_FIELDS = new Set(['server_now', 'last_seen_at', 'revision']);
 
   /** Chave do que a tela mostra, para pular redesenho de estado equivalente. */
   const renderKey = (value, volatile = VOLATILE_FIELDS) => JSON.stringify(
     value,
     (key, entry) => (volatile.has(key) ? undefined : entry),
   );
+
+  /**
+   * A REVISAO da sala: a versao monotonica do estado (ver `revision` no schema).
+   *
+   * Cada superficie da tela (aluno, painel, TV) lembra a ultima revisao que
+   * PINTOU e recusa uma leitura mais velha. E o que resolve a corrida entre uma
+   * resposta de acao que demorou e um evento de tempo real que chegou antes:
+   * sem isso, o desenho final dependia de qual das duas respostas voltava por
+   * ultimo, e a tela podia voltar para um estado que ja tinha passado.
+   *
+   * Trocar de sala ZERA a memoria — revisao da sala A nao diz nada sobre a B —,
+   * e payload sem o campo (servidor antigo) passa: a guarda nao inventa versao.
+   */
+  const revisoes = new Map();
+  function aceitaRevisao(superficie, sala) {
+    const revisao = Number(sala?.revision);
+    if (!Number.isFinite(revisao)) return true;
+    const anterior = revisoes.get(superficie);
+    if (Number.isFinite(anterior) && revisao < anterior) return false;
+    revisoes.set(superficie, revisao);
+    return true;
+  }
+  /** A sala mudou: a memoria de revisao da superficie nao vale mais. */
+  function trocouDeSala(superficie, salaId) {
+    const chave = `${superficie}:sala`;
+    const anterior = revisoes.get(chave);
+    if (anterior === salaId) return false;
+    revisoes.set(chave, salaId);
+    revisoes.delete(superficie);
+    return true;
+  }
+
+  /**
+   * O aviso de tempo real merece uma releitura?
+   *
+   * O evento carrega a versao que ele anuncia, e uma tela que JA pintou essa
+   * versao nao ganha nada lendo de novo: a leitura voltaria com o mesmo estado
+   * (o proprio `aceitaRevisao` a aceitaria, por ser igual). Sem esta guarda,
+   * cada evento vira uma consulta — e uma rajada de eventos, uma rajada delas.
+   *
+   * Antes da primeira leitura nao ha versao pintada, e ai o evento NAO e
+   * dispensado: e justamente ele que manda buscar o estado. Evento sem versao
+   * (ou com versao nao numerica) tambem passa, para o cliente nunca ficar mudo
+   * por causa de um campo que faltou. E trocar de sala esquece o numero (em
+   * `subscribeRoomEvents`), senao a versao da sala anterior decidiria pela nova.
+   */
+  function eventoAvanca(superficie, evento) {
+    const pintada = revisoes.get(superficie);
+    const versao = Number(evento?.revision);
+    if (!Number.isFinite(pintada) || !Number.isFinite(versao)) return true;
+    return versao > pintada;
+  }
+
+  /**
+   * O rotulo do botao de envio, em um lugar so.
+   *
+   * Tres estados, e a diferenca entre eles importa: "Enviando…" enquanto a
+   * requisicao esta em voo, "Enviado ✓" quando o servidor ja tem a resposta
+   * (com ou sem nota) e "Enviar prompt" quando ainda cabe um envio. O defeito
+   * que isto conserta e de HONESTIDADE: o envio confirmado voltava a dizer
+   * "Enviar prompt" — o aluno recarregava a pagina, via o botao pedindo de novo
+   * e reenviava uma resposta que ja estava guardada.
+   */
+  function rotuloDoEnvio(estado, alvo = null) {
+    const button = alvo || $('[data-arena-send]');
+    if (!button) return;
+    const span = button.querySelector('span');
+    if (!span) return;
+    // O rotulo do estado "livre" e o proprio texto do markup, guardado na
+    // primeira chamada: uma frase existe em UM lugar so (o bundle nao duplica a
+    // frase que o HTML ja escreve), e editar o HTML edita os dois estados.
+    if (!button.dataset.sendLabelFree) button.dataset.sendLabelFree = span.textContent;
+    const textos = { enviando: 'Enviando…', confirmado: 'Enviado ✓', livre: button.dataset.sendLabelFree };
+    if (textos[estado]) span.textContent = textos[estado];
+    button.dataset.sendState = estado;
+  }
+
+  /**
+   * O que dizer ao aluno quando a sessao dele caiu.
+   *
+   * O servidor diz a CAUSA no 401 (`details.reason`, ver `requireAdmin` e
+   * `participantSession`): sessao que nunca existiu nesta aba, sessao que perdeu
+   * a validade (o professor removeu o participante) e falha sem motivo
+   * declarado terminam na MESMA acao — entrar de novo —, mas nao na mesma
+   * frase. "Sua sessao expirou" e mentira para quem acabou de abrir a pagina.
+   */
+  function motivoDaSessaoDoAluno(error) {
+    const motivo = error?.details?.reason;
+    if (motivo === 'session_missing') return 'Sua sessão não está mais nesta aba. Entre de novo.';
+    if (motivo === 'session_expired') return 'Sua sessão expirou. Entre de novo.';
+    return error?.message || 'Sua sessão expirou. Entre de novo.';
+  }
+
+  /**
+   * Quando o stream esta caido, o poll espera mais a cada leitura que falha.
+   *
+   * Com SSE vivo, o tique e o combinado (2,5 s); depois da primeira queda, 5 s;
+   * da segunda em diante, 10 s. Nao e economia de banda — e nao transformar uma
+   * queda de rede numa tempestade: tres telas de duas dezenas de alunos a 2,5 s
+   * viram centenas de requisicoes por segundo justamente quando o servidor esta
+   * pior. O ritmo normal volta no primeiro evento (o stream vivo zera o passo).
+   */
+  const pollSteps = new Map();
+  function pollDue(superficie, base = 2500) {
+    const agora = Date.now();
+    const estado = pollSteps.get(superficie) || { proximo: 0, passo: 0 };
+    if (agora < estado.proximo) return false;
+    estado.passo = roomEventsAlive ? 0 : Math.min(estado.passo + 1, 2);
+    estado.proximo = agora + (roomEventsAlive ? base : Math.min(10_000, base * 2 ** estado.passo));
+    pollSteps.set(superficie, estado);
+    return true;
+  }
 
   // Aba oculta: o batimento fica 4x mais espacado em vez de parar. Parar de vez
   // deixaria a sala parada para quem deixou a aba (ou a projecao) em segundo
@@ -480,12 +660,50 @@
       // Tentativa que o servidor ESTACIONOU (o juiz não entregou a nota agora e vai
       // reprocessar sozinho). Serve para a tela não dizer "conferindo o envio" — a
       // demora não é do lado do aluno, e repetir não acelera nada.
-      parkedAttempt: null };
+      parkedAttempt: null,
+      // O aluno abriu a explicação ("Como funciona") enquanto esperava. É escolha
+      // dele, e o batimento de 2,5 s não pode arrastá-lo de volta: quem devolve a
+      // tela é a BATALHA, não o relógio (ver `telaDoLobby`).
+      onHow: false, reviewedScoreKey: null, editingRetry: false };
     const screens = $$('[data-arena-screen]');
 
     function showScreen(name) {
       if (name !== 'lobby') document.body.classList.remove('round-active', 'round-finished');
       screens.forEach((screen) => screen.classList.toggle('is-active', screen.dataset.arenaScreen === name));
+    }
+
+    // ----------------------------------------------------------------
+    // A JORNADA DO ALUNO NESTE ARQUIVO — inventário do que esta frente criou,
+    // para o próximo que chegar não procurar no arquivo inteiro. Marcação:
+    // `src/web/pages/index.mjs` (as `<section data-arena-screen>`, incluindo a
+    // espera com o caminho de entrada e a leitura "Como funciona"). Desenho:
+    // `public/assets/css/aluno.css` — dono exclusivo. Aqui, no cliente, moram
+    // exatamente três coisas:
+    //   1. `state.onHow` — se o aluno abriu a explicação;
+    //   2. `telaDoLobby()` — QUAL tela está em cena, e quem a devolve é a
+    //      batalha, não o relógio do batimento;
+    //   3. a pintura da espera (o bloco do `[data-arena-wait-entry]`, que
+    //      escreve o código e o `entry_qr` que o servidor manda) e os dois
+    //      ouvintes de `[data-arena-how-open]` / `[data-arena-how-back]`.
+    // As telas que faltam portar (`join`, `round`, `result`) entram como seção
+    // em `index.mjs`, folha em `aluno.css` e, se precisarem de regra de estado,
+    // um caso a mais em `telaDoLobby()` — nunca um quarto lugar.
+    // ----------------------------------------------------------------
+    // QUAL TELA O LOBBY MOSTRA — o cliente decide só QUAL está em cena; o
+    // desenho das duas telas é de `public/assets/css/aluno.css`.
+    // A explicação ("Como funciona") é leitura de preparação entre a espera e a
+    // rodada, e fica aberta até o aluno sair dela.
+    // Quem a fecha é a batalha: assim que entra missão no ar (ou a sala termina),
+    // a leitura cede para a tela do jogo — a explicação nunca vira beco sem saída
+    // quando o professor inicia com o aluno ainda lendo.
+    function telaDoLobby(lobby) {
+      if (!state.onHow) return 'lobby';
+      const acabou = lobby?.room?.phase === 'finished'
+        || lobby?.room?.status === 'ended'
+        || lobby?.room?.status === 'archived';
+      if (!lobby?.current_round && !acabou) return 'how';
+      state.onHow = false;
+      return 'lobby';
     }
 
     function savedSession() {
@@ -506,6 +724,7 @@
       const data = await api('arena_join', { code, name });
       localStorage.setItem(SESSION_KEYS.participantId, data.participant.id);
       localStorage.setItem(SESSION_KEYS.token, data.token);
+      localStorage.setItem(SESSION_KEYS.roomCode, String(code));
       await enterLobby();
     }
 
@@ -557,6 +776,11 @@
           const data = await api('arena_lobby', session, { timeout: 9000 });
           setOfflineState(false);
           state.lastFetch = Date.now();
+          // Revisao mais velha que a que ja esta na tela: a leitura perdeu a
+          // corrida para um evento (ou para a resposta de um envio) e nao pode
+          // voltar o aluno para um estado que ja passou.
+          trocouDeSala('aluno', data.lobby?.room?.id ?? null);
+          if (!aceitaRevisao('aluno', data.lobby?.room)) return;
           state.lobby = data.lobby;
           state.roomId = data.lobby?.room?.id ?? state.roomId;
           // Redesenha so quando algo visivel mudou: a leitura de batimento
@@ -566,11 +790,15 @@
             state.lobbyKey = key;
             renderLobby(data.lobby);
           }
-          showScreen('lobby');
+          showScreen(telaDoLobby(data.lobby));
         } catch (error) {
           if (error.status === 401) {
             clearSession();
             showScreen('join');
+            // O servidor diz a CAUSA (ver `reason` no 401): sessao que nunca
+            // existiu nesta aba e sessao que perdeu a validade pedem a mesma
+            // acao do aluno (entrar de novo), mas nao a mesma frase.
+            message($('[data-arena-join-message]'), motivoDaSessaoDoAluno(error), 'error');
           } else if (!error.status) {
             setOfflineState(true);
           }
@@ -583,19 +811,31 @@
       if (state.sseOff) { state.sseOff(); state.sseOff = null; }
       // A conexao e da sala do aluno e prova a sessao dele: o servidor so manda
       // o que e desta sala (mais o que vale para a arena inteira).
-      state.sseOff = subscribeRoomEvents(() => refreshLobby(true), eventsQuery(state.roomId, savedSession()));
-      // O poll continua sendo a rede de seguranca quando o SSE cai.
+      state.sseOff = subscribeRoomEvents((acao, evento) => {
+        // Aviso de uma versao que a tela ja pintou nao vira consulta.
+        if (eventoAvanca('aluno', evento)) refreshLobby(true);
+      }, eventsQuery(state.roomId, savedSession()), {
+        // O stream VOLTOU: releitura completa (o que passou na queda pode nao
+        // ter sido visto) e o aviso de conexao sai.
+        onReconnect: () => { setOfflineState(false); refreshLobby(true); },
+        // Caiu: o aviso e o mesmo da conexao instavel — o aluno le uma frase so.
+        onDrop: () => { setOfflineState(true); },
+      });
+      // O poll continua sendo a rede de seguranca quando o SSE cai — com espera
+      // progressiva enquanto ele estiver caido (ver `pollDue`).
       state.poll = window.setInterval(() => {
         if (!state.hiddenClock()) return;
+        if (!pollDue('aluno')) return;
         refreshLobby(false);
       }, 2500);
     }
 
     // Aba oculta nao consulta; ao voltar, uma leitura imediata (uma vez so).
-    onVisibleResume(() => refreshLobby(true));
-
-    function renderLobby(lobby) {
+    onVisibleResume(() => refreshLobby(true));    function renderLobby(lobby) {
       const room = lobby.room;
+      // Sala diferente zera a memoria; revisao velha na mesma sala e descartada.
+      trocouDeSala('aluno', room.id);
+      if (!aceitaRevisao('aluno', room)) return;
       $('[data-arena-room-title]').textContent = room.title;
       $('[data-arena-room-code]').textContent = room.pin || room.code;
       const connected = Number(room.connected || 0);
@@ -609,8 +849,11 @@
 
       const mission = lobby.current_round;
       const finished = room.phase === 'finished' || room.status === 'ended' || room.status === 'archived';
+      const completedRound = !mission && !finished && room.status === 'playing'
+        && (lobby.rounds || []).some((round) => round.status === 'results' || round.status === 'closed');
       document.body.classList.toggle('round-active', Boolean(mission) || finished);
       document.body.classList.toggle('round-finished', finished && !mission);
+      document.body.classList.toggle('round-between', completedRound);
       const missionPanel = $('[data-arena-mission-panel]');
       missionPanel.classList.toggle('has-mission', Boolean(mission));
       $('[data-arena-mission-empty]').hidden = Boolean(mission);
@@ -621,31 +864,108 @@
       // Uma mensagem por estado. Antes eram camadas equivalentes: a sala
       // classica dizia "Aguardando a batalha comecar" e a linha de baixo
       // repetia a mesma espera com outras palavras — o aluno lia duas.
-      $('[data-arena-empty-title]').textContent = finished ? '🏆 Batalha encerrada! 🎉' : 'Aguarde o professor iniciar';
-
-      if (finished) {
-        if (!document.body.dataset.celebrated) {
-          document.body.dataset.celebrated = '1';
-          const script = document.createElement('script');
-          script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js';
-          script.onload = () => {
-            const duration = 5000;
-            const end = Date.now() + duration;
-            (function frame() {
-              window.confetti({ particleCount: 7, angle: 60, spread: 60, origin: { x: 0 }, colors: ['#174ea6', '#f9cd46', '#e8f0fe'] });
-              window.confetti({ particleCount: 7, angle: 120, spread: 60, origin: { x: 1 }, colors: ['#174ea6', '#f9cd46', '#e8f0fe'] });
-              if (Date.now() < end) requestAnimationFrame(frame);
-            }());
-          };
-          document.body.appendChild(script);
+      const resultsPending = finished && Number(lobby.results_pending || 0) > 0;
+      document.body.classList.toggle('results-pending', resultsPending);
+      const winner = finished && !resultsPending ? lobby.ranking?.[0] : null;
+      const rankingHeading = $('[data-arena-ranking-heading]');
+      if (rankingHeading) rankingHeading.textContent = winner ? 'Demais colocados' : rankingHeading.dataset.titleActive;
+      $('[data-arena-empty-title]').textContent = resultsPending
+        ? 'Conferindo resultado'
+        : winner ? 'Temos um campeão' : finished ? 'Batalha encerrada'
+          : completedRound ? 'Missão concluída' : 'Aguarde o professor iniciar';
+      const victory = $('[data-arena-victory]');
+      if (victory) {
+        victory.hidden = !winner;
+        if (winner) {
+          const total = Number(winner.total_points ?? winner.points_sum ?? winner.avg_percent ?? 0);
+          const podium = (lobby.ranking || []).slice(0, 3);
+          const key = `${room.id}:${podium.map((row) => `${row.participant_id || row.name}:${row.total_points ?? row.points_sum ?? row.avg_percent ?? 0}`).join('|')}`;
+          if (victory.dataset.resultKey !== key) {
+            victory.dataset.resultKey = key;
+            victory.innerHTML = `
+              <div class="arena-victory-confetti" aria-hidden="true">${Array.from({ length: 64 }, (_, index) => `<i style="--piece:${index};--left:${(index * 37 + 11) % 98}%;--delay:${(index * 71) % 1700}ms;--drift:${((index * 29) % 180) - 90}px"></i>`).join('')}</div>
+              <div class="arena-victory-rays" aria-hidden="true"></div>
+              <div class="arena-victory-sparkles" aria-hidden="true"></div>
+              <div class="arena-victory-copy">
+                <span>CAMPEÃO DA BATALHA</span>
+                <img src="/public/assets/figma/champion-medal-gold.svg" alt="" width="64" height="72">
+                <strong>${esc(winner.name)}</strong>
+                <p>${Math.round(total).toLocaleString('pt-BR')} pontos${String(winner.participant_id) === String(lobby.me?.id) ? ' · Você venceu!' : ''}</p>
+              </div>
+              <div class="arena-victory-podium" data-count="${podium.length}" aria-label="Pódio final">
+                ${[podium[1], podium[0], podium[2]].filter(Boolean).map((row) => {
+                  const place = Number(row.position) || podium.indexOf(row) + 1;
+                  const score = Number(row.total_points ?? row.points_sum ?? row.avg_percent ?? 0);
+                  const medal = ['gold', 'silver', 'bronze'][place - 1] || 'bronze';
+                  return `<div class="arena-victory-place is-place-${place}">
+                    <img src="/public/assets/figma/champion-medal-${medal}.svg" alt="" width="38" height="44">
+                    ${place === 1 ? '' : `<strong>${esc(row.name)}</strong><span>${Math.round(score).toLocaleString('pt-BR')} pts</span>`}
+                    <div class="arena-victory-plinth" aria-hidden="true">${place}</div>
+                  </div>`;
+                }).join('')}
+              </div>`;
+          }
+        } else {
+          delete victory.dataset.resultKey;
+          victory.replaceChildren();
         }
       }
+      const betweenCopy = $('[data-arena-between-copy]');
+      const betweenScore = $('[data-arena-between-score]');
+      if (betweenCopy) betweenCopy.hidden = !completedRound;
+      if (betweenScore) betweenScore.hidden = !completedRound;
+      if (completedRound) {
+        if (betweenCopy) betweenCopy.textContent = 'Aguarde o professor.';
+        const lastRound = [...lobby.rounds].reverse().find((round) => round.status === 'results' || round.status === 'closed');
+        const points = lastRound?.best_points;
+        if (betweenScore) {
+          betweenScore.hidden = points == null || !Number.isFinite(Number(points));
+          if (!betweenScore.hidden) betweenScore.innerHTML = `<span>Sua nota</span><strong>${Number(points).toLocaleString('pt-BR', { maximumFractionDigits: 2 })} pts</strong>`;
+        }
+      }
+      // A porta da explicação só existe enquanto há espera: na batalha encerrada
+      // ela levaria a uma leitura sem próxima ação.
+      const howOpen = $('[data-arena-how-open]');
+      if (howOpen) howOpen.hidden = finished || completedRound;
+
+      // O CAMINHO DE ENTRADA da espera (referência LA-02B): o código em tamanho
+      // de leitura com o QR ao lado. O código pequeno do cabeçalho sai enquanto
+      // o grande está na tela — o mesmo dado em dois tamanhos é ruído.
+      // O DESENHO desta peça mora em `public/assets/css/aluno.css`, a folha dona
+      // da jornada do aluno (o mesmo lugar da leitura "Como funciona" e das
+      // telas do aluno que ainda faltam portar). Aqui fica só o comportamento.
+      const entry = $('[data-arena-wait-entry]');
+      const roomCode = room.pin || room.code;
+      const entryVisible = Boolean(!finished && !completedRound && !mission && roomCode);
+      if (entry) {
+        entry.hidden = !entryVisible;
+        if (entryVisible) {
+          $('[data-arena-wait-code]').textContent = roomCode;
+          const qr = lobby.entry_qr;
+          const qrBox = $('[data-arena-wait-qr-box]');
+          // O QR vem do servidor — o MESMO da projeção — e só existe quando ele
+          // conseguiu montar o endereço a partir da requisição. Sem ele fica o
+          // código, que é o que o aluno realmente lê.
+          qrBox.hidden = !qr?.data_url;
+          if (qr?.data_url) {
+            const qrImg = $('[data-arena-wait-qr]');
+            // Troca só quando muda: o batimento de 2,5 s não reinicia a imagem.
+            if (qrImg.getAttribute('src') !== qr.data_url) qrImg.src = qr.data_url;
+            const qrLink = $('[data-arena-wait-qr-link]');
+            if (qrLink.href !== qr.url) qrLink.href = qr.url;
+          }
+        }
+      }
+      $('[data-arena-room-code]').hidden = entryVisible;
 
       // Roster ao vivo: no classico, a lista de quem ja entrou substitui os
       // paineis pedagogicos (resultados/destaques) que nao fazem sentido na
       // batalha original.
       const roster = $('[data-arena-roster]');
-      const rosterVisible = classic && lobby.roster && lobby.roster.length > 0 && !mission && !finished;
+      // A lista de quem já entrou é da ESPERA em qualquer modo: na referência
+      // (LA-02B) ela fica logo abaixo do código. Antes só o Clássico a mostrava,
+      // e as salas de turma/Arena esperavam sem ver quem havia chegado.
+      const rosterVisible = lobby.roster && lobby.roster.length > 0 && !mission && !finished && !completedRound;
       roster.hidden = !rosterVisible;
       if (rosterVisible) {
         roster.innerHTML = `
@@ -671,15 +991,22 @@
       // Quando os tres somem, a coluna inteira some junto: o `hidden` vale
       // dentro de [data-arena-screen] (ver o catch-all em arena.css).
       renderResults(lobby.results, true);
-      renderRanking(lobby.ranking, true);
+      renderRanking(lobby.ranking, true, Boolean(winner));
       renderHighlights(lobby.highlights, true);
       const side = document.querySelector('.arena-side');
-      if (side) side.hidden = [...side.querySelectorAll('.arena-card')].every((card) => card.hidden);
+      if (side) side.hidden = resultsPending || [...side.querySelectorAll('.arena-card')].every((card) => card.hidden);
 
       // Encerramento: a classificação é a leitura principal, e o resultado por
       // missão e os destaques ficam a um clique (o título do cartão é a alça).
       // Durante a partida eles ficam abertos — ali são curtos e são o assunto.
-      for (const fold of side ? side.querySelectorAll('[data-arena-fold]') : []) fold.open = !finished;
+      const foldKey = `${room.id}:${mission?.id || 'wait'}:${finished ? 'finished' : 'active'}`;
+      for (const fold of side ? side.querySelectorAll('[data-arena-fold]') : []) {
+        if (fold.dataset.arenaFoldKey === foldKey) continue;
+        fold.dataset.arenaFoldKey = foldKey;
+        // Os destaques são opcionais e começam fechados. A escolha de abrir
+        // qualquer seção permanece durante as atualizações ao vivo.
+        fold.open = !finished && !fold.classList.contains('arena-highlights-panel');
+      }
 
       // Modo Arena por último: ele decide se o painel da missão cede lugar ao
       // voto da turma (nunca os dois ao mesmo tempo na mão do aluno).
@@ -710,6 +1037,10 @@
       const roundKey = `${mission.id}:${mission.round_over ? 'over' : 'open'}`;
       if (state.lastMissionKey !== roundKey) {
         state.lastMissionKey = roundKey;
+        state.reviewedScoreKey = null;
+        state.editingRetry = false;
+        const send = $('[data-arena-send]');
+        if (send) send.dataset.sendLabelFree = 'Enviar prompt';
         const form = $('[data-arena-prompt-form]');
         if (form) {
           let savedDraft = '';
@@ -720,7 +1051,7 @@
         if (msg) { msg.textContent = ''; delete msg.dataset.tone; }
       }
       const round = String(mission.position).padStart(2, '0');
-      $('[data-arena-round-count]').textContent = `${classic ? 'RODADA' : 'MISSAO'} ${round}/${String(total).padStart(2, '0')}`;
+      $('[data-arena-round-count]').textContent = `${classic ? 'RODADA' : 'MISSÃO'} ${round}/${String(total).padStart(2, '0')}`;
       $('[data-arena-mission-badge]').textContent = classic
         ? 'ADIVINHE O PROMPT'
         : `${modality === 'boss' ? '☠️ ' : ''}${(MODALITY_LABELS[modality] || modality).toUpperCase()}`;
@@ -856,8 +1187,25 @@
           : 'Conferindo o envio. Repetir a solicitação mantém a mesma tentativa.', 'info');
       }
       if (sendButton) sendButton.disabled = state.submitLocked || state.isSubmitting;
+      // O mesmo rotulo que o envio deixou, recalculado do estado do SERVIDOR:
+      // recarregar a pagina nao pode devolver "Enviar prompt" para uma resposta
+      // ja guardada.
+      //
+      // A pergunta que o rotulo responde e "o servidor ja tem esta resposta?",
+      // e nao "cabe outro envio?". Sao perguntas diferentes, e era por isso
+      // que a tela pedia "Enviar prompt" de novo enquanto a avaliacao corria —
+      // o aluno recebia confirmacao de um envio e, na releitura seguinte, um
+      // botao convidando a enviar o que ja estava guardado.
+      const envioConfirmado = Boolean(pendingSubmission) || !canRetry;
+      state.envioConfirmado = envioConfirmado;
+      rotuloDoEnvio(state.isSubmitting ? 'enviando' : state.editingRetry && !pendingSubmission ? 'livre' : envioConfirmado ? 'confirmado' : 'livre', sendButton);
       if (myScores.length) {
         const latest = myScores[myScores.length - 1];
+        const scoreKey = `${mission.id}:${latest.attempt}`;
+        if (state.reviewedScoreKey !== scoreKey) {
+          state.reviewedScoreKey = scoreKey;
+          state.editingRetry = false;
+        }
         result.hidden = false;
         $('[data-arena-result-label]').textContent = classic ? 'PONTOS' : 'SUA NOTA';
         const points = latest.points ?? Number(latest.percent);
@@ -922,9 +1270,12 @@
         // critérios (o juiz é outro), então a alça sai inteira da tela.
         const breakdownFold = $('[data-arena-breakdown-fold]');
         if (breakdownFold) breakdownFold.hidden = Boolean(classic);
+        const feedback = String(latest.feedback || 'Resposta avaliada.')
+          .replace(/na próxima tentativa/gi, 'na próxima missão')
+          .replace(/em uma próxima tentativa/gi, 'em uma próxima missão');
         $('[data-arena-feedback]').textContent = classic
-          ? `${latest.feedback || 'Resposta avaliada.'} (acerto de ${Math.round(Number(latest.percent))}%)`
-          : `${latest.feedback || ''} Qualidade: ${Math.round(Number(latest.percent))}%.`;
+          ? `${feedback} (acerto de ${Math.round(Number(latest.percent))}%)`
+          : feedback;
         const evolution = $('[data-arena-evolution]');
         if (latest.attempt > 1 && Number.isFinite(latest.evolution)) {
           evolution.hidden = false;
@@ -936,14 +1287,18 @@
         }
         $('[data-arena-retry]').hidden = !canRetry;
         if (canRetry) $('[data-arena-retry]').textContent = `${modality === 'refinamento' ? 'Melhorar prompt' : 'Tentar novamente'} (${attemptsUsed}/${attemptsAllowed})`;
+        const next = $('[data-arena-result-next]');
+        next.hidden = canRetry;
+        if (!canRetry) next.textContent = 'Aguarde o professor.';
       } else {
         result.hidden = true;
         $('[data-arena-retry]').hidden = true;
+        $('[data-arena-result-next]').hidden = true;
       }
 
       // Contador dinâmico de caracteres
       const textarea = $('[data-arena-prompt-form] textarea');
-      const maxLength = modality === 'essencial' ? 250 : 4000;
+      const maxLength = limiteDeCaracteres(modality);
       if (textarea) {
         textarea.maxLength = maxLength;
         updateCounter(textarea);
@@ -961,7 +1316,7 @@
       if (mission.round_over) {
         // Janela de resultados: form some, status neutro e claro.
         if (promptForm) promptForm.hidden = true;
-        message(msg, 'Rodada encerrada — aguarde o professor para a próxima.', 'info');
+        message(msg, 'Rodada encerrada. Aguarde o professor.', 'info');
       } else if (pendingSubmission) {
         // Envio em conferencia: a mensagem ja esta na tela e o aluno pode
         // reenviar para repetir a MESMA tentativa — nao apaga o aviso.
@@ -971,13 +1326,17 @@
         // reenvio; a confirmacao e o resultado (PONTOS) respondem "foi
         // enviado?" e "fui bem?" enquanto o aluno espera os demais.
         if (promptForm) promptForm.hidden = true;
-        message(msg, alreadySent
-          ? 'Aguardando os demais jogadores…'
-          : `Resposta enviada — ${attemptsAllowed > 1 ? `as ${attemptsAllowed} tentativas desta missão` : 'a tentativa desta missão'} já ${attemptsAllowed > 1 ? 'foram usadas' : 'foi usada'}. Aguarde o professor para a próxima.`, 'info');
+        message(msg, alreadySent ? 'Aguardando os demais jogadores…' : 'Resposta enviada. Aguarde o professor.', 'info');
       } else {
         if (promptForm) promptForm.hidden = false;
         message(msg, '', '');
       }
+
+      // Uma nota nova é um momento de leitura. O campo volta só quando o aluno
+      // escolhe melhorar o prompt; o polling não pode desfazer essa escolha.
+      $('[data-arena-mission]').classList.toggle('is-reviewing', myScores.length > 0 && !state.editingRetry && !pendingSubmission);
+      $('[data-arena-mission]').classList.toggle('is-editing-retry', myScores.length > 0 && state.editingRetry && !pendingSubmission);
+      $('[data-arena-mission]').classList.toggle('is-awaiting-retry', myScores.length > 0 && Boolean(pendingSubmission));
 
       // Timer
       startTimer(mission);
@@ -1039,7 +1398,7 @@
         return `
         <article class="arena-result-row${classic ? ' is-classic' : ''}">
           <div class="arena-result-row-head">
-            <strong>${classic ? `RODADA ${round.position} — CLÁSSICA` : `MISSAO ${round.position} — ${MODALITY_LABELS[round.modality] || round.modality}`}</strong>
+            <strong>${classic ? `RODADA ${round.position} — CLÁSSICA` : `MISSÃO ${round.position} — ${MODALITY_LABELS[round.modality] || round.modality}`}</strong>
             <span>${round.title}</span>
           </div>
           <p>Você ficou em <strong>${round.my_position ? `${round.my_position}º` : '-'}</strong> com <strong>${scoreValue === null || scoreValue === undefined ? '-' : Math.round(Number(scoreValue))}${scoreLabel}</strong>.</p>
@@ -1050,7 +1409,7 @@
       }).join('');
     }
 
-    function renderRanking(ranking, hideWhenEmpty = false) {
+    function renderRanking(ranking, hideWhenEmpty = false, isFinal = false) {
       const panel = $('[data-arena-ranking]');
       const card = panel.closest('.arena-ranking-panel');
       if (card) card.hidden = hideWhenEmpty && !ranking.length;
@@ -1062,10 +1421,10 @@
       panel.innerHTML = ranking.map((row) => {
         const total = row.total_points ?? row.points_sum ?? row.avg_percent;
         const position = Number(row.position) || 0;
-        const champion = position === 1;
+        const champion = isFinal && position === 1;
         return `
         <div class="arena-ranking-row${champion ? ' is-champion' : ''}">
-          ${medalImage(position, 'arena-ranking-medal')}
+          ${isFinal ? medalImage(position, 'arena-ranking-medal') : `<span class="arena-ranking-position">${position}</span>`}
           <span class="arena-ranking-player">
             ${winnerAvatar('arena-ranking-avatar')}
             <span class="arena-ranking-name">
@@ -1103,10 +1462,27 @@
       const form = event.currentTarget;
       const button = $('[data-arena-join-form] .arena-submit', form);
       const node = $('[data-arena-join-message]');
+      const codigo = form.elements.code.value;
       button.disabled = true;
+      // Clique duplo (ou segundo envio depois de uma resposta perdida): se esta
+      // aba JA tem sessao na MESMA sala, entrar de novo e a mesma entrada — o
+      // servidor recusaria com 409 ("nome ja em uso"), que para quem ja esta
+      // dentro nao e erro, e a tela dizia o contrario do que aconteceu.
+      const jaTem = savedSession();
+      const codigoAnterior = localStorage.getItem(SESSION_KEYS.roomCode);
+      if (jaTem.participant_id && jaTem.token && soDigitos(codigoAnterior) && soDigitos(codigoAnterior) === soDigitos(codigo)) {
+        message(node, 'Você já está nesta sala.', 'info');
+        await enterLobby();
+        return;
+      }
       message(node, 'Entrando...', 'info');
       try {
-        await joinRoom(form.elements.code.value, form.elements.name.value);
+        await joinRoom(codigo, form.elements.name.value);
+        // A confirmacao fica no no da tela de entrada (que sai de vista quando o
+        // lobby aparece): o lobby ja mostra codigo e nome, e o texto aqui existe
+        // para quando a tela voltar — e para o teste poder ler sem correr atras
+        // do instante em que a tela trocou.
+        message(node, 'Você entrou na sala.', 'info');
       } catch (error) {
         message(node, error.message, 'error');
         button.disabled = false;
@@ -1124,11 +1500,14 @@
 
       state.isSubmitting = true;
       button.disabled = true;
-      const span = button.querySelector('span');
-      const originalText = span ? span.textContent : button.textContent;
-      if (span) span.textContent = 'Avaliando resposta...';
+      rotuloDoEnvio('enviando', button);
+      // `confirmado` atravessa os ramos: envio aceito (com nota na hora, com
+      // nota depois ou estacionado) e envio que o servidor TEM — os tres levam
+      // o botao a "Enviado ✓", e o `finally` nao volta atras.
+      let confirmado = false;
 
-      message(node, 'Enviando seu prompt para a avaliação...', 'info');
+      // O botão já informa o progresso; repetir a mesma frase abaixo só ocupa tela.
+      message(node, '', '');
       const pendingKey = `arena_pending_${roundId}`;
       const received = state.lobby.current_round.my_submissions || [];
       let pending = received.find((entry) => entry.status === 'received');
@@ -1147,6 +1526,7 @@
           prompt: pending.prompt,
           attempt: pending.attempt,
         }, { timeout: 15000 });
+        confirmado = true;
         if (enviado.pending) {
           // Aceito e ainda avaliando. O rascunho FICA guardado: repetir a
           // solicitacao continua esta mesma avaliacao (mesma submissao, mesma
@@ -1160,7 +1540,7 @@
           state.parkedAttempt = enviado.parked ? { roundId, attempt: pending.attempt } : null;
           message(node, enviado.parked
             ? 'Resposta guardada. O juiz esta indisponivel agora: a nota sera concluida automaticamente.'
-            : 'Resposta recebida. A avaliacao continua e a nota aparece aqui assim que terminar.', 'info');
+            : 'Resposta recebida. A nota aparecerá aqui.', 'info');
         } else {
           try { sessionStorage.removeItem(pendingKey); } catch {}
           try { sessionStorage.removeItem(`arena_draft_${roundId}`); } catch {}
@@ -1185,8 +1565,10 @@
         } catch {}
         if (scored) {
           try { sessionStorage.removeItem(pendingKey); sessionStorage.removeItem(`arena_draft_${roundId}`); } catch {}
+          confirmado = true;
           message(node, 'Envio confirmado e avaliação recuperada.', 'info');
         } else if (receivedByServer) {
+          confirmado = true;
           // O servidor TEM a resposta (fila cheia, cota da hora ou rede): nao e
           // falha do aluno, e repetir continua a MESMA avaliacao. O aviso so
           // acrescenta quanto esperar quando o servidor diz.
@@ -1198,13 +1580,24 @@
         }
       } finally {
         state.isSubmitting = false;
-        if (span) span.textContent = originalText;
+        // O rotulo segue o ENVIO, nao o formulario: "Enviado ✓" fica. Devolver
+        // o texto original aqui (como era) prometia um envio novo para uma
+        // resposta que o servidor ja tinha. `state.envioConfirmado` cobre o caso
+        // de o envio NAO ter sido confirmado nesta tentativa e mesmo assim
+        // existir uma resposta guardada de antes — o rotulo nao regride.
+        rotuloDoEnvio(state.editingRetry && !state.submitLocked ? 'livre' : confirmado || state.envioConfirmado ? 'confirmado' : 'livre', button);
         button.disabled = Boolean(state.submitLocked);
       }
     });
 
     $('[data-arena-retry]').addEventListener('click', () => {
+      state.editingRetry = true;
+      $('[data-arena-mission]').classList.remove('is-reviewing');
+      $('[data-arena-mission]').classList.add('is-editing-retry');
       const form = $('[data-arena-prompt-form]');
+      $('[data-arena-send]').dataset.sendLabelFree = 'Enviar nova versão';
+      rotuloDoEnvio('livre');
+      $('[data-arena-result]').hidden = true;
       form.elements.prompt.focus();
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
@@ -1214,6 +1607,18 @@
       if (state.poll) window.clearInterval(state.poll);
       if (state.sseOff) { state.sseOff(); state.sseOff = null; }
       showScreen('join');
+    });
+
+    // As duas portas da explicação: abrir na espera, voltar para a sala. A
+    // leitura não começa a batalha — quem começa é o professor.
+    $('[data-arena-how-open]')?.addEventListener('click', () => {
+      state.onHow = true;
+      showScreen('how');
+      document.querySelector('[data-arena-how]')?.scrollIntoView({ block: 'start' });
+    });
+    $('[data-arena-how-back]')?.addEventListener('click', () => {
+      state.onHow = false;
+      showScreen('lobby');
     });
 
     // -------------------- MODO ARENA (aluno) --------------------
@@ -1480,6 +1885,19 @@
         highlights: showEnd ? (end.highlights || []) : [],
         roster: [],
       });
+      // A prévia mostra o tempo configurado, sem simular uma contagem ao vivo.
+      // Usar o deadline real da sala aqui podia exibir 00:00 em vermelho numa
+      // missão que o professor só queria inspecionar.
+      if (state.timer) window.clearInterval(state.timer);
+      const previewClock = $('[data-arena-timer]');
+      if (previewClock && !finished) {
+        const duration = Number(mission.duration_seconds);
+        previewClock.textContent = duration > 0 ? formatSeconds(duration) : 'Sem limite';
+        previewClock.classList.remove('is-danger', 'is-paused');
+        previewClock.classList.toggle('is-untimed', !(duration > 0));
+        const clockLabel = $('.round-clock > span:first-child');
+        if (clockLabel) clockLabel.textContent = 'Tempo previsto';
+      }
       if (mode === 'missao') {
         // O composer e vitrine: o professor ve o convite, mas nao escreve pelo aluno.
         const field = $('[data-arena-prompt-form] textarea');
@@ -1725,7 +2143,16 @@
       // painel se redesenha a cada leitura do servidor; sem isto o que ele
       // abriu fecharia no poll seguinte.
       folds: new Map(),
+      // Filtro da lista de alunos da sala em destaque (Todos, Enviados,
+      // Respondendo, Precisando de atenção). Vive aqui pela mesma razão das
+      // dobras: a tabela é reescrita a cada poll, e a escolha do professor não.
+      filtroDeAlunos: 'todos',
+      // Estado da conexão de tempo real, para o selo do cabeçalho dos comandos.
+      // `true` até o servidor dizer o contrário: abrir a tela já conectado é o
+      // caso normal, e um selo que nasce apagado alarmaria sem motivo.
+      conexaoAoVivo: true,
     };
+
 
     function startAdminCountdown(rounds, serverNow) {
       if (state.countdownTimer) window.clearInterval(state.countdownTimer);
@@ -1750,7 +2177,22 @@
       node.dataset.tone = tone;
     };
 
-    const adminApi = (action, payload = {}) => api(action, payload, { timeout: 20000 });
+    /**
+     * Toda chamada administrativa passa por aqui — e aqui é que a sessão vencida
+     * é reconhecida, UMA vez.
+     *
+     * O 401 tem um caminho só: para o poll, fecha o stream, avisa na faixa e
+     * oferece entrar de novo (ver `sessaoExpirada`). Sem este funil, cada
+     * chamada nova nascia sem essa guarda — e bastava um caminho esquecer de
+     * tratar o 401 para o painel ficar consultando para sempre sem avisar. O
+     * erro continua subindo (quem chamou decide o resto), mas a faixa já está na
+     * tela; e a faixa é idempotente, então repetir não empilha aviso.
+     */
+    const adminApi = (action, payload = {}) => api(action, payload, { timeout: 20000 })
+      .catch((error) => {
+        if (error.status === 401) sessaoExpirada(error);
+        throw error;
+      });
 
     const blockersSummary = (blockers = []) => blockers
       .map((entry) => `Missão ${entry.position} ${entry.title}: ${(entry.missing || []).map((key) => MISSING_LABELS[key] || key).join(' e ')}`)
@@ -1782,7 +2224,12 @@
     function showLogin() {
       const panel = $('[data-admin-arena-login-panel]');
       const content = $('[data-admin-arena-content]');
-      if (panel) panel.hidden = false;
+      // Sem cartao de login no DOM, esconder o conteudo deixava o professor
+      // numa tela VAZIA: a pagina autenticada nao traz o cartao (o servidor
+      // entrega a pagina de login ou o painel, nunca os dois). Quem responde
+      // pela reentrada nessa pagina e a faixa da sessao (ver a faixa abaixo).
+      if (!panel) return;
+      panel.hidden = false;
       if (content) content.hidden = true;
     }
 
@@ -1793,10 +2240,120 @@
       if (content) content.hidden = false;
     }
 
+    /**
+     * A faixa do painel: uma tela so para as duas coisas que o professor precisa
+     * saber sem tirar os olhos da sala — a sessao caiu e a conexao oscilou.
+     *
+     * Por que NAO recarregar para o login: ele esta no meio da aula, com a sala
+     * aberta. A faixa avisa, o detalhe CONTINUA na tela (o ultimo estado valido e
+     * informacao, nao lixo) e a entrada de novo acontece ali mesmo, sem perder o
+     * contexto de qual sala estava sendo acompanhada.
+     */
+    const sessionBanner = $('[data-arena-session-banner]');
+    function faixaDoPainel(texto, { entrarDeNovo = false } = {}) {
+      if (!sessionBanner) return;
+      const textoNode = $('[data-arena-session-text]', sessionBanner);
+      const botao = $('[data-arena-session-retry]', sessionBanner);
+      const formulario = $('[data-arena-session-retry-form]', sessionBanner);
+      if (textoNode) textoNode.textContent = texto || '';
+      if (botao) botao.hidden = !entrarDeNovo;
+      // O CAMPO so aparece quando o professor pede para entrar de novo: a faixa
+      // de "reconectando" nao tem o que fazer com uma senha na frente.
+      if (formulario) formulario.hidden = true;
+      sessionBanner.hidden = !texto;
+    }
+
+    /**
+     * A sessao do painel caiu (401 em qualquer chamada). Para TUDO — o poll do
+     * detalhe, o stream e o que estiver em voo —, avisa e oferece entrar de novo.
+     *
+     * Antes disto, o 401 caia no `catch` do detalhe, que existe para nao apagar a
+     * tela por erro de rede ("mantem a ultima renderizacao"), e o poll seguia
+     * batendo a cada 3 s para sempre: o professor via um painel que nao atualizava
+     * mais, sem aviso nenhum, e a explicacao so existia no console do navegador.
+     */
+    function sessaoExpirada(error) {
+      if (state.sessionLost) return;
+      state.sessionLost = true;
+      if (state.detailPoll) { window.clearInterval(state.detailPoll); state.detailPoll = null; }
+      if (state.sseOff) { state.sseOff(); state.sseOff = null; }
+      // A conexão morreu junto com a sessão: o selo do cabeçalho não pode
+      // continuar prometendo tempo real.
+      state.conexaoAoVivo = false;
+      pintarSeloDeSincronia();
+      const motivo = error?.details?.reason;
+      faixaDoPainel(motivo === 'session_expired'
+        ? 'Sua sessão expirou. Entre de novo para continuar.'
+        : 'Sua sessão no painel não vale mais. Entre de novo.', { entrarDeNovo: true });
+    }
+
+    /** A conexao de tempo real caiu/voltou: avisa sem tirar nada da tela. */
+    function conexaoOscilou(caiu) {
+      // O selo do cabeçalho dos comandos é escrito ANTES da guarda da sessão: a
+      // conexão que caiu é fato, e a sessão vencida é outra conversa. A faixa do
+      // painel continua sendo quem fala da sessão.
+      state.conexaoAoVivo = !caiu;
+      pintarSeloDeSincronia();
+      if (state.sessionLost) return; // a faixa ja diz o que importa agora
+      faixaDoPainel(caiu ? 'Reconectando ao servidor…' : '');
+    }
+
+    // "Entrar de novo": revela o campo da senha NA PROPRIA FAIXA e poe o foco
+    // nele. O professor nao perde a sala que estava acompanhando e nao cai numa
+    // tela vazia.
+    $('[data-arena-session-retry]')?.addEventListener('click', () => {
+      const formulario = $('[data-arena-session-retry-form]');
+      if (!formulario) return;
+      formulario.hidden = false;
+      const campo = formulario.elements.password;
+      if (campo) campo.focus();
+    });
+
+    $('[data-arena-session-retry-form]')?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formulario = event.currentTarget;
+      const campo = formulario.elements.password;
+      const botao = formulario.querySelector('button[type=submit]');
+      // O rotulo de repouso vem do PROPRIO markup, guardado na primeira vez — a
+      // mesma regra do botao de envio do aluno: uma frase existe num lugar so, e
+      // o bundle nao duplica o que o HTML ja escreve.
+      if (botao && !botao.dataset.labelRepouso) botao.dataset.labelRepouso = botao.textContent;
+      if (botao) botao.disabled = true;
+      try {
+        // `login` ja sabe reentrar sem recarregar quando o painel esta na tela:
+        // ele limpa a faixa, mostra o conteudo e rele tudo com a sessao nova.
+        await login(campo?.value || '');
+      } catch (error) {
+        // A causa vem do servidor ("Senha administrativa incorreta."): o aviso
+        // de sessao nao vira alerta, e o campo continua aberto para a nova
+        // tentativa. Sem mensagem do servidor, o aviso que ja estava na tela
+        // continua valendo — melhor que inventar uma segunda frase.
+        if (sessionBanner) {
+          const textoNode = $('[data-arena-session-text]', sessionBanner);
+          if (textoNode && error.message) textoNode.textContent = error.message;
+          sessionBanner.hidden = false;
+        }
+        if (botao) { botao.disabled = false; botao.textContent = botao.dataset.labelRepouso || botao.textContent; }
+        campo?.select();
+      }
+    });
+
     async function login(password) {
       // O servidor valida a senha e grava o cookie HttpOnly; sem token no corpo
-      // nem na URL. O reload pede a pagina autenticada (o cookie vai junto).
+      // nem na URL.
       await api('admin_login', { password });
+      // Sessao que venceu COM o painel na tela: o cookie novo ja vale para esta
+      // pagina, entao entrar de novo no lugar devolve o professor a sala que ele
+      // estava acompanhando — o detalhe aberto volta a atualizar, sem recarga.
+      // Sem painel renderizado (entrada do zero), o reload e o caminho: a pagina
+      // autenticada vem do servidor.
+      if ($('[data-admin-arena-content]')) {
+        state.sessionLost = false;
+        faixaDoPainel('');
+        showContent();
+        await refreshAll();
+        return;
+      }
       window.location.replace('/admin-arena.php');
     }
 
@@ -1817,6 +2374,12 @@
       button.textContent = state.open ? 'Fechar Arena' : 'Abrir Arena';
       button.classList.toggle('figma-cta-blue', !state.open);
       button.classList.toggle('figma-cta-gradient', state.open);
+      // O ESTADO DO PORTÃO NO PRÓPRIO BOTÃO: com a sala em cena o cartão da
+      // Visão Geral sai de cena — e leva o portão junto. Fechado, ele é uma
+      // trava de verdade: a turma não entra em sala nenhuma. Por isso o cartão
+      // volta só nesse caso (a regra vive em `refinement.css`), e é este
+      // atributo que a folha lê.
+      button.dataset.gate = state.open ? 'open' : 'closed';
       const pill = $('[data-arena-gate-status]');
       if (pill) {
         pill.hidden = false;
@@ -1862,6 +2425,23 @@
         </div>`).join('');
     }
 
+    /**
+     * A LISTA é um SELETOR, não um painel de controle em miniatura.
+     *
+     * Cada sala chegou a carregar seis botões (ver, abrir, iniciar, encerrar,
+     * arquivar, excluir), cinco selos (estado, PIN, missões, modalidade, o aviso
+     * de missão pendente) e um par de números — tudo com o mesmo peso, repetido
+     * para cada sala. Quem procurava "qual aula eu abro agora" tinha antes de
+     * decidir o que olhar. Aqui a linha responde duas coisas e para: QUAL é a
+     * sala e EM QUE PÉ ela está (o estado e quem está online). O resto — abrir,
+     * começar, encerrar, arquivar, excluir — mora na sala em destaque, que é o
+     * centro de comando, e vale para a sala selecionada.
+     *
+     * A linha inteira é UM controle: o botão ocupa a área toda (`arena-room-pick`)
+     * e leva `data-action="detail"`, de modo que clicar em qualquer ponto do
+     * cartão seleciona. Selo de missão pendente fica: sala que não abre é uma
+     * sala que o professor precisa enxergar na lista.
+     */
     function renderRooms() {
       const list = $('[data-arena-room-list]');
       const countEl = $('[data-arena-room-count]');
@@ -1872,40 +2452,60 @@
         list.innerHTML = '<p class="arena-empty">Nenhuma sala ainda.</p>';
         return;
       }
-      list.innerHTML = state.rooms.map((room) => `
-        <article class="arena-room-card ${room.id === state.selectedRoomId ? 'is-selected' : ''}" data-room-id="${esc(room.id)}">
-          <div class="arena-room-card-main">
-            <div class="arena-room-card-title">
-              <strong>${esc(room.title)}</strong>
-            </div>
-            <div class="arena-room-card-badges">
+      list.innerHTML = state.rooms.map((room) => {
+        const selecionada = room.id === state.selectedRoomId;
+        const online = Number(room.connected || 0);
+        return `
+        <article class="arena-room-row${selecionada ? ' is-selected' : ''}" data-room-id="${esc(room.id)}">
+          <button type="button" class="arena-room-pick" data-action="detail"${selecionada ? ' aria-current="true"' : ''}>
+            <strong class="arena-room-pick-title">${esc(room.title)}</strong>
+            <span class="arena-room-pick-line">
               <span class="arena-status-badge is-${esc(room.status)}">${STATUS_LABELS[room.status] || room.status}</span>
-              <span class="arena-room-code" title="Código de entrada (PIN)">${esc(formatPin(room.pin || room.code))}</span>
-              <span class="arena-room-missions-badge" title="Missões configuradas nesta sala">${Number(room.rounds_count || 0)} ${Number(room.rounds_count || 0) === 1 ? 'missão' : 'missões'}</span>
-              <span class="arena-preset-chip is-${esc(room.preset || '')}">${PRESET_LABELS[room.preset] || (room.preset || 'sala')}</span>
+              <span class="arena-room-pick-sep" aria-hidden="true">·</span>
+              <span class="arena-room-pick-online${online > 0 ? ' is-live' : ''}">${online} online</span>
               ${(room.blockers || []).length ? `<span class="arena-room-blocked-badge" title="Missões que impedem abrir a sala">⚠ ${(room.blockers || []).length} a corrigir</span>` : ''}
-            </div>
-          </div>
-          <div class="arena-room-card-stats">
-            <div class="arena-stat">
-              <b>${room.participants}</b>
-              <span>${room.expected_players ? `de ${room.expected_players} ` : ''}alunos</span>
-            </div>
-            <div class="arena-stat-divider"></div>
-            <div class="arena-stat">
-              <b class="${room.connected > 0 ? 'is-live' : ''}">${room.connected}</b>
-              <span>online</span>
-            </div>
-          </div>
-          <div class="arena-room-card-actions">
-            <button type="button" data-action="detail">Ver sala</button>
-            ${room.status === 'draft' ? `<button type="button" data-action="publish" class="${(room.blockers || []).length ? 'is-blocked' : ''}" title="${esc((room.blockers || []).length ? `Ainda não abre — ${blockersSummary(room.blockers)}` : 'Abrir a sala para os alunos entrarem')}">Abrir sala</button>` : ''}
-            ${room.can_start ? `<button type="button" data-action="start">${isClassicish(room) ? 'Iniciar batalha' : 'Iniciar missão'}</button>` : ''}
-            ${room.status === 'playing' ? `<button type="button" data-action="end-room">Encerrar sala</button>` : ''}
-            ${room.status === 'ended' ? `<button type="button" data-action="archive">Arquivar</button>` : ''}
-            ${['draft', 'waiting'].includes(room.status) ? `<button type="button" data-action="delete" class="is-danger">Excluir</button>` : ''}
-          </div>
-        </article>`).join('');
+            </span>
+          </button>
+        </article>`;
+      }).join('');
+      renderTopbarQuick();
+    }
+
+    /**
+     * AS DUAS PORTAS DE INSPEÇÃO da sala em destaque, no topo do painel.
+     *
+     * Ver como o aluno e ver a projeção é o que o professor mais faz NO MEIO da
+     * aula — conferir o que a turma recebeu e o que está na parede —, e as duas
+     * estavam atrás do •••, junto de editar, bloquear, arquivar e excluir. Aqui
+     * elas ficam à mão, ligadas à sala em destaque (é ELA que elas abrem), e o
+     * ••• volta a ser o que o nome diz: o menu do que é administrativo. Sem sala
+     * selecionada não há o que inspecionar, e as portas não aparecem — um botão
+     * que abre "a sala" sem dizer qual é pior do que botão nenhum.
+     */
+    function renderTopbarQuick() {
+      // AS DUAS PORTAS moram em lugares diferentes, como no print: a do aluno é
+      // uma INSPEÇÃO e fica na linha dos selos, na ponta; a da projeção entra na
+      // fila dos comandos da aula, entre "encerrar rodada" e "encerrar sala".
+      const alvo = $('[data-arena-topbar-quick]');
+      const portas = $('[data-arena-chips-doors]');
+      if (!alvo && !portas) return;
+      const room = (state.rooms || []).find((entrada) => entrada.id === state.selectedRoomId);
+      if (!room) {
+        for (const slot of [alvo, portas]) {
+          if (!slot) continue;
+          slot.hidden = true;
+          slot.innerHTML = '';
+        }
+        return;
+      }
+      if (portas) {
+        portas.hidden = false;
+        portas.innerHTML = `<a class="arena-preview-open" href="/aluno-preview.php?room=${encodeURIComponent(room.id)}" target="_blank" rel="noopener">👁 Ver como o aluno</a>`;
+      }
+      if (alvo) {
+        alvo.hidden = false;
+        alvo.innerHTML = `<a class="arena-preview-open is-tv" href="/tv-preview.php?room=${encodeURIComponent(room.id)}" target="_blank" rel="noopener">📺 Ver na TV</a>`;
+      }
     }
 
     async function refreshChallenges() {
@@ -1975,6 +2575,64 @@
         const escolha = state.folds.get(fold.dataset.foldKey);
         if (escolha !== undefined) fold.open = escolha;
       }
+    }
+
+    /**
+     * O FILTRO DA LISTA DE ALUNOS — a escolha do professor, reaplicada a cada
+     * desenho.
+     *
+     * A tabela é reescrita inteira a cada leitura do servidor, e sem isto o
+     * filtro voltaria para "Todos" no poll seguinte, no meio da aula. A regra é
+     * a mesma que a linha usa para se classificar (`data-aluno-estado`), e o
+     * botão aceso diz qual delas está valendo.
+     */
+    function aplicarFiltroDeAlunos() {
+      // A TABELA DOS ALUNOS VIVE ABERTA na seção "Participantes da arena"
+      // (`.arena-people`): a dobra `[data-fold-key=participantes]` que este leitor
+      // procurava deixou de existir quando a lista foi para o centro da tela, e o
+      // seletor órfão fazia este `return` acontecer sempre — o botão de filtro
+      // aceso e nenhuma linha escondida, que é um controle morto na mão do
+      // professor. A folha que apaga a linha (`tr[data-filtro-fora]`) já estava
+      // lá, esperando quem escrevesse a marca.
+      const corpo = $('[data-arena-detail-body] .arena-table tbody');
+      if (!corpo) return;
+      const filtro = state.filtroDeAlunos || 'todos';
+      const grupos = {
+        enviados: ['is-enviou', 'is-avaliando', 'is-avaliado'],
+        respondendo: ['is-escrevendo'],
+        atencao: ['is-desconectado', 'is-removido', 'is-sem-nota'],
+      };
+      for (const linha of corpo.querySelectorAll('tr')) {
+        const estado = linha.dataset.alunoEstado || '';
+        const visivel = filtro === 'todos' || (grupos[filtro] || []).includes(estado);
+        // Esconder é por MARCA, não pelo atributo `hidden`: a linha da tabela tem
+        // `display` de tabela declarado pela folha, e o `hidden` do navegador
+        // (folha do usuário) perde para ele — a linha continuaria pintada. Quem
+        // apaga a linha é a folha, no composto que casa esta marca.
+        if (visivel) delete linha.dataset.filtroFora;
+        else linha.dataset.filtroFora = '';
+      }
+      for (const botao of document.querySelectorAll('[data-student-filters] [data-student-filter]')) {
+        const aceso = botao.dataset.studentFilter === filtro;
+        botao.classList.toggle('is-on', aceso);
+        botao.setAttribute('aria-pressed', aceso ? 'true' : 'false');
+      }
+    }
+
+    /**
+     * O SELO DA SINCRONIA do cabeçalho dos comandos.
+     *
+     * Ele diz o que o professor precisa saber sem procurar: o tempo real está de
+     * pé. Nasce escrito pelo markup e é reescrito quando o stream cai ou volta
+     * (`conexaoOscilou`) — a mesma informação que a faixa do painel dá, no lugar
+     * onde ele está olhando quando aperta um controle.
+     */
+    function pintarSeloDeSincronia() {
+      const selo = $('[data-arena-workbench-sync]');
+      if (!selo) return;
+      const caindo = state.conexaoAoVivo === false;
+      selo.classList.toggle('is-caindo', caindo);
+      selo.textContent = caindo ? '● reconectando' : '● sincronização ao vivo';
     }
 
     // `toggle` não borbulha: o listener é de captura no documento. Guarda a
@@ -2052,6 +2710,10 @@
 
     async function refreshDetail(roomId) {
       const data = await adminApi('arena_room_detail', { room_id: roomId });
+      // Resposta de acao que perdeu a corrida para um evento mais novo: nao
+      // repinta (ver `aceitaRevisao`).
+      trocouDeSala('painel', data.detail?.room?.id ?? null);
+      if (!aceitaRevisao('painel', data.detail?.room)) return;
       renderDetail(data.detail);
       renderReport(data.detail);
       state.detailKey = renderKey(data.detail);
@@ -2071,6 +2733,11 @@
         // (ou saiu do painel) enquanto esta leitura estava em voo.
         if (state.selectedRoomId !== roomId) return;
         state.lastDetailFetch = Date.now();
+        // Revisao mais velha que a que ja esta na tela: a leitura perdeu a
+        // corrida para um evento — descarta, em vez de voltar o painel para um
+        // estado que ja passou.
+        trocouDeSala('painel', data.detail?.room?.id ?? null);
+        if (!aceitaRevisao('painel', data.detail?.room)) return;
         // Com um dialogo aberto (corrigir, tempos, tela unica), a releitura nao
         // redesenha o fundo: o professor esta no dialogo, e redesenhar por baixo
         // troca os botoes do detalhe no exato instante do clique — um deles some
@@ -2086,6 +2753,10 @@
         renderReport(data.detail);
         restoreViewState(saved);
       } catch (error) {
+        // Sessao vencida: para o poll e avisa. Sem este ramo, o 401 caia no
+        // "mantem a ultima renderizacao" abaixo e a consulta continuava a cada
+        // 3 s, para sempre, sem ninguem saber.
+        if (error.status === 401) { sessaoExpirada(error); return; }
         if (error.status === 404) {
           // Sala removida em outro lugar: fecha o detalhe e para o poll,
           // em vez de consultar uma sala que nao existe mais (404 em loop).
@@ -2107,13 +2778,27 @@
       // A conexao e da sala aberta: o servidor so entrega o que esta sala
       // provou poder seguir. A pergunta que sobra aqui e do professor — se ele
       // ja trocou de detalhe enquanto o evento chegava.
-      state.sseOff = subscribeRoomEvents(() => {
-        if (state.selectedRoomId === roomId) refreshDetailQuiet(roomId);
-      }, eventsQuery(roomId));
+      state.sseOff = subscribeRoomEvents((acao, evento) => {
+        if (state.selectedRoomId !== roomId) return;
+        // Aviso de uma versao que a tela ja pintou nao vira consulta.
+        if (eventoAvanca('painel', evento)) refreshDetailQuiet(roomId);
+      }, eventsQuery(roomId), {
+        // Stream de volta: releitura completa do detalhe aberto (o que passou na
+        // queda pode nao ter sido visto) e o aviso de conexao sai.
+        onReconnect: () => {
+          conexaoOscilou(false);
+          if (state.selectedRoomId === roomId) refreshDetailQuiet(roomId);
+        },
+        onDrop: () => conexaoOscilou(true),
+      });
       state.detailPoll = window.setInterval(() => {
+        // Sessao caida: quem fala com o professor e a faixa, e nao uma consulta
+        // por segundo levando 401.
+        if (state.sessionLost) return;
         if (state.selectedRoomId !== roomId) return;
         if (!state.hiddenClock()) return;
         // Com SSE ativo, o poll vira batimento cardiaco: so consulta se nada chegou a tempo.
+        if (!pollDue('painel', 3000)) return;
         if (roomEventsAlive && Date.now() - state.lastDetailFetch < 6000) return;
         refreshDetailQuiet(roomId);
       }, 3000);
@@ -2157,8 +2842,16 @@
         .map((entry) => `${entry.name}${entry.plays > 1 ? ` ${entry.plays}×` : ''}`);
       return `
         <section class="arena-draw" data-arena-draw>
+          <!-- O CABEÇALHO DO SORTEIO é o do print: o ícone num ladrilho, o título
+               em caixa alta com a linha que diz para que ele serve, e a contagem
+               na ponta. Sem a linha de apoio o professor tinha de deduzir do
+               título o que o sorteio faz. -->
           <div class="arena-draw-head">
-            <h3>🎲 Sorteio da vez</h3>
+            <span class="arena-draw-icon" aria-hidden="true">🎲</span>
+            <div class="arena-draw-title">
+              <h3>Sorteio da vez</h3>
+              <p>Selecione participantes para a banca ou duelo ao vivo.</p>
+            </div>
             <span class="arena-draw-count">${total} na sala · ${progress}</span>
           </div>
           <div class="arena-draw-setup">
@@ -2525,9 +3218,272 @@
       </div>`;
     }
 
+    /**
+     * OS INDICADORES DA PARTIDA — três cartões, um número cada (LA-06).
+     *
+     * A referência abre o painel da partida com três cartões na mesma linha:
+     * quem está dentro, quantos já entregaram e como o juiz está vendo a turma.
+     * Nas salas do Modo Arena os MESMOS três lugares mostram o Juiz/Boss, a
+     * energia da turma e o acerto — é o que aquela batalha mede, e trocar o
+     * conteúdo dos cartões (não o desenho deles) é o que mantém uma linguagem só.
+     *
+     * Cada número sai do mesmo detalhe que o resto do painel lê: contagem de
+     * participantes, envios da rodada no ar e ranking da missão. Nada aqui é
+     * calculado no cliente sem lastro no servidor. O CARTÃO DA RODADA, com o
+     * cronômetro, saiu desta faixa e mora no palco da partida, logo acima — é
+     * onde a referência o põe, e é ele que decide a próxima ação.
+     */
+    function indicadoresDaPartida({ connectedCount, activeCount, rosterTotal, rounds, rodadaNoAr, rodadaPausada, exigeSalaCheia, arena }) {
+      const parte = (valor, todo) => (Number(todo) > 0 ? Math.max(0, Math.min(100, (Number(valor) / Number(todo)) * 100)) : 0);
+      const medidor = (valor) => `<span class="arena-metric-bar" aria-hidden="true"><span style="width:${valor.toFixed(1)}%"></span></span>`;
+      const faltam = Math.max(0, rosterTotal - activeCount);
+      // A RODADA DESTES CARTÕES: a que está no ar; sem ela, a ÚLTIMA que tem o
+      // que dizer (envios ou notas). Numa sala que já jogou, os cartões não
+      // podem ficar em branco: o número existe — a linha de estado, logo acima,
+      // chega a escrever "3 enviados" no mesmo instante em que o cartão dizia
+      // "sem missão no ar". Era o defeito da tela encerrada: dado da própria
+      // aula escondido atrás de um traço.
+      const rodadaDaFaixa = rodadaNoAr
+        || [...(rounds || [])].reverse().find((round) => Number(round.submitted || 0) > 0 || (round.ranking || []).length > 0)
+        || null;
+      const encerrada = !rodadaNoAr && Boolean(rodadaDaFaixa);
+      const enviados = Number(rodadaDaFaixa?.submitted || 0);
+      const abertos = rodadaDaFaixa?.status === 'open' && !rodadaPausada;
+      const digitando = abertos ? Math.max(0, activeCount - enviados) : 0;
+      const notas = (rodadaDaFaixa?.ranking || []).map((linha) => Number(linha.percent)).filter((valor) => Number.isFinite(valor));
+      const media = notas.length ? Math.round(notas.reduce((soma, valor) => soma + valor, 0) / notas.length) : null;
+      // Uma linha por cartão, e nada de parágrafo: o que falta para começar é a
+      // única coisa que muda a ação do professor, e é ela que a nota diz.
+      const fraseDeOnline = !activeCount
+        ? 'ninguém entrou ainda'
+        : (exigeSalaCheia && faltam
+          ? `faltam ${faltam} para começar`
+          : (faltam ? `${faltam} ${faltam === 1 ? 'vaga livre' : 'vagas livres'}` : 'sala completa'));
+      const cartoes = arena && arena.enabled ? `
+          <article class="arena-metric is-boss">
+            <header class="arena-metric-head">
+              <span class="arena-metric-label">Juiz / Boss</span>
+              <span class="arena-metric-value"><b>${Number(arena.boss?.health ?? 0)}</b><i>/${Number(arena.boss?.max_health ?? 0)}</i></span>
+            </header>
+            ${arenaHeartsMarkup(arena)}
+            <p class="arena-metric-note">${arena.boss?.defeated ? 'derrotado' : `${Number(arena.boss?.health ?? 0)} ${Number(arena.boss?.health ?? 0) === 1 ? 'coração' : 'corações'} restantes`}</p>
+          </article>
+          <article class="arena-metric is-energy">
+            <header class="arena-metric-head">
+              <span class="arena-metric-label">Energia da turma</span>
+              <span class="arena-metric-value"><b>${Number(arena.energy?.current ?? 0)}</b><i> EP</i></span>
+            </header>
+            ${arenaEnergyMarkup(arena)}
+            <p class="arena-metric-note">${Number((arena.energy?.powers || []).length)} poder(es) pronto(s)</p>
+          </article>
+          <article class="arena-metric is-accuracy">
+            <header class="arena-metric-head">
+              <span class="arena-metric-label">Acerto da turma</span>
+              <span class="arena-metric-value"><b>${arena.dynamic?.result?.percent != null ? `${Math.round(Number(arena.dynamic.result.percent))}%` : '—'}</b></span>
+            </header>
+            ${arenaAccuracyMarkup(arena.dynamic && arena.dynamic.result)}
+            <p class="arena-metric-note">calculado em tempo real</p>
+          </article>` : `
+          <article class="arena-metric is-online">
+            <header class="arena-metric-head">
+              <span class="arena-metric-label">Conectados</span>
+              <span class="arena-metric-value"><b>${connectedCount}</b><i>/ ${rosterTotal}</i></span>
+            </header>
+            ${medidor(parte(connectedCount, rosterTotal))}
+            <p class="arena-metric-note">${activeCount} inscritos · ${esc(fraseDeOnline)}</p>
+          </article>
+          <article class="arena-metric is-submits">
+            <header class="arena-metric-head">
+              <span class="arena-metric-label">Envios de prompts</span>
+              <span class="arena-metric-value"><b>${rodadaDaFaixa ? enviados : '—'}</b><i>${rodadaDaFaixa ? `/ ${activeCount}` : ''}</i></span>
+            </header>
+            ${medidor(rodadaDaFaixa ? parte(enviados, activeCount) : 0)}
+            <p class="arena-metric-note">${rodadaDaFaixa
+              ? `${parte(enviados, activeCount).toFixed(0)}% concluído${digitando ? ` · ${digitando} digitando` : ''}`
+              : 'abra a missão para acompanhar'}</p>
+          </article>
+          <article class="arena-metric is-judge">
+            <header class="arena-metric-head">
+              <span class="arena-metric-label">Média do juiz</span>
+              <span class="arena-metric-value"><b>${media != null ? `${media}%` : '—'}</b></span>
+            </header>
+            ${medidor(media ?? 0)}
+            <p class="arena-metric-note">${notas.length
+              ? `${notas.length} ${notas.length === 1 ? 'avaliado' : 'avaliados'}${encerrada ? ' · última missão' : ''}`
+              : 'nada avaliado nesta missão'}</p>
+          </article>`;
+      return `
+        <section class="arena-metrics" aria-label="Indicadores da partida">${cartoes}
+        </section>`;
+    }
+
+    /**
+     * A LEITURA DA PARTIDA — o que o palco diz e o que o pé do painel diz.
+     *
+     * A referência abre o painel da partida com o nome da rodada e o que está
+     * acontecendo com ela, e fecha com uma frase de uma linha que explica qual é
+     * o próximo passo ("Finalize a missão para avançar para a próxima etapa").
+     * São estas as duas frases — nenhuma delas repete contagem: lugares, envios e
+     * notas já estão na linha de estado do cabeçalho e nos indicadores logo
+     * abaixo. Cada frase sai de um dado do servidor; nenhuma é enfeite.
+     */
+    function leituraDaPartida({ room, detail, rodadaNoAr, rodadaPausada, activeCount, rosterTotal, exigeSalaCheia }) {
+      const rodadas = detail.rounds || [];
+      const total = rodadas.length || 1;
+      const proxima = rodadas.find((rodada) => rodada.status === 'pending') || null;
+      const posicao = proxima ? Number(proxima.position || 1) : 0;
+      const noAr = Boolean(rodadaNoAr);
+      const entregaram = Number(rodadaNoAr?.submitted || 0);
+      const avaliados = (rodadaNoAr?.ranking || []).length;
+      const trava = exigeSalaCheia && activeCount < rosterTotal;
+      let selo = 'SALA EM DESTAQUE';
+      let titulo = room.title;
+      let nota = '';
+      if ((detail.blockers || []).length) {
+        selo = 'ANTES DE ABRIR';
+        titulo = 'Falta o que o juiz precisa';
+        nota = 'Corrija as missões abaixo para a sala abrir.';
+      } else if (room.status === 'draft') {
+        selo = 'SALA EM RASCUNHO';
+        titulo = proxima ? `Missão ${posicao} — ${proxima.title}` : 'Sem missão nesta sala';
+        nota = proxima ? 'Abra a sala para o código aceitar alunos.' : 'Adicione a primeira missão da aula.';
+      } else if (noAr) {
+        selo = rodadaPausada
+          ? `RODADA ${Number(rodadaNoAr.position)} DE ${total} · PAUSADA`
+          : (rodadaNoAr.status === 'results'
+            ? `MISSÃO ${Number(rodadaNoAr.position)} DE ${total} · RESULTADO NA TELA`
+            : `RODADA ${Number(rodadaNoAr.position)} DE ${total} · AO VIVO`);
+        titulo = rodadaPausada
+          ? `Rodada ${Number(rodadaNoAr.position)} de ${total} — ${rodadaNoAr.title}`
+          : (rodadaNoAr.status === 'results'
+            ? `Missão ${Number(rodadaNoAr.position)} de ${total} — ${rodadaNoAr.title}`
+            : `Rodada ${Number(rodadaNoAr.position)} de ${total} — ${rodadaNoAr.title}`);
+        nota = rodadaPausada
+          ? 'Cronômetros congelados: retome para a turma voltar a escrever.'
+          : (rodadaNoAr.status === 'results'
+            ? `Notas no telão${avaliados ? ` · ${avaliados} ${avaliados === 1 ? 'avaliado' : 'avaliados'}` : ''}. Feche os resultados para seguir.`
+            : (activeCount > 0 && entregaram >= activeCount
+              ? 'Todos entregaram: encerre a rodada para fechar a missão.'
+              : 'A turma escreve até o cronômetro acabar ou você encerrar a rodada.'));
+      } else if (trava) {
+        selo = 'SALA ABERTA · ESPERANDO A TURMA';
+        titulo = 'O início espera a sala lotar';
+        nota = `Faltam ${Math.max(0, rosterTotal - activeCount)} de ${rosterTotal} lugares para o início.`;
+      } else if (['waiting', 'open', 'playing'].includes(room.status)) {
+        selo = `BATALHA DE ${rodadas.length} ${rodadas.length === 1 ? 'MISSÃO' : 'MISSÕES'}`;
+        titulo = proxima ? `Missão ${posicao} — ${proxima.title}` : room.title;
+        nota = room.status === 'playing'
+          ? 'A turma escreve até você abrir a próxima missão.'
+          : 'A missão abre no telão e no aparelho de cada aluno.';
+      } else if (room.status === 'ended') {
+        selo = 'BATALHA ENCERRADA';
+        titulo = 'As notas estão no relatório';
+        nota = 'Outra batalha mantém código e missões e zera as tentativas.';
+      }
+      return { selo, titulo, nota };
+    }
+
+    /**
+     * O ROTEIRO DE MISSÕES (referência LA-06).
+     *
+     * A referência lista as missões da sala em LINHAS: o número da posição, o
+     * nome, o que a missão é (modalidade, tempo, tentativas), as setas de ordem e
+     * o "Editar". O que o aluno recebe e o gabarito do juiz continuam ali, um
+     * clique abaixo, na dobra de cada linha — é o mesmo dado de antes, na altura
+     * em que o professor o procura, sem transformar cada missão num cartão
+     * grande.
+     *
+     * As classes e os ganchos são os mesmos de antes (`arena-round-card`,
+     * `.arena-rounds-grid`, `[data-round-timer]`, `data-round-id` e as dobras por
+     * missão): o que mudou foi o desenho da linha, não o vocabulário do cliente.
+     */
+    function roteiroDeMissoes({ room, rounds, rodadaNoAr, canEditRounds }) {
+      const abertura = `
+          <header class="arena-section-head">
+            <div class="arena-section-title">
+              <h2>Roteiro de missões</h2>
+              <p>Ordem e configuração das missões desta sala.</p>
+            </div>
+            ${canEditRounds ? '<button type="button" class="arena-section-cta" data-action="add-round">+ Adicionar do banco</button>' : ''}
+          </header>`;
+      if (!rounds.length) {
+        return `
+        <section class="arena-queue arena-roadmap" aria-label="Roteiro de missões">${abertura}
+          <p class="arena-empty">Esta sala ainda não tem missão nenhuma. Use <b>Adicionar do banco</b> aqui em cima ou o botão <b>Adicionar à sala</b> em uma aula — o que o aluno vai ver aparece nesta lista, com imagem e gabarito.</p>
+        </section>`;
+      }
+      const linhas = rounds.map((round, roundIndex) => {
+        const noAr = Boolean(rodadaNoAr && round.id === rodadaNoAr.id);
+        const faltando = round.missing || [];
+        const tentativas = Number(round.attempts || 1);
+        const segundos = Number(round.duration_seconds) || 0;
+        const criterios = round.criteria || [];
+        const avaliados = (round.ranking || []).length;
+        const enviados = Number(round.submitted || 0);
+        const pausada = round.paused_at != null && Number.isFinite(Number(round.paused_at));
+        const stats = enviados || avaliados || round.status === 'open'
+          ? `<p class="arena-round-stats"><b>${enviados}</b> ${enviados === 1 ? 'envio' : 'envios'} · <b>${avaliados}</b> ${avaliados === 1 ? 'avaliado' : 'avaliados'}${round.status === 'open'
+            ? (pausada
+              ? ' · <span class="arena-round-countdown is-paused">⏸ pausada</span>'
+              : (round.deadline_at ? ` · <span class="arena-round-countdown" data-round-countdown="${Number(round.deadline_at)}"></span>` : ''))
+            : (round.deadline_at ? ` · prazo ${new Date(Number(round.deadline_at) * 1000).toLocaleTimeString('pt-BR')}` : '')}</p>`
+          : '';
+        return `
+          <li class="arena-round-card is-${esc(round.status)}${noAr ? ' is-live' : ''}${pausada ? ' is-paused' : ''}" data-round-id="${esc(round.id)}">
+            <div class="arena-round-row">
+              <span class="arena-round-num" aria-hidden="true">${round.position}</span>
+              <div class="arena-round-head">
+                <h4 class="arena-round-title">${esc(round.title)}</h4>
+                <p class="arena-round-meta">
+                  <span class="arena-status-badge is-${esc(round.status)}">${pausada ? 'PAUSADA' : STATUS_LABELS[round.status] || round.status}</span>
+                  <span class="arena-round-kicker">${esc(MODALITY_LABELS[round.modality] || round.modality)} · ${segundos ? `${segundos}s` : 'sem tempo'} · ${tentativas} ${tentativas === 1 ? 'tentativa' : 'tentativas'}</span>
+                  <span class="arena-round-timer${segundos > 0 ? '' : ' is-untimed'}" data-round-timer title="${segundos > 0 ? 'Cronômetro desta missão' : 'Sem cronômetro: a rodada termina quando você encerrar'}">⏱ ${esc(roundTimerLabel(round))}</span>
+                  ${faltando.length ? `<span class="arena-round-missing">⚠ ${faltando.map((key) => MISSING_LABELS[key] || key).join(' · ')}</span>` : ''}
+                </p>
+                ${stats}
+              </div>
+              <div class="arena-round-manage">
+                ${canEditRounds ? `<button type="button" data-action="move-round" data-dir="up" ${roundIndex === 0 ? 'disabled' : ''} title="Mover para cima">↑</button>
+                <button type="button" data-action="move-round" data-dir="down" ${roundIndex === rounds.length - 1 ? 'disabled' : ''} title="Mover para baixo">↓</button>` : ''}
+                <button type="button" class="arena-round-edit${faltando.length ? ' is-fix' : ''}" data-action="fix-round"${faltando.length ? ` data-missing="${esc(faltando.join(','))}"` : ''} data-challenge-id="${esc(round.challenge_id || '')}">${faltando.length ? '✎ Corrigir' : 'Editar'}</button>
+                ${canEditRounds ? '<button type="button" class="arena-round-remove" data-action="remove-round">Remover da sala</button>' : ''}
+              </div>
+            </div>
+            <details class="arena-round-fold" data-fold-key="missao:${esc(round.id)}">
+              <summary>O aluno recebe</summary>
+              ${round.reference_image
+                ? `<figure class="arena-round-figure"><img src="${esc(round.reference_image)}" alt="Imagem que o aluno vai ver nesta missão" loading="lazy"></figure>`
+                : (faltando.includes('imagem') ? '<p class="arena-round-figure is-missing">FALTA IMAGEM</p>' : '')}
+              ${round.mission ? `<p class="arena-round-mission">${esc(round.mission)}</p>` : ''}
+              <p class="arena-round-limits">Limite: <b>${esc(limiteDeCaracteres(round.modality))} caracteres</b> · ${tentativas} ${tentativas === 1 ? 'tentativa' : 'tentativas'}</p>
+              ${criterios.length ? `<ul class="arena-mission-criteria" aria-label="Critérios do juiz">${criterios.map((entrada) => `<li>${esc(CRITERION_LABELS[entrada.criterion] || entrada.criterion)} ${Number(entrada.weight) || 0}%</li>`).join('')}</ul>` : ''}
+            </details>
+            ${faltando.includes('gabarito')
+              ? '<div class="arena-round-gabarito is-missing"><span>SEM GABARITO</span><p>Sem ele o juiz só compara com a missão. Use <b>Corrigir</b> acima para preencher agora.</p></div>'
+              : `<details class="arena-round-fold" data-fold-key="gabarito:${esc(round.id)}">
+              <summary>Gabarito do juiz</summary>
+              <div class="arena-round-gabarito">
+              <p>${esc(round.gabarito_text || '')}</p>
+              ${round.reference_text && round.expected_result ? `<p class="is-alt">${esc(round.expected_result)}</p>` : ''}
+              </div>
+            </details>`}
+            ${round.judge && round.judge.local
+              ? `<p class="arena-round-judge">${round.judge.local} de ${round.judge.total} nota(s) vieram do juiz local (${esc(motivoDoJuizLocal(round.judge.reasons))}).</p>`
+              : (round.judge && round.judge.total && round.judge.model
+                ? `<p class="arena-round-judge">Notas avaliadas por <b>${esc(round.judge.model)}</b>.</p>`
+                : '')}
+          </li>`;
+      }).join('');
+      return `
+        <section class="arena-queue arena-roadmap" aria-label="Roteiro de missões">${abertura}
+          <ol class="arena-rounds-grid">${linhas}</ol>
+        </section>`;
+    }
+
     function renderDetail(detail) {
       const panel = $('[data-arena-detail]');
       panel.hidden = false;
+      renderTopbarQuick();
       // Sem o código no título: ele já aparece grande no convite, e o mesmo
       // número escrito duas vezes na mesma tela não informa nada.
       $('[data-arena-detail-title]').textContent = detail.room.title;
@@ -2536,13 +3492,14 @@
       // O selo do estado subiu para o cabecalho, ao lado de "sala em destaque"
       // (LA-06): e o mesmo dado, dito uma vez so. O corpo comeca na linha de
       // numeros e termina nas acoes.
-      const estadoSlot = $('[data-arena-detail-state]');
-      if (estadoSlot) {
-        estadoSlot.textContent = STATUS_LABELS[room.status] || room.status;
-        estadoSlot.className = `arena-detail-state is-${esc(room.status)}`;
-        estadoSlot.hidden = false;
-      }
       const rosterTotal = roomClassic ? (room.expected_players || room.settings?.maxPlayers || 3) : (room.expected_players || detail.participants.filter((p) => p.active).length || 35);
+      // Sala cheia e exigencia de quem TRAVA o cadastro (`rosterLocksAtStart`, o
+      // preset Classico de 3 lugares fixos), nao da familia do juiz: o preset
+      // Turma e classico no juiz e LIVRE na entrada (o formulario ate chama a
+      // quantidade de Participantes, que o professor le como capacidade). A acao
+      // do servidor sempre olhou esta bandeira; a tela e que pedia a sala cheia
+      // e desabilitava o inicio com 3 alunos de 35.
+      const exigeSalaCheia = roomClassic && room.settings?.rosterLocksAtStart === true;
       const activeCount = detail.participants.filter((p) => p.active).length;
       const connectedCount = detail.participants.filter((p) => p.connected).length;
       const startLabel = roomClassic ? 'Iniciar batalha' : 'Iniciar missão';
@@ -2562,94 +3519,340 @@
       }).filter(Boolean).join('');
 
       const openSubmitters = new Set((current?.submitters || []).map(String));
+      // As duas leituras que o estado de cada aluno consulta: a fila do juiz (o
+      // envio que ainda não voltou com nota) e o ranking da rodada no ar.
+      const aguardandoJuiz = new Set((detail.waiting?.items || []).map((entry) => String(entry.participant_id)));
+      const notaDaRodada = new Map(((rodadaNoAr?.ranking) || []).map((entry) => [String(entry.participant_id), entry]));
 
       // O convite: código, link, QR e projeção. Na espera ele fica aberto, que é
       // quando ele serve para trazer gente; com a atividade em andamento vai para
       // uma dobra com o PIN na alça — o atrasado entra, e a missão não desce.
-      const emAtividade = ['open', 'playing'].includes(room.status);
+      // O código tem um estado, e ele muda o que o professor FAZ com ele: a sala
+      // que recebe gente, a bloqueada que recusa quem tem o número na mão e a que
+      // já fechou. Antes disso a única pista era a frase "Alunos entram com este
+      // código" — que sumia justamente durante a aula, quando o atrasado bate na
+      // porta e o professor precisa saber se ele ainda entra.
+      const recebe = podeEntrar(room, rounds);
+      const estadoDoAcesso = room.entry_blocked
+        ? { classe: 'is-bloqueado', rotulo: 'Entrada bloqueada' }
+        : (recebe ? { classe: 'is-ativo', rotulo: 'Ativo' } : { classe: 'is-encerrado', rotulo: 'Fechado' });
       // Duas colunas, como a referencia (LA-06): acesso a esquerda — codigo,
       // link, QR e projecao — e partida a direita, com o preset, a regra, a
       // rodada que esta no ar e a acao primaria. Embaixo, na coluna da partida,
       // a faixa de indicadores do modo Arena (so onde esses dados existem).
       const rodadaPausada = rodadaNoAr && rodadaNoAr.paused_at != null && Number.isFinite(Number(rodadaNoAr.paused_at));
-      const convite = `
-        <div class="arena-cockpit${roomClassic ? ' is-classic' : ''}">
-          <div class="arena-cockpit-code arena-detail-access">
-            <small>CÓDIGO DA SALA</small>
-            <p class="arena-detail-pin"><strong>${esc(formatPin(room.pin || room.code))}</strong></p>
-            ${emAtividade ? '' : '<p>Alunos entram com este código.</p>'}
-            <div class="arena-cockpit-copy-group">
+      // O estado vivo e a ação da vez: as duas perguntas que o professor faz
+      // olhando a tela. `faltam` é quem ainda não enviou na missão aberta — o
+      // número que separa "acompanhar" de "encerrar" —, e `marca` escreve no
+      // botão que executa a ação o atributo que o desenho destaca. `acao.id`
+      // vazio não marca botão nenhum, e isso é resposta: a ação é esperar.
+      const faltam = current ? Math.max(0, activeCount - openSubmitters.size) : 0;
+      const acao = acaoDaVez({
+        room, detail, current, results, pausada: rodadaPausada, startLabel, faltam,
+        // A trava do início: a mesma condição do `disabled` do botão grande.
+        trava: exigeSalaCheia && activeCount < rosterTotal,
+      });
+      const semNota = Number(detail.waiting?.total || 0);
+      // `marca` é o desenho da ação da vez: UM botão recebe o peso de primário, e
+      // é o mesmo que a célula "Próxima ação" aponta. `fix-all` fica de fora
+      // porque quem o executa é o botão da faixa de bloqueios, logo acima —
+      // repetir aqui daria dois botões para o mesmo conserto.
+      const marca = (id) => (acao.id === id ? ' data-proximo' : '');
+      const pendentes = rounds.some((round) => round.status === 'pending');
+      const travaDoInicio = exigeSalaCheia && activeCount < rosterTotal;
+      // Sala travada espera a turma: a ação existe (iniciar), mas o botão dela
+      // não pode nada. Ele fica no lugar da primária, desabilitado e com o
+      // motivo no `title` — esconder deixaria o professor procurando o que
+      // fazer, e habilitar prometeria uma partida que o servidor recusa.
+      const startTravado = travaDoInicio && ['waiting', 'open'].includes(room.status) && pendentes;
+      // A AÇÃO DA VEZ É UMA SÓ, E ELA MORA NO PALCO DA PARTIDA.
+      //
+      // A referência abre o painel da partida com o nome da rodada à esquerda e o
+      // botão grande à direita; o cabeçalho fica com os controles do MEIO da aula
+      // (pausar, encerrar a rodada, fechar o placar) e com as portas de inspeção.
+      // Antes, a primária era um ladrilho no meio deles: o professor tinha de ler
+      // a linha inteira para achar o botão que a tela estava pedindo.
+      const primario = acao.id && acao.id !== 'fix-all'
+        ? `<button type="button" class="arena-detail-primary" data-action="${esc(acao.id)}" data-proximo>${esc(acao.rotulo)}</button>`
+        : (startTravado
+          ? `<button type="button" class="arena-detail-primary" data-action="start" disabled title="Faltam ${Math.max(0, rosterTotal - activeCount)} lugares.">${esc(startLabel)}</button>`
+          : '');
+      // Os controles DA BATALHA ficam à vista, no cabeçalho: pausar, encerrar a
+      // rodada e fechar o placar são decisões do meio da aula e não podem custar
+      // dois cliques. O que já está no botão do palco sai daqui — dois controles
+      // para a mesma ação foi como esta linha virou uma lista de sete botões com
+      // o mesmo peso.
+      const secundarias = [
+        current ? (rodadaPausada
+          ? { id: 'resume-round', html: `<button type="button" data-action="resume-round">${ROTULOS_DA_BATALHA.resumeRound}</button>` }
+          : { id: 'pause-round', html: '<button type="button" data-action="pause-round">Pausar missão</button>' }) : null,
+        current ? { id: 'end-round', html: `<button type="button" data-action="end-round">${ROTULOS_DA_BATALHA.endRound}</button>` } : null,
+        results ? { id: 'close-round', html: `<button type="button" data-action="close-round">${ROTULOS_DA_BATALHA.closeRound}</button>` } : null,
+        room.status === 'playing' && !current && !results && pendentes
+          ? { id: 'start', html: `<button type="button" data-action="start">${esc(startLabel)}</button>` } : null,
+      ].filter((entrada) => entrada && entrada.id !== acao.id);
+      // O selo do estado sobe para o cabeçalho: ele e a linha de números leem o
+      // MESMO rótulo, e a pausa da rodada informa melhor a decisão imediata do
+      // que o estado técnico "Em jogo".
+      const estado = estadoDaSala({
+        room, exigeSalaCheia, activeCount, rosterTotal,
+        pendentes: (detail.rounds || []).some((round) => round.status === 'pending'),
+      });
+      // O ESTADO VIVO DA RODADA, escrito no mesmo rótulo do selo: com uma missão
+      // no ar, "Em jogo" sozinho não diz qual delas, e é essa a pergunta que o
+      // professor faz no meio da aula. Pausa e resultados entram pelo mesmo
+      // caminho — são os dois instantes em que o relógio não corre mais.
+      const estadoVivo = !rodadaNoAr
+        ? (room.status === 'playing' ? 'Entre rodadas' : '')
+        : rodadaPausada
+          ? 'Pausada'
+          : rodadaNoAr.status === 'results'
+            ? `Missão ${Number(rodadaNoAr.position)} · resultados no ar`
+            : `Missão ${Number(rodadaNoAr.position)} de ${rounds.length}`;
+      const estadoSlot = $('[data-arena-detail-state]');
+      if (estadoSlot) {
+        // O selo é TAMBÉM a célula de estado da faixa (`arena-state-cell
+        // is-estado`): é ele que os portões leem para conferir que a tela diz
+        // em que pé a sala está. O `<b>` é o valor, como nas outras células — o
+        // desenho já o escrevia no `textContent` e o portão não tinha o que ler.
+        // O rótulo vivo SÓ entra quando acrescenta alguma coisa: na rodada
+        // pausada o valor base já é "Pausada" e o vivo também — o selo saía
+        // escrito duas vezes ("Pausada · Pausada"), que é a repetição que o
+        // plano proíbe. Mesma regra para qualquer estado em que os dois
+        // coincidam: repetir não informa.
+        const rotuloEstado = rodadaPausada ? 'Pausada' : estado.texto;
+        const vivo = estadoVivo && estadoVivo !== rotuloEstado ? estadoVivo : '';
+        estadoSlot.innerHTML = `<b>${esc(rotuloEstado)}${vivo ? ` · ${esc(vivo)}` : ''}</b>`;
+        estadoSlot.className = `arena-detail-state arena-state-cell is-estado is-${esc(estado.classe)}`;
+        estadoSlot.hidden = false;
+      }
+      // A LINHA DE NÚMEROS DO CABEÇALHO (referência LA-06). São as contagens que
+      // o professor lê em voz alta para a turma — quem está dentro, quantos estão
+      // conectados, em que rodada a aula está e quantos já entregaram. O estado
+      // técnico mora no selo ao lado do título; aqui fica só número com o nome do
+      // dado, que é o que a referência escreve ("28 participantes · 24 conectados
+      // · Rodada 1 de 3"). O chip do tempo é o único controle da linha: ele ajusta
+      // a duração sugerida das missões antes de a sala abrir.
+      // A LINHA DE NÚMEROS DA REFERÊNCIA ("3 participantes · 3 conectados ·
+      // Rodada 1 de 4") e a AÇÃO DA VEZ fechando a linha. A ação é a MESMA frase
+      // do botão que a executa, escrita uma vez só em `acaoDaVez` — uma pílula
+      // que prometesse "Encerrar rodada" em cima de um botão escrito "Fechar
+      // resultados" é o defeito que o portão do painel existe para pegar. Sem
+      // rótulo (a ação é esperar) a pílula não nasce: uma célula vazia no lugar
+      // de uma frase é pior que nenhuma célula.
+      // A LINHA DE NÚMEROS CARREGA DADO, E SÓ.
+      //
+      // Ela já carregou também a pílula da vez (221 px) e o chip do tempo
+      // (177 px) — dois controles numa fila de quatro números. Medido em oito
+      // larguras, era isso que a faixa fazia: em 1920 cabia tudo numa linha; em
+      // 1280 o chip caía sozinho na segunda, deixando um vão à direita dele; em
+      // 1024 a linha virava quatro. Cada controle foi para o lugar onde a
+      // decisão acontece — a ação da vez ao lado do título, o tempo ao lado da
+      // configuração da partida — e a linha ficou com o que o professor lê em
+      // voz alta.
+      const faixaSlot = $('[data-arena-numbers]');
+      if (faixaSlot) {
+        faixaSlot.innerHTML = `
+            <span class="arena-state-cell is-alunos"><b>${activeCount}</b> ${activeCount === 1 ? 'participante' : 'participantes'}</span>
+            <span class="arena-state-cell is-conectados"><b>${connectedCount}</b> ${connectedCount === 1 ? 'conectado' : 'conectados'}</span>
+            ${rodadaNoAr
+              ? `<span class="arena-state-cell is-rodada"><b>Rodada ${Number(rodadaNoAr.position)}</b> de ${rounds.length}</span>`
+              : (rounds.length ? `<span class="arena-state-cell is-rodada"><b>${rounds.length}</b> ${rounds.length === 1 ? 'missão' : 'missões'}</span>` : '')}
+            ${rodadaNoAr ? `<span class="arena-state-cell is-envios"><b>${Number(rodadaNoAr.submitted || 0)}</b> ${Number(rodadaNoAr.submitted || 0) === 1 ? 'envio' : 'envios'}</span>` : ''}
+            ${semNota ? `<span class="arena-state-cell is-avaliacoes is-pendente"><b>${semNota}</b> sem nota</span>` : ''}`;
+      }
+      // A AÇÃO DA VEZ, no lugar fixo ao lado do título. A frase é a MESMA do
+      // botão que a executa, escrita uma vez só em `acaoDaVez`. Sem rótulo (a
+      // ação é esperar) o slot fica vazio e escondido: uma pílula apontando para
+      // nada é pior que pílula nenhuma.
+      const proximaSlot = $('[data-arena-proxima]');
+      if (proximaSlot) {
+        proximaSlot.innerHTML = acao.rotulo
+          ? `<span class="arena-state-cell is-proxima"><small>Próxima ação</small><b>${esc(acao.rotulo)}</b></span>`
+          : '';
+        proximaSlot.hidden = !acao.rotulo;
+      }
+      // A COLUNA DO CÓDIGO (referência LA-06): o PIN grande com o selo do acesso,
+      // as duas cópias, o QR da entrada e a porta da projeção. É a primeira
+      // coluna do cartão, e a gestão da sala fecha embaixo dela — as três ações
+      // de ciclo de vida ficam juntas, longe dos comandos da aula.
+      const ofereceAcesso = ['waiting', 'open', 'playing', 'ended'].includes(room.status);
+      const acessoDaSala = `
+            <span class="arena-code-label">Código de acesso da sala</span>
+            <div class="arena-code-line">
+              <p class="arena-detail-pin"><strong>${esc(formatPin(room.pin || room.code))}</strong></p>
+              <span class="arena-access-state ${estadoDoAcesso.classe}">${estadoDoAcesso.rotulo}</span>
+            </div>
+            <p class="arena-code-note">Compartilhe com os alunos para entrarem na sala.</p>
+            <div class="arena-code-copy">
               <button type="button" class="arena-copy-code" data-action="copy-code" data-code="${esc(room.pin || room.code)}">Copiar código</button>
-              <button type="button" class="arena-copy-code arena-copy-link" data-action="copy-link" data-link="${window.location.origin}/play?pin=${encodeURIComponent(room.pin || room.code)}">🔗 Copiar link</button>
+              <button type="button" class="arena-copy-link" data-action="copy-link" data-link="${window.location.origin}/play?pin=${encodeURIComponent(room.pin || room.code)}">Copiar link</button>
             </div>
             <div class="arena-qr-entry" data-qr-entry hidden>
-              <small>ACESSO RÁPIDO</small>
-              <img class="arena-qr-entry-img" alt="QR code — abrir a tela de entrada dos alunos no celular">
-              <span class="arena-qr-entry-url" data-qr-entry-url></span>
+              <img class="arena-qr-entry-img" alt="QR code — abre a tela de entrada dos alunos no celular">
+              <div class="arena-qr-entry-text">
+                <small>Acesso rápido</small>
+                <span class="arena-qr-entry-url" data-qr-entry-url></span>
+              </div>
             </div>
-            <a class="arena-tv-open" href="#" data-action="open-tv">📺 Abrir tela de projeção →</a>
-          </div>
-          <div class="arena-cockpit-info arena-detail-match">
-            <header class="arena-detail-match-head">
-              <span class="arena-preset-chip is-${esc(room.preset || '')}">${PRESET_LABELS[room.preset] || (room.preset || 'sala')}</span>
-              <span class="arena-detail-seats">${activeCount} de ${rosterTotal} lugares</span>
-            </header>
-            <div class="arena-cockpit-rules">
-              <strong>${esc(rulesSummary(room))}</strong>
-            </div>
-            ${rodadaNoAr ? `<article class="arena-detail-current is-${esc(rodadaNoAr.status)}">
-              <span class="arena-detail-current-kicker">MISSÃO ${rodadaNoAr.position} — ${MODALITY_LABELS[rodadaNoAr.modality] || rodadaNoAr.modality}</span>
-              <h4>${esc(rodadaNoAr.title)}</h4>
-              <p>${esc(STATUS_LABELS[rodadaNoAr.status] || rodadaNoAr.status)} · ${rodadaPausada
-                ? '⏸ pausada'
-                : (rodadaNoAr.status === 'open' && rodadaNoAr.deadline_at
-                  ? `⏱ <span class="arena-round-countdown" data-round-countdown="${Number(rodadaNoAr.deadline_at)}"></span>`
-                  : `⏱ ${esc(roundTimerLabel(rodadaNoAr))}`)}</p>
-            </article>` : ''}
-            ${['waiting', 'open'].includes(room.status) && rounds.some((round) => round.status === 'pending') ? `
-              <div class="arena-cockpit-start arena-detail-start">
-                <p>${roomClassic
-                  ? (activeCount >= rosterTotal
-                    ? 'Sala cheia — todos os lugares preenchidos. É só começar.'
-                    : `Aguardando jogadores... <b>${activeCount} / ${rosterTotal}</b>`)
-                  : (activeCount
-                    ? 'Pode começar quando quiser; quem não entrar até o fim do round é zerado.'
-                    : 'Aguardando o primeiro jogador entrar...')}</p>
-                <button type="button" class="figma-cta figma-cta-blue arena-start-big" data-action="start"${roomClassic && activeCount < rosterTotal ? ' disabled' : ''}>▶ ${startLabel}</button>
-              </div>` : ''}
-            ${arena && arena.enabled ? `<div class="arena-detail-stats">
-              <article class="arena-stat-card is-boss">
-                <small>☠️ JUIZ IA</small>
-                <strong>${Number(arena.boss?.health ?? 0)}<i>/${Number(arena.boss?.max_health ?? 0)}</i></strong>
-                ${arenaHeartsMarkup(arena)}
-                <span>${arena.boss?.defeated ? 'derrotado' : `${Number(arena.boss?.health ?? 0)} de ${Number(arena.boss?.max_health ?? 0)} corações`}</span>
-              </article>
-              <article class="arena-stat-card is-energy">
-                <small>⚡ ENERGIA DA TURMA</small>
-                ${arenaEnergyMarkup(arena)}
-              </article>
-              <article class="arena-stat-card is-accuracy">
-                <small>ACERTO DA TURMA</small>
-                ${arenaAccuracyMarkup(arena.dynamic && arena.dynamic.result)}
-              </article>
-            </div>` : ''}
-          </div>
-        </div>`;
-
-      // A ordem das camadas é a da decisão: primeiro o estado e o que dá para
-      // fazer agora, depois o convite (que vira dobra quando a aula já começou) e
-      // só então os painéis longos. Antes o convite vinha em cima e empurrava o
-      // estado para baixo dele — o botão principal ficava 299px acima do estado
-      // que ele muda.
-      const blocoConvite = ['waiting', 'open', 'playing'].includes(room.status)
-        ? (emAtividade
-          ? `<details class="arena-invite-fold" data-fold-key="convite">
-          <summary>Convite da sala — <b>${esc(formatPin(room.pin || room.code))}</b></summary>
-          ${convite}
-        </details>`
-          : convite)
+            <button type="button" class="arena-hero-action arena-tv-open arena-projection" data-action="open-tv">Abrir tela de projeção →</button>`;
+      const gerirDaSala = `
+            <div class="arena-room-management" aria-label="Gerenciar sala">
+              <button type="button" data-action="room-edit">Editar</button>
+              <button type="button" data-action="room-block"${room.status === 'ended' ? ' disabled title="A entrada já está encerrada"' : ''}>${room.entry_blocked ? 'Liberar' : 'Bloquear'}</button>
+              <button type="button" class="is-danger" data-action="delete"${['draft', 'waiting', 'archived'].includes(room.status) ? '' : ' disabled title="Encerre e arquive a sala antes de excluir"'}>Excluir</button>
+            </div>`;
+      const slotAcesso = $('[data-arena-hero-access]');
+      if (slotAcesso) {
+        // A sala em RASCUNHO ainda não tem PIN: ela mostra só a gestão, porque um
+        // número para digitar que não abre nada é a promessa vazia que o selo do
+        // acesso existe para não fazer.
+        slotAcesso.innerHTML = ofereceAcesso ? `${acessoDaSala}${gerirDaSala}` : gerirDaSala;
+        slotAcesso.hidden = false;
+      }
+      // O PAINEL DA PARTIDA (referência LA-06, coluna da direita): o preset e os
+      // lugares numa linha, o palco da rodada com a ação da vez, os três
+      // indicadores e a frase que diz o próximo passo. O relógio do palco exporta
+      // o mesmo `data-round-countdown` que o contador do cliente procura — só
+      // mudou de casa, para o lado da decisão.
+      const leitura = leituraDaPartida({ room, detail, rodadaNoAr, rodadaPausada, activeCount, rosterTotal, exigeSalaCheia });
+      const relogioDoPalco = rodadaPausada
+        ? 'cronômetro pausado'
+        : (rodadaNoAr && rodadaNoAr.status === 'open'
+          ? (rodadaNoAr.deadline_at
+            ? `<b data-round-countdown="${Number(rodadaNoAr.deadline_at)}"></b> restantes`
+            : 'sem cronômetro')
+          : (rodadaNoAr ? esc(STATUS_LABELS[rodadaNoAr.status] || rodadaNoAr.status) : ''));
+      const metaDoPalco = rodadaNoAr
+        ? `Missão ativa · ${esc(MODALITY_LABELS[rodadaNoAr.modality] || rodadaNoAr.modality)}${relogioDoPalco ? ` · ${relogioDoPalco}` : ''}`
         : '';
+      const vagas = Number(room.expected_players || room.settings?.maxPlayers || rosterTotal) || rosterTotal;
+      const livres = Math.max(0, vagas - activeCount);
+      const slotMatch = $('[data-arena-detail-match]');
+      if (slotMatch) {
+        slotMatch.innerHTML = `
+        <header class="arena-match-head">
+          <span class="arena-match-preset">${esc(PRESET_LABELS[room.preset] || room.preset || 'Sala')}</span>
+          <span class="arena-match-places">${activeCount} ${activeCount === 1 ? 'lugar usado' : 'lugares usados'} · ${livres} ${livres === 1 ? 'disponível' : 'disponíveis'}</span>
+          ${room.status === 'ended' && canStartNewBattle(room, detail)
+            ? `<button type="button" class="arena-match-replay" data-action="new-battle">↻ ${esc(ROTULOS_DA_BATALHA.newBattle)}</button>` : ''}
+        </header>
+        <article class="arena-match-stage${rodadaNoAr ? ' is-live' : ''}${rodadaPausada ? ' is-pausada' : ''}">
+          <div class="arena-match-text">
+            <p class="arena-match-kicker">${esc(leitura.selo)}</p>
+            <h2 class="arena-match-title">${esc(leitura.titulo)}</h2>
+            ${metaDoPalco ? `<p class="arena-match-meta">${metaDoPalco}</p>` : ''}
+          </div>
+          ${primario}
+        </article>
+        ${indicadoresDaPartida({ connectedCount, activeCount, rosterTotal, rounds, rodadaNoAr, rodadaPausada, exigeSalaCheia, arena })}
+        <footer class="arena-match-foot">
+          <span class="arena-match-note">${esc(leitura.nota)}</span>
+          <!-- O TEMPO DAS MISSÕES É CONFIGURAÇÃO, e fica ao lado do que configura
+               a partida. Ele já foi um chip solto no fim da linha de números, no
+               meio de dados que o professor só lê — ninguém procura "ajustar o
+               tempo" embaixo de "0 envios" —, e era ele (177 px) que empurrava a
+               linha de números para uma segunda fileira em 1280 px. -->
+          <div class="arena-match-setup">
+            ${rounds.length ? `<button type="button" class="arena-timing-chip" data-action="room-timing" data-room-timing title="Quanto tempo cada missão leva: aceite as sugestões ou ajuste antes de abrir a sala.">⏱ ${esc(timingSummary(detail.timing))}<span class="arena-timing-chip-edit">ajustar</span></button>` : ''}
+            <button type="button" class="arena-match-config" data-action="room-edit">⚙ Configuração da partida</button>
+          </div>
+        </footer>`;
+      }
+      // AS PORTAS DA SALA abrem a MESMA sala que está em destaque, e por isso
+      // apontam para a prévia do aluno e a projeção DELA (slots escritos por
+      // renderTopbarQuick). O que fecha a conta da aula — encerrar a sala e
+      // arquivar — fica no fim da linha, onde a referência põe o botão vermelho.
+      // OS CONTROLES DA BATALHA ficam à vista, na linha de comando do cabeçalho:
+      // pausar, encerrar a rodada e fechar o placar são decisões do meio da aula
+      // e não podem custar dois cliques. Eles não tinham casa nenhuma — a lista
+      // existia no cliente e ninguém a escrevia na tela, e era essa a razão de a
+      // sala em jogo aparecer sem um botão para encerrar a rodada. O que já é o
+      // botão do palco sai daqui: dois controles para a mesma ação foi como esta
+      // linha virou uma lista de sete botões com o mesmo peso.
+      const slotBatalha = $('[data-arena-hero-actions]');
+      if (slotBatalha) {
+        slotBatalha.innerHTML = secundarias.map((entrada) => entrada.html).join('');
+        slotBatalha.hidden = secundarias.length === 0;
+      }
+      const slotDanger = $('[data-arena-room-danger]');
+      if (slotDanger) {
+        slotDanger.hidden = !['playing', 'ended'].includes(room.status);
+        slotDanger.innerHTML = [
+          room.status === 'playing' ? '<button type="button" class="is-danger" data-action="end-room">Encerrar sala</button>' : '',
+          room.status === 'ended' ? '<button type="button" data-action="archive">Arquivar</button>' : '',
+        ].join('');
+      }
 
+      // A LISTA DE ALUNOS, linha por linha, com o selo da missão e a chave do
+      // filtro. A referência clara põe três filtros sobre a lista (enviados,
+      // respondendo, precisando de atenção), e no meio da aula é isso que o
+      // professor usa: com trinta alunos, "quem ainda não entregou" é a
+      // pergunta, e rolar a tabela procurando o selo é o trabalho que o filtro
+      // tira.
+      //
+      // O filtro é do CLIENTE — nenhuma rota, nenhuma releitura: ele lê o MESMO
+      // estado que a linha já escreve (`data-aluno-estado`, a classe do selo da
+      // missão) e as contagens saem das próprias linhas. O que ele guarda
+      // (`state.filtroDeAlunos`) sobrevive ao redesenho de cada poll, como a
+      // escolha das dobras.
+      const filtroDoAluno = (classe) => {
+        if (['is-enviou', 'is-avaliado', 'is-avaliando'].includes(classe)) return 'enviados';
+        if (classe === 'is-escrevendo') return 'respondendo';
+        if (['is-desconectado', 'is-removido', 'is-sem-nota'].includes(classe)) return 'atencao';
+        return '';
+      };
+      const contagemDeFiltro = { todos: detail.participants.length, enviados: 0, respondendo: 0, atencao: 0 };
+      const linhasDeAluno = detail.participants.map((participant) => {
+        const aluno = estadoDoAluno(participant, {
+          emMissao: Boolean(rodadaNoAr),
+          emAberto: Boolean(current),
+          enviaram: openSubmitters,
+          aguardando: aguardandoJuiz,
+          nota: notaDaRodada,
+        });
+        const estadoDaCelula = aluno.missao ? aluno.missao.classe : aluno.classe;
+        const chaveDoFiltro = filtroDoAluno(estadoDaCelula);
+        if (chaveDoFiltro) contagemDeFiltro[chaveDoFiltro] += 1;
+        return `
+                <tr class="${aluno.classe}" data-aluno-estado="${esc(estadoDaCelula)}">
+                  <td data-label="Aluno"><span class="arena-student-name"><span class="arena-student-avatar" aria-hidden="true">${esc(iniciaisDoNome(participant.name))}</span><strong>${esc(participant.name)}</strong></span></td>
+                  <td data-label="Estado"><span class="arena-student-state ${aluno.classe}"><i aria-hidden="true"></i>${aluno.rotulo}</span></td>
+                  ${rodadaNoAr ? `<td data-label="Missao">${aluno.missao ? `<span class="arena-student-mission ${aluno.missao.classe}"><span aria-hidden="true">${aluno.missao.icone}</span>${aluno.missao.rotulo}</span>` : ''}</td>` : ''}
+                  <td class="arena-student-clock" data-label="Entrou">${new Date(Number(participant.joined_at) * 1000).toLocaleTimeString('pt-BR')}</td>
+                  <td${participant.active ? ' data-label="Acoes"' : ''}>
+                    ${participant.active ? `<details class="arena-row-tools">
+                      <summary aria-label="Ações de ${esc(participant.name)}">Gerenciar</summary>
+                      <div>
+                      <button type="button" data-action="rename-participant" data-pid="${esc(participant.id)}">Renomear</button>
+                      <button type="button" data-action="remove-participant" data-pid="${esc(participant.id)}" class="is-danger">Remover</button>
+                      </div>
+                    </details>` : ''}
+                  </td>
+                </tr>`;
+      }).join('');
+      // O SELO DO JUIZ acima da lista: a fila de avaliação é a única coisa da
+      // aula que o professor não descobre olhando os alunos. Sem fila ele diz
+      // que não há fila, em vez de sumir — sumir deixaria a dúvida no lugar da
+      // resposta.
+      const avaliadosNaRodada = (rodadaNoAr?.ranking || []).length;
+      const fraseDoJuiz = semNota
+        ? `⏳ ${semNota} na fila do juiz`
+        : (avaliadosNaRodada ? `✓ ${avaliadosNaRodada} ${avaliadosNaRodada === 1 ? 'nota' : 'notas'} do juiz` : '');
+      // O SELO DO JUIZ NÃO NASCE VAZIO. Sem fila e sem nota avaliada a frase é
+      // vazia, e o selo era uma pílula VERDE sem uma letra dentro — medido na
+      // sonda do olhar: 24×12 px nas seis larguras. Pior que o vazio era o
+      // efeito: a linha dos filtros é `space-between`, e a pílula sem conteúdo
+      // ocupava a esquerda e empurrava os quatro filtros para a linha de baixo,
+      // deixando um selo mudo acima de uma fileira de botões. Sem frase, sem
+      // selo — o `semNota` e o `is-espera` continuam valendo quando há o que
+      // dizer, que é o caso em que este selo existe para o professor.
+      const FILTROS_DA_LISTA = [
+        { chave: 'todos', rotulo: 'Todos' },
+        { chave: 'enviados', rotulo: 'Enviados' },
+        { chave: 'respondendo', rotulo: 'Respondendo' },
+        { chave: 'atencao', rotulo: 'Atenção' },
+      ];
       $('[data-arena-detail-body]').innerHTML = `
         ${(detail.blockers || []).length ? `<div class="arena-blockers" role="alert">
           <strong>⚠ Esta sala ainda não abre</strong>
@@ -2661,129 +3864,80 @@
             </li>`).join('')}
           </ul>
           <p><b>Corrigir</b> abre o desafio aqui mesmo, no campo que falta: o <b>gabarito do juiz</b> (nas missões de imagem, o prompt que gerou a imagem) ou a imagem. Missão que não vai ser usada pode sair com <b>Remover da sala</b>.</p>
-          <button type="button" class="figma-cta figma-cta-blue arena-fix-all" data-action="fix-all" data-room-id="${esc(room.id)}">✎ Preencher ${(detail.blockers || []).length === 1 ? 'esta missão' : `estas ${(detail.blockers || []).length} missões`} de uma vez</button>
+          <button type="button" class="figma-cta figma-cta-blue arena-fix-all" data-action="fix-all" data-room-id="${esc(room.id)}"${marca('fix-all')}>✎ Preencher ${(detail.blockers || []).length === 1 ? 'esta missão' : `estas ${(detail.blockers || []).length} missões`} de uma vez</button>
         </div>` : ''}
-        <div class="arena-detail-head">
-          <p class="arena-detail-meta">
-            <span><b>${activeCount}</b> participantes</span>
-            <span class="arena-detail-dot" aria-hidden="true">•</span>
-            <span><b>${connectedCount}</b> ${connectedCount === 1 ? 'conectado' : 'conectados'}</span>
-            ${rodadaNoAr ? `<span class="arena-detail-dot" aria-hidden="true">•</span>
-            <span>Rodada <b>${rodadaNoAr.position}</b> de <b>${rounds.length}</b></span>` : ''}
-            ${rounds.length ? `<span class="arena-detail-dot" aria-hidden="true">•</span>
-            <button type="button" class="arena-timing-chip" data-action="room-timing" data-room-timing title="Quanto tempo cada missão leva: aceite as sugestões ou ajuste antes de abrir a sala.">⏱ ${esc(timingSummary(detail.timing))}<span class="arena-timing-chip-edit">ajustar</span></button>` : ''}
-          </p>
-          <div class="arena-room-card-actions">
-            <a class="arena-preview-open" href="/aluno-preview.php?room=${encodeURIComponent(room.id)}" target="_blank" rel="noopener">👁 Ver como o aluno</a>
-            <a class="arena-preview-open is-tv is-primary" href="/tv-preview.php?room=${encodeURIComponent(room.id)}" target="_blank" rel="noopener">📺 Ver na TV</a>
-            ${current ? (current.paused_at != null && Number.isFinite(Number(current.paused_at))
-              ? '<button type="button" data-action="resume-round">▶ Retomar missão</button>'
-              : '<button type="button" data-action="pause-round">⏸ Pausar missão</button>')
-              + '<button type="button" data-action="end-round">Encerrar rodada</button>' : ''}
-            ${results ? '<button type="button" data-action="close-round">Fechar resultados</button>' : ''}
-            ${room.status === 'playing' && !current && !results && rounds.some((round) => round.status === 'pending') ? `<button type="button" data-action="start" class="is-primary">${startLabel}</button>` : ''}
-            ${room.status === 'playing' ? '<button type="button" data-action="end-room" class="is-danger">Encerrar sala</button>' : ''}
-            <details class="arena-admin-tools" data-fold-key="gerenciar">
-              <summary>Gerenciar sala</summary>
-              <div>
-              <button type="button" data-action="room-edit">Editar sala</button>
-              <button type="button" data-action="room-block">${room.entry_blocked ? 'Liberar entrada' : 'Bloquear entrada'}</button>
-            ${room.status === 'ended' ? '<button type="button" data-action="archive">Arquivar</button>' : ''}
-            ${['draft', 'waiting'].includes(room.status) ? '<button type="button" data-action="delete" class="is-danger">Excluir sala</button>' : ''}
-              </div>
-            </details>
-          </div>
-        </div>
 
-        ${blocoConvite}
+        <!-- O ROTEIRO DE MISSÕES, DEPOIS DO CARTÃO (referência LA-06).
+             A ordem é a da referência: primeiro o cartão da sala — código,
+             partida e indicadores —, e só então o que ainda vai acontecer. A
+             fila já morou na coluna da direita, espremida em 400 px enquanto a
+             página inteira tinha o dobro disso livre. -->
+        ${roteiroDeMissoes({ room, rounds, rodadaNoAr, canEditRounds })}
 
-        ${blocoDeEspera(detail.waiting, detail.participants)}
-
-        ${highlightRows ? `<div class="arena-detail-highlights">${highlightRows}</div>` : ''}
-
+        <!-- O PAINEL DA PARTIDA (Modo Arena), entre o roteiro e o sorteio.
+             Ele é a MONTAGEM DOS CONTROLES da partida — sortear, próximo,
+             reiniciar, Wild Card, ataque dinâmico, poderes e times —, e a
+             chamada de arenaPanel existia no último commit (c82359e, na mesma
+             posição, antes do drawPanel) e se perdeu na reorganização da sala
+             em destaque: o ESTADO da partida mudou para a faixa de indicadores
+             (decisão registrada), mas os controles viajaram dentro do mesmo
+             template e ficaram sem quem os montasse. Sem esta linha o professor
+             não consegue dar o poder da turma nem ver os times, e o portão da
+             tela do Modo Arena reprova por isso. arenaPanel já devolve string
+             vazia quando a sala não é do Modo Arena. -->
         ${arenaPanel(detail.arena, room)}
 
         ${drawPanel(detail.draw)}
 
-        <details class="arena-fold-block" data-fold-key="participantes"${['draft', 'waiting', 'open'].includes(room.status) ? ' open' : ''}>
-          <summary><h3>Participantes</h3></summary>
+        <!-- PARTICIPANTES DA ARENA (referência LA-06): o título em caixa alta, a
+             contagem, o selo do juiz e a porta da fila de notas na mesma linha;
+             abaixo, os filtros e a tabela com nome, estado, missão, entrada e
+             ações. É a mesa de acompanhamento da aula, e ela é de largura
+             inteira — em duas colunas ela era uma tira com rolagem por dentro. -->
+        <section class="arena-people" aria-label="Participantes da arena">
+          <header class="arena-section-head">
+            <div class="arena-section-title">
+              <span class="arena-section-icon" aria-hidden="true">👥</span>
+              <h2>Participantes da arena</h2>
+              <span class="arena-table-count">${connectedCount} de ${activeCount} conectados</span>
+            </div>
+            ${fraseDoJuiz ? `<span class="arena-judge-chip${semNota ? ' is-espera' : ''}">${esc(fraseDoJuiz)}</span>` : ''}
+            ${(detail.waiting?.items || []).length ? '<a class="arena-people-queue" href="#fila-de-avaliacoes">📥 Fila de avaliações</a>' : ''}
+          </header>
+          <p class="arena-fold-note">Digitação, envio e nota do juiz, por aluno.</p>
+          <div class="arena-students-tools">
+            <div class="arena-student-filters" data-student-filters role="group" aria-label="Filtrar participantes">
+              ${FILTROS_DA_LISTA.map((filtro) => `<button type="button" data-student-filter="${filtro.chave}"${filtro.chave === 'todos' ? ' class="is-on"' : ''} aria-pressed="${filtro.chave === 'todos'}">${esc(filtro.rotulo)} (${contagemDeFiltro[filtro.chave] || 0})</button>`).join('')}
+            </div>
+          </div>
+          ${highlightRows ? `<p class="arena-detail-highlights">${highlightRows}</p>` : ''}
           <div class="arena-table-wrap">
           <table class="arena-table">
-            <thead><tr><th>Nome</th><th>Status</th>${current ? '<th>Missao atual</th>' : ''}<th>Entrou</th><th></th></tr></thead>
+            <thead><tr><th>Nome</th><th>Status</th>${rodadaNoAr ? '<th>Missão atual</th>' : ''}<th>Entrou</th><th>Ações</th></tr></thead>
             <tbody>
-              ${detail.participants.map((participant) => `
-                <tr class="${participant.active ? '' : 'is-inactive'}">
-                  <td><strong>${esc(participant.name)}</strong></td>
-                  <td>${participant.active ? (participant.connected ? '🟢 online' : '🟡 ausente') : '🚫 removido'}</td>
-                  ${current ? `<td>${participant.active && openSubmitters.has(String(participant.id)) ? '<span class="arena-mission-done">✅ enviou</span>' : '<span class="arena-mission-waiting">⏳ escrevendo</span>'}</td>` : ''}
-                  <td>${new Date(Number(participant.joined_at) * 1000).toLocaleTimeString('pt-BR')}</td>
-                  <td>
-                    ${participant.active ? `<button type="button" data-action="rename-participant" data-pid="${esc(participant.id)}">Renomear</button> <button type="button" data-action="remove-participant" data-pid="${esc(participant.id)}" class="is-danger">Remover</button>` : ''}
-                  </td>
-                </tr>`).join('')}
+              ${linhasDeAluno}
             </tbody>
           </table>
           </div>
-        </details>
+        </section>
 
-        <div class="arena-detail-section-head">
-          <h3>Missões</h3>
-          ${['draft', 'waiting'].includes(room.status) ? '<button type="button" data-action="add-round">+ Adicionar missão</button>' : ''}
+        <!-- A FILA DE AVALIAÇÕES: quem já enviou e ainda não tem nota. Ela tem
+             casa própria, e o link do cartão dos participantes aponta para cá —
+             a pergunta ("quem ainda está sem nota?") nasce na lista de alunos. -->
+        ${(detail.waiting?.items || []).length ? `<section class="arena-notes" id="fila-de-avaliacoes" aria-label="Fila de avaliações">
+          ${blocoDeEspera(detail.waiting, detail.participants)}
+        </section>` : ''}
+
+        <!-- A CLASSIFICAÇÃO GERAL GANHA CASA (plano LA-06).
+             Ela era um <h3> e uma lista soltos no corpo do detalhe, na largura
+             inteira da sala, enquanto todo o resto mora dentro de um cartão. É o
+             mesmo dado no mesmo desenho dos outros blocos: quem lê a tela de
+             cima para baixo não encontra uma seção sem casa no meio das que
+             têm. -->
+        <section class="arena-ranking-card" aria-label="Classificação geral">
+        <div class="arena-section-head">
+        <h2>Classificação geral</h2>
         </div>
-        ${rounds.length ? `<div class="arena-rounds-grid">${rounds.map((round, roundIndex) => `
-          <article class="arena-round-card is-${esc(round.status)}${round.paused_at != null && Number.isFinite(Number(round.paused_at)) ? ' is-paused' : ''}" data-round-id="${esc(round.id)}">
-            <div class="arena-round-row">
-            ${round.reference_image || (round.missing || []).includes('imagem') ? `<div class="arena-round-preview">
-              ${round.reference_image
-                ? `<img src="${esc(round.reference_image)}" alt="Imagem que o aluno vai ver nesta missão" loading="lazy">`
-                : '<span class="arena-round-preview-empty">FALTA IMAGEM</span>'}
-            </div>` : ''}
-            <span class="arena-round-num" aria-hidden="true">${round.position}</span>
-            <div class="arena-round-head">
-              <h4 class="arena-round-title">${esc(round.title)}</h4>
-              <p class="arena-round-meta">
-                <span class="arena-status-badge is-${esc(round.status)}">${round.paused_at != null && Number.isFinite(Number(round.paused_at)) ? 'PAUSADA' : STATUS_LABELS[round.status] || round.status}</span>
-                <span class="arena-round-kicker">MISSAO ${round.position} — ${MODALITY_LABELS[round.modality] || round.modality}</span>
-                <span class="arena-round-timer${Number(round.duration_seconds) > 0 ? '' : ' is-untimed'}" data-round-timer title="${Number(round.duration_seconds) > 0 ? 'Cronômetro desta missão' : 'Sem cronômetro: a rodada termina quando você encerrar'}">⏱ ${esc(roundTimerLabel(round))}</span>
-                ${(round.missing || []).length ? `<span class="arena-round-missing">⚠ ${(round.missing || []).map((key) => MISSING_LABELS[key] || key).join(' · ')}</span>` : ''}
-              </p>
-            </div>
-            ${canEditRounds || (round.missing || []).length ? `<div class="arena-round-manage">
-              ${(round.missing || []).length ? `<button type="button" data-action="fix-round" class="is-fix" title="Abrir este desafio em edição, no campo que falta" data-challenge-id="${esc(round.challenge_id)}" data-missing="${esc((round.missing || []).join(','))}">✎ Corrigir</button>` : ''}
-              ${canEditRounds ? `<button type="button" data-action="move-round" data-dir="up" ${roundIndex === 0 ? 'disabled' : ''} title="Mover para cima">↑</button>
-              <button type="button" data-action="move-round" data-dir="down" ${roundIndex === rounds.length - 1 ? 'disabled' : ''} title="Mover para baixo">↓</button>
-              <button type="button" data-action="remove-round" class="is-danger">Remover da sala</button>` : ''}
-            </div>` : ''}
-            </div>
-            ${round.mission ? `<details class="arena-round-fold" data-fold-key="missao:${esc(round.id)}">
-              <summary>O aluno recebe</summary>
-              <p class="arena-round-mission">${esc(round.mission)}</p>
-            </details>` : ''}
-            ${(round.missing || []).includes('gabarito')
-              ? '<div class="arena-round-gabarito is-missing"><span>SEM GABARITO</span><p>Sem ele o juiz só compara com a missão. Use <b>Corrigir</b> abaixo para preencher agora.</p></div>'
-              : `<details class="arena-round-fold" data-fold-key="gabarito:${esc(round.id)}">
-              <summary>Gabarito do juiz</summary>
-              <div class="arena-round-gabarito">
-              <p>${esc(round.gabarito_text || '')}</p>
-              ${round.reference_text && round.expected_result ? `<p class="is-alt">${esc(round.expected_result)}</p>` : ''}
-              </div>
-            </details>`}
-            <p><b>${round.submitted}</b> envios · <b>${round.scored}</b> avaliados
-              ${round.status === 'open'
-                ? (round.paused_at != null && Number.isFinite(Number(round.paused_at))
-                  ? ' · <span class="arena-round-countdown is-paused">⏸ pausada</span>'
-                  : (round.deadline_at ? ` · <span class="arena-round-countdown" data-round-countdown="${Number(round.deadline_at)}"></span>` : ''))
-                : (round.deadline_at ? ` · prazo ${new Date(Number(round.deadline_at) * 1000).toLocaleTimeString('pt-BR')}` : '')}</p>
-            ${round.judge && round.judge.local
-              ? `<p>${round.judge.local} de ${round.judge.total} nota(s) vieram do juiz local (${esc(motivoDoJuizLocal(round.judge.reasons))}).</p>`
-              : (round.judge && round.judge.total && round.judge.model
-                ? `<p>Notas avaliadas por <b>${esc(round.judge.model)}</b>.</p>`
-                : '')}
-            ${round.ranking.length ? `<ol class="arena-mini-ranking">${round.ranking.slice(0, 5).map((entry) => `
-              <li><span>${entry.position}º</span><strong>${esc(detail.participants.find((p) => p.id === entry.participant_id)?.name || 'Participante')}</strong><em>${Math.round(Number(entry.percent))} pts</em></li>`).join('')}</ol>` : '<p class="arena-empty">Sem pontuação ainda.</p>'}
-          </article>`).join('')}</div>` : `<p class="arena-empty">Esta sala ainda não tem missão nenhuma. Use <b>Adicionar missão</b> aqui em cima ou o botão <b>Adicionar à sala</b> em uma aula — o que o aluno vai ver aparece nesta lista, com imagem e gabarito.</p>`}
-
-        <h3>Classificação geral</h3>
         ${(detail.ranking || []).length ? `<ol class="arena-mini-ranking is-evolution">${detail.ranking.map((row) => {
           const evolution = (row.evolution || []).map((entry, index) => {
             const prev = (row.evolution || [])[index - 1];
@@ -2793,13 +3947,28 @@
           }).join(' · ');
           return `<li><span>${row.position}º</span><strong>${esc(row.name)}</strong><em>${Number(row.total_points ?? row.points_sum ?? row.avg_percent).toLocaleString('pt-BR', { maximumFractionDigits: 2 })} pts</em>${evolution ? `<small>${evolution}</small>` : ''}</li>`;
         }).join('')}</ol>` : '<p class="arena-empty">Ainda sem pontuação.</p>'}
+        </section>
       `;
       startAdminCountdown(rounds, Number(detail.server_now));
       aplicarDobras();
+      // As duas escolhas que o redesenho não pode perder: o filtro da lista de
+      // alunos (quem o professor está olhando) e o selo da sincronia (o estado
+      // da conexão, que o markup escreve e o evento reescreve).
+      aplicarFiltroDeAlunos();
+      pintarSeloDeSincronia();
       // QR da tela de entrada dos alunos: escaneia no celular e abre /play
       // (PIN + nome continuam digitados, como no Kahoot). Cache por sala para
       // nao re-gerar a cada poll do detalhe.
-      if (['waiting', 'open', 'playing'].includes(room.status)) {
+      // O QR vive no CABEÇALHO e é escrito uma vez por sala: quem sai da sala de
+      // uma aula e olha a de outra não pode ver o QR antigo — código errado é pior
+      // que código nenhum. Por isso a sala que não recebe gente ESCONDE o QR, e
+      // não só deixa de escrevê-lo.
+      // Ele segue a MESMA regra do selo do código (`ofereceAcesso`), e não uma
+      // lista própria: na sala encerrada ele ficava escondido ao lado de um
+      // "Copiar link do aluno" aceso, e os dois apontam para o MESMO endereço.
+      const entrySlotForaDoAr = $('[data-qr-entry]');
+      if (entrySlotForaDoAr && !ofereceAcesso) entrySlotForaDoAr.hidden = true;
+      if (ofereceAcesso) {
         const currentRoomId = state.selectedRoomId;
         const entrySlot = $('[data-qr-entry]');
         if (entrySlot) {
@@ -2886,7 +4055,248 @@
       `;
     }
 
-    async function roomAction(action, roomId, extra = {}) {
+    /**
+     * A sala já tem uma batalha para repetir?
+     *
+     * O criterio é o mesmo do servidor: alguma rodada da batalha viva saiu de
+     * `pending` (alguém já jogou algo) e a sala não está em rascunho nem
+     * arquivada. Sem isso o botão prometeria uma coisa que a ação recusa.
+     */
+    function canStartNewBattle(room, detail) {
+      if (!room || room.status === 'draft' || room.status === 'archived') return false;
+      return Number(detail?.battle?.rounds_played || 0) > 0;
+    }
+
+    /**
+     * O estado da SALA na língua do professor.
+     *
+     * A coluna do banco tem `waiting`, `open`, `playing`; o professor pergunta
+     * outra coisa — "já posso começar?". Enquanto falta gente, a sala que espera
+     * é "Aguardando participantes". Quando a condição de início está satisfeita
+     * ela vira "Pronta para começar", e a condição é a do PRESET, não um número
+     * solto: o Clássico trava o cadastro nos lugares da sala (os três fixos da
+     * batalha), e os presets livres aceitam quem entra até o fim da rodada — por
+     * isso a sala livre fica pronta com o primeiro aluno, que é exatamente o que
+     * o cockpit escreve em prosa ("pode começar quando quiser").
+     */
+    /**
+     * A SALA RECEBE ALGUÉM AGORA? — a pergunta que o selo do código responde.
+     *
+     * É a mesma regra do servidor (`canJoinRoom`, em src/domain/room-phases.mjs),
+     * escrita aqui para a tela poder dizer o estado do código sem uma rota nova, e
+     * é a única duplicação desta frente: o professor apertando "Bloquear entrada"
+     * precisa ver a resposta no mesmo instante, e o atrasado tentando entrar pelo
+     * código precisa encontrar a mesma resposta. O portão de navegador cobra as
+     * duas juntas — o selo da tela e o que o servidor faz com o mesmo PIN.
+     *
+     * As razões de recusa que moram no ESTADO da sala, na ordem em que o servidor
+     * as aplica: sala que ainda não abriu ou já encerrou, sala em que o cadastro
+     * trava no começo (os três lugares fixos do Clássico) e sala em jogo com todas
+     * as missões fechadas.
+     *
+     * O interruptor do professor (`entry_blocked`) NÃO entra aqui, e é uma decisão:
+     * ele é campo da sala, não estado, e quem o lê é o selo, um nível acima — este
+     * corpo responde pela condição que o professor não pode adivinhar olhando o
+     * status. Repetir a checagem aqui deixava uma linha que nenhuma mutação
+     * conseguia reprovar, que é o mesmo que não estar lá.
+     */
+    function podeEntrar(room, rounds) {
+      if (!room) return false;
+      if (['draft', 'ended', 'archived'].includes(room.status)) return false;
+      if (room.status === 'waiting' || room.status === 'open') return true;
+      if (room.status !== 'playing') return false;
+      if (room.settings?.rosterLocksAtStart) return false;
+      return !(rounds.length > 0 && rounds.every((round) => round.status === 'closed'));
+    }
+
+    /**
+     * As iniciais do aluno, para a linha de participantes ter um rosto antes do
+     * nome — o desenho da referência da sala em destaque (LA-08). Sem nome não
+     * há inicial: o `?` é a ausência, dita, e não um espaço em branco no lugar
+     * onde o olho procura a letra.
+     */
+    function iniciaisDoNome(nome) {
+      const partes = String(nome || '').trim().split(/\s+/).filter(Boolean);
+      if (!partes.length) return '?';
+      const ultima = partes.length > 1 ? partes[partes.length - 1].slice(0, 1) : '';
+      return (partes[0].slice(0, 1) + ultima).toUpperCase();
+    }
+
+    /**
+     * O ESTADO DE UM ALUNO na linha de participantes, em duas perguntas: ele
+     * está conectado? e em que pé está a missão dele?
+     *
+     * As duas respostas existiam, mas espalhadas em emoji (`🟢 online`,
+     * `⏳ escrevendo`) e sem dizer o que mais importa no meio da aula: quem
+     * enviou e ainda ESPERA o juiz. `aguardando` é a fila de avaliação do
+     * servidor; `nota` é o ranking da rodada no ar. Nenhuma rota nova e nenhum
+     * número inventado — as três leituras a tela já fazia.
+     */
+    function estadoDoAluno(participante, { emMissao, emAberto, enviaram, aguardando, nota }) {
+      const chave = String(participante.id);
+      const situacao = !participante.active
+        ? { classe: 'is-removido', rotulo: 'Removido' }
+        : (participante.connected
+          ? { classe: 'is-conectado', rotulo: 'Conectado' }
+          : { classe: 'is-desconectado', rotulo: 'Desconectado' });
+      if (!emMissao || !participante.active) return situacao;
+      const comNota = nota.get(chave);
+      if (comNota) return { ...situacao, missao: { classe: 'is-avaliado', icone: '★', rotulo: `${Number(comNota.percent)}%` } };
+      if (aguardando.has(chave)) return { ...situacao, missao: { classe: 'is-avaliando', icone: '⏳', rotulo: 'Avaliando' } };
+      if (!emAberto) return { ...situacao, missao: { classe: 'is-sem-nota', icone: '—', rotulo: 'Sem nota' } };
+      return { ...situacao, missao: enviaram.has(chave)
+        ? { classe: 'is-enviou', icone: '✓', rotulo: 'Enviou' }
+        : { classe: 'is-escrevendo', icone: '✎', rotulo: 'Escrevendo' } };
+    }
+
+    function estadoDaSala({ room, exigeSalaCheia, activeCount, rosterTotal, pendentes }) {
+      const texto = STATUS_LABELS[room.status] || room.status;
+      const esperando = room.status === 'waiting' || room.status === 'open';
+      if (!esperando || !pendentes) return { texto, classe: room.status };
+      const pronta = exigeSalaCheia
+        ? rosterTotal > 0 && activeCount >= rosterTotal
+        : activeCount > 0;
+      return pronta ? { texto: 'Pronta para começar', classe: 'pronta' } : { texto, classe: room.status };
+    }
+
+    /**
+     * Os rótulos das ações que CONDUZEM a batalha, em um lugar só.
+     *
+     * Eles são repetidos de propósito em dois pontos da tela — a faixa de estado
+     * diz "a ação é esta" e o botão logo abaixo a executa —, e é aí que a frase
+     * costuma divergir: `"Encerrar rodada"` de um lado e `"Encerrar a missão"`
+     * do outro deixam o professor procurando na linha de ações um botão com
+     * outro nome. Escritos uma vez, os dois pontos não podem divergir, e o porteiro
+     * (`test/browser/painel-estado.test.mjs`) cobra que continuem idênticos.
+     */
+    const ROTULOS_DA_BATALHA = {
+      endRound: 'Encerrar rodada',
+      closeRound: 'Fechar resultados',
+      resumeRound: 'Retomar missão',
+      newBattle: 'Nova batalha nesta sala',
+    };
+
+    /**
+     * A AÇÃO da vez na sala em destaque.
+     *
+     * O painel tinha o problema de qualquer painel que cresceu: com a missão no
+     * ar, pausar, encerrar a rodada, ver a TV, encerrar a sala e começar uma
+     * batalha nova apareciam lado a lado, com o mesmo peso, e cabia ao professor
+     * descobrir qual delas era a dele naquele minuto. Aqui a decisão passa a
+     * existir em UM lugar: o `id` é o `data-action` do botão que executa, e é
+     * ele que a faixa de estado aponta e o desenho destaca (`data-proximo`).
+     *
+     * `id: ''` é resposta legítima e não é erro: com a missão aberta e gente
+     * ainda escrevendo, a ação do professor é esperar — não há botão para
+     * apertar, e inventar um ("pular", "forçar") seria criar um controle que
+     * ninguém pediu. Nesse estado a faixa diz o que está acontecendo e o placar
+     * de envios, e é só.
+     */
+    function acaoDaVez({ room, detail, current, results, pausada, startLabel, faltam, trava }) {
+      const pendentes = (detail.rounds || []).some((round) => round.status === 'pending');
+      // Sala que ainda espera lugar: a ação existe, mas o BOTÃO dela está
+      // desabilitado (o preset Clássico trava o cadastro nos 3 lugares, e o
+      // servidor recusa a partida incompleta). Apontar "Iniciar batalha" numa
+      // faixa que promete o que o botão não faz é o defeito que esta frente
+      // existe para tirar: aqui a faixa cala, e quem diz o que falta são a
+      // própria célula de estado (Aguardando participantes) e a contagem
+      // (2 de 3), com o botão desabilitado logo abaixo.
+      // Sala que não abre não tem próxima ação de aula: tem conserto. O botão que
+      // a executa é o da faixa de bloqueios, logo abaixo do cabeçalho.
+      if ((detail.blockers || []).length) return { id: 'fix-all', rotulo: 'Corrigir as missões' };
+      // A sala em RASCUNHO tem uma ação e uma só, e ela passou a morar aqui
+      // quando a lista deixou de ter botões: enquanto "Abrir sala" vivia em cada
+      // linha da lista, o rascunho não precisava de ação da vez no destaque — e
+      // tirar o botão da lista sem isto deixaria a sala nascer sem porta.
+      if (room.status === 'draft') return { id: 'publish', rotulo: 'Abrir sala' };
+      if (trava && ['waiting', 'open'].includes(room.status) && pendentes) return { id: '', rotulo: '' };
+      if (pausada) return { id: 'resume-round', rotulo: ROTULOS_DA_BATALHA.resumeRound };
+      if (current) {
+        return faltam > 0
+          ? { id: '', rotulo: 'Acompanhar os envios' }
+          : { id: 'end-round', rotulo: ROTULOS_DA_BATALHA.endRound };
+      }
+      if (results) return { id: 'close-round', rotulo: ROTULOS_DA_BATALHA.closeRound };
+      if (['waiting', 'open', 'playing'].includes(room.status) && pendentes) {
+        return { id: 'start', rotulo: startLabel };
+      }
+      if (room.status === 'ended' && canStartNewBattle(room, detail)) {
+        return { id: 'new-battle', rotulo: ROTULOS_DA_BATALHA.newBattle };
+      }
+      return { id: '', rotulo: '' };
+    }
+
+    /**
+     * Diálogo da batalha nova. Diz o que fica (código, missões, ajustes) e o que
+     * zera (tentativas e pontuação), e deixa o professor decidir se a turma
+     * continua — porque repetir a aula com a MESMA turma e abrir a sala para a
+     * PRÓXIMA são as duas coisas que ele faz com esta sala, e esquecer a lista
+     * de alunos na segunda custaria 35 cadastros.
+     */
+    function newBattleDialog(room, detail) {
+      const batalha = detail?.battle || {};
+      const alunos = (detail?.participants || []).filter((entry) => entry.active).length;
+      openDialog(ROTULOS_DA_BATALHA.newBattle, `
+        <form class="arena-challenge-form" data-new-battle-form>
+          <input type="hidden" name="room_id" value="${esc(room.id)}">
+          <input type="hidden" name="cycle" value="${Number(batalha.cycle || 1)}">
+          <p>O código <b>${esc(formatPin(room.pin || room.code))}</b> e as missões continuam. As tentativas e a pontuação voltam a zero; esta batalha fica no histórico.</p>
+          <label class="text-field"><span>Alunos</span>
+            <select name="keep_participants">
+              <option value="true" selected>Manter a turma (${alunos} ${alunos === 1 ? 'aluno' : 'alunos'})</option>
+              <option value="false">Limpar a lista — a próxima turma entra com o mesmo código</option>
+            </select>
+          </label>
+          <div class="arena-dialog-actions">
+            <button class="figma-cta" type="button" data-arena-dialog-close>Cancelar</button>
+            <button class="figma-cta figma-cta-gradient" type="submit">Começar nova batalha</button>
+          </div>
+          <p class="form-message" data-new-battle-message></p>
+        </form>`);
+    }
+
+    /**
+     * A janela do telão, aberta no gesto do clique.
+     *
+     * `window.open` depois de um `await` é uma aba sem gesto nenhum: o navegador
+     * tem toda a razão para bloquear. Então a janela nasce AQUI, vazia, e só
+     * recebe o endereço quando a sala estiver de pé no servidor.
+     */
+    function abrirAbaDoTelao() {
+      try {
+        return window.open('about:blank', '_blank');
+      } catch {
+        return null;
+      }
+    }
+
+    /**
+     * O telão da sala que acabou de abrir.
+     *
+     * Abrir a sala sem o telão deixa a turma olhando para um código de um monitor
+     * que ninguém está vendo: o telão é a segunda tela da aula, e ele abre junto.
+     * Duas saidas, nesta ordem — a janela já aberta no clique recebe o endereço e,
+     * se o navegador bloqueou a janela, o diálogo de projeção (o mesmo do botão
+     * "Abrir tela de projeção") mostra o código, o QR e o botão de abrir aqui.
+     * Nunca as duas: um telão a mais é uma tela pedindo para ser fechada.
+     */
+    async function apresentarTelao(roomId, aba) {
+      let tv = null;
+      try {
+        tv = await adminApi('arena_tv_token', { room_id: roomId });
+      } catch {
+        // Sem token de projeção o telão não tem sessão própria; o convite da sala
+        // continua na tela, com o QR da entrada dos alunos.
+      }
+      if (aba && !aba.closed && tv?.url) {
+        aba.location.assign(tv.url);
+        return;
+      }
+      if (aba) aba.close();
+      if (tv) showProjectionDialog(tv);
+    }
+
+    async function roomAction(action, roomId, extra = {}, { aba = null } = {}) {
       const mapping = {
         publish: 'arena_publish_room',
         start: 'arena_start_round',
@@ -2903,6 +4313,9 @@
       if ((action === 'delete' || action === 'end-room' || action === 'archive') && !window.confirm('Confirmar esta acao?')) return;
       const data = await adminApi(name, { room_id: roomId, ...extra });
       if (data.room && data.room.room) renderDetail(data.room);
+      // "Abrir sala" é o começo da aula: a sala passa a receber alunos e o telão
+      // entra junto (ver `apresentarTelao`).
+      if (action === 'publish') await apresentarTelao(roomId, aba);
       if (action === 'delete') {
         // Fecha o detalhe e para o poll: a sala nao existe mais.
         if (state.detailPoll) window.clearInterval(state.detailPoll);
@@ -2936,6 +4349,31 @@
       const dialog = $('[data-arena-dialog]');
       if (typeof dialog.close === 'function') dialog.close();
       else dialog.removeAttribute('open');
+    }
+
+    // O bloqueio precisa ser visível e reversível, inclusive quando uma
+    // validação interrompe a ação antes de ela chegar ao servidor.
+    function busyControl(control, label = 'Aguarde…') {
+      if (!control) return () => {};
+      const previous = {
+        html: control.innerHTML,
+        disabled: control.disabled,
+        busy: control.getAttribute('aria-busy'),
+        ariaDisabled: control.getAttribute('aria-disabled'),
+      };
+      control.textContent = label;
+      if ('disabled' in control) control.disabled = true;
+      control.setAttribute('aria-busy', 'true');
+      control.setAttribute('aria-disabled', 'true');
+      return () => {
+        // Um sucesso pode já ter escrito "copiado" no botão.
+        if (control.textContent === label) control.innerHTML = previous.html;
+        if ('disabled' in control) control.disabled = previous.disabled;
+        for (const [name, value] of [['aria-busy', previous.busy], ['aria-disabled', previous.ariaDisabled]]) {
+          if (value === null) control.removeAttribute(name);
+          else control.setAttribute(name, value);
+        }
+      };
     }
 
     /** Imagem escolhida no formulário -> data URL (o que o servidor guarda). */
@@ -3097,8 +4535,7 @@
         || ['Imagem', 'Reversa'].includes(categoria);
       const pesos = [...weightMap.values()].map((peso) => Number(peso) || 0);
       const criteriaResumo = `${pesos.length} ${pesos.length === 1 ? 'critério' : 'critérios'} · ${pesos.reduce((soma, peso) => soma + peso, 0)}%`;
-      const tentativas = Number(challenge?.attempts) || 1;
-      const rodadaResumo = `${tentativas}× · ${Number(challenge?.duration_seconds) > 0 ? formatSeconds(challenge.duration_seconds) : 'sem cronômetro'} · ${SPEED_LABELS[challenge?.speed_weight || 'none']}`;
+      const rodadaResumo = `${Number(challenge?.duration_seconds) > 0 ? formatSeconds(challenge.duration_seconds) : 'sem cronômetro'} · ${SPEED_LABELS[challenge?.speed_weight || 'none']}`;
       return `
         <form class="arena-challenge-form" data-challenge-form>
           <input type="hidden" name="challenge_id" value="${esc(challenge?.id || '')}">
@@ -3148,9 +4585,7 @@
           <details class="arena-form-fold" data-form-fold="rodada">
             <summary>Ajustes da rodada — ${rodadaResumo}</summary>
             <div class="arena-form-grid">
-              <label class="text-field"><span>Tentativas</span>
-                <select name="attempts">${[1, 2, 3].map((value) => `<option value="${value}" ${Number(challenge?.attempts || 1) === value ? 'selected' : ''}>${value}</option>`).join('')}</select>
-              </label>
+              <input type="hidden" name="attempts" value="1">
               <label class="text-field"><span>Tempo</span>
                 <select name="duration_seconds">
                   <option value="">Sem cronômetro</option>
@@ -3589,15 +5024,36 @@
 
     // (Removido: a criacao de sala agora é feita via Modal Premium com event delegation no final do arquivo)
 
+    /**
+     * Uma acao por vez na lista de salas.
+     *
+     * O clique duplo no cartao disparava a MESMA acao duas vezes: o segundo
+     * pedido chegava depois de o primeiro ja ter mudado a sala e voltava 409
+     * ("Conclua a rodada atual e seus resultados antes de iniciar outra") — num
+     * alerta que o professor nao pediu, com a sala ja certa na tela. Enquanto o
+     * primeiro pedido esta em voo, o clique seguinte nao e uma acao nova: e o
+     * mesmo clique chegando de novo.
+     */
+    let acaoEmVoo = false;
     $('[data-arena-room-list]')?.addEventListener('click', async (event) => {
       const card = event.target.closest('[data-room-id]');
       if (!card) return;
       const roomId = card.dataset.roomId;
-      const action = event.target.dataset.action;
-      if (!action) return;
+      // A lista é um seletor: QUALQUER clique na linha seleciona a sala. A ação
+      // específica (quando o alvo é um controle) continua mandando; sem ela, o
+      // clique no cartão é o pedido de "mostre esta sala no destaque". Antes,
+      // clicar na linha sem acertar um botão não fazia nada — e a linha parecia
+      // um botão.
+      const action = event.target.dataset.action || 'detail';
+      if (acaoEmVoo) return;
+      acaoEmVoo = true;
       try {
         if (action === 'detail') {
           state.selectedRoomId = roomId;
+          // A lista se redesenha NA HORA, e não no próximo poll: a marca da sala
+          // escolhida é a resposta ao clique, e esperar 2,5s por ela faz a linha
+          // parecer que não respondeu — que é o defeito desta frente em pequeno.
+          renderRooms();
           renderLessons();
           await refreshDetail(roomId);
           const detail = $('[data-arena-detail]');
@@ -3606,8 +5062,13 @@
           await roomAction(action, roomId);
         }
       } catch (error) {
+        // Sessao vencida no meio de uma acao: o aviso certo e a faixa (com a
+        // entrada de novo), nao um alerta com a frase do servidor.
+        if (error.status === 401) return sessaoExpirada(error);
         if (showBlockersDialog(error, roomId)) return;
         alert(error.message);
+      } finally {
+        acaoEmVoo = false;
       }
     });
 
@@ -3635,17 +5096,47 @@
       }
     });
 
-    $('[data-arena-detail-body]')?.addEventListener('click', async (event) => {
+    // A escuta é do PAINEL INTEIRO, e não só do corpo: a faixa de estado subiu
+    // para o cabeçalho (LA-07) e o chip dos tempos, que vive nela, ficou fora do
+    // corpo — um controle da sala em destaque que não responde porque mudou de
+    // lugar dentro do mesmo painel é o defeito que esta raiz única evita.
+    // O filtro da lista de alunos é do CLIENTE: ele não chama o servidor, então
+    // não passa pela guarda do `acaoEmVoo` (que existe para o clique duplo não
+    // mandar a ação duas vezes).
+    $('[data-arena-detail]')?.addEventListener('click', (event) => {
+      const chip = event.target.closest('[data-student-filter]');
+      if (!chip) return;
+      state.filtroDeAlunos = chip.dataset.studentFilter || 'todos';
+      aplicarFiltroDeAlunos();
+    });
+
+    $('[data-arena-detail]')?.addEventListener('click', async (event) => {
       const button = event.target.closest('button[data-action], a[data-action="open-tv"]');
       if (!button) return;
       const action = button.dataset.action;
       const roomId = state.selectedRoomId;
       if (!roomId) return;
       if (action === 'open-tv') event.preventDefault();
+      // A mesma guarda do cartao da sala: um clique duplo no "Encerrar rodada"
+      // mandava a acao duas vezes, e a segunda voltava 409 num alerta que o
+      // professor nao pediu. Enquanto a primeira esta em voo, a segunda e o
+      // mesmo clique.
+      if (acaoEmVoo || button.disabled || button.getAttribute('aria-disabled') === 'true') return;
+      acaoEmVoo = true;
+      const releaseControl = busyControl(button);
       try {
-        if (action === 'room-edit') {
+        if (action === 'publish') {
+          // A janela do telão nasce no gesto do clique — depois do `await` já é
+          // tarde, e é o navegador quem decide que era tarde. O mesmo cuidado que
+          // a lista tinha, agora que "Abrir sala" é o botão da ação da vez no
+          // cabeçalho de comando.
+          await roomAction(action, roomId, {}, { aba: abrirAbaDoTelao() });
+        } else if (action === 'room-edit') {
           const detail = (await adminApi('arena_room_detail', { room_id: roomId })).detail;
           editRoomDialog(detail.room);
+        } else if (action === 'new-battle') {
+          const detail = (await adminApi('arena_room_detail', { room_id: roomId })).detail;
+          newBattleDialog(detail.room, detail);
         } else if (action === 'room-block') {
           const detail = (await adminApi('arena_room_detail', { room_id: roomId })).detail;
           await adminApi('arena_update_room', { room_id: roomId, entry_blocked: !detail.room.entry_blocked });
@@ -3718,8 +5209,6 @@
           } else if (action === 'room-timing') {
           await openTimingDialog(roomId);
         } else if (action === 'draw-next') {
-          if (button.disabled) return;
-          button.disabled = true;
           await adminApi('arena_draw_next', { room_id: roomId });
           await refreshDetail(roomId);
         } else if (action === 'draw-winner') {
@@ -3739,15 +5228,12 @@
           await adminApi('arena_draw_reset', { room_id: roomId });
           await refreshDetail(roomId);
         } else if (action === 'arena-draw') {
-          if (button.disabled) return;
-          button.disabled = true;
           await adminApi('arena_mode_draw', { room_id: roomId });
           await refreshDetail(roomId);
         } else if (action === 'arena-wildcard-close') {
           await adminApi('arena_mode_wildcard_close', { room_id: roomId });
           await refreshDetail(roomId);
         } else if (action === 'arena-dynamic-open') {
-          button.disabled = true;
           await adminApi('arena_mode_dynamic_open', { room_id: roomId, dynamic: button.dataset.dynamic });
           await refreshDetail(roomId);
         } else if (action === 'arena-dynamic-close') {
@@ -3789,8 +5275,12 @@
           await roomAction(action, roomId);
         }
       } catch (error) {
+        if (error.status === 401) return sessaoExpirada(error);
         if (showBlockersDialog(error, roomId)) return;
         alert(error.message);
+      } finally {
+        releaseControl();
+        acaoEmVoo = false;
       }
     });
 
@@ -3853,11 +5343,22 @@
       }
     });
 
+    // Enter repetido e clique duplo pertencem ao mesmo salvamento.
+    const formsInFlight = new WeakSet();
     // Delegacao de formularios dentro do dialog
     $('[data-arena-dialog]')?.addEventListener('submit', async (event) => {
       const form = event.target.closest('form');
       if (!form) return;
       event.preventDefault();
+      if (formsInFlight.has(form)) return;
+      formsInFlight.add(form);
+      const previousBusy = form.getAttribute('aria-busy');
+      form.setAttribute('aria-busy', 'true');
+      const busyLabel = form.matches('[data-arena-create-room]') ? 'Criando sala…'
+        : form.matches('[data-add-round-form]') ? 'Adicionando…'
+        : form.matches('[data-new-battle-form]') ? 'Preparando…' : 'Salvando…';
+      const releaseControls = $$('button[type="submit"]:not(:disabled), button:not([type]):not(:disabled)', form)
+        .map((button) => busyControl(button, busyLabel));
       const submit = (node) => { message(node, 'Salvando...', 'info'); };
       const fail = (node, error) => { message(node, error.message, 'error'); };
       try {
@@ -3991,6 +5492,24 @@
           state.fixReturn = null;
           await refreshAll();
           flashFixNote(roomId, Number(data.count) || challenges.length);
+        } else if (form.matches('[data-new-battle-form]')) {
+          const node = $('[data-new-battle-message]', form);
+          submit(node);
+          const roomId = form.elements.room_id.value;
+          await adminApi('arena_new_battle', {
+            room_id: roomId,
+            cycle: Number(form.elements.cycle.value || 1),
+            keep_participants: form.elements.keep_participants.value === 'true',
+          });
+          closeDialog();
+          // A lista de salas volta ao estado de espera e o detalhe reabre na
+          // batalha NOVA — sem depender do proximo poll do painel. Vale tambem
+          // para o `already`: se outro clique ja criou o ciclo, o que o
+          // professor ve depois da releitura e a verdade (o lobby do ciclo
+          // novo), e nao uma promessa.
+          await refreshAll();
+          state.selectedRoomId = roomId;
+          await refreshDetail(roomId);
         } else if (form.matches('[data-room-form]')) {
           const node = $('[data-room-form-message]', form);
           submit(node);
@@ -4046,6 +5565,11 @@
       } catch (error) {
         const node = $('.form-message', form);
         fail(node, error);
+      } finally {
+        releaseControls.forEach((release) => release());
+        if (previousBusy === null) form.removeAttribute('aria-busy');
+        else form.setAttribute('aria-busy', previousBusy);
+        formsInFlight.delete(form);
       }
     });
 
@@ -4250,7 +5774,7 @@
             <p class="arena-field-hint" data-arena-preset-hint>${PRESET_HINTS['turma'] || ''}</p>
           </label>
           <label class="arena-field" data-arena-players-field>
-            <span>Participantes</span>
+            <span>Lugares</span>
             <input name="expected_players" type="number" min="0" max="50" value="35">
           </label>
           <fieldset class="arena-room-missions" data-arena-room-missions hidden>
@@ -4352,11 +5876,11 @@
     }
     fsBtn?.addEventListener('click', toggleTvFullscreen);
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'f' || e.key === 'F') {
-        if (!['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
-          toggleTvFullscreen();
-        }
-      }
+      if (!['f', 'F'].includes(e.key) || e.repeat || e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) return;
+      const active = document.activeElement;
+      if (active?.matches('input, textarea, select, [role="textbox"]') || active?.isContentEditable) return;
+      e.preventDefault();
+      toggleTvFullscreen();
     });
     document.addEventListener('fullscreenchange', () => {
       if (fsBtn) {
@@ -4653,6 +6177,12 @@
       const room = tv.room;
       const classic = isClassicish(room);
       const waiting = room.status === 'waiting' || room.status === 'open';
+      // O telão conta o que a turma pergunta em voz alta: "já pode começar?".
+      // "Todos estão prontos" só quando os LUGARES estão preenchidos — a parede
+      // não tem como prometer o que só o professor decide (se o preset aceita
+      // começar com menos gente, quem sabe disso é o painel, que é onde se clica).
+      const lugares = Number(room.expected_players || room.settings?.maxPlayers || 0);
+      const todosProntos = waiting && lugares > 0 && Number(room.participants || 0) >= lugares;
       return `
         <div class="arena-tv-lobby">
           <div class="arena-tv-lobby-main">
@@ -4660,9 +6190,9 @@
               <small>CODIGO DA SALA</small>
               <strong>${esc(formatPin(room.pin))}</strong>
             </div>
-            <p class="arena-tv-waiting">
+            <p class="arena-tv-waiting${todosProntos ? ' is-ready' : ''}">
               <span class="arena-tv-pulse" aria-hidden="true"></span>
-              ${waiting ? 'Aguardando o professor iniciar a batalha…' : 'Aguardando a próxima rodada…'}
+              ${!waiting ? 'Aguardando a próxima rodada…' : todosProntos ? 'Todos estão prontos — aguardando o professor iniciar…' : 'Aguardando o professor iniciar a batalha…'}
             </p>
             ${arenaTvMarkup(tv)}
             ${drawTvMarkup(tv)}
@@ -4701,7 +6231,7 @@
         <div class="arena-tv-round">
           <div class="signal-tape" aria-hidden="true"></div>
           <header class="arena-tv-round-head">
-            <span class="arena-tv-round-badge">${classic ? `RODADA ${pad(round.position)}/${pad(total)} — ADIVINHE O PROMPT` : `MISSAO ${pad(round.position)}/${pad(total)}`}</span>
+            <span class="arena-tv-round-badge">${classic ? `RODADA ${pad(round.position)}/${pad(total)} — ADIVINHE O PROMPT` : `MISSÃO ${pad(round.position)}/${pad(total)}`}</span>
             <span class="arena-tv-timer${paused ? ' is-paused' : ''}${untimed ? ' is-untimed' : ''}" data-tv-countdown="${esc(round.deadline_at ?? '')}" data-tv-server="${esc(round.server_now ?? '')}" data-tv-base-ms="${Date.now()}" data-tv-paused="${paused ? '1' : ''}" data-tv-untimed="${untimed ? '1' : ''}">${timerLabel}</span>
           </header>
           ${arenaTvMarkup(tv, { compact: true })}
@@ -4826,13 +6356,18 @@
       try {
         const data = await api('arena_tv', { pin }, { timeout: 9000 });
         lastFetch = Date.now();
+        trocouDeSala('tv', data.tv?.room?.id ?? null);
+        // Revisao mais velha que a que ja esta na parede: descarta (ver
+        // `aceitaRevisao`). Uma leitura atrasada nao pode desfazer o placar.
+        if (!aceitaRevisao('tv', data.tv?.room)) return;
         tvRoomId = data.tv?.room?.id ?? tvRoomId;
         // Estado equivalente: nao remexe a parede (e nao reinicia o que estiver
         // animando nela) para mostrar exatamente a mesma coisa.
         const key = renderKey(data.tv);
-        if (key === tvKey) return;
+        if (key === tvKey) { setTVConnection(false); return; }
         tvKey = key;
         renderTV(data.tv);
+        setTVConnection(false);
       } catch (error) {
         if (error.status === 404 || error.status === 403) {
           dead = true;
@@ -4846,7 +6381,11 @@
           const expired = error.status === 403;
           setContent(`<div class="arena-tv-error"><h1>${esc(expired ? 'Sessão de projeção expirada' : 'Sala não encontrada')}</h1><p>${esc(expired ? 'Abra a projeção novamente pelo Painel do professor, na sala escolhida.' : 'Confira o código e abra a projeção pelo Painel do professor.')}</p></div>`, 'error');
         }
-        // Outros erros: mantem o que esta na tela e tenta de novo no poll.
+        // Outros erros: mantem o que esta na tela e tenta de novo no poll — mas
+        // NAO em silencio. A parede continua mostrando o ultimo estado valido (e
+        // o certo a fazer: apagar seria pior) com um aviso discreto de que a
+        // atualizacao caiu, em vez de parecer uma sala parada.
+        else setTVConnection(true);
       }
     }
 
@@ -4854,6 +6393,12 @@
     // aparelho). Ao validar, o servidor grava o cookie e entregamos a sala.
     function showCodeEntry(message) {
       stopPoll();
+      // Sem sessão válida não há sala projetada: a barra de cima não pode
+      // continuar anunciando a sala que caiu (era ela que ficava na tela
+      // enquanto a parede já pedia o código), e o chip de reconexão não diz mais
+      // nada agora que a parede está pedindo a credencial.
+      if (roomMeta) roomMeta.hidden = true;
+      setTVConnection(false);
       setContent(`
         <div class="arena-tv-code-entry">
           <h1>Projeção da sala</h1>
@@ -4907,21 +6452,51 @@
         try { history.replaceState(null, '', next); } catch { /* URL nao muda se nao der */ }
       }
       dead = false;
+      // Codigo novo pode ser de OUTRA sala: a parede nao pode manter por um
+      // instante o placar da anterior — zera a memoria de revisao, esquece a
+      // chave de renderizacao e limpa o palco antes de pintar.
+      if (tvRoomId && data.tv?.room?.id && data.tv.room.id !== tvRoomId) {
+        revisoes.delete('tv');
+        tvKey = '';
+        setContent('<div class="arena-tv-spinner" aria-hidden="true"></div>', 'connect');
+      }
       tvRoomId = data.tv?.room?.id ?? tvRoomId;
       tvKey = renderKey(data.tv);
       renderTV(data.tv);
+      setTVConnection(false);
       connectAndPoll();
     }
 
     function connectAndPoll() {
       if (sseOff) { sseOff(); sseOff = null; }
       // A conexao e da sala projetada, provada pelo cookie da projecao.
-      sseOff = subscribeRoomEvents(() => refresh(true), eventsQuery(tvRoomId));
+      sseOff = subscribeRoomEvents((acao, evento) => {
+        // Aviso de uma versao que a parede ja pintou nao vira consulta.
+        if (eventoAvanca('tv', evento)) refresh(true);
+      }, eventsQuery(tvRoomId), {
+        // Stream de volta: releitura completa (o que passou na queda pode nao
+        // ter sido visto pelo poll) e o aviso sai.
+        onReconnect: () => { setTVConnection(false); refresh(true); },
+        onDrop: () => setTVConnection(true),
+      });
       poll = window.setInterval(() => {
         if (!hiddenClock()) return;
+        if (!pollDue('tv')) return;
         refresh(false);
       }, 2500);
       refresh(true);
+    }
+
+    /**
+     * O aviso de conexao da parede.
+     *
+     * Um chip no canto, e nao uma tela de erro: na TV da sala, o ultimo estado
+     * valido (placar, rodada, cronometro) e informacao que ainda serve — o que
+     * nao serve e ninguem saber que ela parou de atualizar.
+     */
+    const tvReconnect = $('[data-tv-reconnect]');
+    function setTVConnection(caiu) {
+      if (tvReconnect) tvReconnect.hidden = !caiu;
     }
 
     // Projecao em aba oculta nao consulta; ao voltar, uma leitura imediata.
@@ -5098,5 +6673,3 @@
     startTV();
   }
 })();
-
-

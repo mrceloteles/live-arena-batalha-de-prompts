@@ -190,13 +190,23 @@ test('a sala do aluno nao multiplica consultas: rajada de SSE, sala alheia, aba 
     assert.ok(naVolta >= 1, 'voltar para a aba precisa disparar uma leitura imediata');
 
     // 7) SSE caido: o polling de recuperacao assume e o stream volta depois.
+    //
+    // A ESPERA e medida ate acontecer, e nao numa janela fixa: o intervalo e
+    // progressivo (2,5 s com o stream de pe, 5 s na primeira queda, 10 s da
+    // segunda em diante — ver `pollDue`), e a fase do relogio empurra a primeira
+    // leitura ate 2,5 s. Medido: 6 s de janela davam 1 consulta numa execucao e 2
+    // em outra (a fase decidia), e 11 s davam 2 — o limite do mecanismo, nao do
+    // defeito. O que o teste prende e "o poll assume sozinho", entao ele espera
+    // as duas leituras com prazo folgado e diz quanto levou.
     sseBlocked = true;
     eventHub.killAll();
     await dormir(1000);
     const caidoAntes = lobbyCalls;
-    await dormir(6000);
-    const naQueda = medir('SSE caido (6 s)', caidoAntes, 6000);
-    assert.ok(naQueda >= 2, `com SSE caido o polling deveria consultar (consultou ${naQueda} em 6 s)`);
+    const inicioDaQueda = Date.now();
+    const prazoDaQueda = inicioDaQueda + 20_000;
+    while (lobbyCalls - caidoAntes < 2 && Date.now() < prazoDaQueda) await dormir(200);
+    const naQueda = medir(`SSE caido ate 2 consultas (${((Date.now() - inicioDaQueda) / 1000).toFixed(1)} s)`, caidoAntes, Date.now() - inicioDaQueda);
+    assert.ok(naQueda >= 2, `com SSE caido o polling deveria consultar sozinho (consultou ${naQueda} em 20 s)`);
 
     sseBlocked = false;
     await dormir(3000);

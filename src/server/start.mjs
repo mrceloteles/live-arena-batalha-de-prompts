@@ -41,6 +41,8 @@ const ARENA_EVENT_ACTIONS = new Set([
   'arena_remove_participant', 'arena_set_open',
   'arena_update_room', 'arena_delete_room', 'arena_archive_room',
   'arena_remove_round', 'arena_reorder_rounds', 'arena_rename_participant',
+  // Batalha nova: o aluno e a TV voltam ao lobby na hora, sem esperar o poll.
+  'arena_new_battle',
 ]);
 
 import { DEFAULT_ROUNDS, isRepeatedLegacyChallengeSet } from '../domain/classic-rounds.mjs';
@@ -83,16 +85,43 @@ export function createApplication({
   // linha de falha em producao nunca deixa de existir por esquecimento.
   const registro = log || createLog({ write: () => {} });
   const roomEvents = eventHub || createRoomEventHub({ revalidateMs: eventRevalidateMs });
+  /**
+   * A sala mudou: sobe a REVISAO e avisa as telas dela.
+   *
+   * Este e o unico lugar onde a versao do estado anda. Nao por virtude, por
+   * funil: toda mutacao de sala passa por aqui — as acoes de `dispatch`
+   * (`ARENA_EVENT_ACTIONS`, que so tem escrita) e o aviso de nota que chegou
+   * sozinha pelo patio —, entao uma acao nova nasce contando, sem ninguem
+   * lembrar de incrementar. E por isso tambem que a leitura NAO sobe a revisao:
+   * `arena_lobby` e `arena_room_detail` nao estao naquele conjunto.
+   *
+   * A ordem importa: a revisao sobe ANTES do evento sair, para o aviso chegar
+   * as telas ja com a versao nova — a leitura que ele dispara nasce igual ou
+   * mais nova que a do evento, e nunca mais velha.
+   *
+   * Falha ao subir nao derruba o aviso: sala apagada no meio do caminho
+   * continua avisando (o poll da tela descobre o 404 e sai), so sem revisao.
+   */
+  const anunciarSala = (action, roomId, serverNow = NaN) => {
+    const agora = Number.isFinite(serverNow) ? serverNow : Number(now?.() ?? Date.now() / 1000);
+    const publicar = (revision) => roomEvents.broadcast(action, {
+      serverNow: agora,
+      roomId,
+      ...(Number.isFinite(revision) ? { revision } : {}),
+    });
+    // Acao GLOBAL (abrir/fechar a Arena) nao tem sala: o evento sai para todo
+    // mundo, como sempre saiu, e nao ha revisao de sala para subir.
+    if (!roomId) { publicar(null); return; }
+    Promise.resolve()
+      .then(() => repositories.arena.rooms.bumpRevision({ id: String(roomId), now: agora }))
+      .then((revision) => publicar(Number.isFinite(revision) ? revision : null))
+      .catch(() => publicar(null));
+  };
+
   // A sala que mudou de estado avisa as telas dela — por evento (aluno que
   // acabou de receber nota) e por reprocessamento do patio (nota que chegou
   // sozinha, ou tentativa que falhou de novo).
-  const avisarSala = (roomId) => {
-    if (!roomId) return;
-    roomEvents.broadcast('arena_score_ready', {
-      serverNow: Number(now?.() ?? Date.now() / 1000),
-      roomId,
-    });
-  };
+  const avisarSala = (roomId) => anunciarSala('arena_score_ready', roomId);
   // O patio das avaliacoes que o provedor nao entregou. Nasce aqui (e nao dentro
   // da Arena) porque a PRONTIDAO precisa mostrar quantas esperam e quantas
   // desistiram, e o ENCERRAMENTO precisa parar as esperas.
@@ -151,11 +180,7 @@ export function createApplication({
     if (typeof action === 'string' && action.startsWith('arena_')) {
       const result = await arenaDispatch(action, payload, meta);
       if (ARENA_EVENT_ACTIONS.has(action)) {
-        const serverNow = Number(result?.server_now);
-        roomEvents.broadcast(action, {
-          serverNow: Number.isFinite(serverNow) ? serverNow : Date.now() / 1000,
-          roomId: roomIdFromOutcome(payload, result),
-        });
+        anunciarSala(action, roomIdFromOutcome(payload, result), Number(result?.server_now));
       }
       return result;
     }

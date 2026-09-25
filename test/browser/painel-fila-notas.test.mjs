@@ -128,9 +128,12 @@ test('browser: o painel mostra quem espera nota, e o bloco some quando a nota ch
       descricao: 'o bloco de espera sair da tela quando a nota chega',
       timeout: ESPERA.padrao,
     });
+    // A nota avaliada aparece na LINHA DE ESTATÍSTICAS da missão, dentro do
+    // roteiro ("1 envio · 1 avaliado"): com um só, o plural do texto é singular,
+    // e a asserção é pela contagem, não pela flexão.
     await esperarPor(
       page,
-      () => /1 avaliados/.test(document.querySelector('[data-arena-detail-body]')?.textContent || ''),
+      () => /\b1\s+avaliado/.test(document.querySelector('[data-arena-detail-body]')?.textContent || ''),
       { descricao: 'a missão aparecer com a nota avaliada' },
     );
     assert.equal(erros.length, 0, `a página não pode acumular erro de script: ${erros.join(' | ')}`);

@@ -1,0 +1,994 @@
+{
+ "salas": [
+  {
+   "largura": "390",
+   "codigo": "PJCV87",
+   "room": "6628ee5b-9b44-4d83-ac7f-3840dfbf0543"
+  },
+  {
+   "largura": "1440",
+   "codigo": "DCCF86",
+   "room": "ecc04d72-6a27-4d5c-9d31-e8ca06e63ea8"
+  }
+ ],
+ "relato": [
+  {
+   "largura": "390",
+   "passo": "2-entrada",
+   "rotulo": "entrada",
+   "tela": "join",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-card.join-card.arena-join-stage.brand-tape::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Voltar ao início"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "390",
+   "passo": "3-espera",
+   "rotulo": "espera",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.signal-tape",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": "PJCV87",
+   "qr": {
+    "w": 104,
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoCAYAAAB65WHVAAAA"
+   },
+   "presentes": [
+    "Participantes",
+    "Aluno 390 você"
+   ],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "390",
+   "passo": "4-como-funciona",
+   "rotulo": "como funciona",
+   "tela": "how",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "article.arena-card.arena-how-card.brand-tape::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Voltar para a sala"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "390",
+   "passo": "5-volta-espera",
+   "rotulo": "de volta na espera",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.signal-tape",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": "PJCV87",
+   "qr": {
+    "w": 104,
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoCAYAAAB65WHVAAAA"
+   },
+   "presentes": [
+    "Participantes",
+    "Aluno 390 você"
+   ],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "390",
+   "passo": "6-rodada",
+   "rotulo": "rodada",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-mission.round-workspace::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": "MISSAO 01/01",
+   "tempo": "14:59",
+   "tentativas": "12",
+   "campo": {
+    "w": 322,
+    "h": 169
+   },
+   "envio": "Enviar prompt Ctrl + Enter ↵",
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "390",
+   "passo": "7-nota",
+   "rotulo": "primeira nota",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-mission.round-workspace::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": "MISSAO 01/01",
+   "tempo": "14:52",
+   "tentativas": "12",
+   "campo": {
+    "w": 322,
+    "h": 169
+   },
+   "envio": "Enviado ✓ Ctrl + Enter ↵",
+   "nota": "51,23 PTS",
+   "notaUnidade": "de 100",
+   "criterios": 2,
+   "retry": "Tentar novamente (1/2)",
+   "evolucao": null,
+   "pillDoResultado": "Resposta avaliada",
+   "tituloDoResultado": "Tentativa 1 de 2",
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "390",
+   "passo": "8-tentar-novamente",
+   "rotulo": "de volta no editor",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-mission.round-workspace::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": "MISSAO 01/01",
+   "tempo": "14:52",
+   "tentativas": "12",
+   "campo": {
+    "w": 322,
+    "h": 169
+   },
+   "envio": "Enviado ✓ Ctrl + Enter ↵",
+   "nota": "53 PTS",
+   "notaUnidade": "de 100",
+   "criterios": 2,
+   "retry": "Tentar novamente (1/2)",
+   "evolucao": null,
+   "pillDoResultado": "Resposta avaliada",
+   "tituloDoResultado": "Tentativa 1 de 2",
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "390",
+   "passo": "9-segunda-nota",
+   "rotulo": "segunda nota",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-mission.round-workspace::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": "MISSAO 01/01",
+   "tempo": "14:44",
+   "tentativas": "12",
+   "campo": null,
+   "envio": null,
+   "nota": "41,63 PTS",
+   "notaUnidade": "de 100",
+   "criterios": 2,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": "Resposta avaliada",
+   "tituloDoResultado": "Tentativa 2 de 2",
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "390",
+   "passo": "9b-depois-de-encerrar",
+   "rotulo": "rodada encerrada",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.signal-tape",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": "PJCV87",
+   "qr": {
+    "w": 104,
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoCAYAAAB65WHVAAAA"
+   },
+   "presentes": [
+    "Participantes",
+    "Aluno 390 você"
+   ],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "390",
+   "passo": "9b-depois-de-encerrar",
+   "estadoFim": {
+    "espera": true,
+    "resultado": false,
+    "painelDeResultados": null,
+    "classificacao": null,
+    "linhasDeResultado": []
+   }
+  },
+  {
+   "largura": "390",
+   "passo": "10-saida",
+   "rotulo": "de volta na entrada",
+   "tela": "join",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-card.join-card.arena-join-stage.brand-tape::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Voltar ao início"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390
+  },
+  {
+   "largura": "1440",
+   "passo": "2-entrada",
+   "rotulo": "entrada",
+   "tela": "join",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-card.join-card.arena-join-stage.brand-tape::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Voltar ao início"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  },
+  {
+   "largura": "1440",
+   "passo": "3-espera",
+   "rotulo": "espera",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.signal-tape",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": "DCCF86",
+   "qr": {
+    "w": 168,
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoCAYAAAB65WHVAAAA"
+   },
+   "presentes": [
+    "Participantes",
+    "Aluno 1440 você"
+   ],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  },
+  {
+   "largura": "1440",
+   "passo": "4-como-funciona",
+   "rotulo": "como funciona",
+   "tela": "how",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "article.arena-card.arena-how-card.brand-tape::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Voltar para a sala"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  },
+  {
+   "largura": "1440",
+   "passo": "5-volta-espera",
+   "rotulo": "de volta na espera",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.signal-tape",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": "DCCF86",
+   "qr": {
+    "w": 168,
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoCAYAAAB65WHVAAAA"
+   },
+   "presentes": [
+    "Participantes",
+    "Aluno 1440 você"
+   ],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  },
+  {
+   "largura": "1440",
+   "passo": "6-rodada",
+   "rotulo": "rodada",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-mission.round-workspace::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": "MISSAO 01/01",
+   "tempo": "14:59",
+   "tentativas": "12",
+   "campo": {
+    "w": 474,
+    "h": 240
+   },
+   "envio": "Enviar prompt Ctrl + Enter ↵",
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  },
+  {
+   "largura": "1440",
+   "passo": "7-nota",
+   "rotulo": "primeira nota",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-mission.round-workspace::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": "MISSAO 01/01",
+   "tempo": "14:52",
+   "tentativas": "12",
+   "campo": {
+    "w": 948,
+    "h": 240
+   },
+   "envio": "Enviado ✓ Ctrl + Enter ↵",
+   "nota": "51,48 PTS",
+   "notaUnidade": "de 100",
+   "criterios": 2,
+   "retry": "Tentar novamente (1/2)",
+   "evolucao": null,
+   "pillDoResultado": "Resposta avaliada",
+   "tituloDoResultado": "Tentativa 1 de 2",
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  },
+  {
+   "largura": "1440",
+   "passo": "8-tentar-novamente",
+   "rotulo": "de volta no editor",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-mission.round-workspace::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": "MISSAO 01/01",
+   "tempo": "14:52",
+   "tentativas": "12",
+   "campo": {
+    "w": 948,
+    "h": 240
+   },
+   "envio": "Enviado ✓ Ctrl + Enter ↵",
+   "nota": "53 PTS",
+   "notaUnidade": "de 100",
+   "criterios": 2,
+   "retry": "Tentar novamente (1/2)",
+   "evolucao": null,
+   "pillDoResultado": "Resposta avaliada",
+   "tituloDoResultado": "Tentativa 1 de 2",
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  },
+  {
+   "largura": "1440",
+   "passo": "9-segunda-nota",
+   "rotulo": "segunda nota",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-mission.round-workspace::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": "MISSAO 01/01",
+   "tempo": "14:43",
+   "tentativas": "12",
+   "campo": null,
+   "envio": null,
+   "nota": "41,89 PTS",
+   "notaUnidade": "de 100",
+   "criterios": 2,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": "Resposta avaliada",
+   "tituloDoResultado": "Tentativa 2 de 2",
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  },
+  {
+   "largura": "1440",
+   "passo": "9b-depois-de-encerrar",
+   "rotulo": "rodada encerrada",
+   "tela": "lobby",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.signal-tape",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Sair"
+   ],
+   "codigoEspera": "DCCF86",
+   "qr": {
+    "w": 168,
+    "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAFoCAYAAAB65WHVAAAA"
+   },
+   "presentes": [
+    "Participantes",
+    "Aluno 1440 você"
+   ],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  },
+  {
+   "largura": "1440",
+   "passo": "9b-depois-de-encerrar",
+   "estadoFim": {
+    "espera": true,
+    "resultado": false,
+    "painelDeResultados": null,
+    "classificacao": null,
+    "linhasDeResultado": []
+   }
+  },
+  {
+   "largura": "1440",
+   "passo": "10-saida",
+   "rotulo": "de volta na entrada",
+   "tela": "join",
+   "url": "/play",
+   "fitas": [
+    {
+     "onde": "div.arena-card.join-card.arena-join-stage.brand-tape::before",
+     "altura": 18,
+     "cores": [
+      "255,208,0",
+      "28,25,23"
+     ],
+     "passos": [
+      14,
+      28
+     ],
+     "nossa": true,
+     "referencia": false
+    }
+   ],
+   "proibidas": [],
+   "volta": [
+    "Voltar ao início"
+   ],
+   "codigoEspera": null,
+   "qr": null,
+   "presentes": [],
+   "rodada": null,
+   "tempo": null,
+   "tentativas": null,
+   "campo": null,
+   "envio": null,
+   "nota": null,
+   "notaUnidade": null,
+   "criterios": 0,
+   "retry": null,
+   "evolucao": null,
+   "pillDoResultado": null,
+   "tituloDoResultado": null,
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440
+  }
+ ],
+ "problemas": [],
+ "erros": []
+}

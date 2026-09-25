@@ -311,11 +311,53 @@ test('copia: o instrumento conta cópia e ignora código (controle positivo)', (
   //    quando um contador na tela mudasse de valor.
   assert.equal(palavras('0 conectados · 3 de 5 participantes'), 3, 'só o que dá trabalho de ler conta');
 
-  // E o extrator precisa continuar enxergando o cliente do produto: se a
-  // varredura de literais quebrar, o cartório do cliente fica vazio e a guarda
-  // passa em falso.
+  // 3c. DESSINCRONIA: um REGEX dentro de `${...}` com ASPA na classe de
+  //     caractere. Sem saber ler regex na interpolação, o leitor entrava na aspa
+  //     da classe como se fosse string, consumia o `"` de fechamento, saía de
+  //     fase e a varredura do arquivo morria ali — tudo depois deixava de contar,
+  //     e a guarda não reprovava porque a folga escrita cobria o buraco. Medido
+  //     em 19/09/2026 no `arena.js` real: 691 palavras medidas contra 1346 no
+  //     cartório, com o painel do professor inteiro fora da régua.
+  const comRegex =
+    'const sel = `[${attr}="${String(el.getAttribute(attr)).replace(/(["\\\\])/g, "\\\\$1")}"]`;\n' +
+    "const depois = 'Rodada encerrada, confira o placar.';\n";
+  assert.deepEqual(
+    copiaDoCliente(comRegex).trechos.map((t) => t.texto),
+    ['Rodada encerrada, confira o placar.'],
+    'regex com aspa dentro de ${...} não pode dessincronizar o leitor — a frase DEPOIS dele tem de continuar contando',
+  );
+
+  // 3d. DIVISÃO dentro de `${...}`. Era o defeito que mais custava, e o mais
+  //     silencioso: ESPAÇO zerava a marca de "depois de valor", então o `/` de
+  //     `a / b` virava ABERTURA DE REGEX, engolia até a quebra de linha — com o
+  //     `}` que fecha a interpolação dentro — e o leitor saía de fase. No
+  //     `arena.js` real quem disparava era o relatório do painel
+  //     (`${Math.round((entry.avg / 20) * 100)}`), e o efeito não era medir de
+  //     menos: o leitor voltava a fase englobando CÓDIGO como se fosse tela, e
+  //     o `arena.js` "media" 1654 palavras contra 1484 do mesmo arquivo sem a
+  //     frente — 170 palavras de `function`, `const` e `querySelector` dentro do
+  //     orçamento de cópia.
+  assert.deepEqual(
+    literaisDeCodigo("const r = `a${x / y}b`;\nconst depois = 'Frase depois.';\n").map((l) => l.valor),
+    ['ab', 'Frase depois.'],
+    'divisão dentro de ${...} não é regex — espaço não apaga a marca de "depois de valor"',
+  );
+
+  // E o extrator precisa continuar enxergando o cliente do produto ATÉ O FIM: se
+  // a varredura dessincronizar no meio, o cartório do cliente conta menos e a
+  // guarda passa em falso. Um piso de palavras não bastava (691 passava de 500);
+  // o invariante de verdade é o leitor CHEGAR ao fim do arquivo, e é o que a
+  // última linha com cópia prova.
+  const fonteDoCliente = ler(`${DIRETORIO_DO_CLIENTE}/arena.js`);
+  const { trechos: doCliente, palavras: palavrasDoCliente } = copiaDoCliente(fonteDoCliente);
+  const linhas = fonteDoCliente.split('\n').length;
   assert.ok(
-    copiaDoCliente(ler(`${DIRETORIO_DO_CLIENTE}/arena.js`)).palavras > 500,
+    doCliente.length > 0 && doCliente.at(-1).linha > linhas * 0.9,
+    `o leitor de literais parou em ${doCliente.at(-1)?.linha ?? 0} de ${linhas} linhas — ` +
+      'a varredura dessincronizou e o resto do arena.js ficou fora da régua',
+  );
+  assert.ok(
+    palavrasDoCliente > 1500,
     'o inventário do cliente ficou pequeno demais — o leitor de literais deixou de enxergar o arena.js',
   );
 });

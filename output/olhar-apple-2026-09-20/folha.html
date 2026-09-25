@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sala em destaque — folha de evidências (régua de desenho)</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #0b1020; color: #e8eefc; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; padding: 24px 18px 60px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { margin: 0 0 22px; color: #9fb0d0; font-size: 13px; }
+  figure { margin: 0 0 26px; }
+  figcaption { font-size: 12.5px; color: #b9c6de; margin-bottom: 8px; }
+  figcaption b { color: #fff; }
+  img { width: 100%; max-width: 1180px; display: block; border: 1px solid #26314d; border-radius: 10px; background: #fff; }
+  .duo { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+  .medidas { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; color: #8fe3c4; white-space: pre-wrap; background: #111a30; border: 1px solid #26314d; border-radius: 10px; padding: 14px 16px; margin: 0 0 26px; }
+</style>
+</head>
+<body>
+<h1>Sala em destaque — folha de evidências</h1>
+<p class="sub">Seis larguras, no servidor real (127.0.0.1:3000), sala <b>SXZZ87 · Aula em jogo</b>. Medido pela sonda do olhar; nada aqui é foto de simulação.</p>
+
+<div class="medidas">toques (alvo &lt; 44 px no celular) ....... 0 em todas as seis larguras
+reversão do piso (390 px) ........... 0 com piso  →  28 sem piso
+textos colados ..................... 0
+caixas vazias ...................... 0
+margem esquerda .................... 362 / 276 / 276 / 275 / 23 / 16  (uma por largura)
+ritmo entre seções ................. 24 px, sempre
+rolagem lateral .................... não
+erros de página .................... 0</div>
+
+<figure>
+  <figcaption><b>1920×1080</b> — a largura da projeção e do monitor grande</figcaption>
+  <img src="../olhar-depois/olhar-1920x1080.png" alt="Sala em destaque em 1920">
+</figure>
+<figure>
+  <figcaption><b>1440×900</b> — a largura de referência do plano</figcaption>
+  <img src="../olhar-depois/olhar-1440x900.png" alt="Sala em destaque em 1440">
+</figure>
+<figure>
+  <figcaption><b>1280×720</b></figcaption>
+  <img src="../olhar-depois/olhar-1280x720.png" alt="Sala em destaque em 1280">
+</figure>
+<figure>
+  <figcaption><b>1024×768</b> — indicadores em duas linhas</figcaption>
+  <img src="../olhar-depois/olhar-1024x768.png" alt="Sala em destaque em 1024">
+</figure>
+<figure>
+  <figcaption><b>768×1024</b> — uma coluna</figcaption>
+  <img src="../olhar-depois/olhar-768x1024.png" alt="Sala em destaque em 768">
+</figure>
+<figure>
+  <figcaption><b>390×844</b> — o celular: aqui viviam os 14 alvos pequenos</figcaption>
+  <img src="../olhar-depois/olhar-390x844.png" alt="Sala em destaque em 390">
+</figure>
+<figure>
+  <figcaption><b>A caixa do QR</b> — depois de carregada (o <code>src</code> chega em ~1,2 s; a caixa fica <code>hidden</code> até lá)</figcaption>
+  <img src="../olhar-depois/qr-caixa.png" alt="Caixa do QR carregada" style="max-width:340px">
+</figure>
+</body>
+</html>

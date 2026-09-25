@@ -1,0 +1,76 @@
+{
+  "rotulo": "provedor real 35x3",
+  "alvo": "http://127.0.0.1:59491",
+  "instalacao": {
+    "perfil": "volume-persistente",
+    "juiz": "gemini-safe",
+    "versao": null,
+    "avisos": [],
+    "tipo": "processo_local",
+    "provedor": "real",
+    "endpoint_controlado": false,
+    "banco_em_arquivo": true,
+    "base_do_provedor": "https://generativelanguage.googleapis.com/v1beta",
+    "preflight": {
+      "ok": true,
+      "status": 200,
+      "ms": 410
+    },
+    "submit_wait_ms": 8000,
+    "concorrencia_do_teto": 4
+  },
+  "alunos": 35,
+  "missoes": 3,
+  "latencia_do_provedor_ms": null,
+  "orcamento": {
+    "teto_de_chamadas_por_hora": 50,
+    "gasto": 35,
+    "folga": 15
+  },
+  "envios": 35,
+  "pendentes": 0,
+  "falhas": 35,
+  "status": [
+    502
+  ],
+  "envio_p50_ms": 1696,
+  "envio_p95_ms": 3357,
+  "envio_max_ms": 3465,
+  "conclusao_das_notas_ms": 120148,
+  "notas_gravadas": 0,
+  "chamadas_ao_provedor": 35,
+  "fonte_das_chamadas": "judge_budget_spent_last_hour",
+  "chamadas_por_submissao": 1,
+  "provedor_pico_simultaneo": null,
+  "streams_abertos": 35,
+  "stream_bytes_total": 8540,
+  "stream_bytes_p50": 244,
+  "eventos_sse": 350,
+  "bytes_lobby": 5520,
+  "procedencia_das_notas": {
+    "total": 0,
+    "local": 0,
+    "provedor": null
+  },
+  "teto_antes": {
+    "active": 0,
+    "queued": 0,
+    "concurrency": 4,
+    "per_hour": 50,
+    "spent_last_hour": 0,
+    "remaining_last_hour": 50
+  },
+  "teto_depois": {
+    "active": 0,
+    "queued": 0,
+    "concurrency": 4,
+    "per_hour": 50,
+    "spent_last_hour": 35,
+    "remaining_last_hour": 15
+  },
+  "encerramento": {
+    "saiu": true,
+    "drenou": null,
+    "cancelou": null
+  }
+}

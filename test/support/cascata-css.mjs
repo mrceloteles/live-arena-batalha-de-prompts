@@ -14,7 +14,11 @@ export const FOLHAS = [
   { nome: 'arena.css', ordem: 1 },
   { nome: 'design.css', ordem: 2 },
   { nome: 'refinement.css', ordem: 3 },
-  { nome: 'round.css', ordem: 4 },
+  // A jornada do aluno tem folha própria (`aluno.css`) e entra ENTRE a última
+  // palavra do produto e a rodada — exatamente a vizinhança de cascata que os
+  // seletores dela tinham quando viviam no fim de `refinement.css`.
+  { nome: 'aluno.css', ordem: 4 },
+  { nome: 'round.css', ordem: 5 },
 ];
 
 // A folha capturada do site base não é carregada por nenhuma página: ela é

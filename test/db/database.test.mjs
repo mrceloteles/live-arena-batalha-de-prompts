@@ -54,7 +54,7 @@ test('migration creates every required table and is idempotent', async (t) => {
     ORDER BY name
   `).all()).map(({ name }) => name);
   assert.deepEqual(tables, [...TABLES].sort());
-  assert.equal((await first.database.prepare('PRAGMA user_version').get()).user_version, 7);
+  assert.equal((await first.database.prepare('PRAGMA user_version').get()).user_version, 9);
   first.close();
 });
 
@@ -112,18 +112,18 @@ test('migration upgrades a v1 database without losing participant data', async (
   assert.deepEqual({ ...participant }, {
     player_name: 'Ana', email: '', role: '', company: '',
   });
-  assert.equal((await upgraded.database.prepare('PRAGMA user_version').get()).user_version, 7);
+  assert.equal((await upgraded.database.prepare('PRAGMA user_version').get()).user_version, 9);
   upgraded.close();
 });
 
 test('migration rejects an unknown future version without partially applying the schema', async () => {
   const connection = openDatabase(':memory:');
-  await connection.database.exec('PRAGMA user_version = 8');
+  await connection.database.exec('PRAGMA user_version = 10');
   await assert.rejects(() => connection.migrate(), /newer than supported/);
   const tables = await connection.database.prepare(`
     SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'games'
   `).all();
   assert.equal(tables.length, 0);
-  assert.equal((await connection.database.prepare('PRAGMA user_version').get()).user_version, 8);
+  assert.equal((await connection.database.prepare('PRAGMA user_version').get()).user_version, 10);
   connection.close();
 });

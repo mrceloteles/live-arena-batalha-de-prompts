@@ -1,0 +1,242 @@
+{
+  "fechado1440": {
+    "altura": 1491,
+    "rolagem": 591,
+    "fimDoConteudo": 1443,
+    "grupos": [],
+    "titulosDosPaineis": [
+      "Mais indicadores",
+      "Atividade diaria",
+      "Pontuadas por hora",
+      "Rodadas",
+      "Calor dia x hora",
+      "Por computador",
+      "Por modo",
+      "Ranking dos participantes",
+      "Cadastros",
+      "Partidas e respostas",
+      "Jogos",
+      "Rodadas"
+    ],
+    "dobradas": {
+      "quantas": 11,
+      "alturas": [
+        72,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86
+      ],
+      "estilo": {
+        "padding": "20px",
+        "raio": "16px",
+        "sombra": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px",
+        "borda": "1px rgba(11, 87, 208, 0.12)"
+      },
+      "resumo": {
+        "margem": "0px",
+        "altura": 30
+      },
+      "soma": 1102.5
+    },
+    "periodo": [
+      {
+        "classe": "report-period-pill",
+        "texto": "Todo o periodo",
+        "pintado": true
+      },
+      {
+        "classe": "",
+        "texto": "Todo o periodo",
+        "pintado": true
+      }
+    ],
+    "dobrasAninhadas": 0,
+    "avisosVazios": 0,
+    "blocosEscondidos": 0,
+    "gruposPintados": 0
+  },
+  "consultaAberta": {
+    "altura": 1849,
+    "rolagem": 949,
+    "fimDoConteudo": 1801,
+    "grupos": [],
+    "titulosDosPaineis": [
+      "Mais indicadores",
+      "Atividade diaria",
+      "Pontuadas por hora",
+      "Rodadas",
+      "Calor dia x hora",
+      "Por computador",
+      "Por modo",
+      "Ranking dos participantes",
+      "Cadastros",
+      "Partidas e respostas",
+      "Jogos",
+      "Rodadas"
+    ],
+    "dobradas": {
+      "quantas": 10,
+      "alturas": [
+        254,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86
+      ],
+      "estilo": {
+        "padding": "20px",
+        "raio": "16px",
+        "sombra": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px",
+        "borda": "1px rgba(11, 87, 208, 0.12)"
+      },
+      "resumo": {
+        "margem": "14px",
+        "altura": 30
+      },
+      "soma": 1183
+    },
+    "periodo": [
+      {
+        "classe": "report-period-pill",
+        "texto": "Todo o periodo",
+        "pintado": true
+      },
+      {
+        "classe": "",
+        "texto": "Todo o periodo",
+        "pintado": true
+      }
+    ],
+    "dobrasAninhadas": 0,
+    "avisosVazios": 0,
+    "blocosEscondidos": 0,
+    "gruposPintados": 0
+  },
+  "vazio1440": {
+    "altura": 900,
+    "rolagem": 0,
+    "fimDoConteudo": 0,
+    "grupos": [],
+    "titulosDosPaineis": [
+      "Mais indicadores",
+      "Atividade diaria",
+      "Pontuadas por hora",
+      "Rodadas",
+      "Calor dia x hora",
+      "Por computador",
+      "Por modo",
+      "Ranking dos participantes",
+      "Cadastros",
+      "Partidas e respostas",
+      "Jogos",
+      "Rodadas"
+    ],
+    "dobradas": {
+      "quantas": 10,
+      "alturas": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "estilo": {
+        "padding": "20px",
+        "raio": "16px",
+        "sombra": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px",
+        "borda": "1px rgba(11, 87, 208, 0.12)"
+      },
+      "resumo": {
+        "margem": "14px",
+        "altura": 0
+      },
+      "soma": 160
+    },
+    "periodo": [],
+    "dobrasAninhadas": 0,
+    "avisosVazios": 1,
+    "blocosEscondidos": 4,
+    "gruposPintados": 0
+  },
+  "fechado390": {
+    "altura": 2127,
+    "rolagem": 1283,
+    "fimDoConteudo": 2079,
+    "grupos": [],
+    "titulosDosPaineis": [
+      "Mais indicadores",
+      "Atividade diaria",
+      "Pontuadas por hora",
+      "Rodadas",
+      "Calor dia x hora",
+      "Por computador",
+      "Por modo",
+      "Ranking dos participantes",
+      "Cadastros",
+      "Partidas e respostas",
+      "Jogos",
+      "Rodadas"
+    ],
+    "dobradas": {
+      "quantas": 12,
+      "alturas": [
+        72,
+        86,
+        86,
+        86,
+        86,
+        86,
+        86,
+        112,
+        86,
+        86,
+        86,
+        86
+      ],
+      "estilo": {
+        "padding": "20px",
+        "raio": "16px",
+        "sombra": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px",
+        "borda": "1px rgba(11, 87, 208, 0.12)"
+      },
+      "resumo": {
+        "margem": "0px",
+        "altura": 30
+      },
+      "soma": 1230
+    },
+    "periodo": [
+      {
+        "classe": "report-period-pill",
+        "texto": "Todo o periodo",
+        "pintado": true
+      },
+      {
+        "classe": "",
+        "texto": "Todo o periodo",
+        "pintado": true
+      }
+    ],
+    "dobrasAninhadas": 0,
+    "avisosVazios": 0,
+    "blocosEscondidos": 0,
+    "gruposPintados": 0
+  }
+}

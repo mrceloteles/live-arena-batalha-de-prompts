@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Live Arena · jornada do aluno</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #102449; background: #f2f6ff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { background: #102449; color: white; padding: 28px clamp(18px,4vw,56px); }
+    header p { max-width: 70ch; color: #d6e5ff; line-height: 1.5; }
+    h1 { margin: 0; font-size: clamp(28px,4vw,42px); }
+    main { max-width: 1360px; margin: auto; padding: 28px clamp(12px,3vw,36px); }
+    nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    nav a { color: #154bad; background: white; padding: 9px 14px; border-radius: 999px; text-decoration: none; font-weight: 650; }
+    section { margin-bottom: 32px; background: white; border: 1px solid #dce5f3; border-radius: 18px; padding: 22px; }
+    h2 { margin: 0 0 6px; }
+    section > p { margin: 0 0 18px; color: #4f627f; }
+    .pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+    figure { margin: 0; min-width: 0; }
+    figcaption { font-size: 13px; font-weight: 800; margin-bottom: 8px; letter-spacing: .04em; text-transform: uppercase; }
+    img { display: block; max-width: 100%; max-height: 760px; margin: 0 auto; border: 1px solid #e1e8f2; border-radius: 8px; object-fit: contain; object-position: top; }
+    .desktop img { max-height: 520px; }
+    details { margin-top: 14px; }
+    summary { cursor: pointer; color: #154bad; font-weight: 700; }
+    @media (max-width: 700px) { .pair { grid-template-columns: minmax(0,1fr); } }
+  </style>
+</head>
+<body>
+  <header><h1>Jornada do aluno · antes e depois</h1><p>Capturas novas do fluxo real em navegador, com sala e missão criadas pelas APIs locais. À esquerda está o estado encontrado; à direita, o estado após os ajustes. Em cada etapa, abra também a comparação de computador.</p></header>
+  <main>
+    <nav id="steps"></nav>
+    <div id="screens"></div>
+  </main>
+  <script>
+    const steps = [
+      ['01-entrada','Entrar na sala','Código e nome em uma ação principal.'],
+      ['02-espera','Esperar a turma','Código, QR e participantes visíveis.'],
+      ['03-como-funciona','Entender a dinâmica','Ajuda opcional antes da missão.'],
+      ['04-missao','Responder','Enunciado e editor na primeira tela do celular.'],
+      ['05-enviando','Enviar','O botão comunica imediatamente que a resposta está sendo enviada.'],
+      ['06-nota','Receber a nota','Nota, orientação e próximo passo agrupados.'],
+      ['07-melhorar','Melhorar','Editor volta com a ação correta; a nota anterior sai do caminho.'],
+      ['08-segunda-nota','Concluir a missão','A segunda nota deixa claro que a tentativa terminou.'],
+      ['09-rodada-encerrada','Entre missões','Estado próprio com nota, sem voltar à espera inicial.'],
+      ['10-batalha-encerrada','Ver o resultado final','Título legível e classificação em primeiro plano.']
+    ];
+    const pair = (name, viewport) => `<div class="pair ${viewport}"><figure><figcaption>Antes</figcaption><img loading="lazy" src="before/${name}-${viewport}.png" alt="Antes: ${name}"></figure><figure><figcaption>Depois</figcaption><img loading="lazy" src="after/${name}-${viewport}.png" alt="Depois: ${name}"></figure></div>`;
+    document.querySelector('#steps').innerHTML = steps.map(([name,title],i) => `<a href="#s${i+1}">${i+1}. ${title}</a>`).join('');
+    document.querySelector('#screens').innerHTML = steps.map(([name,title,note],i) => `<section id="s${i+1}"><h2>${i+1}. ${title}</h2><p>${note}</p>${pair(name,'mobile')}<details><summary>Ver também em computador</summary>${pair(name,'desktop')}</details></section>`).join('');
+  </script>
+</body>
+</html>

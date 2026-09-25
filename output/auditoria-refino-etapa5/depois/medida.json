@@ -1,0 +1,1097 @@
+{
+  "rotulo": "depois",
+  "medidas": {
+    "novaSala": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 1112,
+        "clientHeight": 868,
+        "rolagem": 244,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "mission_ids",
+        "topoNaJanela": 830,
+        "fundoNaJanela": 848,
+        "inteiroNaJanela": true
+      },
+      "barra": {
+        "rotulo": "Criar sala",
+        "posicao": "static",
+        "topoNaJanela": 770,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": true,
+        "estilo": {
+          "largura": 533,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "dica": {
+        "tag": "p",
+        "classe": "arena-field-hint",
+        "texto": "A turma inteira ataca o Juiz IA.",
+        "altura": 18,
+        "margem": "8px 0px 0px",
+        "fonte": "12.5px",
+        "peso": "400",
+        "cor": "rgb(82, 98, 122)",
+        "reserva": "auto"
+      },
+      "resumo": {
+        "aberto": false,
+        "escondido": false,
+        "alca": "Partida — 3 rodadas · Juiz 5 ♥ · dano a partir de 60% · 2 ataques",
+        "altura": 41,
+        "camposDentro": 4
+      },
+      "campos": [
+        "Título",
+        "Modo de jogo",
+        "Participantes"
+      ]
+    },
+    "novaSalaBaixa": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 1112,
+        "clientHeight": 688,
+        "rolagem": 424,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "mission_ids",
+        "topoNaJanela": 830,
+        "fundoNaJanela": 848,
+        "inteiroNaJanela": false
+      },
+      "barra": {
+        "rotulo": "Criar sala",
+        "posicao": "static",
+        "topoNaJanela": 590,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": true,
+        "estilo": {
+          "largura": 533,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "dica": {
+        "tag": "p",
+        "classe": "arena-field-hint",
+        "texto": "A turma inteira ataca o Juiz IA.",
+        "altura": 18,
+        "margem": "8px 0px 0px",
+        "fonte": "12.5px",
+        "peso": "400",
+        "cor": "rgb(82, 98, 122)",
+        "reserva": "auto"
+      },
+      "resumo": {
+        "aberto": false,
+        "escondido": false,
+        "alca": "Partida — 3 rodadas · Juiz 5 ♥ · dano a partir de 60% · 2 ataques",
+        "altura": 41,
+        "camposDentro": 4
+      },
+      "campos": [
+        "Título",
+        "Modo de jogo",
+        "Participantes"
+      ]
+    },
+    "novoDesafio": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 964,
+        "clientHeight": 868,
+        "rolagem": 96,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "reference_text",
+        "topoNaJanela": 610,
+        "fundoNaJanela": 708,
+        "inteiroNaJanela": true
+      },
+      "barra": {
+        "rotulo": "Salvar",
+        "posicao": "static",
+        "topoNaJanela": 770,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": false,
+        "estilo": {
+          "largura": 624,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "folgas": {
+        "form": "20px",
+        "grupo": "12px",
+        "entreGrupos": 20
+      },
+      "grupos": [
+        {
+          "legenda": "O aluno recebe",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 436,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            },
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        },
+        {
+          "legenda": "O juiz avalia",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 218,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        }
+      ],
+      "dobras": [
+        {
+          "chave": "imagem",
+          "dentroDeGrupo": true,
+          "aberta": false,
+          "alca": "Imagem que o aluno vê",
+          "altura": 30
+        },
+        {
+          "chave": "extras",
+          "dentroDeGrupo": true,
+          "aberta": false,
+          "alca": "Campos opcionais",
+          "altura": 30
+        },
+        {
+          "chave": "criterios",
+          "dentroDeGrupo": true,
+          "aberta": false,
+          "alca": "Critérios e pesos — 5 critérios · 100%",
+          "altura": 30
+        },
+        {
+          "chave": "rodada",
+          "dentroDeGrupo": false,
+          "aberta": false,
+          "alca": "Ajustes da rodada — 1× · sem cronômetro · Desconsiderar",
+          "altura": 41
+        }
+      ],
+      "alturaDoForm": 836
+    },
+    "novoDesafioAberto": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 1830,
+        "clientHeight": 868,
+        "rolagem": 962,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "speed_weight",
+        "topoNaJanela": 1634,
+        "fundoNaJanela": 1686,
+        "inteiroNaJanela": false
+      },
+      "barra": {
+        "rotulo": "Salvar",
+        "posicao": "static",
+        "topoNaJanela": 770,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": true,
+        "estilo": {
+          "largura": 624,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "folgas": {
+        "form": "20px",
+        "grupo": "12px",
+        "entreGrupos": 20
+      },
+      "grupos": [
+        {
+          "legenda": "O aluno recebe",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 816,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            },
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        },
+        {
+          "legenda": "O juiz avalia",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 530,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        }
+      ],
+      "dobras": [
+        {
+          "chave": "imagem",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Imagem que o aluno vê",
+          "altura": 192
+        },
+        {
+          "chave": "extras",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Campos opcionais",
+          "altura": 248
+        },
+        {
+          "chave": "criterios",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Critérios e pesos — 5 critérios · 100%",
+          "altura": 342
+        },
+        {
+          "chave": "rodada",
+          "dentroDeGrupo": false,
+          "aberta": true,
+          "alca": "Ajustes da rodada — 1× · sem cronômetro · Desconsiderar",
+          "altura": 215
+        }
+      ],
+      "alturaDoForm": 1702
+    },
+    "novoDesafioBaixaTopo": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 1830,
+        "clientHeight": 688,
+        "rolagem": 1142,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "speed_weight",
+        "topoNaJanela": 1634,
+        "fundoNaJanela": 1686,
+        "inteiroNaJanela": false
+      },
+      "barra": {
+        "rotulo": "Salvar",
+        "posicao": "static",
+        "topoNaJanela": 590,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": true,
+        "estilo": {
+          "largura": 624,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "folgas": {
+        "form": "20px",
+        "grupo": "12px",
+        "entreGrupos": 20
+      },
+      "grupos": [
+        {
+          "legenda": "O aluno recebe",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 816,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            },
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        },
+        {
+          "legenda": "O juiz avalia",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 530,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        }
+      ],
+      "dobras": [
+        {
+          "chave": "imagem",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Imagem que o aluno vê",
+          "altura": 192
+        },
+        {
+          "chave": "extras",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Campos opcionais",
+          "altura": 248
+        },
+        {
+          "chave": "criterios",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Critérios e pesos — 5 critérios · 100%",
+          "altura": 342
+        },
+        {
+          "chave": "rodada",
+          "dentroDeGrupo": false,
+          "aberta": true,
+          "alca": "Ajustes da rodada — 1× · sem cronômetro · Desconsiderar",
+          "altura": 215
+        }
+      ],
+      "alturaDoForm": 1702
+    },
+    "novoDesafioBaixaFim": {
+      "corpo": {
+        "scrollTop": 1142,
+        "scrollHeight": 1830,
+        "clientHeight": 688,
+        "rolagem": 1142,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "speed_weight",
+        "topoNaJanela": 492,
+        "fundoNaJanela": 544,
+        "inteiroNaJanela": true
+      },
+      "barra": {
+        "rotulo": "Salvar",
+        "posicao": "static",
+        "topoNaJanela": 590,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": false,
+        "estilo": {
+          "largura": 624,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "folgas": {
+        "form": "20px",
+        "grupo": "12px",
+        "entreGrupos": 20
+      },
+      "grupos": [
+        {
+          "legenda": "O aluno recebe",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 816,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            },
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        },
+        {
+          "legenda": "O juiz avalia",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 530,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        }
+      ],
+      "dobras": [
+        {
+          "chave": "imagem",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Imagem que o aluno vê",
+          "altura": 192
+        },
+        {
+          "chave": "extras",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Campos opcionais",
+          "altura": 248
+        },
+        {
+          "chave": "criterios",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Critérios e pesos — 5 critérios · 100%",
+          "altura": 342
+        },
+        {
+          "chave": "rodada",
+          "dentroDeGrupo": false,
+          "aberta": true,
+          "alca": "Ajustes da rodada — 1× · sem cronômetro · Desconsiderar",
+          "altura": 215
+        }
+      ],
+      "alturaDoForm": 1702
+    },
+    "novoDesafioCelular": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 2308,
+        "clientHeight": 828,
+        "rolagem": 1480,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "speed_weight",
+        "topoNaJanela": 2128,
+        "fundoNaJanela": 2180,
+        "inteiroNaJanela": false
+      },
+      "barra": {
+        "rotulo": "Salvar",
+        "posicao": "static",
+        "topoNaJanela": 744,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": true,
+        "estilo": {
+          "largura": 296,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "folgas": {
+        "form": "20px",
+        "grupo": "12px",
+        "entreGrupos": 20
+      },
+      "grupos": [
+        {
+          "legenda": "O aluno recebe",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 904,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            },
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        },
+        {
+          "legenda": "O juiz avalia",
+          "borda": "1px",
+          "padding": "14px",
+          "altura": 840,
+          "divisores": [
+            {
+              "borda": "1px solid",
+              "fundo": "rgba(0, 0, 0, 0)",
+              "raio": "0px",
+              "padding": "10px 0px 0px"
+            }
+          ]
+        }
+      ],
+      "dobras": [
+        {
+          "chave": "imagem",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Imagem que o aluno vê",
+          "altura": 192
+        },
+        {
+          "chave": "extras",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Campos opcionais",
+          "altura": 248
+        },
+        {
+          "chave": "criterios",
+          "dentroDeGrupo": true,
+          "aberta": true,
+          "alca": "Critérios e pesos — 5 critérios · 100%",
+          "altura": 652
+        },
+        {
+          "chave": "rodada",
+          "dentroDeGrupo": false,
+          "aberta": true,
+          "alca": "Ajustes da rodada — 1× · sem cronômetro · Desconsiderar",
+          "altura": 322
+        }
+      ],
+      "alturaDoForm": 2203
+    },
+    "tempos": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 1222,
+        "clientHeight": 868,
+        "rolagem": 354,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "text",
+        "topoNaJanela": 955,
+        "fundoNaJanela": 1007,
+        "inteiroNaJanela": false
+      },
+      "barra": {
+        "rotulo": "Salvar tempos",
+        "posicao": "static",
+        "topoNaJanela": 770,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": true,
+        "estilo": {
+          "largura": 624,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "linhas": [
+        {
+          "titulo": "Missão 1 — Cartaz da feira",
+          "campo": "2:00",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 2 — Post de robótica",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 3 — Convite da mostra",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 4 — Bilhete da reunião",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 5 — Legenda do vídeo",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        }
+      ],
+      "acoesDoTopo": {
+        "texto": "Aceitar as sugestões das 4 missões sem cronômetro",
+        "pintado": true,
+        "altura": 38,
+        "filhos": [
+          "BUTTON"
+        ]
+      },
+      "botaoAceitar": {
+        "largura": 343,
+        "altura": 38,
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": false,
+        "cor": "rgb(71, 85, 105)",
+        "borda": "1px rgb(203, 213, 225)",
+        "raio": "8px",
+        "sombra": null,
+        "fonte": "12.5px",
+        "peso": "600",
+        "padding": "8px 14px"
+      },
+      "botaoSugestao": {
+        "rotulo": "usar sugestão",
+        "largura": 114,
+        "altura": 38,
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": false,
+        "cor": "rgb(71, 85, 105)",
+        "borda": "1px rgb(203, 213, 225)",
+        "raio": "8px",
+        "sombra": null,
+        "fonte": "12.5px",
+        "peso": "600",
+        "padding": "8px 14px"
+      },
+      "total": "Se salvar assim: 2 min de aula · 4 missões sem cronômetro."
+    },
+    "temposComRascunho": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 1222,
+        "clientHeight": 868,
+        "rolagem": 354,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "text",
+        "topoNaJanela": 955,
+        "fundoNaJanela": 1007,
+        "inteiroNaJanela": false
+      },
+      "barra": {
+        "rotulo": "Salvar tempos",
+        "posicao": "static",
+        "topoNaJanela": 770,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": true,
+        "estilo": {
+          "largura": 624,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "linhas": [
+        {
+          "titulo": "Missão 1 — Cartaz da feira",
+          "campo": "3:00",
+          "selo": {
+            "texto": "no ar: 2:00",
+            "pintado": true,
+            "display": "block"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 2 — Post de robótica",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 3 — Convite da mostra",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 4 — Bilhete da reunião",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 5 — Legenda do vídeo",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        }
+      ],
+      "acoesDoTopo": {
+        "texto": "Aceitar as sugestões das 4 missões sem cronômetro",
+        "pintado": true,
+        "altura": 38,
+        "filhos": [
+          "BUTTON"
+        ]
+      },
+      "botaoAceitar": {
+        "largura": 343,
+        "altura": 38,
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": false,
+        "cor": "rgb(71, 85, 105)",
+        "borda": "1px rgb(203, 213, 225)",
+        "raio": "8px",
+        "sombra": null,
+        "fonte": "12.5px",
+        "peso": "600",
+        "padding": "8px 14px"
+      },
+      "botaoSugestao": {
+        "rotulo": "usar sugestão",
+        "largura": 114,
+        "altura": 38,
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": false,
+        "cor": "rgb(71, 85, 105)",
+        "borda": "1px rgb(203, 213, 225)",
+        "raio": "8px",
+        "sombra": null,
+        "fonte": "12.5px",
+        "peso": "600",
+        "padding": "8px 14px"
+      },
+      "total": "Se salvar assim: 3 min de aula · 4 missões sem cronômetro."
+    },
+    "temposBaixa": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 1222,
+        "clientHeight": 688,
+        "rolagem": 534,
+        "scrolladores": [
+          "div"
+        ]
+      },
+      "ultimoCampo": {
+        "nome": "text",
+        "topoNaJanela": 955,
+        "fundoNaJanela": 1007,
+        "inteiroNaJanela": false
+      },
+      "barra": {
+        "rotulo": "Salvar tempos",
+        "posicao": "static",
+        "topoNaJanela": 590,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": true,
+        "estilo": {
+          "largura": 624,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "linhas": [
+        {
+          "titulo": "Missão 1 — Cartaz da feira",
+          "campo": "3:00",
+          "selo": {
+            "texto": "no ar: 2:00",
+            "pintado": true,
+            "display": "block"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 2 — Post de robótica",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 3 — Convite da mostra",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 4 — Bilhete da reunião",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        },
+        {
+          "titulo": "Missão 5 — Legenda do vídeo",
+          "campo": "",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        }
+      ],
+      "acoesDoTopo": {
+        "texto": "Aceitar as sugestões das 4 missões sem cronômetro",
+        "pintado": true,
+        "altura": 38,
+        "filhos": [
+          "BUTTON"
+        ]
+      },
+      "botaoAceitar": {
+        "largura": 343,
+        "altura": 38,
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": false,
+        "cor": "rgb(71, 85, 105)",
+        "borda": "1px rgb(203, 213, 225)",
+        "raio": "8px",
+        "sombra": null,
+        "fonte": "12.5px",
+        "peso": "600",
+        "padding": "8px 14px"
+      },
+      "botaoSugestao": {
+        "rotulo": "usar sugestão",
+        "largura": 114,
+        "altura": 38,
+        "fundo": "rgba(0, 0, 0, 0)",
+        "gradiente": false,
+        "cor": "rgb(71, 85, 105)",
+        "borda": "1px rgb(203, 213, 225)",
+        "raio": "8px",
+        "sombra": null,
+        "fonte": "12.5px",
+        "peso": "600",
+        "padding": "8px 14px"
+      },
+      "total": "Se salvar assim: 3 min de aula · 4 missões sem cronômetro."
+    },
+    "temposTudoComCronometro": {
+      "corpo": {
+        "scrollTop": 0,
+        "scrollHeight": 502,
+        "clientHeight": 502,
+        "rolagem": 0,
+        "scrolladores": []
+      },
+      "ultimoCampo": {
+        "nome": "text",
+        "topoNaJanela": 194,
+        "fundoNaJanela": 246,
+        "inteiroNaJanela": true
+      },
+      "barra": {
+        "rotulo": "Salvar tempos",
+        "posicao": "static",
+        "topoNaJanela": 404,
+        "dentroDaJanela": true,
+        "tapaUltimoCampo": false,
+        "estilo": {
+          "largura": 624,
+          "altura": 48,
+          "fundo": "rgba(0, 0, 0, 0)",
+          "gradiente": true,
+          "cor": "rgb(255, 255, 255)",
+          "borda": "0px rgb(255, 255, 255)",
+          "raio": "999px",
+          "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+          "fonte": "16px",
+          "peso": "900",
+          "padding": "12px 24px"
+        }
+      },
+      "linhas": [
+        {
+          "titulo": "Missão 1 — Cartaz da feira",
+          "campo": "2:00",
+          "selo": {
+            "texto": "",
+            "pintado": false,
+            "display": "none"
+          },
+          "selosNaLinha": 1
+        }
+      ],
+      "acoesDoTopo": null,
+      "botaoAceitar": null,
+      "botaoSugestao": null,
+      "total": "Se salvar assim: 2 min de aula."
+    }
+  },
+  "pendentes": []
+}

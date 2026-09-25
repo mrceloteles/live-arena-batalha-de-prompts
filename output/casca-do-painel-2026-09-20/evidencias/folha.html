@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sala em destaque — casca do painel (20/09/2026)</title>
+<style>
+  body { margin: 0; padding: 24px; background: #f6f8fc; color: #0d1b34;
+         font: 14px/1.5 system-ui, "Segoe UI", Arial, sans-serif; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  p.lead { color: #64738b; margin: 0 0 24px; }
+  figure { margin: 0 0 28px; background: #fff; border: 1px solid #dce4ef;
+           border-radius: 14px; padding: 14px; box-shadow: 0 10px 30px rgba(8,36,91,.06); }
+  figcaption { font-weight: 700; margin-bottom: 10px; }
+  figcaption span { font-weight: 400; color: #64738b; }
+  img { width: 100%; height: auto; border: 1px solid #e6ebf2; border-radius: 10px; display: block; }
+  .par { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .par { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <h1>A casca do painel — a faixa de topo saiu, a barra lateral ficou</h1>
+  <p class="lead">Sala em destaque aberta, rodada viva, três alunos. Sonda <code>tmp/qa/sonda-casca.mjs</code>,
+  painel em processo, banco de memória, 20/09/2026.</p>
+
+  <figure>
+    <figcaption>1440×900 <span>— sem faixa de topo: título, navegação, portão e professor na barra lateral;
+    as duas portas de inspeção na linha dos selos do cartão; o Sorteio da vez de volta.</span></figcaption>
+    <img src="casca-1440x900-final.png" alt="Painel em 1440 por 900">
+  </figure>
+
+  <figure>
+    <figcaption>1920×1080 <span>— a lateral continua coluna de 244 px; a sala usa a coluna de 1440 px.</span></figcaption>
+    <img src="casca-1920x1080-final.png" alt="Painel em 1920 por 1080">
+  </figure>
+
+  <div class="par">
+    <figure>
+      <figcaption>1024×768 <span>— nada de faixa de topo; sem rolagem lateral.</span></figcaption>
+      <img src="casca-1024x768-final.png" alt="Painel em 1024 por 768">
+    </figure>
+    <figure>
+      <figcaption>390×844 <span>— uma coluna; o portão fica na primeira dobra, junto da navegação.</span></figcaption>
+      <img src="casca-390x844-final.png" alt="Painel em 390 por 844">
+    </figure>
+  </div>
+</body>
+</html>

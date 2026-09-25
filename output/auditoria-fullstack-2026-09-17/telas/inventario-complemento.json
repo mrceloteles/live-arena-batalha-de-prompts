@@ -1,0 +1,17 @@
+[
+  {
+    "name": "24-painel-celular",
+    "url": "http://127.0.0.1:65313/admin-arena.php",
+    "text": "LIVE ARENA\nBATALHA DE PROMPTS\nVisão Geral\nSalas Ativas\nBanco de Desafios\nAulas e Trilhas\nRelatório Analytics\nSair da conta\nPainel da Arena\nOperação ao vivo\nAnalytics\nPortal\nArena aberta\nFechar Arena\nSalas\n1 sala\n+ Nova sala\nOficina de prompts\nRascunho\nLUCE54\n0 missões\nPersonalizado\n0\nDE 4 ALUNOS\n0\nONLINE\nVer sala\nAbrir sala\nExcluir\nBanco de desafios\nNovo desafio\n\nNenhum desafio ainda. Crie o primeiro!\n\nProgressão das aulas\n🧱\nAula 2 — Fundação\nObjetivo, contexto, público, formato e restrições; melhorar prompts genéricos.\n4 missões\nAdicionar a sala\nSo criar no banco\n🎯\nAula 3 — Controle do resultado\nEspecificidade, formatos, estrutura, documentos e respostas controladas.\n4 missões\nAdicionar a sala\nSo criar no banco\n🎨\nAula 4 — Multimodal e visual\nImagens, referência visual, descrição e engenharia reversa.\n4 missões de Engenharia Reversa\nAdicionar a sala\nSo criar no banco\n🏆\nAula 5 — Arena final\nSequência completa da batalha final: 7 missões misturando tudo.\n7 missões\nAdicionar a sala\nSo criar no banco"
+  },
+  {
+    "name": "25-tv-entrada",
+    "url": "http://127.0.0.1:65313/tv.php",
+    "text": "LIVE ARENA\nBATALHA DE PROMPTS\n⛶ Tela cheia\nProjeção da sala\n\nPeça o código de projeção ao professor — ele aparece no Painel do professor, em “Projeção”.\n\nProjetar"
+  },
+  {
+    "name": "26-nao-encontrada",
+    "url": "http://127.0.0.1:65313/pagina-inexistente",
+    "text": "LIVE ARENA\nBATALHA DE PROMPTS\nPágina não encontrada\nVoltar ao início"
+  }
+]

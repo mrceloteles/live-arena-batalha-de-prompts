@@ -1,0 +1,312 @@
+{
+  "rotulo": "depois",
+  "medidas": {
+    "missaoCelular": {
+      "topoDoTitulo": 229,
+      "topoTentativas": 466,
+      "topoDoCampo": 573,
+      "topoDoEnvio": 770,
+      "distanciaTituloAoCampo": 344,
+      "distanciaTentativasAoCampo": 107,
+      "distanciaCampoAoEnvio": 197,
+      "alturaDoCampo": 169,
+      "alturaDaPagina": 879,
+      "alturaDaTela": 844
+    },
+    "dobrasCelular": [
+      {
+        "classe": "arena-card arena-results-panel",
+        "aberta": true,
+        "alturaDoCartao": 0,
+        "alturaDoSummary": 0,
+        "alturaDoTitulo": 0,
+        "sobraDoSummary": 0,
+        "caretAcimaDoTitulo": false
+      },
+      {
+        "classe": "arena-card arena-highlights-panel",
+        "aberta": true,
+        "alturaDoCartao": 0,
+        "alturaDoSummary": 0,
+        "alturaDoTitulo": 0,
+        "sobraDoSummary": 0,
+        "caretAcimaDoTitulo": false
+      }
+    ],
+    "missaoDesktop": {
+      "topoDoTitulo": 218,
+      "topoTentativas": 206,
+      "topoDoCampo": 314,
+      "topoDoEnvio": 582,
+      "distanciaTituloAoCampo": 96,
+      "distanciaTentativasAoCampo": 108,
+      "distanciaCampoAoEnvio": 268,
+      "alturaDoCampo": 240,
+      "alturaDaPagina": 900,
+      "alturaDaTela": 900
+    },
+    "dobrasDesktop": [
+      {
+        "classe": "arena-card arena-results-panel",
+        "aberta": true,
+        "alturaDoCartao": 0,
+        "alturaDoSummary": 0,
+        "alturaDoTitulo": 0,
+        "sobraDoSummary": 0,
+        "caretAcimaDoTitulo": false
+      },
+      {
+        "classe": "arena-card arena-highlights-panel",
+        "aberta": true,
+        "alturaDoCartao": 0,
+        "alturaDoSummary": 0,
+        "alturaDoTitulo": 0,
+        "sobraDoSummary": 0,
+        "caretAcimaDoTitulo": false
+      }
+    ],
+    "barra_missao": {
+      "alturaDaBarra": 146,
+      "controlesVisiveis": [
+        "Nada disto está no ar.",
+        "← Voltar ao painel",
+        "Missão",
+        "Depois de responder",
+        "Fim da sala",
+        "Missão 1 de 3",
+        "👁 Ver gabarito"
+      ],
+      "controlesEmDobra": [
+        "‹ Anterior",
+        "Próxima ›",
+        "1",
+        "2",
+        "3"
+      ],
+      "temNavegacao": true,
+      "temGradeNumerada": true,
+      "gradeVisivel": false,
+      "navegacaoVisivel": false,
+      "dobraDeNavegacaoAberta": false,
+      "alturaDaGrade": 34,
+      "alturaDaLinhaDeNavegacao": 68,
+      "avisos": [
+        "Nada disto está no ar."
+      ],
+      "contagem": "Missão 1 de 3",
+      "temGabarito": true,
+      "textoDaBarra": "PRÉVIA DO PROFESSOR Oficina de prompts Nada disto está no ar. ← Voltar ao painel Missão Depois de responder Fim da sala Missão 1 de 3 👁 Ver gabarito",
+      "topoDaMissao": 248
+    },
+    "barra_resultado": {
+      "alturaDaBarra": 146,
+      "controlesVisiveis": [
+        "Nada disto está no ar.",
+        "← Voltar ao painel",
+        "Missão",
+        "Depois de responder",
+        "Fim da sala",
+        "Missão 1 de 3",
+        "👁 Ver gabarito"
+      ],
+      "controlesEmDobra": [
+        "‹ Anterior",
+        "Próxima ›",
+        "1",
+        "2",
+        "3"
+      ],
+      "temNavegacao": true,
+      "temGradeNumerada": true,
+      "gradeVisivel": false,
+      "navegacaoVisivel": false,
+      "dobraDeNavegacaoAberta": false,
+      "alturaDaGrade": 34,
+      "alturaDaLinhaDeNavegacao": 68,
+      "avisos": [
+        "Nada disto está no ar.",
+        "Dados reais desta sala (Ana)"
+      ],
+      "contagem": "Missão 1 de 3",
+      "temGabarito": true,
+      "textoDaBarra": "PRÉVIA DO PROFESSOR Oficina de prompts Nada disto está no ar. ← Voltar ao painel Missão Depois de responder Fim da sala Dados reais desta sala (Ana) Missão 1 de 3 👁 Ver gabarito",
+      "topoDaMissao": 248
+    },
+    "barra_fim": {
+      "alturaDaBarra": 102,
+      "controlesVisiveis": [
+        "Nada disto está no ar.",
+        "← Voltar ao painel",
+        "Missão",
+        "Depois de responder",
+        "Fim da sala"
+      ],
+      "controlesEmDobra": [],
+      "temNavegacao": false,
+      "temGradeNumerada": false,
+      "gradeVisivel": false,
+      "navegacaoVisivel": false,
+      "dobraDeNavegacaoAberta": null,
+      "alturaDaGrade": null,
+      "alturaDaLinhaDeNavegacao": null,
+      "avisos": [
+        "Nada disto está no ar.",
+        "Dados reais desta sala (Ana)"
+      ],
+      "contagem": null,
+      "temGabarito": false,
+      "textoDaBarra": "PRÉVIA DO PROFESSOR Oficina de prompts Nada disto está no ar. ← Voltar ao painel Missão Depois de responder Fim da sala Dados reais desta sala (Ana)",
+      "topoDaMissao": null
+    },
+    "barra_navegacaoAberta": {
+      "alturaDaBarra": 215,
+      "controlesVisiveis": [
+        "Nada disto está no ar.",
+        "← Voltar ao painel",
+        "Missão",
+        "Depois de responder",
+        "Fim da sala",
+        "Missão 1 de 3",
+        "‹ Anterior",
+        "Próxima ›",
+        "1",
+        "2",
+        "3",
+        "👁 Ver gabarito"
+      ],
+      "controlesEmDobra": [],
+      "temNavegacao": true,
+      "temGradeNumerada": true,
+      "gradeVisivel": true,
+      "navegacaoVisivel": true,
+      "dobraDeNavegacaoAberta": true,
+      "alturaDaGrade": 34,
+      "alturaDaLinhaDeNavegacao": 34,
+      "avisos": [
+        "Nada disto está no ar."
+      ],
+      "contagem": "Missão 1 de 3",
+      "temGabarito": true,
+      "textoDaBarra": "PRÉVIA DO PROFESSOR Oficina de prompts Nada disto está no ar. ← Voltar ao painel Missão Depois de responder Fim da sala Missão 1 de 3 ‹ Anterior Próxima › 1 2 3 👁 Ver gabarito",
+      "topoDaMissao": 317
+    },
+    "barraCelular": {
+      "alturaDaBarra": 182,
+      "controlesVisiveis": [
+        "Nada disto está no ar.",
+        "← Voltar ao painel",
+        "Missão",
+        "Depois de responder",
+        "Fim da sala",
+        "Missão 1 de 3",
+        "👁 Ver gabarito"
+      ],
+      "controlesEmDobra": [
+        "‹ Anterior",
+        "Próxima ›",
+        "1",
+        "2",
+        "3"
+      ],
+      "temNavegacao": true,
+      "temGradeNumerada": true,
+      "gradeVisivel": false,
+      "navegacaoVisivel": false,
+      "dobraDeNavegacaoAberta": false,
+      "alturaDaGrade": 34,
+      "alturaDaLinhaDeNavegacao": 68,
+      "avisos": [
+        "Nada disto está no ar."
+      ],
+      "contagem": "Missão 1 de 3",
+      "temGabarito": true,
+      "textoDaBarra": "PRÉVIA DO PROFESSOR Oficina de prompts Nada disto está no ar. ← Voltar ao painel Missão Depois de responder Fim da sala Missão 1 de 3 👁 Ver gabarito",
+      "topoDaMissao": 272
+    },
+    "barraUmaMissao": {
+      "alturaDaBarra": 146,
+      "controlesVisiveis": [
+        "Nada disto está no ar.",
+        "← Voltar ao painel",
+        "Missão",
+        "Depois de responder",
+        "Fim da sala",
+        "👁 Ver gabarito"
+      ],
+      "controlesEmDobra": [],
+      "temNavegacao": false,
+      "temGradeNumerada": false,
+      "gradeVisivel": false,
+      "navegacaoVisivel": false,
+      "dobraDeNavegacaoAberta": null,
+      "alturaDaGrade": null,
+      "alturaDaLinhaDeNavegacao": null,
+      "avisos": [
+        "Nada disto está no ar."
+      ],
+      "contagem": "Missão 1 de 1",
+      "temGabarito": true,
+      "textoDaBarra": "PRÉVIA DO PROFESSOR Sala de uma missão Nada disto está no ar. ← Voltar ao painel Missão Depois de responder Fim da sala Missão 1 de 1 👁 Ver gabarito",
+      "topoDaMissao": 248
+    },
+    "barraUmaMissaoCelular": {
+      "alturaDaBarra": 182,
+      "controlesVisiveis": [
+        "Nada disto está no ar.",
+        "← Voltar ao painel",
+        "Missão",
+        "Depois de responder",
+        "Fim da sala",
+        "👁 Ver gabarito"
+      ],
+      "controlesEmDobra": [],
+      "temNavegacao": false,
+      "temGradeNumerada": false,
+      "gradeVisivel": false,
+      "navegacaoVisivel": false,
+      "dobraDeNavegacaoAberta": null,
+      "alturaDaGrade": null,
+      "alturaDaLinhaDeNavegacao": null,
+      "avisos": [
+        "Nada disto está no ar."
+      ],
+      "contagem": "Missão 1 de 1",
+      "temGabarito": true,
+      "textoDaBarra": "PRÉVIA DO PROFESSOR Sala de uma missão Nada disto está no ar. ← Voltar ao painel Missão Depois de responder Fim da sala Missão 1 de 1 👁 Ver gabarito",
+      "topoDaMissao": 272
+    },
+    "dobrasFimCelular": [
+      {
+        "classe": "arena-card arena-results-panel",
+        "aberta": false,
+        "alturaDoCartao": 42,
+        "alturaDoSummary": 20,
+        "alturaDoTitulo": 20,
+        "sobraDoSummary": 0,
+        "caretAcimaDoTitulo": false
+      },
+      {
+        "classe": "arena-card arena-highlights-panel",
+        "aberta": false,
+        "alturaDoCartao": 42,
+        "alturaDoSummary": 20,
+        "alturaDoTitulo": 20,
+        "sobraDoSummary": 0,
+        "caretAcimaDoTitulo": false
+      }
+    ],
+    "missaoFimCelular": {
+      "topoDoTitulo": 88,
+      "topoTentativas": 88,
+      "topoDoCampo": 88,
+      "topoDoEnvio": 88,
+      "distanciaTituloAoCampo": 0,
+      "distanciaTentativasAoCampo": 0,
+      "distanciaCampoAoEnvio": 0,
+      "alturaDoCampo": 0,
+      "alturaDaPagina": 932,
+      "alturaDaTela": 844
+    }
+  },
+  "pendentes": []
+}

@@ -1,0 +1,2458 @@
+{
+ "erros": [],
+ "problemas": [],
+ "retratos": {
+  "produto/1-portal-390": {
+   "tela": null,
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390,
+   "alturaDoc": 922,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 8.5,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "progressão clara"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "ritmo de sala"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "aprendizado visível"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "engajamento sem ruído"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nDescubra o\nPROMPT\nUma arena ao vivo em que cada rodada transforma observação, estratégia e linguagem em um desafio de engenharia de prompt.\nEntrar na Arena\nPainel do professor\nProjeção da TV\n3 rodadas\nprogressão clara\ntempo ao vivo\nritmo de sala\nfeedback imediato\naprendizado visível\nranking coletivo\nengajamento sem ruído"
+  },
+  "produto/2-entrada-390": {
+   "tela": "join",
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390,
+   "alturaDoc": 905,
+   "alvos": 4,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 8.5,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "p.arena-join-hint",
+     "px": 12,
+     "peso": "400",
+     "texto": "O código vem do professor."
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "700",
+     "texto": "Código da sala"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "700",
+     "texto": "Seu nome"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-join-visual tv-waiting-players-illustration.svg"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nEntrada do aluno\nEntrar na batalha\nSeu nome aparece no ranking da turma. A batalha começa quando o professor abrir a primeira missão.\nCÓDIGO E NOME\nO código vem do professor.\nCÓDIGO DA SALA\nSEU NOME\nENTRAR\nVoltar ao início"
+  },
+  "produto/3-espera-390": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390,
+   "alturaDoc": 992,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "button.ghost-link",
+     "px": 12,
+     "peso": "500",
+     "texto": "Sair"
+    },
+    {
+     "cls": "span.arena-wait-code-label",
+     "px": 11,
+     "peso": "800",
+     "texto": "Código da sala"
+    },
+    {
+     "cls": "figcaption",
+     "px": 11,
+     "peso": "700",
+     "texto": "Abra em outro aparelho"
+    },
+    {
+     "cls": "h2.arena-roster-title",
+     "px": 11,
+     "peso": "800",
+     "texto": "Participantes"
+    },
+    {
+     "cls": "em",
+     "px": 9,
+     "peso": "800",
+     "texto": "você"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-wait-illustration tv-waiting-players-illustration.svg"
+   ],
+   "semNome": [
+    "a"
+   ],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\n1\nSair\nAguarde o professor iniciar\nCÓDIGO DA SALA\nHFTT53\nQuem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado.\nAbra em outro aparelho\nPARTICIPANTES\nAluna 390\nVOCÊ\nComo funciona"
+  },
+  "produto/4-como-funciona-390": {
+   "tela": "how",
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390,
+   "alturaDoc": 1041,
+   "alvos": 1,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "strong",
+     "px": 10,
+     "peso": "900",
+     "texto": "Dica"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img manual-instructions-illustration.svg"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "Antes da batalha\nComo a batalha funciona\nObserve → escreva → receba a nota → melhore.\nCada missão pede um prompt. O juiz devolve a nota com os critérios na tela.\nEngenharia reversa\nVocê vê uma referência e escreve o prompt que poderia produzi-la.\nResgate\nUm prompt fraco é o ponto de partida: complete o que falta.\nPrompt completo\nA instrução inteira: contexto, restrições, público e formato.\nDICA\nEscrever mais não é escrever melhor.\nVoltar para a sala"
+  },
+  "produto/5-rodada-390": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390,
+   "alturaDoc": 909,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.arena-room-code",
+     "px": 11,
+     "peso": "800",
+     "texto": "HFTT53"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "0 / 4000 caracteres"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nHFTT53\n1\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:59\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n0 / 4000 caracteres\nEnviar prompt"
+  },
+  "produto/5b-rodada-escrita-390": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390,
+   "alturaDoc": 909,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.arena-room-code",
+     "px": 11,
+     "peso": "800",
+     "texto": "HFTT53"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "253 / 4000 caracteres"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nHFTT53\n1\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:55\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n253 / 4000 caracteres\nEnviar prompt"
+  },
+  "produto/6-nota-390": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 390,
+   "janela": 390,
+   "alturaDoc": 2178,
+   "alvos": 4,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.arena-room-code",
+     "px": 11,
+     "peso": "800",
+     "texto": "HFTT53"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "0 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-result-pill",
+     "px": 11,
+     "peso": "800",
+     "texto": "Resposta avaliada"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "SUA NOTA"
+    },
+    {
+     "cls": "span.arena-score-ring-unit",
+     "px": 10,
+     "peso": "700",
+     "texto": "de 100"
+    },
+    {
+     "cls": "h3",
+     "px": 11,
+     "peso": "800",
+     "texto": "Leitura do seu prompt"
+    },
+    {
+     "cls": "summary",
+     "px": 12.5,
+     "peso": "700",
+     "texto": "Ver critérios"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Melhor ponto"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "700",
+     "texto": "16/20"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Foco agora"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "700",
+     "texto": "+13 pts possíveis"
+    },
+    {
+     "cls": "h3",
+     "px": 11,
+     "peso": "800",
+     "texto": "Como subir sua nota"
+    },
+    {
+     "cls": "small.arena-ranking-place",
+     "px": 11,
+     "peso": "800",
+     "texto": "1º lugar · Campeão"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 390"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 390"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 390"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-ranking-medal.is-gold trophy-gold.png",
+    "img.arena-ranking-avatar player-avatar.png",
+    "img.arena-medal-icon trophy-gold.png"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nHFTT53\n1\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:54\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n0 / 4000 caracteres\nEnviado ✓\nRESPOSTA AVALIADA\nTentativa 1 de 2\nOnde você foi bem e o que ainda dá ponto.\nSUA NOTA\n50,96 PTS\nDE 100\nLEITURA DO SEU PROMPT\nVer critérios\nMELHOR PONTO\nClareza\n16/20\nFOCO AGORA\nObjetivo\n+13 pts possíveis\nCOMO SUBIR SUA NOTA\nO objetivo do que você quer está claro, mas explicite o resultado esperado. Reescreva com frases curtas e diretas para reduzir ambiguidade. Qualidade: 53%.\nTentar novamente (1/2)\nCLASSIFICAÇÃO GERAL\nAluna 390\n1º LUGAR · CAMPEÃO\n53 pts\nDESTAQUES\nMaior pontuação\nAluna 390\n🎯\nMais preciso\nAluna 390\n53\n✂️\nMais eficiente\nAluna 390"
+  },
+  "produto/1-portal-768": {
+   "tela": null,
+   "rolagemLateral": false,
+   "larguraDoc": 768,
+   "janela": 768,
+   "alturaDoc": 1024,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 8.5,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "progressão clara"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "ritmo de sala"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "aprendizado visível"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "engajamento sem ruído"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nDescubra o\nPROMPT\nUma arena ao vivo em que cada rodada transforma observação, estratégia e linguagem em um desafio de engenharia de prompt.\nEntrar na Arena\nPainel do professor\nProjeção da TV\n3 rodadas\nprogressão clara\ntempo ao vivo\nritmo de sala\nfeedback imediato\naprendizado visível\nranking coletivo\nengajamento sem ruído"
+  },
+  "produto/2-entrada-768": {
+   "tela": "join",
+   "rolagemLateral": false,
+   "larguraDoc": 768,
+   "janela": 768,
+   "alturaDoc": 1024,
+   "alvos": 4,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 8.5,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "p.arena-join-hint",
+     "px": 12,
+     "peso": "400",
+     "texto": "O código vem do professor."
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "700",
+     "texto": "Código da sala"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "700",
+     "texto": "Seu nome"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-join-visual tv-waiting-players-illustration.svg"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nEntrada do aluno\nEntrar na batalha\nSeu nome aparece no ranking da turma. A batalha começa quando o professor abrir a primeira missão.\nCÓDIGO E NOME\nO código vem do professor.\nCÓDIGO DA SALA\nSEU NOME\nENTRAR\nVoltar ao início"
+  },
+  "produto/3-espera-768": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 768,
+   "janela": 768,
+   "alturaDoc": 1024,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "600",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-wait-code-label",
+     "px": 11,
+     "peso": "800",
+     "texto": "Código da sala"
+    },
+    {
+     "cls": "figcaption",
+     "px": 11,
+     "peso": "700",
+     "texto": "Abra em outro aparelho"
+    },
+    {
+     "cls": "h2.arena-roster-title",
+     "px": 11,
+     "peso": "800",
+     "texto": "Participantes"
+    },
+    {
+     "cls": "em",
+     "px": 10,
+     "peso": "800",
+     "texto": "você"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-wait-illustration tv-waiting-players-illustration.svg"
+   ],
+   "semNome": [
+    "a"
+   ],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 768\n1\nconectado\nSair\nAguarde o professor iniciar\nCÓDIGO DA SALA\nANLS87\nQuem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado.\nAbra em outro aparelho\nPARTICIPANTES\nAluna 768\nVOCÊ\nComo funciona"
+  },
+  "produto/4-como-funciona-768": {
+   "tela": "how",
+   "rolagemLateral": false,
+   "larguraDoc": 768,
+   "janela": 768,
+   "alturaDoc": 1024,
+   "alvos": 1,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "strong",
+     "px": 10,
+     "peso": "900",
+     "texto": "Dica"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img manual-instructions-illustration.svg"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "Antes da batalha\nComo a batalha funciona\nObserve → escreva → receba a nota → melhore.\nCada missão pede um prompt. O juiz devolve a nota com os critérios na tela.\nEngenharia reversa\nVocê vê uma referência e escreve o prompt que poderia produzi-la.\nResgate\nUm prompt fraco é o ponto de partida: complete o que falta.\nPrompt completo\nA instrução inteira: contexto, restrições, público e formato.\nDICA\nEscrever mais não é escrever melhor.\nVoltar para a sala"
+  },
+  "produto/5-rodada-768": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 768,
+   "janela": 768,
+   "alturaDoc": 1024,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span.arena-room-code",
+     "px": 12,
+     "peso": "800",
+     "texto": "ANLS87"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "500",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "0 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-submit-hint",
+     "px": 11,
+     "peso": "700",
+     "texto": "Ctrl + Enter ↵"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 768\nANLS87\n1\nconectado\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:59\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n0 / 4000 caracteres\nEnviar prompt\nCTRL + ENTER ↵"
+  },
+  "produto/5b-rodada-escrita-768": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 768,
+   "janela": 768,
+   "alturaDoc": 1024,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span.arena-room-code",
+     "px": 12,
+     "peso": "800",
+     "texto": "ANLS87"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "500",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "253 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-submit-hint",
+     "px": 11,
+     "peso": "700",
+     "texto": "Ctrl + Enter ↵"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 768\nANLS87\n1\nconectado\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:55\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n253 / 4000 caracteres\nEnviar prompt\nCTRL + ENTER ↵"
+  },
+  "produto/6-nota-768": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 768,
+   "janela": 768,
+   "alturaDoc": 1742,
+   "alvos": 4,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span.arena-room-code",
+     "px": 12,
+     "peso": "800",
+     "texto": "ANLS87"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "500",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "0 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-submit-hint",
+     "px": 11,
+     "peso": "700",
+     "texto": "Ctrl + Enter ↵"
+    },
+    {
+     "cls": "span.arena-result-pill",
+     "px": 11,
+     "peso": "800",
+     "texto": "Resposta avaliada"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "SUA NOTA"
+    },
+    {
+     "cls": "span.arena-score-ring-unit",
+     "px": 10,
+     "peso": "700",
+     "texto": "de 100"
+    },
+    {
+     "cls": "h3",
+     "px": 11,
+     "peso": "800",
+     "texto": "Leitura do seu prompt"
+    },
+    {
+     "cls": "summary",
+     "px": 12.5,
+     "peso": "700",
+     "texto": "Ver critérios"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Melhor ponto"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "700",
+     "texto": "16/20"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Foco agora"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "700",
+     "texto": "+13 pts possíveis"
+    },
+    {
+     "cls": "h3",
+     "px": 11,
+     "peso": "800",
+     "texto": "Como subir sua nota"
+    },
+    {
+     "cls": "small.arena-ranking-place",
+     "px": 11,
+     "peso": "800",
+     "texto": "1º lugar · Campeão"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 768"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 768"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 768"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-ranking-medal.is-gold trophy-gold.png",
+    "img.arena-ranking-avatar player-avatar.png",
+    "img.arena-medal-icon trophy-gold.png"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 768\nANLS87\n1\nconectado\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:55\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n0 / 4000 caracteres\nEnviado ✓\nCTRL + ENTER ↵\nRESPOSTA AVALIADA\nTentativa 1 de 2\nOnde você foi bem e o que ainda dá ponto.\nSUA NOTA\n50,71 PTS\nDE 100\nLEITURA DO SEU PROMPT\nVer critérios\nMELHOR PONTO\nClareza\n16/20\nFOCO AGORA\nObjetivo\n+13 pts possíveis\nCOMO SUBIR SUA NOTA\nO objetivo do que você quer está claro, mas explicite o resultado esperado. Reescreva com frases curtas e diretas para reduzir ambiguidade. Qualidade: 53%.\nTentar novamente (1/2)\nCLASSIFICAÇÃO GERAL\nAluna 768\n1º LUGAR · CAMPEÃO\n53 pts\nDESTAQUES\nMaior pontuação\nAluna 768\n🎯\nMais preciso\nAluna 768\n53\n✂️\nMais eficiente\nAluna 768"
+  },
+  "produto/1-portal-1440": {
+   "tela": null,
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440,
+   "alturaDoc": 900,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 8.5,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "progressão clara"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "ritmo de sala"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "aprendizado visível"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "engajamento sem ruído"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nDescubra o\nPROMPT\nUma arena ao vivo em que cada rodada transforma observação, estratégia e linguagem em um desafio de engenharia de prompt.\nEntrar na Arena\nPainel do professor\nProjeção da TV\n3 rodadas\nprogressão clara\ntempo ao vivo\nritmo de sala\nfeedback imediato\naprendizado visível\nranking coletivo\nengajamento sem ruído"
+  },
+  "produto/2-entrada-1440": {
+   "tela": "join",
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440,
+   "alturaDoc": 900,
+   "alvos": 4,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 8.5,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "p.arena-join-hint",
+     "px": 12,
+     "peso": "400",
+     "texto": "O código vem do professor."
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "700",
+     "texto": "Código da sala"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "700",
+     "texto": "Seu nome"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-join-visual tv-waiting-players-illustration.svg"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nEntrada do aluno\nEntrar na batalha\nSeu nome aparece no ranking da turma. A batalha começa quando o professor abrir a primeira missão.\nCÓDIGO E NOME\nO código vem do professor.\nCÓDIGO DA SALA\nSEU NOME\nENTRAR\nVoltar ao início"
+  },
+  "produto/3-espera-1440": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440,
+   "alturaDoc": 900,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "600",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-wait-code-label",
+     "px": 11,
+     "peso": "800",
+     "texto": "Código da sala"
+    },
+    {
+     "cls": "figcaption",
+     "px": 11,
+     "peso": "700",
+     "texto": "Abra em outro aparelho"
+    },
+    {
+     "cls": "h2.arena-roster-title",
+     "px": 11,
+     "peso": "800",
+     "texto": "Participantes"
+    },
+    {
+     "cls": "em",
+     "px": 10,
+     "peso": "800",
+     "texto": "você"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-wait-illustration tv-waiting-players-illustration.svg"
+   ],
+   "semNome": [
+    "a"
+   ],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 1440\n1\nconectado\nSair\nAguarde o professor iniciar\nCÓDIGO DA SALA\nHWJE96\nQuem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado.\nAbra em outro aparelho\nPARTICIPANTES\nAluna 1440\nVOCÊ\nComo funciona"
+  },
+  "produto/4-como-funciona-1440": {
+   "tela": "how",
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440,
+   "alturaDoc": 900,
+   "alvos": 1,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "strong",
+     "px": 10,
+     "peso": "900",
+     "texto": "Dica"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img manual-instructions-illustration.svg"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "Antes da batalha\nComo a batalha funciona\nObserve → escreva → receba a nota → melhore.\nCada missão pede um prompt. O juiz devolve a nota com os critérios na tela.\nEngenharia reversa\nVocê vê uma referência e escreve o prompt que poderia produzi-la.\nResgate\nUm prompt fraco é o ponto de partida: complete o que falta.\nPrompt completo\nA instrução inteira: contexto, restrições, público e formato.\nDICA\nEscrever mais não é escrever melhor.\nVoltar para a sala"
+  },
+  "produto/5-rodada-1440": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440,
+   "alturaDoc": 900,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span.arena-room-code",
+     "px": 12,
+     "peso": "800",
+     "texto": "HWJE96"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "500",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "0 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-submit-hint",
+     "px": 11,
+     "peso": "700",
+     "texto": "Ctrl + Enter ↵"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 1440\nHWJE96\n1\nconectado\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:59\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n0 / 4000 caracteres\nEnviar prompt\nCTRL + ENTER ↵"
+  },
+  "produto/5b-rodada-escrita-1440": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440,
+   "alturaDoc": 900,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span.arena-room-code",
+     "px": 12,
+     "peso": "800",
+     "texto": "HWJE96"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "500",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "253 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-submit-hint",
+     "px": 11,
+     "peso": "700",
+     "texto": "Ctrl + Enter ↵"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 1440\nHWJE96\n1\nconectado\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:55\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n253 / 4000 caracteres\nEnviar prompt\nCTRL + ENTER ↵"
+  },
+  "produto/6-nota-1440": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 1440,
+   "janela": 1440,
+   "alturaDoc": 1389,
+   "alvos": 4,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span.arena-room-code",
+     "px": 12,
+     "peso": "800",
+     "texto": "HWJE96"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "500",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "0 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-submit-hint",
+     "px": 11,
+     "peso": "700",
+     "texto": "Ctrl + Enter ↵"
+    },
+    {
+     "cls": "span.arena-result-pill",
+     "px": 11,
+     "peso": "800",
+     "texto": "Resposta avaliada"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "SUA NOTA"
+    },
+    {
+     "cls": "span.arena-score-ring-unit",
+     "px": 10,
+     "peso": "700",
+     "texto": "de 100"
+    },
+    {
+     "cls": "h3",
+     "px": 11,
+     "peso": "800",
+     "texto": "Leitura do seu prompt"
+    },
+    {
+     "cls": "summary",
+     "px": 12.5,
+     "peso": "700",
+     "texto": "Ver critérios"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Melhor ponto"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "700",
+     "texto": "16/20"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Foco agora"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "700",
+     "texto": "+13 pts possíveis"
+    },
+    {
+     "cls": "h3",
+     "px": 11,
+     "peso": "800",
+     "texto": "Como subir sua nota"
+    },
+    {
+     "cls": "small.arena-ranking-place",
+     "px": 11,
+     "peso": "800",
+     "texto": "1º lugar · Campeão"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 1440"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 1440"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 1440"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-ranking-medal.is-gold trophy-gold.png",
+    "img.arena-ranking-avatar player-avatar.png",
+    "img.arena-medal-icon trophy-gold.png"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 1440\nHWJE96\n1\nconectado\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:55\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n0 / 4000 caracteres\nEnviado ✓\nCTRL + ENTER ↵\nRESPOSTA AVALIADA\nTentativa 1 de 2\nOnde você foi bem e o que ainda dá ponto.\nSUA NOTA\n50,84 PTS\nDE 100\nLEITURA DO SEU PROMPT\nVer critérios\nMELHOR PONTO\nClareza\n16/20\nFOCO AGORA\nObjetivo\n+13 pts possíveis\nCOMO SUBIR SUA NOTA\nO objetivo do que você quer está claro, mas explicite o resultado esperado. Reescreva com frases curtas e diretas para reduzir ambiguidade. Qualidade: 53%.\nTentar novamente (1/2)\nCLASSIFICAÇÃO GERAL\nAluna 1440\n1º LUGAR · CAMPEÃO\n53 pts\nDESTAQUES\nMaior pontuação\nAluna 1440\n🎯\nMais preciso\nAluna 1440\n53\n✂️\nMais eficiente\nAluna 1440"
+  },
+  "produto/1-portal-1920": {
+   "tela": null,
+   "rolagemLateral": false,
+   "larguraDoc": 1920,
+   "janela": 1920,
+   "alturaDoc": 1080,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 8.5,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "progressão clara"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "ritmo de sala"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "aprendizado visível"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "400",
+     "texto": "engajamento sem ruído"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nDescubra o\nPROMPT\nUma arena ao vivo em que cada rodada transforma observação, estratégia e linguagem em um desafio de engenharia de prompt.\nEntrar na Arena\nPainel do professor\nProjeção da TV\n3 rodadas\nprogressão clara\ntempo ao vivo\nritmo de sala\nfeedback imediato\naprendizado visível\nranking coletivo\nengajamento sem ruído"
+  },
+  "produto/2-entrada-1920": {
+   "tela": "join",
+   "rolagemLateral": false,
+   "larguraDoc": 1920,
+   "janela": 1920,
+   "alturaDoc": 1080,
+   "alvos": 4,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 8.5,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "p.arena-join-hint",
+     "px": 12,
+     "peso": "400",
+     "texto": "O código vem do professor."
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "700",
+     "texto": "Código da sala"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "700",
+     "texto": "Seu nome"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-join-visual tv-waiting-players-illustration.svg"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nEntrada do aluno\nEntrar na batalha\nSeu nome aparece no ranking da turma. A batalha começa quando o professor abrir a primeira missão.\nCÓDIGO E NOME\nO código vem do professor.\nCÓDIGO DA SALA\nSEU NOME\nENTRAR\nVoltar ao início"
+  },
+  "produto/3-espera-1920": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 1920,
+   "janela": 1920,
+   "alturaDoc": 1080,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "600",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-wait-code-label",
+     "px": 11,
+     "peso": "800",
+     "texto": "Código da sala"
+    },
+    {
+     "cls": "figcaption",
+     "px": 11,
+     "peso": "700",
+     "texto": "Abra em outro aparelho"
+    },
+    {
+     "cls": "h2.arena-roster-title",
+     "px": 11,
+     "peso": "800",
+     "texto": "Participantes"
+    },
+    {
+     "cls": "em",
+     "px": 10,
+     "peso": "800",
+     "texto": "você"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-wait-illustration tv-waiting-players-illustration.svg"
+   ],
+   "semNome": [
+    "a"
+   ],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 1920\n1\nconectado\nSair\nAguarde o professor iniciar\nCÓDIGO DA SALA\nUEYX29\nQuem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado.\nAbra em outro aparelho\nPARTICIPANTES\nAluna 1920\nVOCÊ\nComo funciona"
+  },
+  "produto/4-como-funciona-1920": {
+   "tela": "how",
+   "rolagemLateral": false,
+   "larguraDoc": 1920,
+   "janela": 1920,
+   "alturaDoc": 1080,
+   "alvos": 1,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "strong",
+     "px": 10,
+     "peso": "900",
+     "texto": "Dica"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img manual-instructions-illustration.svg"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "Antes da batalha\nComo a batalha funciona\nObserve → escreva → receba a nota → melhore.\nCada missão pede um prompt. O juiz devolve a nota com os critérios na tela.\nEngenharia reversa\nVocê vê uma referência e escreve o prompt que poderia produzi-la.\nResgate\nUm prompt fraco é o ponto de partida: complete o que falta.\nPrompt completo\nA instrução inteira: contexto, restrições, público e formato.\nDICA\nEscrever mais não é escrever melhor.\nVoltar para a sala"
+  },
+  "produto/5-rodada-1920": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 1920,
+   "janela": 1920,
+   "alturaDoc": 1080,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span.arena-room-code",
+     "px": 12,
+     "peso": "800",
+     "texto": "UEYX29"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "500",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "0 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-submit-hint",
+     "px": 11,
+     "peso": "700",
+     "texto": "Ctrl + Enter ↵"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 1920\nUEYX29\n1\nconectado\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:59\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n0 / 4000 caracteres\nEnviar prompt\nCTRL + ENTER ↵"
+  },
+  "produto/5b-rodada-escrita-1920": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 1920,
+   "janela": 1920,
+   "alturaDoc": 1080,
+   "alvos": 3,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span.arena-room-code",
+     "px": 12,
+     "peso": "800",
+     "texto": "UEYX29"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "500",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "253 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-submit-hint",
+     "px": 11,
+     "peso": "700",
+     "texto": "Ctrl + Enter ↵"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 1920\nUEYX29\n1\nconectado\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:55\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n253 / 4000 caracteres\nEnviar prompt\nCTRL + ENTER ↵"
+  },
+  "produto/6-nota-1920": {
+   "tela": "lobby",
+   "rolagemLateral": false,
+   "larguraDoc": 1920,
+   "janela": 1920,
+   "alturaDoc": 1390,
+   "alvos": 4,
+   "pequenos": [],
+   "miudos": [
+    {
+     "cls": "span.brand-identity-sub",
+     "px": 9,
+     "peso": "800",
+     "texto": "BATALHA DE PROMPTS"
+    },
+    {
+     "cls": "span.arena-room-code",
+     "px": 12,
+     "peso": "800",
+     "texto": "UEYX29"
+    },
+    {
+     "cls": "span",
+     "px": 12,
+     "peso": "500",
+     "texto": "conectado"
+    },
+    {
+     "cls": "span.arena-round-count",
+     "px": 11,
+     "peso": "700",
+     "texto": "MISSÃO 01/01"
+    },
+    {
+     "cls": "span.arena-mission-badge",
+     "px": 11,
+     "peso": "600",
+     "texto": "PROMPT COMPLETO"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tentativas"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "700",
+     "texto": "Tempo restante"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Inclua"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "contexto"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "instruções"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "restrições"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "público"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "formato"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "critérios"
+    },
+    {
+     "cls": "li",
+     "px": 9,
+     "peso": "900",
+     "texto": "resultado esperado"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "Escreva seu prompt"
+    },
+    {
+     "cls": "small.arena-counter",
+     "px": 11,
+     "peso": "500",
+     "texto": "0 / 4000 caracteres"
+    },
+    {
+     "cls": "span.arena-submit-hint",
+     "px": 11,
+     "peso": "700",
+     "texto": "Ctrl + Enter ↵"
+    },
+    {
+     "cls": "span.arena-result-pill",
+     "px": 11,
+     "peso": "800",
+     "texto": "Resposta avaliada"
+    },
+    {
+     "cls": "span",
+     "px": 11,
+     "peso": "800",
+     "texto": "SUA NOTA"
+    },
+    {
+     "cls": "span.arena-score-ring-unit",
+     "px": 10,
+     "peso": "700",
+     "texto": "de 100"
+    },
+    {
+     "cls": "h3",
+     "px": 11,
+     "peso": "800",
+     "texto": "Leitura do seu prompt"
+    },
+    {
+     "cls": "summary",
+     "px": 12.5,
+     "peso": "700",
+     "texto": "Ver critérios"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Melhor ponto"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "700",
+     "texto": "16/20"
+    },
+    {
+     "cls": "span",
+     "px": 10,
+     "peso": "800",
+     "texto": "Foco agora"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "700",
+     "texto": "+13 pts possíveis"
+    },
+    {
+     "cls": "h3",
+     "px": 11,
+     "peso": "800",
+     "texto": "Como subir sua nota"
+    },
+    {
+     "cls": "small.arena-ranking-place",
+     "px": 11,
+     "peso": "800",
+     "texto": "1º lugar · Campeão"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 1920"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 1920"
+    },
+    {
+     "cls": "em",
+     "px": 12,
+     "peso": "400",
+     "texto": "Aluna 1920"
+    }
+   ],
+   "cortados": [],
+   "semAlt": [
+    "img.arena-ranking-medal.is-gold trophy-gold.png",
+    "img.arena-ranking-avatar player-avatar.png",
+    "img.arena-medal-icon trophy-gold.png"
+   ],
+   "semNome": [],
+   "contrasteReprovado": [],
+   "retrato": "LIVE ARENA\nBATALHA DE PROMPTS\nAUDITORIA 1920\nUEYX29\n1\nconectado\nSair\nMISSÃO 01/01\nPROMPT COMPLETO\nTENTATIVAS\n1\n2\nTEMPO RESTANTE\n14:55\nRelatório técnico do projeto\nO relatório será lido pela banca avaliadora da feira.\nGere um relatório técnico sobre o projeto de robótica da escola.\nINCLUA\nCONTEXTO\nINSTRUÇÕES\nRESTRIÇÕES\nPÚBLICO\nFORMATO\nCRITÉRIOS\nRESULTADO ESPERADO\nESCREVA SEU PROMPT\n0 / 4000 caracteres\nEnviado ✓\nCTRL + ENTER ↵\nRESPOSTA AVALIADA\nTentativa 1 de 2\nOnde você foi bem e o que ainda dá ponto.\nSUA NOTA\n50,7 PTS\nDE 100\nLEITURA DO SEU PROMPT\nVer critérios\nMELHOR PONTO\nClareza\n16/20\nFOCO AGORA\nObjetivo\n+13 pts possíveis\nCOMO SUBIR SUA NOTA\nO objetivo do que você quer está claro, mas explicite o resultado esperado. Reescreva com frases curtas e diretas para reduzir ambiguidade. Qualidade: 53%.\nTentar novamente (1/2)\nCLASSIFICAÇÃO GERAL\nAluna 1920\n1º LUGAR · CAMPEÃO\n53 pts\nDESTAQUES\nMaior pontuação\nAluna 1920\n🎯\nMais preciso\nAluna 1920\n53\n✂️\nMais eficiente\nAluna 1920"
+  }
+ }
+}

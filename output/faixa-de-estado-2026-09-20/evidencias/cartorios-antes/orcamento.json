@@ -1,0 +1,208 @@
+{
+  "telas": {
+    "portal": {
+      "rotas": [
+        "/",
+        "/index.php"
+      ],
+      "status": 200,
+      "palavras": 33,
+      "base": 38,
+      "teto": 33,
+      "nota": "Os três papéis (professor, aluno, TV) são o que a home precisa dizer a quem chega pelo link: cada item é rótulo do papel mais a ação dele, sem prosa. O teto antigo (10) era o do CTA único, que só servia a quem já era aluno. Ainda abaixo das 38 palavras do portal original — que listava PCs e modos.",
+      "bundles": [
+        "public/assets/js/app.js"
+      ]
+    },
+    "projecao-da-tv": {
+      "rotas": [
+        "/tv.php"
+      ],
+      "status": 200,
+      "palavras": 24,
+      "base": 15,
+      "teto": 24,
+      "bundles": [
+        "public/assets/js/arena.js"
+      ]
+    },
+    "previa-da-tv": {
+      "rotas": [
+        "/tv-preview.php"
+      ],
+      "status": 200,
+      "palavras": 24,
+      "base": 15,
+      "teto": 24,
+      "bundles": [
+        "public/assets/js/arena.js"
+      ]
+    },
+    "entrada-do-aluno": {
+      "rotas": [
+        "/arena.php",
+        "/play"
+      ],
+      "status": 200,
+      "palavras": 133,
+      "base": 290,
+      "teto": 133,
+      "bundles": [
+        "public/assets/js/arena.js"
+      ]
+    },
+    "painel-login": {
+      "rotas": [
+        "/admin-arena.php"
+      ],
+      "status": 200,
+      "palavras": 16,
+      "base": 31,
+      "teto": 16,
+      "bundles": [
+        "public/assets/js/arena.js"
+      ]
+    },
+    "painel-do-professor": {
+      "rotas": [
+        "/admin-arena.php"
+      ],
+      "status": 200,
+      "palavras": 73,
+      "base": 31,
+      "teto": 73,
+      "bundles": [
+        "public/assets/js/arena.js"
+      ],
+      "contexto": "O que passa das 31 palavras do admin.php e' rotulo de tela que aquele formulario de senha nao tinha: barra lateral com 5 secoes, cockpit da sala, tres paineis e os rotulos de acessibilidade (aria-label). Nao ha prosa explicativa nesta tela desde o corte de set/2026. Em 19/09/2026 (frente da sincronizacao) entraram 2 palavras contadas: o aria-label do campo de reentrada da faixa de sessao. O motivo e' medido, e nao prosa: a pagina autenticada NAO carrega o cartao de login no DOM (o servidor entrega a pagina de login ou o painel, nunca os dois), entao o botao Entrar de novo da faixa abria uma tela vazia — sem formulario nenhum para entrar de novo. O campo passou a morar na propria faixa, e a frase que o explica (a da faixa e a do botao) ja estava contada. O placeholder com as mesmas duas palavras foi escrito e RETIRADO: o aria-label basta para o leitor de tela e a faixa diz o que fazer, entao as duas ficaram num lugar so. O texto do botao tambem nao foi duplicado no bundle: o rotulo de repouso e' lido do proprio markup (dataset), a mesma regra do botao de envio do aluno."
+    },
+    "previa-do-aluno": {
+      "rotas": [
+        "/aluno-preview.php"
+      ],
+      "status": 200,
+      "palavras": 133,
+      "base": 290,
+      "teto": 133,
+      "bundles": [
+        "public/assets/js/arena.js"
+      ]
+    },
+    "relatorio": {
+      "rotas": [
+        "/report.php"
+      ],
+      "status": 200,
+      "palavras": 106,
+      "base": 0,
+      "teto": 106,
+      "bundles": [
+        "public/assets/js/app.js"
+      ],
+      "nota": "+3 em 16/09/2026 (etapa 4 do refino), e o teto subiu junto porque a decisao foi deliberada: entraram 8 palavras de ROTULO e sairam 5 de prosa. Entraram os tres titulos de grupo (Atividade, Participantes e respostas, Operacional) e dois titulos de painel desambiguados (Rodadas pontuadas, ao lado da tabela Rodadas do evento, que eram os dois 'Rodadas' da mesma rolagem); saiu 'Metricas, ranking e respostas das batalhas.', que uma rodada anterior tinha mantido por nomear os tres blocos do relatorio -- agora quem os nomeia sao os proprios grupos, e a frase virou repeticao do que esta logo abaixo. O que a troca comprou, medido no mesmo fixture: rolagem do estado fechado 591 -> 398 px no desktop (1491 -> 1298 de altura) e 1283 -> 757 px no celular (2127 -> 1601), o periodo pintado 2 -> 1 vez e as quatro consultas operacionais fora da grade, dentro de UMA dobra.",
+      "contexto": "O original nao tinha esta tela (report.php, 0 bytes), entao nao ha regua externa: quase tudo sao titulos de painel e cabecalhos de coluna das 6 tabelas e dos 4 graficos. O corte de set/2026 tirou o que era prosa."
+    },
+    "pagina-nao-encontrada": {
+      "rotas": [
+        "/rota-que-nao-existe"
+      ],
+      "status": 404,
+      "palavras": 11,
+      "base": null,
+      "teto": 11,
+      "bundles": []
+    }
+  },
+  "cliente": {
+    "soma": {
+      "palavras": 1817,
+      "base": 832,
+      "teto": 1817
+    },
+    "bundles": {
+      "public/assets/js/app.js": {
+        "palavras": 236,
+        "trechos": 97,
+        "teto": 236
+      },
+      "public/assets/js/arena.js": {
+        "palavras": 1581,
+        "trechos": 300,
+        "teto": 1581,
+        "nota": "SEM FOLGA: o teto é o medido (1581 — cada regravação desta nota diz o que entrou e por quê; ver o fim). Em 16/09/2026 (etapa 5 dos formulários) o bundle ganhou 2 palavras de propósito — o rótulo \"no ar:\" do selo do Tempo das missões, que só entra quando o campo deixa de dizer o que está gravado; antes disso a mesma duração era escrita duas vezes na linha (selo e campo). A frase que saiu na mesma rodada (\"Todas as missões já têm cronômetro.\") NÃO descontou: ela morava no ramo `:` de um ternário dentro do template grande do diálogo, e o extrator não enxerga literal dentro de `${...}` — medido em tmp/qa/regua-ve-o-aviso.mjs, 0 das suas 6 palavras entravam na conta. O teto anterior (1325 -> 1344) tinha subido pela mesma cobertura. Em 19/09/2026 (rodada da Sala em Destaque, referencia LA-06) o teto NAO subiu, mas por coincidencia medida: entraram 6 palavras contadas (\"Rodada N de M\", \"ACESSO RAPIDO\" e \"N de M lugares\") e sairam 6 (\"Copiar link direto\" -> \"Copiar link\", e o aviso da imagem ausente perdeu a explicacao: \"FALTA IMAGEM — missao visual sem referencia\" -> \"FALTA IMAGEM\"). Os rotulos da faixa de indicadores (\"JUIZ IA\", \"ENERGIA DA TURMA\", \"ACERTO DA TURMA\") caem no mesmo furo declarado acima: moram no ramo de um ternario dentro de ${...}, e o extrator nao os ve — sao 9 palavras de rotulo que a regua ainda nao mede. INSTRUMENTO CONSERTADO em 19/09/2026 (frente da Nova batalha): o leitor de literais dessincronizava e parava de contar o arquivo, e a guarda nao reprovava porque a folga escrita cobria o buraco. Dois defeitos, ambos em test/support/copia.mjs: (1) ESPACO zerava a marca de depois-de-valor, e entao uma DIVISAO era lida como abertura de regex — a divisao do relatorio do painel engolia a chave que fecha a interpolacao e a varredura morria ali; (2) regex com ASPA dentro de ${...} consumia a aspa de fechamento e desalinhava o resto. Prova: tmp/qa/iso-leitor.mjs (7 casos minimos, 1 deles vermelho antes do conserto) e o caso de regressao em test/copia/orcamento.test.mjs, mais o invariante de que a ultima linha com copia tem de estar no fim do arquivo — o piso de 500 palavras que existia antes deixava 691 passar. Efeito medido: o arena.js do commit anterior le 1484 palavras, e nao as 1346 que este cartorio gravava — 138 palavras vivas fora da regua, escondidas atras de uma folga que existia para outra coisa. O teto de hoje (1525) e o medido do momento: ~35 palavras sao a copia de Nova batalha nesta sala (o unico caminho do professor para repetir a aula na mesma sala) e 6 sao os rotulos de motivo do juiz que antes caiam em motivo nao catalogado. A frase do dialogo chegou a 33 palavras e foi cortada para 23 antes de gravar: cortar nunca precisa de nota. FURO QUE CONTINUA DECLARADO: o texto estatico de um template aninhado dentro de ${...} e lido so para ser pulado, entao frase que mora no ramo de um ternario dentro de uma interpolacao nao entra na conta — proxima medicao, registrada em vez de esquecida. SEGUNDA FRENTE DE 19/09/2026 (sincronizacao, sessao e experiencia em tempo real): o teto subiu de 1525 para 1581 com frases de ESTADO, e nao prosa de tela. As novas, uma a uma, com o motivo: Sessao do aluno que caiu (20 palavras, 12 + 8) — a tela precisa dizer a CAUSA e o que fazer, e as duas causas sao diferentes (a sessao nunca existiu nesta aba x a sessao perdeu a validade, com o professor removendo o participante), porque dizer sessao expirada para quem acabou de abrir a pagina e mentira. Faixa do painel (18, 8 + 10) — antes deste conserto nao havia aviso nenhum: o 401 do detalhe caia no ramo que existe para nao apagar a tela por erro de rede e o poll seguia batendo a cada 3 s, para sempre, sem ninguem saber. Reconectando ao servidor (3) — o aviso de conexao caida do painel, que tambem nao existia. Entrada do aluno (9, 5 + 4) — resposta ao clique duplo e confirmacao de entrada; sem elas o segundo clique levava um 409 de nome em uso, que e erro para quem ainda esta fora e verdade nenhuma para quem ja entrou. Sairam 2 palavras: Avaliando resposta virou Enviando/Enviado no botao, que a regua NAO conta (literal de uma palavra so, sem marcacao — o mesmo furo declarado que esconde rotulo curto). E o bundle deixou de duplicar a frase do HTML: o estado livre do botao le o texto do proprio markup, guardado em dataset, entao Enviar prompt existe num lugar so. As TELAS subiram junto, cada uma pelo seu motivo medido: projecao-da-tv e previa-da-tv de 21 para 24 (o chip de reconexao da parede, tres palavras: o ultimo estado valido continua na tela, e o que nao pode e a sala inteira nao saber que a projecao parou) e painel-do-professor de 68 para 71 (o botao Entrar de novo da faixa). Sem folga em nenhuma delas: teto igual ao medido. REGRAVADO em 19/09/2026, ao fim da mesma frente: os NUMEROS deste cartorio estavam atrasados em relacao ao instrumento consertado — o arena.js lia 1346 no papel contra 1581 na regua consertada, a soma da familia dizia 1582 contra 1817, e as telas gravavam 21/68 com a medicao em 24/73. A regravacao alinhou cartorio e medicao do momento (nada de prosa nova: os mesmos numeros que a guarda ja media, agora escritos), as telas ficaram em 24 (projecao e previa, o chip de reconexao), 24 e 73 (o +2 do painel esta no `contexto` da tela: o campo de reentrada da faixa de sessao).",
+        "contexto": "O que passa do app.js classico e' rotulo das telas que o site base nao tinha (modo Arena, sorteio da vez, banco de desafios, previas do professor). O corte de set/2026 tirou ~430 palavras de prosa explicativa; o resto e' nome de campo, botao e coluna. FURO MEDIDO: literal dentro de `${...}` de um template nao entra na conta, e e' onde mora boa parte das frases dos dialogos (o aviso removido era uma delas)."
+      }
+    }
+  },
+  "api": {
+    "soma": {
+      "palavras": 222,
+      "teto": 222
+    },
+    "campos": {
+      "sorteio.mode_hint": {
+        "origem": "drawView (src/domain/arena-draw.mjs)",
+        "campo": "mode_hint",
+        "onde": "pista e motivo do sorteio (painel, TV, aluno)",
+        "mostraEm": "public/assets/js/arena.js:draw.mode_hint",
+        "palavras": 12,
+        "trechos": 2,
+        "teto": 12
+      },
+      "sorteio.cannot_reason": {
+        "origem": "drawView (src/domain/arena-draw.mjs)",
+        "campo": "cannot_reason",
+        "onde": "pista e motivo do sorteio (painel, TV, aluno)",
+        "mostraEm": "public/assets/js/arena.js:draw.cannot_reason",
+        "palavras": 36,
+        "trechos": 4,
+        "teto": 36
+      },
+      "dinamica.label": {
+        "origem": "ARENA_DYNAMICS (src/domain/arena-mode.mjs)",
+        "campo": "label",
+        "onde": "cartão do desafio coletivo (painel, TV, aluno)",
+        "mostraEm": "public/assets/js/arena.js:entry.label",
+        "palavras": 19,
+        "trechos": 8,
+        "teto": 19
+      },
+      "dinamica.question": {
+        "origem": "ARENA_DYNAMICS (src/domain/arena-mode.mjs)",
+        "campo": "question",
+        "onde": "cartão do desafio coletivo (painel, TV, aluno)",
+        "mostraEm": "public/assets/js/arena.js:dynamic.question",
+        "palavras": 46,
+        "trechos": 8,
+        "teto": 46
+      },
+      "dinamica.teach": {
+        "origem": "ARENA_DYNAMICS (src/domain/arena-mode.mjs)",
+        "campo": "teach",
+        "onde": "cartão do desafio coletivo (painel, TV, aluno)",
+        "mostraEm": "public/assets/js/arena.js:entry.teach",
+        "palavras": 67,
+        "trechos": 8,
+        "teto": 67
+      },
+      "poder.label": {
+        "origem": "ARENA_POWERS (src/domain/arena-mode.mjs)",
+        "campo": "label",
+        "onde": "botões de energia (title e rótulo)",
+        "mostraEm": "public/assets/js/arena.js:power.label",
+        "palavras": 8,
+        "trechos": 4,
+        "teto": 8
+      },
+      "poder.hint": {
+        "origem": "ARENA_POWERS (src/domain/arena-mode.mjs)",
+        "campo": "hint",
+        "onde": "botões de energia (title e rótulo)",
+        "mostraEm": "public/assets/js/arena.js:power.hint",
+        "palavras": 34,
+        "trechos": 4,
+        "teto": 34
+      }
+    }
+  }
+}

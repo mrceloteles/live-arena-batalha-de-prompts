@@ -1,0 +1,381 @@
+{
+  "fechado1440": {
+    "altura": 1298,
+    "rolagem": 398,
+    "fimDoConteudo": 1250,
+    "grupos": [
+      {
+        "chave": "atividade",
+        "titulo": "Atividade",
+        "paineis": 4,
+        "blocos": 0,
+        "titulos": [
+          "Atividade diaria",
+          "Pontuadas por hora",
+          "Rodadas pontuadas",
+          "Calor dia x hora"
+        ],
+        "alturaFechado": null,
+        "caret": null,
+        "visivel": true
+      },
+      {
+        "chave": "pessoas",
+        "titulo": "Participantes e respostas",
+        "paineis": 3,
+        "blocos": 0,
+        "titulos": [
+          "Ranking dos participantes",
+          "Cadastros",
+          "Partidas e respostas"
+        ],
+        "alturaFechado": null,
+        "caret": null,
+        "visivel": true
+      },
+      {
+        "chave": "operacional",
+        "titulo": "Operacional",
+        "paineis": 0,
+        "blocos": 4,
+        "titulos": [
+          "Por computador",
+          "Por modo",
+          "Jogos",
+          "Rodadas do evento"
+        ],
+        "alturaFechado": 60,
+        "caret": "\"\"",
+        "visivel": true
+      }
+    ],
+    "titulosDosPaineis": [
+      "Mais indicadores",
+      "Atividade diaria",
+      "Pontuadas por hora",
+      "Rodadas pontuadas",
+      "Calor dia x hora",
+      "Ranking dos participantes",
+      "Cadastros",
+      "Partidas e respostas"
+    ],
+    "dobradas": {
+      "quantas": 7,
+      "alturas": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "estilo": {
+        "padding": "14px 16px",
+        "raio": "16px",
+        "sombra": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px",
+        "borda": "1px rgba(11, 87, 208, 0.12)"
+      },
+      "resumo": {
+        "margem": "0px",
+        "altura": 30
+      },
+      "soma": 528.5
+    },
+    "periodo": [
+      {
+        "classe": "report-period-pill",
+        "texto": "Todo o periodo",
+        "pintado": true
+      }
+    ],
+    "dobrasAninhadas": 0,
+    "avisosVazios": 0,
+    "blocosEscondidos": 0,
+    "gruposPintados": 3,
+    "impressao": {
+      "quantos": 1,
+      "onde": [
+        "report-period-pill"
+      ]
+    }
+  },
+  "consultaAberta": {
+    "altura": 1684,
+    "rolagem": 784,
+    "fimDoConteudo": 1238,
+    "grupos": [
+      {
+        "chave": "atividade",
+        "titulo": "Atividade",
+        "paineis": 4,
+        "blocos": 0,
+        "titulos": [
+          "Atividade diaria",
+          "Pontuadas por hora",
+          "Rodadas pontuadas",
+          "Calor dia x hora"
+        ],
+        "alturaFechado": null,
+        "caret": null,
+        "visivel": true
+      },
+      {
+        "chave": "pessoas",
+        "titulo": "Participantes e respostas",
+        "paineis": 3,
+        "blocos": 0,
+        "titulos": [
+          "Ranking dos participantes",
+          "Cadastros",
+          "Partidas e respostas"
+        ],
+        "alturaFechado": null,
+        "caret": null,
+        "visivel": true
+      },
+      {
+        "chave": "operacional",
+        "titulo": "Operacional",
+        "paineis": 0,
+        "blocos": 4,
+        "titulos": [
+          "Por computador",
+          "Por modo",
+          "Jogos",
+          "Rodadas do evento"
+        ],
+        "alturaFechado": 60,
+        "caret": "\"\"",
+        "visivel": true
+      }
+    ],
+    "titulosDosPaineis": [
+      "Mais indicadores",
+      "Atividade diaria",
+      "Pontuadas por hora",
+      "Rodadas pontuadas",
+      "Calor dia x hora",
+      "Ranking dos participantes",
+      "Cadastros",
+      "Partidas e respostas"
+    ],
+    "dobradas": {
+      "quantas": 6,
+      "alturas": [
+        254,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "estilo": {
+        "padding": "14px 16px",
+        "raio": "16px",
+        "sombra": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px",
+        "borda": "1px rgba(11, 87, 208, 0.12)"
+      },
+      "resumo": {
+        "margem": "0px",
+        "altura": 30
+      },
+      "soma": 647
+    },
+    "periodo": [
+      {
+        "classe": "report-period-pill",
+        "texto": "Todo o periodo",
+        "pintado": true
+      }
+    ],
+    "dobrasAninhadas": 0,
+    "avisosVazios": 0,
+    "blocosEscondidos": 0,
+    "gruposPintados": 3
+  },
+  "vazio1440": {
+    "altura": 900,
+    "rolagem": 0,
+    "fimDoConteudo": 0,
+    "grupos": [
+      {
+        "chave": "atividade",
+        "titulo": "Atividade",
+        "paineis": 4,
+        "blocos": 0,
+        "titulos": [
+          "Atividade diaria",
+          "Pontuadas por hora",
+          "Rodadas pontuadas",
+          "Calor dia x hora"
+        ],
+        "alturaFechado": null,
+        "caret": null,
+        "visivel": false
+      },
+      {
+        "chave": "pessoas",
+        "titulo": "Participantes e respostas",
+        "paineis": 3,
+        "blocos": 0,
+        "titulos": [
+          "Ranking dos participantes",
+          "Cadastros",
+          "Partidas e respostas"
+        ],
+        "alturaFechado": null,
+        "caret": null,
+        "visivel": false
+      },
+      {
+        "chave": "operacional",
+        "titulo": "Operacional",
+        "paineis": 0,
+        "blocos": 4,
+        "titulos": [
+          "Por computador",
+          "Por modo",
+          "Jogos",
+          "Rodadas do evento"
+        ],
+        "alturaFechado": 0,
+        "caret": "\"\"",
+        "visivel": false
+      }
+    ],
+    "titulosDosPaineis": [
+      "Mais indicadores",
+      "Atividade diaria",
+      "Pontuadas por hora",
+      "Rodadas pontuadas",
+      "Calor dia x hora",
+      "Ranking dos participantes",
+      "Cadastros",
+      "Partidas e respostas"
+    ],
+    "dobradas": {
+      "quantas": 6,
+      "alturas": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "estilo": {
+        "padding": "14px 16px",
+        "raio": "16px",
+        "sombra": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px",
+        "borda": "1px rgba(11, 87, 208, 0.12)"
+      },
+      "resumo": {
+        "margem": "0px",
+        "altura": 0
+      },
+      "soma": 96
+    },
+    "periodo": [],
+    "dobrasAninhadas": 0,
+    "avisosVazios": 1,
+    "blocosEscondidos": 5,
+    "gruposPintados": 0
+  },
+  "fechado390": {
+    "altura": 1601,
+    "rolagem": 757,
+    "fimDoConteudo": 1553,
+    "grupos": [
+      {
+        "chave": "atividade",
+        "titulo": "Atividade",
+        "paineis": 4,
+        "blocos": 0,
+        "titulos": [
+          "Atividade diaria",
+          "Pontuadas por hora",
+          "Rodadas pontuadas",
+          "Calor dia x hora"
+        ],
+        "alturaFechado": null,
+        "caret": null,
+        "visivel": true
+      },
+      {
+        "chave": "pessoas",
+        "titulo": "Participantes e respostas",
+        "paineis": 3,
+        "blocos": 0,
+        "titulos": [
+          "Ranking dos participantes",
+          "Cadastros",
+          "Partidas e respostas"
+        ],
+        "alturaFechado": null,
+        "caret": null,
+        "visivel": true
+      },
+      {
+        "chave": "operacional",
+        "titulo": "Operacional",
+        "paineis": 0,
+        "blocos": 4,
+        "titulos": [
+          "Por computador",
+          "Por modo",
+          "Jogos",
+          "Rodadas do evento"
+        ],
+        "alturaFechado": 60,
+        "caret": "\"\"",
+        "visivel": true
+      }
+    ],
+    "titulosDosPaineis": [
+      "Mais indicadores",
+      "Atividade diaria",
+      "Pontuadas por hora",
+      "Rodadas pontuadas",
+      "Calor dia x hora",
+      "Ranking dos participantes",
+      "Cadastros",
+      "Partidas e respostas"
+    ],
+    "dobradas": {
+      "quantas": 8,
+      "alturas": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "estilo": {
+        "padding": "14px 16px",
+        "raio": "16px",
+        "sombra": "rgba(11, 87, 208, 0.05) 0px 4px 12px 0px",
+        "borda": "1px rgba(11, 87, 208, 0.12)"
+      },
+      "resumo": {
+        "margem": "0px",
+        "altura": 30
+      },
+      "soma": 604
+    },
+    "periodo": [
+      {
+        "classe": "report-period-pill",
+        "texto": "Todo o periodo",
+        "pintado": true
+      }
+    ],
+    "dobrasAninhadas": 0,
+    "avisosVazios": 0,
+    "blocosEscondidos": 0,
+    "gruposPintados": 3
+  }
+}

@@ -1,0 +1,32 @@
+## fechado1440
+altura=1491 rolagem=591 fimDoConteudo=1443
+paineis fechados: 11 alturas=[72, 86, 86, 86, 86, 86, 86, 86, 86, 86, 86] soma=1103
+painel fechado: {"padding":"20px","raio":"16px","sombra":"rgba(11, 87, 208, 0.05) 0px 4px 12px 0px","borda":"1px rgba(11, 87, 208, 0.12)"} resumo={"margem":"0px","altura":30}
+periodo pintado: 2 [{"classe":"report-period-pill","texto":"Todo o periodo","pintado":true},{"classe":"","texto":"Todo o periodo","pintado":true}]
+dobras aninhadas=0 avisos vazios=0 blocos escondidos=0 grupos pintados=0
+titulos: ["Mais indicadores","Atividade diaria","Pontuadas por hora","Rodadas","Calor dia x hora","Por computador","Por modo","Ranking dos participantes","Cadastros","Partidas e respostas","Jogos","Rodadas"]
+
+## consultaAberta
+altura=1849 rolagem=949 fimDoConteudo=1801
+paineis fechados: 10 alturas=[254, 86, 86, 86, 86, 86, 86, 86, 86, 86] soma=1183
+painel fechado: {"padding":"20px","raio":"16px","sombra":"rgba(11, 87, 208, 0.05) 0px 4px 12px 0px","borda":"1px rgba(11, 87, 208, 0.12)"} resumo={"margem":"14px","altura":30}
+periodo pintado: 2 [{"classe":"report-period-pill","texto":"Todo o periodo","pintado":true},{"classe":"","texto":"Todo o periodo","pintado":true}]
+dobras aninhadas=0 avisos vazios=0 blocos escondidos=0 grupos pintados=0
+titulos: ["Mais indicadores","Atividade diaria","Pontuadas por hora","Rodadas","Calor dia x hora","Por computador","Por modo","Ranking dos participantes","Cadastros","Partidas e respostas","Jogos","Rodadas"]
+
+## vazio1440
+altura=900 rolagem=0 fimDoConteudo=0
+paineis fechados: 10 alturas=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] soma=160
+painel fechado: {"padding":"20px","raio":"16px","sombra":"rgba(11, 87, 208, 0.05) 0px 4px 12px 0px","borda":"1px rgba(11, 87, 208, 0.12)"} resumo={"margem":"14px","altura":0}
+periodo pintado: 0 []
+dobras aninhadas=0 avisos vazios=1 blocos escondidos=4 grupos pintados=0
+titulos: ["Mais indicadores","Atividade diaria","Pontuadas por hora","Rodadas","Calor dia x hora","Por computador","Por modo","Ranking dos participantes","Cadastros","Partidas e respostas","Jogos","Rodadas"]
+
+## fechado390
+altura=2127 rolagem=1283 fimDoConteudo=2079
+paineis fechados: 12 alturas=[72, 86, 86, 86, 86, 86, 86, 112, 86, 86, 86, 86] soma=1230
+painel fechado: {"padding":"20px","raio":"16px","sombra":"rgba(11, 87, 208, 0.05) 0px 4px 12px 0px","borda":"1px rgba(11, 87, 208, 0.12)"} resumo={"margem":"0px","altura":30}
+periodo pintado: 2 [{"classe":"report-period-pill","texto":"Todo o periodo","pintado":true},{"classe":"","texto":"Todo o periodo","pintado":true}]
+dobras aninhadas=0 avisos vazios=0 blocos escondidos=0 grupos pintados=0
+titulos: ["Mais indicadores","Atividade diaria","Pontuadas por hora","Rodadas","Calor dia x hora","Por computador","Por modo","Ranking dos participantes","Cadastros","Partidas e respostas","Jogos","Rodadas"]
+

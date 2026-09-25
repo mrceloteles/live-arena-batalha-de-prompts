@@ -58,17 +58,23 @@ test('unlimited missions ignore speed weighting', async (t) => {
   assert.equal(result.submission.points, 80);
 });
 
-test('multiple attempts remain in report history but count one best round', async (t) => {
+test('single answer rejects another attempt without duplicating report history or points', async (t) => {
   const f = await fixture(t, { speed: 'none', judge: async ({ candidatePrompt }) => ({ percent: candidatePrompt === 'Melhor prompt' ? 90 : 50, breakdown: {}, feedback: 'Avaliado' }) });
   const ana = await f.join('Ana');
   await f.api('arena_start_round', { ...f.admin, room_id: f.room.id });
-  await f.api('arena_submit', { ...ana, round_id: f.round.id, attempt: 1, prompt: 'Melhor prompt' });
-  await f.api('arena_submit', { ...ana, round_id: f.round.id, attempt: 2, prompt: 'Outra tentativa' });
+  const first = await f.api('arena_submit', { ...ana, round_id: f.round.id, attempt: 1, prompt: 'Melhor prompt' });
+  await assert.rejects(
+    f.api('arena_submit', { ...ana, round_id: f.round.id, attempt: 2, prompt: 'Outra tentativa' }),
+    (error) => error.status === 409,
+  );
+  const recovered = await f.api('arena_submit', { ...ana, round_id: f.round.id, attempt: 1, prompt: 'Melhor prompt' });
+  assert.equal(recovered.submission.id, first.submission.id, 'a repetição de transporte recupera o mesmo envio');
+  assert.equal(f.calls(), 1, 'a resposta aceita é avaliada apenas uma vez');
   const { metrics } = await f.core('report_metrics', f.admin);
-  assert.equal(metrics.tables.matches.length, 2);
+  assert.equal(metrics.tables.matches.length, 1);
   assert.equal(metrics.tables.players[0].rounds_completed, 1);
   assert.equal(metrics.tables.players[0].total_points, 90);
-  assert.equal(metrics.tables.players[0].matches_started, 2);
+  assert.equal(metrics.tables.players[0].matches_started, 1);
   const { detail } = await f.api('arena_room_detail', { ...f.admin, room_id: f.room.id });
   assert.equal(detail.ranking[0].rounds_completed, 1);
   assert.equal(detail.ranking[0].points_sum, 90);

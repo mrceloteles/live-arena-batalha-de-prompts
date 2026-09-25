@@ -531,45 +531,15 @@ body.arena-classic-room .arena-highlights-panel {
    navegador é o affordance. O painel se redesenha a cada leitura do servidor, e o
    `data-fold-key` é o que devolve a escolha do professor depois de cada desenho
    (ver `aplicarDobras` no cliente). */
-.arena-admin-tools,
-.arena-fold-block,
-.arena-round-fold {
+.arena-round-fold{
   min-width: 0;
 }
 
-.arena-admin-tools > summary,
-.arena-fold-block > summary,
-.arena-round-fold > summary {
+.arena-round-fold > summary{
   cursor: pointer;
   color: var(--gray-2);
   font-size: 12.5px;
   font-weight: 700;
-}
-
-.arena-admin-tools > summary {
-  border: 1px solid #d8dee9;
-  border-radius: 999px;
-  background: #fff;
-  color: var(--navy);
-  font-size: 12px;
-  font-weight: 800;
-  padding: 8px 14px;
-}
-
-.arena-admin-tools[open] > summary {
-  border-color: var(--blue);
-  color: var(--blue);
-}
-
-.arena-admin-tools > div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.arena-fold-block > summary h3 {
-  display: inline;
 }
 
 /* Fechada, a alça é a última linha do cartão: o respiro que separava a alça do
@@ -678,9 +648,6 @@ body.arena-classic-room .arena-highlights-panel {
   text-transform: uppercase;
 }
 
-.arena-table tr.is-inactive td {
-  opacity: 0.45;
-}
 
 .arena-table button {
   border: 0;
@@ -1027,16 +994,6 @@ body.arena-classic-room .arena-highlights-panel {
   border-color: #f59e0b;
 }
 
-.arena-mission-done {
-  color: #137333;
-  font-weight: 700;
-}
-
-.arena-mission-waiting {
-  color: #b45309;
-  font-weight: 700;
-}
-
 .arena-mini-ranking.is-evolution li {
   grid-template-columns: 34px 1fr auto;
 }
@@ -1081,23 +1038,6 @@ body.arena-classic-room .arena-highlights-panel {
   font-size: 15px;
   font-style: italic;
   line-height: 1.45;
-}
-
-.arena-completo-hint {
-  margin: 10px 0;
-  border: 1px dashed var(--blue);
-  border-radius: 12px;
-  padding: 10px 14px;
-  background: #f0f6ff;
-}
-
-.arena-completo-hint span {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--blue);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
 }
 
 .arena-completo-hint li {
@@ -1304,21 +1244,6 @@ body.arena-classic-room .arena-mission-badge {
   padding: 5px 12px;
   cursor: pointer;
 }
-.arena-cockpit-rules {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 14px;
-}
-.arena-cockpit-rules span:last-child { color: var(--gray, #666); font-size: 13.5px; }
-.arena-cockpit-start p b { color: var(--navy, #001c50); }
-.arena-start-big {
-  min-height: 52px;
-  padding: 14px 34px;
-  font-size: 17px;
-  box-shadow: 0 10px 26px rgba(0, 82, 255, 0.28);
-}
-.arena-start-big:disabled { opacity: 0.45; box-shadow: none; cursor: not-allowed; }
 @media (max-width: 900px) {
   .arena-cockpit { flex-direction: column; }
   .arena-cockpit-code { border-right: 0; border-bottom: 2px solid rgba(0, 82, 255, 0.12); padding: 0 0 16px; }
@@ -1375,13 +1300,39 @@ body.arena-classic-room .arena-mission-badge {
   gap: 14px;
 }
 
+/* O nome da sala e a unica coisa da parede que o professor digitou — e era a
+   unica ilegivel: o teto de `min(38vw, 520px)` com `nowrap` cortava QUALQUER
+   titulo, em toda largura. Medido com o maior titulo que a API aceita (120
+   caracteres): a coluna da grade da sala oferece 1428 px em 1920, 957 em 1440,
+   807 em 1280 e 577 em 1024 — e o texto ocupa 1165 px a 20 px. O teto sai e o
+   texto passa a usar a coluna, quebrando em ATE DUAS linhas quando nao couber
+   numa.
+
+   Duas linhas e o limite, e nao por gosto: marca, selo LIVE e botao moram
+   todos na LINHA 1 da grade, entao a quebra e do texto dentro da propria caixa
+   e nao desce nenhum deles. Com `line-height: 1.2` e o teto de 20 px, duas
+   linhas somam 48 px de conteudo e a barra vai a 77 px — abaixo dos 80 que a
+   faixa de uma linha protege (o defeito antigo eram 126 px).
+
+   A escada do `clamp` foi escolhida pela medida, nao pelo olho: em 1024 o chip
+   "Personalizado" come 118 px da coluna e o titulo fica com 447, entao o texto
+   de 120 caracteres precisa de 15 px ou menos para caber em duas linhas (a
+   16 px pediria tres). Dai o piso de 14 px — com folga, porque `overflow-wrap:
+   anywhere` corta palavra no meio e uma sobra apertada viraria terceira linha.
+   Em 1280 a fonte fica em 18,6 px e em 1440 em 20. O `-webkit-line-clamp: 2`
+   fica como rede: acima de duas linhas a parede corta em duas em vez de
+   empurrar o palco, e nenhum titulo aceito pelo produto chega la. */
 .arena-tv-room > strong {
+  min-width: 0;
+  max-width: none;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-  max-width: min(38vw, 520px);
+  overflow-wrap: anywhere;
   color: rgba(255, 255, 255, 0.92);
-  font-size: clamp(15px, 1.6vw, 22px);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: clamp(14px, 1.45vw, 20px);
+  line-height: 1.2;
 }
 
 .arena-tv .arena-preset-chip {
@@ -1672,6 +1623,11 @@ body.arena-classic-room .arena-mission-badge {
   color: rgba(255, 255, 255, 0.78);
   font-size: clamp(15px, 1.7vw, 22px);
 }
+
+/* A turma inteira chegou: a parede fala na cor dos alunos conectados (teal), e
+   a frase passa a contar isso. É a única coisa que muda no telão sem ninguém
+   clicar em nada — e a cor é o que se lê do fundo da sala. */
+.arena-tv-waiting.is-ready { color: #37d9c5; }
 
 .arena-tv-pulse {
   width: 12px;
@@ -1989,49 +1945,6 @@ body.arena-classic-room .arena-mission-badge {
   .arena-tv-room > strong {
     display: none;
   }
-}
-
-/* ---------- Missoes da sala: o professor ve o que o aluno vai ver ---------- */
-
-.arena-room-missions-badge {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid #d8dee9;
-  border-radius: 999px;
-  background: #f4f7ff;
-  color: var(--navy);
-  font-size: 12px;
-  font-weight: 800;
-  padding: 4px 10px;
-}
-
-.arena-round-preview {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 116px;
-  margin: 0 0 10px;
-  overflow: hidden;
-  border: 1px solid #e7e8ef;
-  border-radius: 12px;
-  background: #f7f9ff;
-}
-
-.arena-round-preview img {
-  display: block;
-  width: 100%;
-  max-height: 240px;
-  /* A imagem de referência precisa aparecer inteira: é ela que o aluno vê. */
-  object-fit: contain;
-  background: #f1f6ff;
-}
-
-.arena-round-preview-empty {
-  padding: 20px 12px;
-  color: var(--gray);
-  font-size: 12px;
-  font-style: italic;
-  text-align: center;
 }
 
 .arena-round-mission,

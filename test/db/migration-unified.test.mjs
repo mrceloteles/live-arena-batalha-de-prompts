@@ -182,7 +182,7 @@ test('migration is idempotent on the upgraded database', async () => {
     await opened.migrate(); // segunda execucao nao deve falhar nem duplicar nada
 
     const version = await opened.database.prepare('PRAGMA user_version').get();
-    assert.equal(version.user_version, 7);
+    assert.equal(version.user_version, 9);
 
     const rooms = await opened.database.prepare('SELECT COUNT(*) AS count FROM arena_rooms').get();
     assert.equal(rooms.count, 1);

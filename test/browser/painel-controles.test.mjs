@@ -10,11 +10,17 @@ import { createRoomEventHub } from '../../src/server/events.mjs';
 import { createFakeJudge } from '../../src/judge/fake-judge.mjs';
 
 // O que este teste protege: o painel rele o servidor sozinho (SSE + poll) e o
-// corpo do detalhe e substituido por markup inteiro. Se a releitura trocar os
+// detalhe e substituido por markup inteiro. Se a releitura trocar os
 // botoes por baixo do professor, um clique vira zero acao (o no sumiu) ou duas
 // (o teste do arquivo vizinho clicava varias vezes para compensar). Aqui o
 // aceite e: UM clique durante mudancas reais executa UMA vez, e o foco de quem
 // esta no teclado sobrevive ao redesenho.
+//
+// Onde os controles vivem hoje: os comandos da aula (pausar, encerrar, fechar o
+// placar) ficam na linha de comando do CABECALHO, que e reescrita a cada leitura
+// como o corpo era. A escolha do professor que precisa sobreviver ao redesenho e
+// o FILTRO da lista de alunos — a antiga dobra de participantes deixou de
+// existir quando a lista foi para o centro da tela, aberta.
 
 const dormir = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -140,28 +146,65 @@ test('um clique durante a atualizacao ao vivo executa uma vez e o foco sobrevive
     await dormir(1200);
     const foco = await page.evaluate(() => ({
       action: document.activeElement?.dataset?.action ?? null,
-      noCorpo: Boolean(document.activeElement?.closest('[data-arena-detail-body]')),
+      // O CONTROLE mudou de casa (do corpo para a linha de comando do cabeçalho),
+      // e a pergunta continua a mesma: o foco não escapa do detalhe da sala.
+      noDetalhe: Boolean(document.activeElement?.closest('[data-arena-detail]')),
     }));
     assert.equal(foco.action, 'pause-round', 'o foco precisa continuar no mesmo controle depois dos redesenhos');
-    assert.equal(foco.noCorpo, true, 'e continuar dentro do corpo do detalhe');
+    assert.equal(foco.noDetalhe, true, 'e continuar dentro do detalhe da sala em destaque');
 
     const pausasAntesDoEnter = pausas;
     await page.keyboard.press('Enter');
     await dormir(1500);
     assert.equal(pausas - pausasAntesDoEnter, 1, 'Enter executa a ação uma vez, no controle que estava focado');
 
-    // 4) Dobra aberta nao volta ao padrao por causa de uma mudanca real.
-    await page.evaluate(() => { document.querySelector('[data-fold-key="participantes"] summary').click(); });
-    assert.equal(await page.evaluate(() => document.querySelector('[data-fold-key="participantes"]').open), true);
-    await page.evaluate(() => { document.querySelector('[data-fold-key="participantes"] summary').dataset.probe = 'dobra'; });
+    // 4) A escolha do professor na LISTA vence a mudanca real — nos DOIS
+    //    sentidos.
+    //
+    //    A dobra de participantes deixou de existir: a referencia clara poe a
+    //    lista no centro da tela, aberta, e o que sobrou para o professor
+    //    escolher ali e o FILTRO (Todos, Enviados, Respondendo, Atenção). Ele e
+    //    do CLIENTE e vive no mesmo estado que a dobra vivia — e e ele que tem
+    //    de atravessar o redesenho: o que ele acendeu continua aceso, e as
+    //    linhas que ele escondeu continuam escondidas.
+    const lerFiltro = () => page.evaluate(() => {
+      const linhas = [...document.querySelectorAll('.arena-people .arena-table tbody tr')];
+      return {
+        aceso: document.querySelector('[data-student-filter].is-on')?.dataset.studentFilter ?? null,
+        linhas: linhas.length,
+        visiveis: linhas.filter((linha) => !linha.hasAttribute('data-filtro-fora')).length,
+        redesenhou: !document.querySelector('[data-student-filter][data-probe]'),
+      };
+    });
+    const semFiltro = await lerFiltro();
+    assert.equal(semFiltro.aceso, 'todos', 'a lista de participantes nasce mostrando todos');
+    assert.equal(semFiltro.visiveis, semFiltro.linhas, 'sem filtro, todas as linhas aparecem');
+    await page.evaluate(() => { document.querySelector('[data-student-filter="enviados"]').click(); });
+    const filtrada = await lerFiltro();
+    assert.equal(filtrada.aceso, 'enviados', 'o clique acende o filtro');
+    assert.ok(
+      filtrada.visiveis < filtrada.linhas,
+      `e esconde quem não está naquele estado (leu ${filtrada.visiveis} de ${filtrada.linhas})`,
+    );
+    await page.evaluate(() => { document.querySelector('[data-student-filter][data-probe]')?.removeAttribute('data-probe');
+      document.querySelector('[data-student-filter="enviados"]').dataset.probe = 'filtro'; });
     await entramAlunos(1);
     await dormir(1500);
-    const dobra = await page.evaluate(() => ({
-      aberta: document.querySelector('[data-fold-key="participantes"]')?.open ?? null,
-      redesenhou: !document.querySelector('[data-probe="dobra"]'),
-    }));
-    assert.equal(dobra.redesenhou, true, 'a mudança real precisa ter redesenhado o corpo');
-    assert.equal(dobra.aberta, true, 'a dobra que o professor abriu continua aberta');
+    const depoisDoRedesenho = await lerFiltro();
+    assert.equal(depoisDoRedesenho.redesenhou, true, 'a mudança real precisa ter redesenhado o corpo');
+    assert.equal(depoisDoRedesenho.aceso, 'enviados', 'o filtro que o professor acendeu continua aceso');
+    assert.ok(
+      depoisDoRedesenho.visiveis < depoisDoRedesenho.linhas,
+      'e as linhas que ele escondeu continuam escondidas depois do redesenho',
+    );
+    await page.evaluate(() => { document.querySelector('[data-student-filter="todos"]').click(); });
+    await page.evaluate(() => { document.querySelector('[data-student-filter][data-probe]')?.removeAttribute('data-probe');
+      document.querySelector('[data-student-filter="todos"]').dataset.probe = 'filtro'; });
+    await entramAlunos(1);
+    await dormir(1500);
+    const semFiltroDeNovo = await lerFiltro();
+    assert.equal(semFiltroDeNovo.aceso, 'todos', 'e voltar para "Todos" também sobrevive');
+    assert.equal(semFiltroDeNovo.visiveis, semFiltroDeNovo.linhas, 'com todas as linhas de volta');
 
     assert.deepEqual(errors, []);
   } finally {

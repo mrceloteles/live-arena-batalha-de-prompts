@@ -1,0 +1,2989 @@
+{
+ "produto": {
+  "390": {
+   "notaLida": {
+    "numero": "58 PTS",
+    "unidade": "de 100",
+    "titulo": "Tentativa 1 de 2",
+    "pilula": "Resposta avaliada",
+    "feedback": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resultado esperado. Qualidade: 58%.",
+    "rolagem": 252
+   },
+   "fechada": {
+    "visor": {
+     "largura": 390,
+     "altura": 844
+    },
+    "doc": {
+     "altura": 2202,
+     "largura": 390
+    },
+    "rolagemLateral": false,
+    "resultado": {
+     "w": 358,
+     "h": 847,
+     "x": 16,
+     "y": 252,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100 Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 1"
+    },
+    "cabecalho": {
+     "w": 326,
+     "h": 293,
+     "x": 32,
+     "y": 269,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100"
+    },
+    "pilula": {
+     "w": 155,
+     "h": 33,
+     "x": 32,
+     "y": 269,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(24, 90, 188)",
+     "fundo": "rgb(232, 240, 254)",
+     "pintado": true,
+     "texto": "Resposta avaliada"
+    },
+    "titulo": {
+     "w": 141,
+     "h": 30,
+     "x": 32,
+     "y": 310,
+     "px": "20px",
+     "peso": "800",
+     "cor": "rgb(7, 31, 73)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentativa 1 de 2"
+    },
+    "notaRotulo": {
+     "w": 67,
+     "h": 17,
+     "x": 32,
+     "y": 383,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "SUA NOTA"
+    },
+    "anel": {
+     "w": 132,
+     "h": 132,
+     "x": 32,
+     "y": 409,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS de 100"
+    },
+    "numero": {
+     "w": 69,
+     "h": 20,
+     "x": 64,
+     "y": 457,
+     "px": "19.8px",
+     "peso": "800",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS"
+    },
+    "unidade": {
+     "w": 42,
+     "h": 15,
+     "x": 77,
+     "y": 478,
+     "px": "10px",
+     "peso": "700",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "de 100"
+    },
+    "grade": {
+     "w": 326,
+     "h": 429,
+     "x": 32,
+     "y": 584,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 16/20 Objetivo 7/20 Restrições 5/20 Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis C"
+    },
+    "leitura": {
+     "caixa": {
+      "w": 326,
+      "h": 270,
+      "x": 32,
+      "y": 584
+     },
+     "semUsoAbaixo": 17
+    },
+    "conselho": {
+     "caixa": {
+      "w": 326,
+      "h": 140,
+      "x": 32,
+      "y": 872
+     },
+     "semUsoAbaixo": -1
+    },
+    "dobraFechada": {
+     "aberta": false,
+     "resumo": {
+      "w": 326,
+      "h": 19,
+      "x": 32,
+      "y": 625,
+      "px": "12.5px",
+      "peso": "700",
+      "cor": "rgb(84, 91, 97)",
+      "fundo": "rgba(0, 0, 0, 0)",
+      "pintado": true,
+      "texto": "Ver critérios"
+     },
+     "criteriosSemClique": [
+      {
+       "texto": "Contexto 18/20",
+       "pintado": false
+      },
+      {
+       "texto": "Clareza 16/20",
+       "pintado": false
+      },
+      {
+       "texto": "Objetivo 7/20",
+       "pintado": false
+      },
+      {
+       "texto": "Restrições 5/20",
+       "pintado": false
+      }
+     ]
+    },
+    "diagnostico": {
+     "w": 326,
+     "h": 182,
+     "x": 32,
+     "y": 655,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis"
+    },
+    "feedback": {
+     "w": 326,
+     "h": 112,
+     "x": 32,
+     "y": 901,
+     "px": "14px",
+     "peso": "500",
+     "cor": "rgb(51, 65, 85)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resul"
+    },
+    "proximo": {
+     "w": 326,
+     "h": 48,
+     "x": 32,
+     "y": 1035,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "retry": {
+     "w": 326,
+     "h": 48,
+     "x": 32,
+     "y": 1035,
+     "px": "16px",
+     "peso": "900",
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(25, 103, 210)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "evolucao": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 252,
+     "px": "20px",
+     "peso": "900",
+     "cor": "rgb(217, 48, 37)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": ""
+    },
+    "lateral": {
+     "w": 358,
+     "h": 425,
+     "x": 16,
+     "y": 1745,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resultados das missões Ainda sem resultados. Classificação geral Aluna 390 1º lugar · Campeão 58 pts Destaques Maior pontuaçãoAluna 390 🎯 Mais precisoAluna 390"
+    },
+    "ranking": {
+     "w": 320,
+     "h": 54,
+     "x": 35,
+     "y": 1806,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aluna 390 1º lugar · Campeão 58 pts"
+    },
+    "missaoAbaixo": {
+     "w": 358,
+     "h": 1632,
+     "x": 16,
+     "y": 85,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aguarde o professor iniciar Código da sala ZBJJ38 Quem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado. Abra em outro aparel"
+    },
+    "composerAbaixo": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 252,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgb(255, 255, 255)",
+     "pintado": false,
+     "texto": "Inclua contextoinstruçõesrestrições públicoformatocritériosresultado esperado Escreva seu prompt 0 / 4000 caracteres Enviado ✓ Ctrl + Enter ↵ Resposta avaliada "
+    },
+    "sair": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 252,
+     "px": "13px",
+     "peso": "500",
+     "cor": "rgb(84, 91, 97)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": "Voltar ao início"
+    },
+    "manchetesNoVisor": [
+     {
+      "cls": "h2",
+      "px": "20px",
+      "peso": "800",
+      "texto": "Tentativa 1 de 2"
+     },
+     {
+      "cls": "strong",
+      "px": "19.8px",
+      "peso": "800",
+      "texto": "58 PTS"
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "px": "16px",
+      "peso": "900",
+      "texto": "Tentar novamente (1/2)"
+     }
+    ],
+    "saidas": [
+     {
+      "cls": "summary",
+      "texto": "Ver critérios",
+      "visivel": true,
+      "tela": true,
+      "h": 19,
+      "y": 625,
+      "solto": false
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "texto": "Tentar novamente (1/2)",
+      "visivel": true,
+      "tela": true,
+      "h": 48,
+      "y": 1035,
+      "solto": false
+     }
+    ],
+    "numeroNoVisor": true,
+    "anelNoVisor": true
+   },
+   "aberta": {
+    "visor": {
+     "largura": 390,
+     "altura": 844
+    },
+    "doc": {
+     "altura": 2332,
+     "largura": 390
+    },
+    "rolagemLateral": false,
+    "resultado": {
+     "w": 358,
+     "h": 977,
+     "x": 16,
+     "y": 252,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100 Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 1"
+    },
+    "cabecalho": {
+     "w": 326,
+     "h": 293,
+     "x": 32,
+     "y": 269,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100"
+    },
+    "pilula": {
+     "w": 155,
+     "h": 33,
+     "x": 32,
+     "y": 269,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(24, 90, 188)",
+     "fundo": "rgb(232, 240, 254)",
+     "pintado": true,
+     "texto": "Resposta avaliada"
+    },
+    "titulo": {
+     "w": 141,
+     "h": 30,
+     "x": 32,
+     "y": 310,
+     "px": "20px",
+     "peso": "800",
+     "cor": "rgb(7, 31, 73)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentativa 1 de 2"
+    },
+    "notaRotulo": {
+     "w": 67,
+     "h": 17,
+     "x": 32,
+     "y": 383,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "SUA NOTA"
+    },
+    "anel": {
+     "w": 132,
+     "h": 132,
+     "x": 32,
+     "y": 409,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS de 100"
+    },
+    "numero": {
+     "w": 69,
+     "h": 20,
+     "x": 64,
+     "y": 457,
+     "px": "19.8px",
+     "peso": "800",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS"
+    },
+    "unidade": {
+     "w": 42,
+     "h": 15,
+     "x": 77,
+     "y": 478,
+     "px": "10px",
+     "peso": "700",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "de 100"
+    },
+    "grade": {
+     "w": 326,
+     "h": 559,
+     "x": 32,
+     "y": 584,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 16/20 Objetivo 7/20 Restrições 5/20 Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis C"
+    },
+    "leitura": {
+     "caixa": {
+      "w": 326,
+      "h": 400,
+      "x": 32,
+      "y": 584
+     },
+     "semUsoAbaixo": 17
+    },
+    "conselho": {
+     "caixa": {
+      "w": 326,
+      "h": 140,
+      "x": 32,
+      "y": 1002
+     },
+     "semUsoAbaixo": -1
+    },
+    "dobraFechada": {
+     "aberta": true,
+     "resumo": {
+      "w": 326,
+      "h": 19,
+      "x": 32,
+      "y": 625,
+      "px": "12.5px",
+      "peso": "700",
+      "cor": "rgb(84, 91, 97)",
+      "fundo": "rgba(0, 0, 0, 0)",
+      "pintado": true,
+      "texto": "Ver critérios"
+     },
+     "criteriosSemClique": [
+      {
+       "texto": "Contexto 18/20",
+       "pintado": true
+      },
+      {
+       "texto": "Clareza 16/20",
+       "pintado": true
+      },
+      {
+       "texto": "Objetivo 7/20",
+       "pintado": true
+      },
+      {
+       "texto": "Restrições 5/20",
+       "pintado": true
+      }
+     ]
+    },
+    "diagnostico": {
+     "w": 326,
+     "h": 182,
+     "x": 32,
+     "y": 785,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis"
+    },
+    "feedback": {
+     "w": 326,
+     "h": 112,
+     "x": 32,
+     "y": 1031,
+     "px": "14px",
+     "peso": "500",
+     "cor": "rgb(51, 65, 85)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resul"
+    },
+    "proximo": {
+     "w": 326,
+     "h": 48,
+     "x": 32,
+     "y": 1165,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "retry": {
+     "w": 326,
+     "h": 48,
+     "x": 32,
+     "y": 1165,
+     "px": "16px",
+     "peso": "900",
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(25, 103, 210)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "evolucao": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 252,
+     "px": "20px",
+     "peso": "900",
+     "cor": "rgb(217, 48, 37)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": ""
+    },
+    "lateral": {
+     "w": 358,
+     "h": 425,
+     "x": 16,
+     "y": 1875,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resultados das missões Ainda sem resultados. Classificação geral Aluna 390 1º lugar · Campeão 58 pts Destaques Maior pontuaçãoAluna 390 🎯 Mais precisoAluna 390"
+    },
+    "ranking": {
+     "w": 320,
+     "h": 54,
+     "x": 35,
+     "y": 1936,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aluna 390 1º lugar · Campeão 58 pts"
+    },
+    "missaoAbaixo": {
+     "w": 358,
+     "h": 1762,
+     "x": 16,
+     "y": 85,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aguarde o professor iniciar Código da sala ZBJJ38 Quem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado. Abra em outro aparel"
+    },
+    "composerAbaixo": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 252,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgb(255, 255, 255)",
+     "pintado": false,
+     "texto": "Inclua contextoinstruçõesrestrições públicoformatocritériosresultado esperado Escreva seu prompt 0 / 4000 caracteres Enviado ✓ Ctrl + Enter ↵ Resposta avaliada "
+    },
+    "sair": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 252,
+     "px": "13px",
+     "peso": "500",
+     "cor": "rgb(84, 91, 97)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": "Voltar ao início"
+    },
+    "manchetesNoVisor": [
+     {
+      "cls": "h2",
+      "px": "20px",
+      "peso": "800",
+      "texto": "Tentativa 1 de 2"
+     },
+     {
+      "cls": "strong",
+      "px": "19.8px",
+      "peso": "800",
+      "texto": "58 PTS"
+     }
+    ],
+    "saidas": [
+     {
+      "cls": "summary",
+      "texto": "Ver critérios",
+      "visivel": true,
+      "tela": true,
+      "h": 19,
+      "y": 625,
+      "solto": false
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "texto": "Tentar novamente (1/2)",
+      "visivel": true,
+      "tela": false,
+      "h": 48,
+      "y": 1165,
+      "solto": false
+     }
+    ],
+    "numeroNoVisor": true,
+    "anelNoVisor": true
+   },
+   "criterios": [
+    {
+     "texto": "Contexto 18/20",
+     "ganho": 18,
+     "maximo": 20
+    },
+    {
+     "texto": "Clareza 16/20",
+     "ganho": 16,
+     "maximo": 20
+    },
+    {
+     "texto": "Objetivo 7/20",
+     "ganho": 7,
+     "maximo": 20
+    },
+    {
+     "texto": "Restrições 5/20",
+     "ganho": 5,
+     "maximo": 20
+    }
+   ],
+   "volta": {
+    "botoes": [
+     {
+      "texto": "Tentar novamente (1/2)",
+      "escondido": false
+     }
+    ],
+    "paraRolagem": 1035
+   },
+   "depoisDoRetry": {
+    "clique": "clicado",
+    "estado": {
+     "resultadoEscondido": false,
+     "composerVisivel": false,
+     "rolagem": 1117,
+     "foco": "TEXTAREA.",
+     "textoDoBotao": "Tentar novamente (1/2)",
+     "campo": 0,
+     "mensagem": ""
+    }
+   }
+  },
+  "768": {
+   "notaLida": {
+    "numero": "58 PTS",
+    "unidade": "de 100",
+    "titulo": "Tentativa 1 de 2",
+    "pilula": "Resposta avaliada",
+    "feedback": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resultado esperado. Qualidade: 58%.",
+    "rolagem": 0
+   },
+   "fechada": {
+    "visor": {
+     "largura": 768,
+     "altura": 1024
+    },
+    "doc": {
+     "altura": 1771,
+     "largura": 768
+    },
+    "rolagemLateral": false,
+    "resultado": {
+     "w": 712,
+     "h": 496,
+     "x": 28,
+     "y": 214,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100 Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 1"
+    },
+    "cabecalho": {
+     "w": 664,
+     "h": 180,
+     "x": 52,
+     "y": 239,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100"
+    },
+    "pilula": {
+     "w": 155,
+     "h": 33,
+     "x": 52,
+     "y": 269,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(24, 90, 188)",
+     "fundo": "rgb(232, 240, 254)",
+     "pintado": true,
+     "texto": "Resposta avaliada"
+    },
+    "titulo": {
+     "w": 141,
+     "h": 30,
+     "x": 52,
+     "y": 309,
+     "px": "20px",
+     "peso": "800",
+     "cor": "rgb(7, 31, 73)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentativa 1 de 2"
+    },
+    "notaRotulo": {
+     "w": 67,
+     "h": 17,
+     "x": 584,
+     "y": 239,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "SUA NOTA"
+    },
+    "anel": {
+     "w": 132,
+     "h": 132,
+     "x": 584,
+     "y": 266,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS de 100"
+    },
+    "numero": {
+     "w": 69,
+     "h": 20,
+     "x": 616,
+     "y": 313,
+     "px": "19.8px",
+     "peso": "800",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS"
+    },
+    "unidade": {
+     "w": 42,
+     "h": 15,
+     "x": 629,
+     "y": 335,
+     "px": "10px",
+     "peso": "700",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "de 100"
+    },
+    "grade": {
+     "w": 664,
+     "h": 175,
+     "x": 52,
+     "y": 441,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 16/20 Objetivo 7/20 Restrições 5/20 Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis C"
+    },
+    "leitura": {
+     "caixa": {
+      "w": 321,
+      "h": 175,
+      "x": 52,
+      "y": 441
+     },
+     "semUsoAbaixo": 0
+    },
+    "conselho": {
+     "caixa": {
+      "w": 321,
+      "h": 175,
+      "x": 395,
+      "y": 441
+     },
+     "semUsoAbaixo": 35
+    },
+    "dobraFechada": {
+     "aberta": false,
+     "resumo": {
+      "w": 298,
+      "h": 19,
+      "x": 52,
+      "y": 481,
+      "px": "12.5px",
+      "peso": "700",
+      "cor": "rgb(84, 91, 97)",
+      "fundo": "rgba(0, 0, 0, 0)",
+      "pintado": true,
+      "texto": "Ver critérios"
+     },
+     "criteriosSemClique": [
+      {
+       "texto": "Contexto 18/20",
+       "pintado": false
+      },
+      {
+       "texto": "Clareza 16/20",
+       "pintado": false
+      },
+      {
+       "texto": "Objetivo 7/20",
+       "pintado": false
+      },
+      {
+       "texto": "Restrições 5/20",
+       "pintado": false
+      }
+     ]
+    },
+    "diagnostico": {
+     "w": 298,
+     "h": 104,
+     "x": 52,
+     "y": 512,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis"
+    },
+    "feedback": {
+     "w": 321,
+     "h": 112,
+     "x": 395,
+     "y": 469,
+     "px": "14px",
+     "peso": "500",
+     "cor": "rgb(51, 65, 85)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resul"
+    },
+    "proximo": {
+     "w": 664,
+     "h": 48,
+     "x": 52,
+     "y": 638,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "retry": {
+     "w": 233,
+     "h": 48,
+     "x": 483,
+     "y": 638,
+     "px": "16px",
+     "peso": "900",
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(25, 103, 210)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "evolucao": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "20px",
+     "peso": "900",
+     "cor": "rgb(217, 48, 37)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": ""
+    },
+    "lateral": {
+     "w": 712,
+     "h": 396,
+     "x": 28,
+     "y": 1327,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resultados das missões Ainda sem resultados. Classificação geral Aluna 768 1º lugar · Campeão 58 pts Destaques Maior pontuaçãoAluna 768 🎯 Mais precisoAluna 768"
+    },
+    "ranking": {
+     "w": 671,
+     "h": 54,
+     "x": 49,
+     "y": 1398,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aluna 768 1º lugar · Campeão 58 pts"
+    },
+    "missaoAbaixo": {
+     "w": 712,
+     "h": 1211,
+     "x": 28,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aguarde o professor iniciar Código da sala NLPD57 Quem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado. Abra em outro aparel"
+    },
+    "composerAbaixo": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgb(255, 255, 255)",
+     "pintado": false,
+     "texto": "Inclua contextoinstruçõesrestrições públicoformatocritériosresultado esperado Escreva seu prompt 0 / 4000 caracteres Enviado ✓ Ctrl + Enter ↵ Resposta avaliada "
+    },
+    "sair": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "13px",
+     "peso": "500",
+     "cor": "rgb(84, 91, 97)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": "Voltar ao início"
+    },
+    "manchetesNoVisor": [
+     {
+      "cls": "h2",
+      "px": "20px",
+      "peso": "800",
+      "texto": "Tentativa 1 de 2"
+     },
+     {
+      "cls": "strong",
+      "px": "19.8px",
+      "peso": "800",
+      "texto": "58 PTS"
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "px": "16px",
+      "peso": "900",
+      "texto": "Tentar novamente (1/2)"
+     }
+    ],
+    "saidas": [
+     {
+      "cls": "summary",
+      "texto": "Ver critérios",
+      "visivel": true,
+      "tela": true,
+      "h": 19,
+      "y": 481,
+      "solto": false
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "texto": "Tentar novamente (1/2)",
+      "visivel": true,
+      "tela": true,
+      "h": 48,
+      "y": 638,
+      "solto": false
+     }
+    ],
+    "numeroNoVisor": true,
+    "anelNoVisor": true
+   },
+   "aberta": {
+    "visor": {
+     "largura": 768,
+     "altura": 1024
+    },
+    "doc": {
+     "altura": 1901,
+     "largura": 768
+    },
+    "rolagemLateral": false,
+    "resultado": {
+     "w": 712,
+     "h": 626,
+     "x": 28,
+     "y": 214,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100 Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 1"
+    },
+    "cabecalho": {
+     "w": 664,
+     "h": 180,
+     "x": 52,
+     "y": 239,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100"
+    },
+    "pilula": {
+     "w": 155,
+     "h": 33,
+     "x": 52,
+     "y": 269,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(24, 90, 188)",
+     "fundo": "rgb(232, 240, 254)",
+     "pintado": true,
+     "texto": "Resposta avaliada"
+    },
+    "titulo": {
+     "w": 141,
+     "h": 30,
+     "x": 52,
+     "y": 309,
+     "px": "20px",
+     "peso": "800",
+     "cor": "rgb(7, 31, 73)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentativa 1 de 2"
+    },
+    "notaRotulo": {
+     "w": 67,
+     "h": 17,
+     "x": 584,
+     "y": 239,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "SUA NOTA"
+    },
+    "anel": {
+     "w": 132,
+     "h": 132,
+     "x": 584,
+     "y": 266,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS de 100"
+    },
+    "numero": {
+     "w": 69,
+     "h": 20,
+     "x": 616,
+     "y": 313,
+     "px": "19.8px",
+     "peso": "800",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS"
+    },
+    "unidade": {
+     "w": 42,
+     "h": 15,
+     "x": 629,
+     "y": 335,
+     "px": "10px",
+     "peso": "700",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "de 100"
+    },
+    "grade": {
+     "w": 664,
+     "h": 305,
+     "x": 52,
+     "y": 441,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 16/20 Objetivo 7/20 Restrições 5/20 Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis C"
+    },
+    "leitura": {
+     "caixa": {
+      "w": 321,
+      "h": 305,
+      "x": 52,
+      "y": 441
+     },
+     "semUsoAbaixo": 0
+    },
+    "conselho": {
+     "caixa": {
+      "w": 321,
+      "h": 305,
+      "x": 395,
+      "y": 441
+     },
+     "semUsoAbaixo": 165
+    },
+    "dobraFechada": {
+     "aberta": true,
+     "resumo": {
+      "w": 298,
+      "h": 19,
+      "x": 52,
+      "y": 481,
+      "px": "12.5px",
+      "peso": "700",
+      "cor": "rgb(84, 91, 97)",
+      "fundo": "rgba(0, 0, 0, 0)",
+      "pintado": true,
+      "texto": "Ver critérios"
+     },
+     "criteriosSemClique": [
+      {
+       "texto": "Contexto 18/20",
+       "pintado": true
+      },
+      {
+       "texto": "Clareza 16/20",
+       "pintado": true
+      },
+      {
+       "texto": "Objetivo 7/20",
+       "pintado": true
+      },
+      {
+       "texto": "Restrições 5/20",
+       "pintado": true
+      }
+     ]
+    },
+    "diagnostico": {
+     "w": 298,
+     "h": 104,
+     "x": 52,
+     "y": 642,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis"
+    },
+    "feedback": {
+     "w": 321,
+     "h": 112,
+     "x": 395,
+     "y": 469,
+     "px": "14px",
+     "peso": "500",
+     "cor": "rgb(51, 65, 85)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resul"
+    },
+    "proximo": {
+     "w": 664,
+     "h": 48,
+     "x": 52,
+     "y": 768,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "retry": {
+     "w": 233,
+     "h": 48,
+     "x": 483,
+     "y": 768,
+     "px": "16px",
+     "peso": "900",
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(25, 103, 210)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "evolucao": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "20px",
+     "peso": "900",
+     "cor": "rgb(217, 48, 37)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": ""
+    },
+    "lateral": {
+     "w": 712,
+     "h": 396,
+     "x": 28,
+     "y": 1457,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resultados das missões Ainda sem resultados. Classificação geral Aluna 768 1º lugar · Campeão 58 pts Destaques Maior pontuaçãoAluna 768 🎯 Mais precisoAluna 768"
+    },
+    "ranking": {
+     "w": 671,
+     "h": 54,
+     "x": 49,
+     "y": 1528,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aluna 768 1º lugar · Campeão 58 pts"
+    },
+    "missaoAbaixo": {
+     "w": 712,
+     "h": 1341,
+     "x": 28,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aguarde o professor iniciar Código da sala NLPD57 Quem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado. Abra em outro aparel"
+    },
+    "composerAbaixo": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgb(255, 255, 255)",
+     "pintado": false,
+     "texto": "Inclua contextoinstruçõesrestrições públicoformatocritériosresultado esperado Escreva seu prompt 0 / 4000 caracteres Enviado ✓ Ctrl + Enter ↵ Resposta avaliada "
+    },
+    "sair": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "13px",
+     "peso": "500",
+     "cor": "rgb(84, 91, 97)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": "Voltar ao início"
+    },
+    "manchetesNoVisor": [
+     {
+      "cls": "h2",
+      "px": "20px",
+      "peso": "800",
+      "texto": "Tentativa 1 de 2"
+     },
+     {
+      "cls": "strong",
+      "px": "19.8px",
+      "peso": "800",
+      "texto": "58 PTS"
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "px": "16px",
+      "peso": "900",
+      "texto": "Tentar novamente (1/2)"
+     }
+    ],
+    "saidas": [
+     {
+      "cls": "summary",
+      "texto": "Ver critérios",
+      "visivel": true,
+      "tela": true,
+      "h": 19,
+      "y": 481,
+      "solto": false
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "texto": "Tentar novamente (1/2)",
+      "visivel": true,
+      "tela": true,
+      "h": 48,
+      "y": 768,
+      "solto": false
+     }
+    ],
+    "numeroNoVisor": true,
+    "anelNoVisor": true
+   },
+   "criterios": [
+    {
+     "texto": "Contexto 18/20",
+     "ganho": 18,
+     "maximo": 20
+    },
+    {
+     "texto": "Clareza 16/20",
+     "ganho": 16,
+     "maximo": 20
+    },
+    {
+     "texto": "Objetivo 7/20",
+     "ganho": 7,
+     "maximo": 20
+    },
+    {
+     "texto": "Restrições 5/20",
+     "ganho": 5,
+     "maximo": 20
+    }
+   ],
+   "volta": {
+    "botoes": [
+     {
+      "texto": "Tentar novamente (1/2)",
+      "escondido": false
+     }
+    ],
+    "paraRolagem": 638
+   },
+   "depoisDoRetry": {
+    "clique": "clicado",
+    "estado": {
+     "resultadoEscondido": false,
+     "composerVisivel": false,
+     "rolagem": 600,
+     "foco": "TEXTAREA.",
+     "textoDoBotao": "Tentar novamente (1/2)",
+     "campo": 0,
+     "mensagem": ""
+    }
+   }
+  },
+  "1440": {
+   "notaLida": {
+    "numero": "58 PTS",
+    "unidade": "de 100",
+    "titulo": "Tentativa 1 de 2",
+    "pilula": "Resposta avaliada",
+    "feedback": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resultado esperado. Qualidade: 58%.",
+    "rolagem": 0
+   },
+   "fechada": {
+    "visor": {
+     "largura": 1440,
+     "altura": 900
+    },
+    "doc": {
+     "altura": 1373,
+     "largura": 1440
+    },
+    "rolagemLateral": false,
+    "resultado": {
+     "w": 1016,
+     "h": 478,
+     "x": 58,
+     "y": 232,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100 Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 1"
+    },
+    "cabecalho": {
+     "w": 968,
+     "h": 180,
+     "x": 82,
+     "y": 257,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100"
+    },
+    "pilula": {
+     "w": 155,
+     "h": 33,
+     "x": 82,
+     "y": 282,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(24, 90, 188)",
+     "fundo": "rgb(232, 240, 254)",
+     "pintado": true,
+     "texto": "Resposta avaliada"
+    },
+    "titulo": {
+     "w": 183,
+     "h": 39,
+     "x": 82,
+     "y": 323,
+     "px": "26px",
+     "peso": "800",
+     "cor": "rgb(7, 31, 73)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentativa 1 de 2"
+    },
+    "notaRotulo": {
+     "w": 67,
+     "h": 17,
+     "x": 918,
+     "y": 257,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "SUA NOTA"
+    },
+    "anel": {
+     "w": 132,
+     "h": 132,
+     "x": 918,
+     "y": 284,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS de 100"
+    },
+    "numero": {
+     "w": 69,
+     "h": 20,
+     "x": 950,
+     "y": 331,
+     "px": "19.8px",
+     "peso": "800",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS"
+    },
+    "unidade": {
+     "w": 42,
+     "h": 15,
+     "x": 963,
+     "y": 353,
+     "px": "10px",
+     "peso": "700",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "de 100"
+    },
+    "grade": {
+     "w": 968,
+     "h": 157,
+     "x": 82,
+     "y": 459,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 16/20 Objetivo 7/20 Restrições 5/20 Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis C"
+    },
+    "leitura": {
+     "caixa": {
+      "w": 473,
+      "h": 157,
+      "x": 82,
+      "y": 459
+     },
+     "semUsoAbaixo": 0
+    },
+    "conselho": {
+     "caixa": {
+      "w": 473,
+      "h": 157,
+      "x": 577,
+      "y": 459
+     },
+     "semUsoAbaixo": 62
+    },
+    "dobraFechada": {
+     "aberta": false,
+     "resumo": {
+      "w": 450,
+      "h": 19,
+      "x": 82,
+      "y": 499,
+      "px": "12.5px",
+      "peso": "700",
+      "cor": "rgb(84, 91, 97)",
+      "fundo": "rgba(0, 0, 0, 0)",
+      "pintado": true,
+      "texto": "Ver critérios"
+     },
+     "criteriosSemClique": [
+      {
+       "texto": "Contexto 18/20",
+       "pintado": false
+      },
+      {
+       "texto": "Clareza 16/20",
+       "pintado": false
+      },
+      {
+       "texto": "Objetivo 7/20",
+       "pintado": false
+      },
+      {
+       "texto": "Restrições 5/20",
+       "pintado": false
+      }
+     ]
+    },
+    "diagnostico": {
+     "w": 450,
+     "h": 86,
+     "x": 82,
+     "y": 530,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis"
+    },
+    "feedback": {
+     "w": 473,
+     "h": 67,
+     "x": 577,
+     "y": 487,
+     "px": "14px",
+     "peso": "500",
+     "cor": "rgb(51, 65, 85)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resul"
+    },
+    "proximo": {
+     "w": 968,
+     "h": 48,
+     "x": 82,
+     "y": 638,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "retry": {
+     "w": 233,
+     "h": 48,
+     "x": 817,
+     "y": 638,
+     "px": "16px",
+     "peso": "900",
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(25, 103, 210)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "evolucao": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "20px",
+     "peso": "900",
+     "cor": "rgb(217, 48, 37)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": ""
+    },
+    "lateral": {
+     "w": 280,
+     "h": 442,
+     "x": 1102,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resultados das missões Ainda sem resultados. Classificação geral Aluna 1440 1º lugar · Campeão 58 pts Destaques Maior pontuaçãoAluna 1440 🎯 Mais precisoAluna 1"
+    },
+    "ranking": {
+     "w": 242,
+     "h": 71,
+     "x": 1121,
+     "y": 150,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aluna 1440 1º lugar · Campeão 58 pts"
+    },
+    "missaoAbaixo": {
+     "w": 1016,
+     "h": 1237,
+     "x": 58,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aguarde o professor iniciar Código da sala CVWW56 Quem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado. Abra em outro aparel"
+    },
+    "composerAbaixo": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgb(255, 255, 255)",
+     "pintado": false,
+     "texto": "Inclua contextoinstruçõesrestrições públicoformatocritériosresultado esperado Escreva seu prompt 0 / 4000 caracteres Enviado ✓ Ctrl + Enter ↵ Resposta avaliada "
+    },
+    "sair": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "13px",
+     "peso": "500",
+     "cor": "rgb(84, 91, 97)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": "Voltar ao início"
+    },
+    "manchetesNoVisor": [
+     {
+      "cls": "h2",
+      "px": "26px",
+      "peso": "800",
+      "texto": "Tentativa 1 de 2"
+     },
+     {
+      "cls": "strong",
+      "px": "19.8px",
+      "peso": "800",
+      "texto": "58 PTS"
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "px": "16px",
+      "peso": "900",
+      "texto": "Tentar novamente (1/2)"
+     }
+    ],
+    "saidas": [
+     {
+      "cls": "summary",
+      "texto": "Ver critérios",
+      "visivel": true,
+      "tela": true,
+      "h": 19,
+      "y": 499,
+      "solto": false
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "texto": "Tentar novamente (1/2)",
+      "visivel": true,
+      "tela": true,
+      "h": 48,
+      "y": 638,
+      "solto": false
+     }
+    ],
+    "numeroNoVisor": true,
+    "anelNoVisor": true
+   },
+   "aberta": {
+    "visor": {
+     "largura": 1440,
+     "altura": 900
+    },
+    "doc": {
+     "altura": 1503,
+     "largura": 1440
+    },
+    "rolagemLateral": false,
+    "resultado": {
+     "w": 1016,
+     "h": 608,
+     "x": 58,
+     "y": 232,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100 Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 1"
+    },
+    "cabecalho": {
+     "w": 968,
+     "h": 180,
+     "x": 82,
+     "y": 257,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100"
+    },
+    "pilula": {
+     "w": 155,
+     "h": 33,
+     "x": 82,
+     "y": 282,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(24, 90, 188)",
+     "fundo": "rgb(232, 240, 254)",
+     "pintado": true,
+     "texto": "Resposta avaliada"
+    },
+    "titulo": {
+     "w": 183,
+     "h": 39,
+     "x": 82,
+     "y": 323,
+     "px": "26px",
+     "peso": "800",
+     "cor": "rgb(7, 31, 73)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentativa 1 de 2"
+    },
+    "notaRotulo": {
+     "w": 67,
+     "h": 17,
+     "x": 918,
+     "y": 257,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "SUA NOTA"
+    },
+    "anel": {
+     "w": 132,
+     "h": 132,
+     "x": 918,
+     "y": 284,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS de 100"
+    },
+    "numero": {
+     "w": 69,
+     "h": 20,
+     "x": 950,
+     "y": 331,
+     "px": "19.8px",
+     "peso": "800",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS"
+    },
+    "unidade": {
+     "w": 42,
+     "h": 15,
+     "x": 963,
+     "y": 353,
+     "px": "10px",
+     "peso": "700",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "de 100"
+    },
+    "grade": {
+     "w": 968,
+     "h": 287,
+     "x": 82,
+     "y": 459,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 16/20 Objetivo 7/20 Restrições 5/20 Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis C"
+    },
+    "leitura": {
+     "caixa": {
+      "w": 473,
+      "h": 287,
+      "x": 82,
+      "y": 459
+     },
+     "semUsoAbaixo": 0
+    },
+    "conselho": {
+     "caixa": {
+      "w": 473,
+      "h": 287,
+      "x": 577,
+      "y": 459
+     },
+     "semUsoAbaixo": 192
+    },
+    "dobraFechada": {
+     "aberta": true,
+     "resumo": {
+      "w": 450,
+      "h": 19,
+      "x": 82,
+      "y": 499,
+      "px": "12.5px",
+      "peso": "700",
+      "cor": "rgb(84, 91, 97)",
+      "fundo": "rgba(0, 0, 0, 0)",
+      "pintado": true,
+      "texto": "Ver critérios"
+     },
+     "criteriosSemClique": [
+      {
+       "texto": "Contexto 18/20",
+       "pintado": true
+      },
+      {
+       "texto": "Clareza 16/20",
+       "pintado": true
+      },
+      {
+       "texto": "Objetivo 7/20",
+       "pintado": true
+      },
+      {
+       "texto": "Restrições 5/20",
+       "pintado": true
+      }
+     ]
+    },
+    "diagnostico": {
+     "w": 450,
+     "h": 86,
+     "x": 82,
+     "y": 660,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis"
+    },
+    "feedback": {
+     "w": 473,
+     "h": 67,
+     "x": 577,
+     "y": 487,
+     "px": "14px",
+     "peso": "500",
+     "cor": "rgb(51, 65, 85)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resul"
+    },
+    "proximo": {
+     "w": 968,
+     "h": 48,
+     "x": 82,
+     "y": 768,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "retry": {
+     "w": 233,
+     "h": 48,
+     "x": 817,
+     "y": 768,
+     "px": "16px",
+     "peso": "900",
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(25, 103, 210)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "evolucao": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "20px",
+     "peso": "900",
+     "cor": "rgb(217, 48, 37)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": ""
+    },
+    "lateral": {
+     "w": 280,
+     "h": 442,
+     "x": 1102,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resultados das missões Ainda sem resultados. Classificação geral Aluna 1440 1º lugar · Campeão 58 pts Destaques Maior pontuaçãoAluna 1440 🎯 Mais precisoAluna 1"
+    },
+    "ranking": {
+     "w": 242,
+     "h": 71,
+     "x": 1121,
+     "y": 150,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aluna 1440 1º lugar · Campeão 58 pts"
+    },
+    "missaoAbaixo": {
+     "w": 1016,
+     "h": 1367,
+     "x": 58,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aguarde o professor iniciar Código da sala CVWW56 Quem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado. Abra em outro aparel"
+    },
+    "composerAbaixo": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgb(255, 255, 255)",
+     "pintado": false,
+     "texto": "Inclua contextoinstruçõesrestrições públicoformatocritériosresultado esperado Escreva seu prompt 0 / 4000 caracteres Enviado ✓ Ctrl + Enter ↵ Resposta avaliada "
+    },
+    "sair": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "13px",
+     "peso": "500",
+     "cor": "rgb(84, 91, 97)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": "Voltar ao início"
+    },
+    "manchetesNoVisor": [
+     {
+      "cls": "h2",
+      "px": "26px",
+      "peso": "800",
+      "texto": "Tentativa 1 de 2"
+     },
+     {
+      "cls": "strong",
+      "px": "19.8px",
+      "peso": "800",
+      "texto": "58 PTS"
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "px": "16px",
+      "peso": "900",
+      "texto": "Tentar novamente (1/2)"
+     }
+    ],
+    "saidas": [
+     {
+      "cls": "summary",
+      "texto": "Ver critérios",
+      "visivel": true,
+      "tela": true,
+      "h": 19,
+      "y": 499,
+      "solto": false
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "texto": "Tentar novamente (1/2)",
+      "visivel": true,
+      "tela": true,
+      "h": 48,
+      "y": 768,
+      "solto": false
+     }
+    ],
+    "numeroNoVisor": true,
+    "anelNoVisor": true
+   },
+   "criterios": [
+    {
+     "texto": "Contexto 18/20",
+     "ganho": 18,
+     "maximo": 20
+    },
+    {
+     "texto": "Clareza 16/20",
+     "ganho": 16,
+     "maximo": 20
+    },
+    {
+     "texto": "Objetivo 7/20",
+     "ganho": 7,
+     "maximo": 20
+    },
+    {
+     "texto": "Restrições 5/20",
+     "ganho": 5,
+     "maximo": 20
+    }
+   ],
+   "volta": {
+    "botoes": [
+     {
+      "texto": "Tentar novamente (1/2)",
+      "escondido": false
+     }
+    ],
+    "paraRolagem": 638
+   },
+   "depoisDoRetry": {
+    "clique": "clicado",
+    "estado": {
+     "resultadoEscondido": false,
+     "composerVisivel": false,
+     "rolagem": 473,
+     "foco": "TEXTAREA.",
+     "textoDoBotao": "Tentar novamente (1/2)",
+     "campo": 0,
+     "mensagem": ""
+    }
+   }
+  },
+  "1920": {
+   "notaLida": {
+    "numero": "58 PTS",
+    "unidade": "de 100",
+    "titulo": "Tentativa 1 de 2",
+    "pilula": "Resposta avaliada",
+    "feedback": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resultado esperado. Qualidade: 58%.",
+    "rolagem": 0
+   },
+   "fechada": {
+    "visor": {
+     "largura": 1920,
+     "altura": 1080
+    },
+    "doc": {
+     "altura": 1373,
+     "largura": 1920
+    },
+    "rolagemLateral": false,
+    "resultado": {
+     "w": 1016,
+     "h": 478,
+     "x": 298,
+     "y": 232,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100 Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 1"
+    },
+    "cabecalho": {
+     "w": 968,
+     "h": 180,
+     "x": 322,
+     "y": 257,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100"
+    },
+    "pilula": {
+     "w": 155,
+     "h": 33,
+     "x": 322,
+     "y": 282,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(24, 90, 188)",
+     "fundo": "rgb(232, 240, 254)",
+     "pintado": true,
+     "texto": "Resposta avaliada"
+    },
+    "titulo": {
+     "w": 183,
+     "h": 39,
+     "x": 322,
+     "y": 323,
+     "px": "26px",
+     "peso": "800",
+     "cor": "rgb(7, 31, 73)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentativa 1 de 2"
+    },
+    "notaRotulo": {
+     "w": 67,
+     "h": 17,
+     "x": 1158,
+     "y": 257,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "SUA NOTA"
+    },
+    "anel": {
+     "w": 132,
+     "h": 132,
+     "x": 1158,
+     "y": 284,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS de 100"
+    },
+    "numero": {
+     "w": 69,
+     "h": 20,
+     "x": 1190,
+     "y": 331,
+     "px": "19.8px",
+     "peso": "800",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS"
+    },
+    "unidade": {
+     "w": 42,
+     "h": 15,
+     "x": 1203,
+     "y": 353,
+     "px": "10px",
+     "peso": "700",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "de 100"
+    },
+    "grade": {
+     "w": 968,
+     "h": 157,
+     "x": 322,
+     "y": 459,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 16/20 Objetivo 7/20 Restrições 5/20 Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis C"
+    },
+    "leitura": {
+     "caixa": {
+      "w": 473,
+      "h": 157,
+      "x": 322,
+      "y": 459
+     },
+     "semUsoAbaixo": 0
+    },
+    "conselho": {
+     "caixa": {
+      "w": 473,
+      "h": 157,
+      "x": 817,
+      "y": 459
+     },
+     "semUsoAbaixo": 62
+    },
+    "dobraFechada": {
+     "aberta": false,
+     "resumo": {
+      "w": 450,
+      "h": 19,
+      "x": 322,
+      "y": 499,
+      "px": "12.5px",
+      "peso": "700",
+      "cor": "rgb(84, 91, 97)",
+      "fundo": "rgba(0, 0, 0, 0)",
+      "pintado": true,
+      "texto": "Ver critérios"
+     },
+     "criteriosSemClique": [
+      {
+       "texto": "Contexto 18/20",
+       "pintado": false
+      },
+      {
+       "texto": "Clareza 16/20",
+       "pintado": false
+      },
+      {
+       "texto": "Objetivo 7/20",
+       "pintado": false
+      },
+      {
+       "texto": "Restrições 5/20",
+       "pintado": false
+      }
+     ]
+    },
+    "diagnostico": {
+     "w": 450,
+     "h": 86,
+     "x": 322,
+     "y": 530,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis"
+    },
+    "feedback": {
+     "w": 473,
+     "h": 67,
+     "x": 817,
+     "y": 487,
+     "px": "14px",
+     "peso": "500",
+     "cor": "rgb(51, 65, 85)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resul"
+    },
+    "proximo": {
+     "w": 968,
+     "h": 48,
+     "x": 322,
+     "y": 638,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "retry": {
+     "w": 233,
+     "h": 48,
+     "x": 1057,
+     "y": 638,
+     "px": "16px",
+     "peso": "900",
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(25, 103, 210)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "evolucao": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "20px",
+     "peso": "900",
+     "cor": "rgb(217, 48, 37)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": ""
+    },
+    "lateral": {
+     "w": 280,
+     "h": 442,
+     "x": 1342,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resultados das missões Ainda sem resultados. Classificação geral Aluna 1920 1º lugar · Campeão 58 pts Destaques Maior pontuaçãoAluna 1920 🎯 Mais precisoAluna 1"
+    },
+    "ranking": {
+     "w": 242,
+     "h": 71,
+     "x": 1361,
+     "y": 150,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aluna 1920 1º lugar · Campeão 58 pts"
+    },
+    "missaoAbaixo": {
+     "w": 1016,
+     "h": 1237,
+     "x": 298,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aguarde o professor iniciar Código da sala MKLP25 Quem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado. Abra em outro aparel"
+    },
+    "composerAbaixo": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgb(255, 255, 255)",
+     "pintado": false,
+     "texto": "Inclua contextoinstruçõesrestrições públicoformatocritériosresultado esperado Escreva seu prompt 0 / 4000 caracteres Enviado ✓ Ctrl + Enter ↵ Resposta avaliada "
+    },
+    "sair": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "13px",
+     "peso": "500",
+     "cor": "rgb(84, 91, 97)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": "Voltar ao início"
+    },
+    "manchetesNoVisor": [
+     {
+      "cls": "h2",
+      "px": "26px",
+      "peso": "800",
+      "texto": "Tentativa 1 de 2"
+     },
+     {
+      "cls": "strong",
+      "px": "19.8px",
+      "peso": "800",
+      "texto": "58 PTS"
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "px": "16px",
+      "peso": "900",
+      "texto": "Tentar novamente (1/2)"
+     }
+    ],
+    "saidas": [
+     {
+      "cls": "summary",
+      "texto": "Ver critérios",
+      "visivel": true,
+      "tela": true,
+      "h": 19,
+      "y": 499,
+      "solto": false
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "texto": "Tentar novamente (1/2)",
+      "visivel": true,
+      "tela": true,
+      "h": 48,
+      "y": 638,
+      "solto": false
+     }
+    ],
+    "numeroNoVisor": true,
+    "anelNoVisor": true
+   },
+   "aberta": {
+    "visor": {
+     "largura": 1920,
+     "altura": 1080
+    },
+    "doc": {
+     "altura": 1503,
+     "largura": 1920
+    },
+    "rolagemLateral": false,
+    "resultado": {
+     "w": 1016,
+     "h": 608,
+     "x": 298,
+     "y": 232,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100 Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 1"
+    },
+    "cabecalho": {
+     "w": 968,
+     "h": 180,
+     "x": 322,
+     "y": 257,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resposta avaliada Tentativa 1 de 2 Onde você foi bem e o que ainda dá ponto. SUA NOTA 58 PTS de 100"
+    },
+    "pilula": {
+     "w": 155,
+     "h": 33,
+     "x": 322,
+     "y": 282,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(24, 90, 188)",
+     "fundo": "rgb(232, 240, 254)",
+     "pintado": true,
+     "texto": "Resposta avaliada"
+    },
+    "titulo": {
+     "w": 183,
+     "h": 39,
+     "x": 322,
+     "y": 323,
+     "px": "26px",
+     "peso": "800",
+     "cor": "rgb(7, 31, 73)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentativa 1 de 2"
+    },
+    "notaRotulo": {
+     "w": 67,
+     "h": 17,
+     "x": 1158,
+     "y": 257,
+     "px": "11px",
+     "peso": "800",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "SUA NOTA"
+    },
+    "anel": {
+     "w": 132,
+     "h": 132,
+     "x": 1158,
+     "y": 284,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS de 100"
+    },
+    "numero": {
+     "w": 69,
+     "h": 20,
+     "x": 1190,
+     "y": 331,
+     "px": "19.8px",
+     "peso": "800",
+     "cor": "rgb(19, 115, 51)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "58 PTS"
+    },
+    "unidade": {
+     "w": 42,
+     "h": 15,
+     "x": 1203,
+     "y": 353,
+     "px": "10px",
+     "peso": "700",
+     "cor": "rgb(82, 100, 127)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "de 100"
+    },
+    "grade": {
+     "w": 968,
+     "h": 287,
+     "x": 322,
+     "y": 459,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Leitura do seu prompt Ver critérios Contexto 18/20 Clareza 16/20 Objetivo 7/20 Restrições 5/20 Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis C"
+    },
+    "leitura": {
+     "caixa": {
+      "w": 473,
+      "h": 287,
+      "x": 322,
+      "y": 459
+     },
+     "semUsoAbaixo": 0
+    },
+    "conselho": {
+     "caixa": {
+      "w": 473,
+      "h": 287,
+      "x": 817,
+      "y": 459
+     },
+     "semUsoAbaixo": 192
+    },
+    "dobraFechada": {
+     "aberta": true,
+     "resumo": {
+      "w": 450,
+      "h": 19,
+      "x": 322,
+      "y": 499,
+      "px": "12.5px",
+      "peso": "700",
+      "cor": "rgb(84, 91, 97)",
+      "fundo": "rgba(0, 0, 0, 0)",
+      "pintado": true,
+      "texto": "Ver critérios"
+     },
+     "criteriosSemClique": [
+      {
+       "texto": "Contexto 18/20",
+       "pintado": true
+      },
+      {
+       "texto": "Clareza 16/20",
+       "pintado": true
+      },
+      {
+       "texto": "Objetivo 7/20",
+       "pintado": true
+      },
+      {
+       "texto": "Restrições 5/20",
+       "pintado": true
+      }
+     ]
+    },
+    "diagnostico": {
+     "w": 450,
+     "h": 86,
+     "x": 322,
+     "y": 660,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Melhor pontoContexto18/20 Foco agoraRestrições+15 pts possíveis"
+    },
+    "feedback": {
+     "w": 473,
+     "h": 67,
+     "x": 817,
+     "y": 487,
+     "px": "14px",
+     "peso": "500",
+     "cor": "rgb(51, 65, 85)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Adicione restrições (o que evitar, limites de tamanho, tom, cores) para a IA não decidir por você. O objetivo do que você quer está claro, mas explicite o resul"
+    },
+    "proximo": {
+     "w": 968,
+     "h": 48,
+     "x": 322,
+     "y": 768,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "retry": {
+     "w": 233,
+     "h": 48,
+     "x": 1057,
+     "y": 768,
+     "px": "16px",
+     "peso": "900",
+     "cor": "rgb(255, 255, 255)",
+     "fundo": "rgb(25, 103, 210)",
+     "pintado": true,
+     "texto": "Tentar novamente (1/2)"
+    },
+    "evolucao": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "20px",
+     "peso": "900",
+     "cor": "rgb(217, 48, 37)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": ""
+    },
+    "lateral": {
+     "w": 280,
+     "h": 442,
+     "x": 1342,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Resultados das missões Ainda sem resultados. Classificação geral Aluna 1920 1º lugar · Campeão 58 pts Destaques Maior pontuaçãoAluna 1920 🎯 Mais precisoAluna 1"
+    },
+    "ranking": {
+     "w": 242,
+     "h": 71,
+     "x": 1361,
+     "y": 150,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aluna 1920 1º lugar · Campeão 58 pts"
+    },
+    "missaoAbaixo": {
+     "w": 1016,
+     "h": 1367,
+     "x": 298,
+     "y": 88,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": true,
+     "texto": "Aguarde o professor iniciar Código da sala MKLP25 Quem ainda não entrou digita este código no portal, ou aponta a câmera para o QR ao lado. Abra em outro aparel"
+    },
+    "composerAbaixo": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "16px",
+     "peso": "400",
+     "cor": "rgb(31, 41, 55)",
+     "fundo": "rgb(255, 255, 255)",
+     "pintado": false,
+     "texto": "Inclua contextoinstruçõesrestrições públicoformatocritériosresultado esperado Escreva seu prompt 0 / 4000 caracteres Enviado ✓ Ctrl + Enter ↵ Resposta avaliada "
+    },
+    "sair": {
+     "w": 0,
+     "h": 0,
+     "x": 0,
+     "y": 0,
+     "px": "13px",
+     "peso": "500",
+     "cor": "rgb(84, 91, 97)",
+     "fundo": "rgba(0, 0, 0, 0)",
+     "pintado": false,
+     "texto": "Voltar ao início"
+    },
+    "manchetesNoVisor": [
+     {
+      "cls": "h2",
+      "px": "26px",
+      "peso": "800",
+      "texto": "Tentativa 1 de 2"
+     },
+     {
+      "cls": "strong",
+      "px": "19.8px",
+      "peso": "800",
+      "texto": "58 PTS"
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "px": "16px",
+      "peso": "900",
+      "texto": "Tentar novamente (1/2)"
+     }
+    ],
+    "saidas": [
+     {
+      "cls": "summary",
+      "texto": "Ver critérios",
+      "visivel": true,
+      "tela": true,
+      "h": 19,
+      "y": 499,
+      "solto": false
+     },
+     {
+      "cls": "figma-cta figma-cta-blue",
+      "texto": "Tentar novamente (1/2)",
+      "visivel": true,
+      "tela": true,
+      "h": 48,
+      "y": 768,
+      "solto": false
+     }
+    ],
+    "numeroNoVisor": true,
+    "anelNoVisor": true
+   },
+   "criterios": [
+    {
+     "texto": "Contexto 18/20",
+     "ganho": 18,
+     "maximo": 20
+    },
+    {
+     "texto": "Clareza 16/20",
+     "ganho": 16,
+     "maximo": 20
+    },
+    {
+     "texto": "Objetivo 7/20",
+     "ganho": 7,
+     "maximo": 20
+    },
+    {
+     "texto": "Restrições 5/20",
+     "ganho": 5,
+     "maximo": 20
+    }
+   ],
+   "volta": {
+    "botoes": [
+     {
+      "texto": "Tentar novamente (1/2)",
+      "escondido": false
+     }
+    ],
+    "paraRolagem": 638
+   },
+   "depoisDoRetry": {
+    "clique": "clicado",
+    "estado": {
+     "resultadoEscondido": false,
+     "composerVisivel": false,
+     "rolagem": 293,
+     "foco": "TEXTAREA.",
+     "textoDoBotao": "Tentar novamente (1/2)",
+     "campo": 0,
+     "mensagem": ""
+    }
+   }
+  }
+ },
+ "referencia": {
+  "390": {
+   "rolagemLateral": true,
+   "altura": 1386,
+   "criteriosNoPrimeiroVisor": 4,
+   "estouro": {
+    "px": "47px",
+    "w": 150,
+    "h": 150,
+    "y": 368
+   },
+   "abertura": {
+    "w": 367,
+    "h": 1233
+   },
+   "tituloPx": "45px"
+  },
+  "768": {
+   "rolagemLateral": false,
+   "altura": 1025,
+   "criteriosNoPrimeiroVisor": 4,
+   "estouro": {
+    "px": "47px",
+    "w": 150,
+    "h": 150,
+    "y": 336
+   },
+   "abertura": {
+    "w": 722,
+    "h": 829
+   },
+   "tituloPx": "45px"
+  },
+  "1440": {
+   "rolagemLateral": false,
+   "altura": 959,
+   "criteriosNoPrimeiroVisor": 4,
+   "estouro": {
+    "px": "47px",
+    "w": 150,
+    "h": 150,
+    "y": 291
+   },
+   "abertura": {
+    "w": 1120,
+    "h": 805
+   },
+   "tituloPx": "45px"
+  },
+  "1920": {
+   "rolagemLateral": false,
+   "altura": 1081,
+   "criteriosNoPrimeiroVisor": 4,
+   "estouro": {
+    "px": "47px",
+    "w": 150,
+    "h": 150,
+    "y": 352
+   },
+   "abertura": {
+    "w": 1120,
+    "h": 805
+   },
+   "tituloPx": "45px"
+  },
+  "estrutura": {
+   "pilula": "RESULTADO DA RODADA",
+   "titulo": "Fim do 1º Round!",
+   "tituloPx": "45px",
+   "contexto": "Seu prompt foi comparado aos critérios da missão. Veja onde você foi bem e onde ainda pode ganhar precisão.",
+   "estouro": {
+    "texto": "78%",
+    "px": "47px",
+    "w": 150,
+    "h": 150
+   },
+   "secoes": [
+    "Leitura do seu prompt",
+    "Ranking do 1º round"
+   ],
+   "criterios": [
+    {
+     "rotulo": "Contexto e intenção",
+     "barra": "width:86%",
+     "valor": "86%"
+    },
+    {
+     "rotulo": "Detalhes visuais",
+     "barra": "width:81%",
+     "valor": "81%"
+    },
+    {
+     "rotulo": "Restrições",
+     "barra": "width:68%",
+     "valor": "68%"
+    },
+    {
+     "rotulo": "Clareza",
+     "barra": "width:79%",
+     "valor": "79%"
+    }
+   ],
+   "feedback": "Como subir sua notaSeu prompt descreve bem o assunto, mas ainda deixa ambíguos o enquadramento e as relações espaciais. ",
+   "ranking": [
+    "1. Ana Martinsmelhor precisão89%",
+    "2. Kalelboa cobertura84%",
+    "3. Vocêsubiu 2 posições78%",
+    "4. Lucasótima clareza77%"
+   ],
+   "botoes": [
+    "Preparar próximo round",
+    "Ver encerramento"
+   ],
+   "dobras": 0,
+   "tape": {
+    "w": 210,
+    "h": 18
+   },
+   "alturaDaTela": 805
+  }
+ },
+ "erros": [],
+ "problemas": []
+}

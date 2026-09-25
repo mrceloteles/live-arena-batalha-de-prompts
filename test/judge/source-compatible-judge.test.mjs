@@ -98,6 +98,63 @@ test('source-compatible judge sends the package instruction and parses numeric s
   assert.equal(result.metadata.fallback_used, false);
 });
 
+// A leitura da nota passou a olhar TODAS as partes da resposta e a exigir
+// apresentação inequívoca. Antes disto, uma parte de raciocínio (ou uma parte
+// que não é texto) na frente escondia a resposta — e, pior, uma prosa que
+// citasse a escala primeiro era lida como nota 0, com procedência `gemini`.
+test('classic judge reads the score in any text part, not only the first', async () => {
+  const casos = [
+    // Raciocínio antes da resposta: antes virava 0 (a primeira sequência
+    // numérica do raciocínio — "0 a 100" — era aceita como nota).
+    [{ text: 'Pensando: a escala vai de 0 a 100. ' }, { text: '31.7500' }],
+    // Parte sem texto na frente: antes virava `gemini_invalid_numeric_output`.
+    [{ inlineData: { mimeType: 'text/plain', data: 'x' } }, { text: '31.7500' }],
+    // Resposta em cerca de código: continua valendo.
+    [{ text: '```\n31.7500\n```' }],
+  ];
+  for (const parts of casos) {
+    const judge = createSourceCompatibleJudge({
+      apiKey: 'k',
+      fetchImpl: async () => response({ candidates: [{ content: { parts }, finishReason: 'STOP' }] }),
+    });
+    const result = await judge(input);
+    assert.equal(result.percent, 31.75, JSON.stringify(parts));
+    assert.equal(result.metadata.provider, 'gemini', JSON.stringify(parts));
+  }
+});
+
+// Ambiguidade não vira nota: dois números no texto e nenhum deles é a resposta
+// apresentada sozinho. Pendência é alta e reprocessável; zero inventado é
+// silencioso e definitivo — e foi exatamente o que esta sonda mediu.
+test('classic judge refuses to invent a score from an ambiguous text', async () => {
+  const judge = createSourceCompatibleJudge({
+    apiKey: 'k',
+    fetchImpl: async () => response({
+      candidates: [{ content: { parts: [{ text: 'A escala vai de 0 a 100. A nota é 31.75' }] } }],
+    }),
+  });
+  await assert.rejects(() => judge(input), (error) => {
+    const falha = judgeUnavailable(error);
+    assert.ok(falha, `deveria sair como indisponibilidade (saiu: ${error?.name})`);
+    assert.equal(falha.reason, 'gemini_invalid_numeric_output');
+    assert.equal(falha.parkable, true);
+    return true;
+  });
+});
+
+// Um único número no texto continua sendo nota: é apresentação inequívoca.
+test('classic judge still accepts a single number inside prose', async () => {
+  const judge = createSourceCompatibleJudge({
+    apiKey: 'k',
+    fetchImpl: async () => response({
+      candidates: [{ content: { parts: [{ text: 'A proximidade semântica é boa. Nota: 31.75' }] } }],
+    }),
+  });
+  const result = await judge(input);
+  assert.equal(result.percent, 31.75);
+  assert.equal(result.metadata.provider, 'gemini');
+});
+
 // O contrato histórico do pacote-base — "falha do provedor vira nota local" —
 // continua existindo, mas como OPT-IN: desde 17/09/2026 o padrão é sinalizar
 // indisponibilidade para o servidor estacionar a avaliação. Estes três casos

@@ -1,0 +1,249 @@
+{
+  "rotulo": "depois",
+  "medidas": {
+    "painel": {
+      "cartoes": [
+        {
+          "titulo": "Batalha contra o Juiz",
+          "capsulasComFundo": [
+            "arena-status-badge is-draft"
+          ],
+          "botoes": [
+            "Ver sala",
+            "Abrir sala",
+            "Excluir"
+          ]
+        },
+        {
+          "titulo": "Sala do reforço",
+          "capsulasComFundo": [
+            "arena-status-badge is-draft",
+            "arena-room-blocked-badge"
+          ],
+          "botoes": [
+            "Ver sala",
+            "Abrir sala",
+            "Excluir"
+          ]
+        },
+        {
+          "titulo": "Oficina de prompts",
+          "capsulasComFundo": [
+            "arena-status-badge is-waiting"
+          ],
+          "botoes": [
+            "Ver sala",
+            "Iniciar missão",
+            "Excluir"
+          ]
+        }
+      ],
+      "estilosDistintosDeBotao": [
+        {
+          "chave": "8px|6px 14px|12.5px|600|rgb(248, 250, 252)|none|44",
+          "rotulos": [
+            "Ver sala",
+            "Ver sala",
+            "Ver sala"
+          ]
+        },
+        {
+          "chave": "8px|6px 14px|12.5px|700|rgb(0, 82, 255)|rgba(0, 82, 255, 0.2) 0px 2px 6px 0px|44",
+          "rotulos": [
+            "Abrir sala",
+            "Abrir sala",
+            "Iniciar missão"
+          ]
+        },
+        {
+          "chave": "8px|6px 14px|12.5px|600|rgba(0, 0, 0, 0)|none|44",
+          "rotulos": [
+            "Excluir",
+            "Excluir",
+            "Excluir"
+          ]
+        }
+      ],
+      "secaoSalas": {
+        "topo": 103,
+        "altura": 456
+      },
+      "secaoBanco": {
+        "topo": 578,
+        "altura": 518
+      },
+      "secaoAulas": {
+        "topo": 1116,
+        "altura": 615
+      },
+      "alturaDaPagina": 900
+    },
+    "salaEspera": {
+      "pin": "USZH62",
+      "ocorrenciasDoPinNoDetalhe": 2,
+      "ocorrenciasDoPinNaPagina": 3,
+      "alturaDoDetalhe": 1839,
+      "alturaDoCockpit": 363,
+      "alturaDoBlocoDeCodigo": 313,
+      "larguraDoBlocoDeCodigo": 210,
+      "topoDoEstado": 149,
+      "topoDoBotaoPrincipal": 343,
+      "distanciaEstadoAoBotao": 194,
+      "rotuloDoBotaoPrincipal": "▶ Iniciar missão",
+      "tituloDoDetalhe": "Oficina de prompts",
+      "dobrasAbertas": [
+        "participantes"
+      ],
+      "botoesDaPrimeiraDobra": [
+        "Editar sala",
+        "Bloquear entrada",
+        "Excluir sala"
+      ],
+      "temGerenciarSala": true
+    },
+    "salaRodada": {
+      "alturaDoCockpit": 321,
+      "topoDoCockpit": 270,
+      "topoDaMissao": 645,
+      "topoDosControles": 149,
+      "controles": [
+        "⏸ Pausar missão",
+        "Encerrar rodada",
+        "Encerrar sala",
+        "Editar sala",
+        "Bloquear entrada"
+      ],
+      "dobrasAbertas": []
+    },
+    "sorteio": {
+      "modos": [
+        "Sorteio livre",
+        "Mata-mata"
+      ],
+      "repeticoesDaRegra": 0,
+      "dica": "Todos concorrem em todas as rodadas.",
+      "bloqueio": null
+    },
+    "salaCelular": {
+      "alturaDoCockpit": 429,
+      "alturaDoDetalhe": 2149,
+      "largura": 390
+    },
+    "aulas": [
+      {
+        "titulo": "Aula 2 — Fundação",
+        "resumo": "4 missões · 1× Resgate · 1× Precisão · 1× Prompt Essencial · 1× Diagnóstico",
+        "ações": [
+          "Adicionar a sala",
+          "So criar no banco"
+        ],
+        "altura": 246
+      },
+      {
+        "titulo": "Aula 3 — Controle do resultado",
+        "resumo": "4 missões · 2× Prompt Completo · 1× Precisão · 1× Briefing de Cliente",
+        "ações": [
+          "Adicionar a sala",
+          "So criar no banco"
+        ],
+        "altura": 246
+      },
+      {
+        "titulo": "Aula 4 — Multimodal e visual",
+        "resumo": "4 missões de Engenharia Reversa",
+        "ações": [
+          "Adicionar a sala",
+          "So criar no banco"
+        ],
+        "altura": 246
+      },
+      {
+        "titulo": "Aula 5 — Arena final",
+        "resumo": "7 missões · 1× Precisão · 1× Sprint · 1× Prompt Essencial · 1× Resgate · 1× Engenharia Reversa · 1× Briefing de Cliente · 1× Boss Battle",
+        "ações": [
+          "Adicionar a sala",
+          "So criar no banco"
+        ],
+        "altura": 265
+      }
+    ],
+    "relatorio": {
+      "alturaDaPagina": 900,
+      "secoes": [
+        {
+          "classe": "report-panel",
+          "altura": 86
+        },
+        {
+          "classe": "report-panel",
+          "altura": 86
+        },
+        {
+          "classe": "report-panel",
+          "altura": 86
+        },
+        {
+          "classe": "report-panel",
+          "altura": 86
+        },
+        {
+          "classe": "report-panel",
+          "altura": 86
+        },
+        {
+          "classe": "report-panel",
+          "altura": 86
+        },
+        {
+          "classe": "report-panel report-panel-wide",
+          "altura": 434
+        },
+        {
+          "classe": "report-panel",
+          "altura": 86
+        },
+        {
+          "classe": "report-panel",
+          "altura": 86
+        },
+        {
+          "classe": "report-panel",
+          "altura": 86
+        },
+        {
+          "classe": "report-panel",
+          "altura": 86
+        }
+      ],
+      "dobrasFechadas": [
+        "report-panel report-more-metrics",
+        "report-panel",
+        "report-panel",
+        "report-panel",
+        "report-panel",
+        "report-panel",
+        "report-panel",
+        "report-panel",
+        "report-panel",
+        "report-panel",
+        "report-panel"
+      ],
+      "periodoEscrito": false
+    },
+    "relatorioCelular": {
+      "alturaDaPagina": 844,
+      "largura": 390
+    },
+    "prévia": {
+      "alturaDaBarra": 266,
+      "alturaDoTopo": 52,
+      "alturaDaAtividade": 1260,
+      "textoDaBarra": "PRÉVIA DO PROFESSOR\nOficina de prompts\nNada disto está no ar.\n← Voltar ao painel\nMissão\nDepois de responder\nFim da sala\n‹ Anterior\nMissão 1 de 3\nPróxima ›\n👁 Ver gabarito\n1\n2\n3"
+    },
+    "entradaAluno": {
+      "alturaDaPagina": 844,
+      "dobras": 3
+    }
+  },
+  "pendentes": []
+}

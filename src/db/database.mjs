@@ -4,7 +4,7 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 import { createClient } from '@libsql/client';
 
 const schema = readFileSync(new URL('./schema.sql', import.meta.url), 'utf8');
-const CURRENT_VERSION = 7;
+const CURRENT_VERSION = 9;
 
 // ---------------------------------------------------------------------------
 // Adapter interface (async, unified for both backends):
@@ -137,6 +137,7 @@ const ARENA_TABLES = `
     expected_players INTEGER NOT NULL DEFAULT 0 CHECK (expected_players BETWEEN 0 AND 50),
     settings_json TEXT NOT NULL DEFAULT '{}',
     entry_blocked INTEGER NOT NULL DEFAULT 0 CHECK (entry_blocked IN (0, 1)),
+    current_cycle INTEGER NOT NULL DEFAULT 1 CHECK (current_cycle > 0),
     created_at REAL NOT NULL,
     updated_at REAL NOT NULL,
     started_at REAL,
@@ -188,6 +189,7 @@ const ARENA_TABLES = `
   CREATE TABLE IF NOT EXISTS room_rounds (
     id TEXT PRIMARY KEY,
     room_id TEXT NOT NULL REFERENCES arena_rooms(id),
+    cycle INTEGER NOT NULL DEFAULT 1 CHECK (cycle > 0),
     position INTEGER NOT NULL CHECK (position > 0),
     challenge_id TEXT NOT NULL REFERENCES challenges(id),
     modality TEXT NOT NULL,
@@ -197,7 +199,7 @@ const ARENA_TABLES = `
     paused_at REAL,
     ended_at REAL,
     created_at REAL NOT NULL,
-    UNIQUE (room_id, position)
+    UNIQUE (room_id, cycle, position)
   ) STRICT;
   CREATE TABLE IF NOT EXISTS arena_submissions (
     id TEXT PRIMARY KEY,
@@ -389,6 +391,68 @@ async function migrateDatabase(database) {
             CREATE UNIQUE INDEX IF NOT EXISTS ux_arena_rooms_pin
               ON arena_rooms(pin) WHERE pin IS NOT NULL;
           `);
+        }
+      }
+      if (version <= 7) {
+        // v8: a sala passa a ter BATALHAS (ciclos).
+        //
+        // O ciclo vive na RODADA, e nao num id novo de sala, porque e a rodada
+        // que a submissao referencia: um ciclo novo clona as mesmas missoes e o
+        // ciclo anterior fica inteiro (envios, notas, tentativas de juiz) como
+        // historico. O que muda de verdade e a chave: `UNIQUE (room_id,
+        // position)` so cabia uma batalha por sala, ja que `position` volta a 1
+        // em cada ciclo. O SQLite nao altera constraint em lugar, entao a tabela
+        // e reconstruida — com as FKs desligadas (a transacao roda depois do
+        // `PRAGMA foreign_keys = OFF`), que e o que faz o `REFERENCES
+        // room_rounds(id)` das tabelas filhas continuar valendo na tabela nova.
+        const column = async (table, name) => Boolean(
+          await db.prepare(`SELECT 1 FROM pragma_table_info('${table}') WHERE name = ?`).get(name),
+        );
+        if (!(await column('room_rounds', 'cycle'))) {
+          await db.exec(`
+            CREATE TABLE room_rounds_v8 (
+              id TEXT PRIMARY KEY,
+              room_id TEXT NOT NULL REFERENCES arena_rooms(id),
+              cycle INTEGER NOT NULL DEFAULT 1 CHECK (cycle > 0),
+              position INTEGER NOT NULL CHECK (position > 0),
+              challenge_id TEXT NOT NULL REFERENCES challenges(id),
+              modality TEXT NOT NULL,
+              status TEXT NOT NULL CHECK (status IN ('pending','open','submitting','judging','results','closed')),
+              started_at REAL,
+              deadline_at REAL,
+              paused_at REAL,
+              ended_at REAL,
+              created_at REAL NOT NULL,
+              UNIQUE (room_id, cycle, position)
+            ) STRICT;
+            INSERT INTO room_rounds_v8
+              (id, room_id, cycle, position, challenge_id, modality, status,
+               started_at, deadline_at, paused_at, ended_at, created_at)
+              SELECT id, room_id, 1, position, challenge_id, modality, status,
+                     started_at, deadline_at, paused_at, ended_at, created_at
+              FROM room_rounds;
+            DROP TABLE room_rounds;
+            ALTER TABLE room_rounds_v8 RENAME TO room_rounds;
+          `);
+        }
+        if (!(await column('arena_rooms', 'current_cycle'))) {
+          await db.exec('ALTER TABLE arena_rooms ADD COLUMN current_cycle INTEGER NOT NULL DEFAULT 1;');
+        }
+      }
+      if (version <= 8) {
+        // v9: a REVISAO da sala — a versao monotona do estado.
+        //
+        // Por que uma coluna persistida e nao um contador em memoria: o numero
+        // precisa valer para as tres telas (aluno, painel, TV) e sobreviver ao
+        // reinicio do processo. Um contador do hub SSE morreria com o servidor
+        // e duas instancias discordariam entre si. Como o valor so e lido e
+        // comparado (e nunca usado como chave), a coluna entra por `ALTER
+        // TABLE` com default 0 — sem reconstruir nada.
+        const column = async (table, name) => Boolean(
+          await db.prepare(`SELECT 1 FROM pragma_table_info('${table}') WHERE name = ?`).get(name),
+        );
+        if (!(await column('arena_rooms', 'revision'))) {
+          await db.exec('ALTER TABLE arena_rooms ADD COLUMN revision INTEGER NOT NULL DEFAULT 0;');
         }
       }
       await db.exec(`PRAGMA user_version = ${CURRENT_VERSION}`);

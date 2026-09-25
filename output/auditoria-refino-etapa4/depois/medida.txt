@@ -1,0 +1,45 @@
+## fechado1440
+altura=1298 rolagem=398 fimDoConteudo=1250
+paineis fechados: 7 alturas=[60, 60, 60, 60, 60, 60, 60] soma=529
+impressao: 1 x o periodo ["report-period-pill"]
+painel fechado: {"padding":"14px 16px","raio":"16px","sombra":"rgba(11, 87, 208, 0.05) 0px 4px 12px 0px","borda":"1px rgba(11, 87, 208, 0.12)"} resumo={"margem":"0px","altura":30}
+periodo pintado: 1 [{"classe":"report-period-pill","texto":"Todo o periodo","pintado":true}]
+dobras aninhadas=0 avisos vazios=0 blocos escondidos=0 grupos pintados=3
+  grupo atividade "Atividade" paineis=4 blocos=0 alturaFechado=null caret=null -> ["Atividade diaria","Pontuadas por hora","Rodadas pontuadas","Calor dia x hora"]
+  grupo pessoas "Participantes e respostas" paineis=3 blocos=0 alturaFechado=null caret=null -> ["Ranking dos participantes","Cadastros","Partidas e respostas"]
+  grupo operacional "Operacional" paineis=0 blocos=4 alturaFechado=60 caret="" -> ["Por computador","Por modo","Jogos","Rodadas do evento"]
+titulos: ["Mais indicadores","Atividade diaria","Pontuadas por hora","Rodadas pontuadas","Calor dia x hora","Ranking dos participantes","Cadastros","Partidas e respostas"]
+
+## consultaAberta
+altura=1684 rolagem=784 fimDoConteudo=1238
+paineis fechados: 6 alturas=[254, 60, 60, 60, 60, 60] soma=647
+painel fechado: {"padding":"14px 16px","raio":"16px","sombra":"rgba(11, 87, 208, 0.05) 0px 4px 12px 0px","borda":"1px rgba(11, 87, 208, 0.12)"} resumo={"margem":"0px","altura":30}
+periodo pintado: 1 [{"classe":"report-period-pill","texto":"Todo o periodo","pintado":true}]
+dobras aninhadas=0 avisos vazios=0 blocos escondidos=0 grupos pintados=3
+  grupo atividade "Atividade" paineis=4 blocos=0 alturaFechado=null caret=null -> ["Atividade diaria","Pontuadas por hora","Rodadas pontuadas","Calor dia x hora"]
+  grupo pessoas "Participantes e respostas" paineis=3 blocos=0 alturaFechado=null caret=null -> ["Ranking dos participantes","Cadastros","Partidas e respostas"]
+  grupo operacional "Operacional" paineis=0 blocos=4 alturaFechado=60 caret="" -> ["Por computador","Por modo","Jogos","Rodadas do evento"]
+titulos: ["Mais indicadores","Atividade diaria","Pontuadas por hora","Rodadas pontuadas","Calor dia x hora","Ranking dos participantes","Cadastros","Partidas e respostas"]
+
+## vazio1440
+altura=900 rolagem=0 fimDoConteudo=0
+paineis fechados: 6 alturas=[0, 0, 0, 0, 0, 0] soma=96
+painel fechado: {"padding":"14px 16px","raio":"16px","sombra":"rgba(11, 87, 208, 0.05) 0px 4px 12px 0px","borda":"1px rgba(11, 87, 208, 0.12)"} resumo={"margem":"0px","altura":0}
+periodo pintado: 0 []
+dobras aninhadas=0 avisos vazios=1 blocos escondidos=5 grupos pintados=0
+  grupo atividade "Atividade" paineis=4 blocos=0 alturaFechado=null caret=null -> ["Atividade diaria","Pontuadas por hora","Rodadas pontuadas","Calor dia x hora"]
+  grupo pessoas "Participantes e respostas" paineis=3 blocos=0 alturaFechado=null caret=null -> ["Ranking dos participantes","Cadastros","Partidas e respostas"]
+  grupo operacional "Operacional" paineis=0 blocos=4 alturaFechado=0 caret="" -> ["Por computador","Por modo","Jogos","Rodadas do evento"]
+titulos: ["Mais indicadores","Atividade diaria","Pontuadas por hora","Rodadas pontuadas","Calor dia x hora","Ranking dos participantes","Cadastros","Partidas e respostas"]
+
+## fechado390
+altura=1601 rolagem=757 fimDoConteudo=1553
+paineis fechados: 8 alturas=[60, 60, 60, 60, 60, 60, 60, 60] soma=604
+painel fechado: {"padding":"14px 16px","raio":"16px","sombra":"rgba(11, 87, 208, 0.05) 0px 4px 12px 0px","borda":"1px rgba(11, 87, 208, 0.12)"} resumo={"margem":"0px","altura":30}
+periodo pintado: 1 [{"classe":"report-period-pill","texto":"Todo o periodo","pintado":true}]
+dobras aninhadas=0 avisos vazios=0 blocos escondidos=0 grupos pintados=3
+  grupo atividade "Atividade" paineis=4 blocos=0 alturaFechado=null caret=null -> ["Atividade diaria","Pontuadas por hora","Rodadas pontuadas","Calor dia x hora"]
+  grupo pessoas "Participantes e respostas" paineis=3 blocos=0 alturaFechado=null caret=null -> ["Ranking dos participantes","Cadastros","Partidas e respostas"]
+  grupo operacional "Operacional" paineis=0 blocos=4 alturaFechado=60 caret="" -> ["Por computador","Por modo","Jogos","Rodadas do evento"]
+titulos: ["Mais indicadores","Atividade diaria","Pontuadas por hora","Rodadas pontuadas","Calor dia x hora","Ranking dos participantes","Cadastros","Partidas e respostas"]
+

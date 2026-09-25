@@ -1,0 +1,726 @@
+{
+  "telas": [
+    {
+      "alvo": "1920x1080",
+      "largura": 1920,
+      "colados": [],
+      "vazios": [
+        {
+          "o": "arena-qr-entry-img",
+          "w": 72,
+          "h": 72
+        },
+        {
+          "o": "INPUT",
+          "w": 84,
+          "h": 40
+        },
+        {
+          "o": "TH",
+          "w": 224,
+          "h": 35
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        }
+      ],
+      "tipografia": [
+        {
+          "chave": "40px/800",
+          "n": 1
+        },
+        {
+          "chave": "34px/800",
+          "n": 1
+        },
+        {
+          "chave": "30px/800",
+          "n": 3
+        },
+        {
+          "chave": "19px/800",
+          "n": 5
+        },
+        {
+          "chave": "18px/800",
+          "n": 1
+        },
+        {
+          "chave": "16px/400",
+          "n": 2
+        },
+        {
+          "chave": "16px/800",
+          "n": 2
+        },
+        {
+          "chave": "16px/900",
+          "n": 1
+        },
+        {
+          "chave": "15px/700",
+          "n": 1
+        },
+        {
+          "chave": "14px/400",
+          "n": 1
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/700",
+          "n": 10
+        },
+        {
+          "chave": "13px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/400",
+          "n": 5
+        },
+        {
+          "chave": "13px/800",
+          "n": 1
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        362
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 502.1,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "table-row"
+      }
+    },
+    {
+      "alvo": "1440x900",
+      "largura": 1440,
+      "colados": [],
+      "vazios": [
+        {
+          "o": "arena-qr-entry-img",
+          "w": 72,
+          "h": 72
+        },
+        {
+          "o": "INPUT",
+          "w": 84,
+          "h": 40
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        }
+      ],
+      "tipografia": [
+        {
+          "chave": "40px/800",
+          "n": 1
+        },
+        {
+          "chave": "34px/800",
+          "n": 1
+        },
+        {
+          "chave": "30px/800",
+          "n": 3
+        },
+        {
+          "chave": "19px/800",
+          "n": 5
+        },
+        {
+          "chave": "18px/800",
+          "n": 1
+        },
+        {
+          "chave": "16px/400",
+          "n": 2
+        },
+        {
+          "chave": "16px/800",
+          "n": 2
+        },
+        {
+          "chave": "16px/900",
+          "n": 1
+        },
+        {
+          "chave": "15px/700",
+          "n": 1
+        },
+        {
+          "chave": "14px/400",
+          "n": 1
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/700",
+          "n": 10
+        },
+        {
+          "chave": "13px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/400",
+          "n": 5
+        },
+        {
+          "chave": "13px/800",
+          "n": 1
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        276
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 325.2,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "alvo": "1280x720",
+      "largura": 1280,
+      "colados": [],
+      "vazios": [
+        {
+          "o": "arena-qr-entry-img",
+          "w": 72,
+          "h": 72
+        },
+        {
+          "o": "INPUT",
+          "w": 84,
+          "h": 40
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        }
+      ],
+      "tipografia": [
+        {
+          "chave": "40px/800",
+          "n": 1
+        },
+        {
+          "chave": "34px/800",
+          "n": 1
+        },
+        {
+          "chave": "30px/800",
+          "n": 3
+        },
+        {
+          "chave": "19px/800",
+          "n": 5
+        },
+        {
+          "chave": "18px/800",
+          "n": 1
+        },
+        {
+          "chave": "16px/400",
+          "n": 2
+        },
+        {
+          "chave": "16px/800",
+          "n": 2
+        },
+        {
+          "chave": "16px/900",
+          "n": 1
+        },
+        {
+          "chave": "15px/700",
+          "n": 1
+        },
+        {
+          "chave": "14px/400",
+          "n": 1
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/700",
+          "n": 10
+        },
+        {
+          "chave": "13px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/400",
+          "n": 5
+        },
+        {
+          "chave": "13px/800",
+          "n": 1
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        276
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 233.3,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "alvo": "1024x768",
+      "largura": 1024,
+      "colados": [],
+      "vazios": [
+        {
+          "o": "arena-qr-entry-img",
+          "w": 72,
+          "h": 72
+        },
+        {
+          "o": "INPUT",
+          "w": 84,
+          "h": 40
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        }
+      ],
+      "tipografia": [
+        {
+          "chave": "34.8px/800",
+          "n": 1
+        },
+        {
+          "chave": "30.7px/800",
+          "n": 1
+        },
+        {
+          "chave": "30px/800",
+          "n": 3
+        },
+        {
+          "chave": "19px/800",
+          "n": 5
+        },
+        {
+          "chave": "18px/800",
+          "n": 1
+        },
+        {
+          "chave": "16px/400",
+          "n": 2
+        },
+        {
+          "chave": "16px/800",
+          "n": 2
+        },
+        {
+          "chave": "16px/900",
+          "n": 1
+        },
+        {
+          "chave": "15px/700",
+          "n": 1
+        },
+        {
+          "chave": "14px/400",
+          "n": 1
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/700",
+          "n": 10
+        },
+        {
+          "chave": "13px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/400",
+          "n": 5
+        },
+        {
+          "chave": "13px/800",
+          "n": 1
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        275
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 407.3,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "alvo": "768x1024",
+      "largura": 768,
+      "colados": [],
+      "vazios": [
+        {
+          "o": "arena-qr-entry-img",
+          "w": 72,
+          "h": 72
+        },
+        {
+          "o": "INPUT",
+          "w": 84,
+          "h": 40
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        }
+      ],
+      "tipografia": [
+        {
+          "chave": "34px/800",
+          "n": 1
+        },
+        {
+          "chave": "30px/800",
+          "n": 3
+        },
+        {
+          "chave": "26px/800",
+          "n": 1
+        },
+        {
+          "chave": "19px/800",
+          "n": 5
+        },
+        {
+          "chave": "18px/800",
+          "n": 1
+        },
+        {
+          "chave": "16px/400",
+          "n": 2
+        },
+        {
+          "chave": "16px/800",
+          "n": 2
+        },
+        {
+          "chave": "16px/900",
+          "n": 1
+        },
+        {
+          "chave": "15px/700",
+          "n": 1
+        },
+        {
+          "chave": "14px/400",
+          "n": 1
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/700",
+          "n": 10
+        },
+        {
+          "chave": "13px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/400",
+          "n": 5
+        },
+        {
+          "chave": "13px/800",
+          "n": 1
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1
+        }
+      ],
+      "toques": [],
+      "esquerdas": [
+        23
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 410.6,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "alvo": "390x844",
+      "largura": 390,
+      "colados": [],
+      "vazios": [
+        {
+          "o": "arena-qr-entry-img",
+          "w": 72,
+          "h": 72
+        },
+        {
+          "o": "INPUT",
+          "w": 91,
+          "h": 44
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        },
+        {
+          "o": "I",
+          "w": 7,
+          "h": 7
+        }
+      ],
+      "tipografia": [
+        {
+          "chave": "34px/800",
+          "n": 1
+        },
+        {
+          "chave": "30px/800",
+          "n": 3
+        },
+        {
+          "chave": "26px/800",
+          "n": 1
+        },
+        {
+          "chave": "19px/800",
+          "n": 5
+        },
+        {
+          "chave": "18px/800",
+          "n": 1
+        },
+        {
+          "chave": "16px/400",
+          "n": 2
+        },
+        {
+          "chave": "16px/800",
+          "n": 2
+        },
+        {
+          "chave": "16px/900",
+          "n": 1
+        },
+        {
+          "chave": "15px/700",
+          "n": 1
+        },
+        {
+          "chave": "14px/400",
+          "n": 1
+        },
+        {
+          "chave": "13.5px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/700",
+          "n": 10
+        },
+        {
+          "chave": "13px/600",
+          "n": 1
+        },
+        {
+          "chave": "13px/400",
+          "n": 5
+        },
+        {
+          "chave": "13px/800",
+          "n": 1
+        },
+        {
+          "chave": "12.5px/800",
+          "n": 1
+        }
+      ],
+      "toques": [
+        {
+          "o": "is-danger",
+          "w": 134,
+          "h": 40,
+          "min": 44,
+          "minH": "40px",
+          "diz": "Encerrar sala"
+        }
+      ],
+      "esquerdas": [
+        16
+      ],
+      "respiros": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "resumoDoBloco": {
+        "folga": 46.7,
+        "mesmaLinha": true
+      },
+      "rolagemLateral": false,
+      "tabela": {
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    }
+  ],
+  "erros": [],
+  "sala": "e682a564-911e-45e6-bf33-dd97a5d548be",
+  "reversaoDoResumo": {
+    "folga": 2.2,
+    "mesmaLinha": true
+  }
+}

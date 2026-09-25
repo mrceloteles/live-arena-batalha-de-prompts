@@ -553,6 +553,12 @@ export function createApi({
     }
     const nowSeconds = now();
 
+    // O acumulado do relatorio e POR PESSOA, e nao por entrada de origem: uma
+    // sala repetida ("Nova batalha nesta sala") entra uma vez para cada batalha
+    // — e o recorte por batalha vive na tabela de salas —, mas quem jogou as
+    // duas nao pode virar duas linhas na tabela de jogadores.
+    const jogadoresDoRelatorio = new Map();
+    const sessoesVistas = new Set();
     const playerRows = [];
     const matchRows = [];
     const gameRows = [];
@@ -591,6 +597,11 @@ export function createApi({
       // Sessoes cadastradas no periodo (participantes, mesmo sem envios)
       for (const session of report.sessions) {
         if (session.registeredAt < startAt || session.registeredAt >= endAt) continue;
+        // Cadastro é da PESSOA: a mesma sessão aparece em cada batalha da sala
+        // repetida, e listá-la duas vezes inflaria "cadastros" e o dia da
+        // entrada. A primeira ocorrência fica e diz em que batalha entrou.
+        if (sessoesVistas.has(String(session.id))) continue;
+        sessoesVistas.add(String(session.id));
         sessionRows.push({
           session_id: session.id,
           station_id: session.stationId,
@@ -751,7 +762,21 @@ export function createApi({
         avg_percent: row.rounds_completed ? row.percent_sum / row.rounds_completed : 0,
         avg_response_seconds: row.rounds_completed ? row.total_time / row.rounds_completed : 0,
       }));
-      playerRows.push(...players);
+      for (const row of players) {
+        const chave = String(row.session_id);
+        const acumulado = jogadoresDoRelatorio.get(chave);
+        if (!acumulado) {
+          jogadoresDoRelatorio.set(chave, { ...row });
+          continue;
+        }
+        acumulado.rounds_completed += row.rounds_completed;
+        acumulado.attempts_scored += row.attempts_scored;
+        acumulado.matches_started += row.matches_started;
+        acumulado.total_points += row.total_points;
+        acumulado.percent_sum += row.percent_sum;
+        acumulado.total_time += row.total_time;
+        acumulado.best_percent = Math.max(Number(acumulado.best_percent || 0), Number(row.best_percent || 0));
+      }
       if (submissions.length || (game.created_at >= startAt && game.created_at < endAt)) {
         gameRows.push({
           id: game.id,
@@ -771,6 +796,15 @@ export function createApi({
         });
       }
     }
+
+    // Fim da varredura: as linhas de jogador saem do acumulado por pessoa, com
+    // as medias recalculadas sobre o total de rodadas que ela jogou (duas
+    // batalhas na mesma sala somam rodadas, e nao duas linhas).
+    playerRows.push(...[...jogadoresDoRelatorio.values()].map((row) => ({
+      ...row,
+      avg_percent: row.rounds_completed ? row.percent_sum / row.rounds_completed : 0,
+      avg_response_seconds: row.rounds_completed ? row.total_time / row.rounds_completed : 0,
+    })));
 
     const scored = matchRows.filter((row) => row.percent !== null);
     const avgPercent = scored.length ? scored.reduce((sum, row) => sum + Number(row.percent), 0) / scored.length : 0;
@@ -923,7 +957,10 @@ export function createApi({
         const login = adminAuth.login(text(payload.password, 'password', { min: 1, max: 200 }));
         if (!login) {
           loginLimiter.registerFailure(loginKey);
-          throw new ApiError(401, 'Senha administrativa incorreta.');
+          // A causa viaja com a recusa: a tela de login precisa dizer "a senha esta
+          // errada" (credencial invalida) e nao "sua sessao venceu" (o cookie que
+          // estava ali). Mesmo status, mesma frase segura — o que muda e o motivo.
+          throw new ApiError(401, 'Senha administrativa incorreta.', { reason: 'invalid_credentials' });
         }
         loginLimiter.reset(loginKey);
         return {

@@ -1,0 +1,79 @@
+ public/assets/css/design.css                |  85 ++++
+ public/assets/js/arena.js                   | 576 ++++++++++++++++++++++++++--
+ src/db/database.mjs                         |  68 +++-
+ src/db/repositories/arena.mjs               | 152 +++++++-
+ src/db/schema.sql                           |  19 +-
+ src/domain/arena-state.mjs                  |  12 +-
+ src/judge/source-compatible-judge.mjs       |  47 ++-
+ src/server/admin-auth.mjs                   |  47 ++-
+ src/server/api.mjs                          |  41 +-
+ src/server/arena-api.mjs                    | 161 +++++++-
+ src/server/events.mjs                       |  21 +-
+ src/server/report-sources.mjs               |  71 ++--
+ src/server/start.mjs                        |  49 ++-
+ src/web/pages/index.mjs                     |  21 +
+ test/api/arena-vigia-fila.test.mjs          |  15 +-
+ test/browser/atualizacoes-ao-vivo.test.mjs  |  16 +-
+ test/browser/css-render.test.mjs            |  10 +
+ test/copia/orcamento.json                   |  26 +-
+ test/copia/orcamento.test.mjs               |  50 ++-
+ test/css/cascata.json                       |  10 +
+ test/css/contraste.json                     |   4 +-
+ test/css/render.json                        |  56 +--
+ test/db/backup.test.mjs                     |   2 +-
+ test/db/database.test.mjs                   |   8 +-
+ test/db/migration-unified.test.mjs          |   2 +-
+ test/domain/arena-state.test.mjs            |  14 +
+ test/judge/source-compatible-judge.test.mjs |  57 +++
+ test/support/copia.mjs                      |  70 +++-
+ 28 files changed, 1539 insertions(+), 171 deletions(-)
+ M public/assets/css/design.css
+ M public/assets/js/arena.js
+ M src/db/database.mjs
+ M src/db/repositories/arena.mjs
+ M src/db/schema.sql
+ M src/domain/arena-state.mjs
+ M src/judge/source-compatible-judge.mjs
+ M src/server/admin-auth.mjs
+ M src/server/api.mjs
+ M src/server/arena-api.mjs
+ M src/server/events.mjs
+ M src/server/report-sources.mjs
+ M src/server/start.mjs
+ M src/web/pages/index.mjs
+ M test/api/arena-vigia-fila.test.mjs
+ M test/browser/atualizacoes-ao-vivo.test.mjs
+ M test/browser/css-render.test.mjs
+ M test/copia/orcamento.json
+ M test/copia/orcamento.test.mjs
+ M test/css/cascata.json
+ M test/css/contraste.json
+ M test/css/render.json
+ M test/db/backup.test.mjs
+ M test/db/database.test.mjs
+ M test/db/migration-unified.test.mjs
+ M test/domain/arena-state.test.mjs
+ M test/judge/source-compatible-judge.test.mjs
+ M test/support/copia.mjs
+?? arena/
+?? checkpoint-2026-09-18-prontidao.zip
+?? copia-html-telas.zip
+?? docs/PROMPT-NOVO-FRONTEND-LIVE-ARENA.md
+?? docs/REFERENCIAS-FRONTEND-LIVE-ARENA.md
+?? docs/ciclo-de-vida-das-salas.md
+?? live-arena-redesign-ajustado.zip
+?? live-arena-redesign-ajustado/
+?? output/
+?? prompt-novo-frontend-live-arena.zip
+?? prompt-novo-frontend-live-arena/
+?? run-arena-battle.mjs
+?? start-port3000.cmd
+?? test/api/arena-inicio.test.mjs
+?? test/api/arena-nova-batalha.test.mjs
+?? test/api/revisao-da-sala.test.mjs
+?? test/api/sessao-expirada.test.mjs
+?? test/browser/nova-batalha.test.mjs
+?? test/browser/sincronizacao.test.mjs
+?? test/db/migration-nova-batalha.test.mjs
+?? test/db/migration-v9.test.mjs
+?? tools/legacy/run-complete-3-rounds.mjs

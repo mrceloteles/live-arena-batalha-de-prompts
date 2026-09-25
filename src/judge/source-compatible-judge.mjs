@@ -33,12 +33,49 @@ Prompt Original: "${referencePrompt}"
 Prompt do Jogador: "${candidatePrompt}"`;
 }
 
+// A nota vem como texto. Duas coisas falharam no fluxo classico:
+//
+//   1) o adaptador olhava SO `parts[0]`. Uma parte de raciocinio (ou uma parte
+//      que nao e texto) na frente escondia a resposta, e a avaliacao ia para
+//      `gemini_invalid_numeric_output` com o numero presente no payload;
+//   2) quando a primeira parte era prosa, a PRIMEIRA sequencia numerica era
+//      aceita como nota — "a escala vai de 0 a 100 ... a nota e 78.5" virava
+//      **0 pts** com procedencia `gemini`. Zero falso, indistinguivel de zero
+//      real no painel, no relatorio e na TV: o pior desfecho possivel, porque
+//      ninguem tem como desconfiar dele.
+//
+// A regra agora so aceita apresentacao INEQUIVOCA: um numero sozinho (em
+// qualquer parte, com ou sem cerca de codigo) ou UM unico numero no texto.
+// Texto com varios numeros nao vira nota — primeiro porque nao se sabe qual e a
+// resposta, e segundo porque pendencia e alta e reprocessavel, enquanto nota
+// inventada e silenciosa e definitiva.
+const NUMERO = '\\d+(?:[.,]\\d+)?';
+const SOMENTE_NUMERO = new RegExp(`^${NUMERO}$`, 'u');
+const TODOS_OS_NUMEROS = new RegExp(NUMERO, 'gu');
+
+function textoLimpo(texto) {
+  return String(texto)
+    .replace(/```(?:json)?/giu, ' ')
+    .replace(/\s+/gu, ' ')
+    .trim();
+}
+
 function parsePercent(payload) {
-  const text = payload?.candidates?.[0]?.content?.parts?.[0]?.text;
-  if (typeof text !== 'string' || !text.trim()) return null;
-  const match = text.trim().match(/(\d+(?:\.\d+)?)/u);
-  if (!match) return null;
-  const value = Number(match[1]);
+  const partes = payload?.candidates?.[0]?.content?.parts;
+  const textos = Array.isArray(partes)
+    ? partes
+      .filter((parte) => typeof parte?.text === 'string')
+      .map((parte) => textoLimpo(parte.text))
+      .filter(Boolean)
+    : [];
+  if (!textos.length) return null;
+  // Numero sozinho numa parte e a apresentacao mais forte. Vale a ULTIMA:
+  // e a que o modelo escreveu por ultimo, depois de qualquer raciocinio.
+  const sozinhos = textos.filter((texto) => SOMENTE_NUMERO.test(texto));
+  const escolhido = sozinhos.length ? sozinhos[sozinhos.length - 1] : textos.join(' ');
+  const numeros = escolhido.match(TODOS_OS_NUMEROS) || [];
+  if (!sozinhos.length && numeros.length !== 1) return null;
+  const value = Number(String(numeros[0]).replace(',', '.'));
   if (!Number.isFinite(value)) return null;
   return Math.round(Math.min(Math.max(value, 0), 100) * 10_000) / 10_000;
 }

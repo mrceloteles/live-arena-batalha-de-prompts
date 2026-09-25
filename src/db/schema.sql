@@ -138,6 +138,17 @@ CREATE TABLE IF NOT EXISTS arena_rooms (
   expected_players INTEGER NOT NULL DEFAULT 0 CHECK (expected_players BETWEEN 0 AND 50),
   settings_json TEXT NOT NULL DEFAULT '{}',
   entry_blocked INTEGER NOT NULL DEFAULT 0 CHECK (entry_blocked IN (0, 1)),
+  -- Ciclo (batalha) que esta VIVO nesta sala. O professor pode repetir a
+  -- mesma sala: as rodadas do ciclo novo sao clonadas e o antigo vira
+  -- historico. Ver `room_rounds.cycle`.
+  current_cycle INTEGER NOT NULL DEFAULT 1 CHECK (current_cycle > 0),
+  -- REVISAO da sala: a versao MONOTONA do estado, para nenhuma resposta
+  -- atrasada repintar por cima de uma leitura mais nova. Sobe de um em um no
+  -- funil unico de mutacao (`onRoomChanged`), e toda leitura de sala (aluno,
+  -- painel, TV) devolve o valor do momento: quem ja pintou a revisao 7 recusa
+  -- a 6. Nao e`updated_at` (relogio de parede, que anda para trás com ajuste de
+  -- horario) nem a contagem de linhas (que nao muda quando um nome e editado).
+  revision INTEGER NOT NULL DEFAULT 0,
   created_at REAL NOT NULL,
   updated_at REAL NOT NULL,
   started_at REAL,
@@ -193,6 +204,12 @@ CREATE TABLE IF NOT EXISTS challenge_criteria (
 CREATE TABLE IF NOT EXISTS room_rounds (
   id TEXT PRIMARY KEY,
   room_id TEXT NOT NULL REFERENCES arena_rooms(id),
+  -- BATALHA: uma sala pode ser jogada mais de uma vez. `position` volta a 1 em
+  -- cada ciclo, entao a chave unica e (room_id, cycle, position) — e nao
+  -- (room_id, position), que so cabia uma batalha por sala. A submissao se
+  -- prende a RODADA (`arena_submissions.round_id`), entao o ciclo antigo fica
+  -- inteiro com envios, notas e tentativas de juiz apontando para ele.
+  cycle INTEGER NOT NULL DEFAULT 1 CHECK (cycle > 0),
   position INTEGER NOT NULL CHECK (position > 0),
   challenge_id TEXT NOT NULL REFERENCES challenges(id),
   modality TEXT NOT NULL,
@@ -202,7 +219,7 @@ CREATE TABLE IF NOT EXISTS room_rounds (
   paused_at REAL,
   ended_at REAL,
   created_at REAL NOT NULL,
-  UNIQUE (room_id, position)
+  UNIQUE (room_id, cycle, position)
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS arena_submissions (

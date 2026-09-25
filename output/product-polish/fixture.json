@@ -1,0 +1,59 @@
+{
+  "isolated": true,
+  "database": ":memory:",
+  "judge": "deterministic-local",
+  "base": "http://localhost:3100",
+  "admin": {
+    "password": "auditoria-local-2026",
+    "cookie": "arena_admin=eyJleHAiOjE3OTAzNzQyMzB9.CG9n796FJTOEMoeeZaOn4XuYEsX6ysJopFx6U6cwQuk"
+  },
+  "room": {
+    "id": "2410ddf4-5a83-4076-a366-7920b5623cce",
+    "code": "PRLS96",
+    "pin": null,
+    "title": "Batalha de Prompts · Turma Criativa"
+  },
+  "challenges": [
+    {
+      "id": "e638ac8d-68a9-4dc5-938e-55e421a7b890",
+      "title": "Engenharia reversa da referência"
+    },
+    {
+      "id": "46358be2-b256-4664-9ecf-c69aff825204",
+      "title": "Uma ideia, instruções precisas"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "69923221-ee5a-4e5a-a53f-8f712cd4d61a",
+      "position": 1
+    },
+    {
+      "id": "9a1a2af3-3e9e-4ee3-b3a2-86a55a913270",
+      "position": 2
+    }
+  ],
+  "participants": [
+    {
+      "name": "Ana Martins",
+      "participant_id": "5c0db779-bc5d-4045-9965-f25dfa56d8ab",
+      "token": "f1863732-a1f5-4d0e-adff-5ffb0d37e662"
+    },
+    {
+      "name": "Bruno Costa",
+      "participant_id": "18942774-4274-4ab5-ace1-b71def9e0880",
+      "token": "c5e91016-d4cb-4328-9ea2-85508adfb900"
+    },
+    {
+      "name": "Clara Souza",
+      "participant_id": "d9a736b3-185b-4645-92e2-6522287b7f6e",
+      "token": "03db4255-d673-4145-bbec-9e63f6a19cee"
+    }
+  ],
+  "urls": {
+    "admin": "http://localhost:3100/admin-arena.php",
+    "student": "http://localhost:3100/play?pin=PRLS96",
+    "preview": "http://localhost:3100/aluno-preview.php?room=2410ddf4-5a83-4076-a366-7920b5623cce",
+    "tvPreview": "http://localhost:3100/tv-preview.php?room=2410ddf4-5a83-4076-a366-7920b5623cce"
+  }
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sala em destaque (LA-06) — o que faltava (20/09/2026)</title>
+<style>
+  body { margin: 0; padding: 24px; background: #f6f8fc; color: #0d1b34;
+         font: 14px/1.5 system-ui, "Segoe UI", Arial, sans-serif; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 17px; margin: 32px 0 12px; }
+  p.lead { color: #64738b; margin: 0 0 24px; max-width: 900px; }
+  figure { margin: 0 0 28px; background: #fff; border: 1px solid #dce4ef;
+           border-radius: 14px; padding: 14px; box-shadow: 0 10px 30px rgba(8,36,91,.06); }
+  figcaption { font-weight: 700; margin-bottom: 10px; }
+  figcaption span { font-weight: 400; color: #64738b; }
+  img { width: 100%; height: auto; border: 1px solid #e6ebf2; border-radius: 10px; display: block; }
+  .par { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grade { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 900px) { .par, .grade { grid-template-columns: 1fr; } }
+  code { background: #eef2f8; padding: 1px 5px; border-radius: 6px; }
+</style>
+</head>
+<body>
+  <h1>Sala em destaque — o que faltava do plano LA-06</h1>
+  <p class="lead">
+    Quatro correções, todas medidas antes de mexer e depois de mexer:
+    a lista de participantes deixou de rolar por dentro do cartão (a régua virou a
+    da <b>coluna</b>, não a da janela), o campo <b>“Próxima ação”</b> voltou a ser
+    visível — sozinho, sem as quatro células que repetiam os indicadores —, o
+    ladrilho <b>“Encerrar rodada”</b> recuperou a segunda linha, e o cinza do botão
+    desabilitado passou o teto AA (2,40 → 5,04). Sondas
+    <code>tmp/qa/sonda-visual-sala.mjs</code> e <code>tmp/qa/sonda-lac06-estados.mjs</code>,
+    painel em processo, banco de memória, 20/09/2026.
+  </p>
+
+  <h2>1. A lista de participantes: a régua é a da coluna</h2>
+  <div class="par">
+    <figure>
+      <figcaption>1440×900 — antes <span>— a coluna de 637 px com uma tabela de
+      609 px rolando por dentro do cartão: a coluna de ações ficava fora da vista.</span></figcaption>
+      <img src="../sala-em-destaque-final-2026-09-20/evidencias/sala-1440x900-plano-antes.png" alt="Sala em destaque em 1440 antes">
+    </figure>
+    <figure>
+      <figcaption>1440×900 — depois <span>— lista de linhas: nome e hora da entrada na
+      primeira linha, um selo por linha, ações por último. Sem rolagem por dentro.</span></figcaption>
+      <img src="../sala-em-destaque-final-2026-09-20/evidencias/sala-1440x900-plano-depois.png" alt="Sala em destaque em 1440 depois">
+    </figure>
+  </div>
+  <div class="par">
+    <figure>
+      <figcaption>1280×720 — antes <span>— coluna de 545 px, o mesmo defeito, menor.</span></figcaption>
+      <img src="../sala-em-destaque-final-2026-09-20/evidencias/sala-1280x720-plano-antes.png" alt="Sala em destaque em 1280 antes">
+    </figure>
+    <figure>
+      <figcaption>1280×720 — depois</figcaption>
+      <img src="../sala-em-destaque-final-2026-09-20/evidencias/sala-1280x720-plano-depois.png" alt="Sala em destaque em 1280 depois">
+    </figure>
+  </div>
+  <div class="par">
+    <figure>
+      <figcaption>1920×1080 <span>— a coluna de 813 px comporta a tabela: ela continua
+      tabela, como na referência. Nada mudou aqui.</span></figcaption>
+      <img src="../sala-em-destaque-final-2026-09-20/evidencias/sala-1920x1080-plano-depois.png" alt="Sala em destaque em 1920">
+    </figure>
+    <figure>
+      <figcaption>390×844 <span>— uma coluna, e a lista continua lista.</span></figcaption>
+      <img src="../sala-em-destaque-final-2026-09-20/evidencias/sala-390x844-plano-depois.png" alt="Sala em destaque em 390">
+    </figure>
+  </div>
+
+  <h2>2. Os nove estados do plano</h2>
+  <div class="grade">
+    <figure>
+      <figcaption>01 · Rascunho <span>— pílula “Abrir sala”; a gestão (Editar,
+      Bloquear, Excluir) visível; sem código, que ainda não existe.</span></figcaption>
+      <img src="evidencias/01-rascunho-1440x900.png" alt="Estado de rascunho">
+    </figure>
+    <figure>
+      <figcaption>02 · Aguardando participantes <span>— código ativo, “Iniciar
+      missão” como ação da vez.</span></figcaption>
+      <img src="evidencias/02-aguardando-1440x900.png" alt="Estado aguardando participantes">
+    </figure>
+    <figure>
+      <figcaption>03 · Em jogo, escrevendo <span>— a ação da vez é esperar
+      (“Acompanhar os envios”): nenhum botão promete o que não há.</span></figcaption>
+      <img src="evidencias/03-em-jogo-escrevendo-1440x900.png" alt="Estado em jogo com alunos escrevendo">
+    </figure>
+    <figure>
+      <figcaption>04 · Em jogo, todos entregaram <span>— a ação da vez passa a
+      “Encerrar rodada”, e é esse o ladrilho marcado.</span></figcaption>
+      <img src="evidencias/04-em-jogo-entregues-1440x900.png" alt="Estado em jogo com entregas completas">
+    </figure>
+    <figure>
+      <figcaption>05 · Pausada <span>— “Retomar missão”, cronômetro congelado.</span></figcaption>
+      <img src="evidencias/05-pausada-1440x900.png" alt="Estado pausado">
+    </figure>
+    <figure>
+      <figcaption>06 · Resultados <span>— “Fechar resultados”.</span></figcaption>
+      <img src="evidencias/06-resultados-1440x900.png" alt="Estado de resultados">
+    </figure>
+    <figure>
+      <figcaption>07 · Encerrada <span>— o código permanece (a nova batalha reusa a
+      mesma sala e o mesmo número) e a ação da vez é “Nova batalha nesta sala”.</span></figcaption>
+      <img src="evidencias/07-encerrada-1440x900.png" alt="Estado encerrado">
+    </figure>
+    <figure>
+      <figcaption>08 · Sem conexão <span>— o último estado válido continua legível e
+      o selo diz que está reconectando.</span></figcaption>
+      <img src="evidencias/08-sem-conexao-1440x900.png" alt="Estado sem conexão">
+    </figure>
+    <figure>
+      <figcaption>09 · Sala sem missão <span>— uma única próxima ação, sem painel
+      vazio de informação.</span></figcaption>
+      <img src="evidencias/09-sem-missao-1440x900.png" alt="Estado de sala sem missão">
+    </figure>
+    <figure>
+      <figcaption>Em jogo, 1024×768 <span>— indicadores em duas colunas, colunas
+      empilhadas, sem rolagem lateral.</span></figcaption>
+      <img src="evidencias/03-em-jogo-escrevendo-1024x768.png" alt="Estado em jogo em 1024">
+    </figure>
+    <figure>
+      <figcaption>Em jogo, 390×844 <span>— uma coluna na ordem do plano: código,
+      identidade, acesso, indicadores, comandos, participantes, rodada, fila.</span></figcaption>
+      <img src="evidencias/03-em-jogo-escrevendo-390x844.png" alt="Estado em jogo em 390">
+    </figure>
+  </div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+{
+  "lobby": {
+    "players": 10,
+    "rounds": 3,
+    "queries": 44,
+    "bytes": 4253,
+    "phase": "waiting"
+  },
+  "concurrentVotes": {
+    "requested": 10,
+    "fulfilled": 10,
+    "rejected": [],
+    "storedVotes": 1
+  },
+  "lobbyAfterScores": {
+    "players": 10,
+    "rounds": 3,
+    "queries": 56
+  },
+  "duplicateClose": {
+    "once": {
+      "boss": {
+        "health": 4,
+        "maxHealth": 5,
+        "lastAccuracy": 100,
+        "lastDamage": 1,
+        "defeatedAt": null
+      },
+      "energy": {
+        "value": 4,
+        "max": 40,
+        "unlocked": [],
+        "used": []
+      },
+      "attacks": [
+        {
+          "round": 1,
+          "dynamic": "prever",
+          "correct": 1,
+          "total": 1,
+          "accuracy": 100,
+          "damaged": true,
+          "at": 1789638707.946
+        }
+      ]
+    },
+    "twice": {
+      "boss": {
+        "health": 3,
+        "maxHealth": 5,
+        "lastAccuracy": 100,
+        "lastDamage": 1,
+        "defeatedAt": null
+      },
+      "energy": {
+        "value": 8,
+        "max": 40,
+        "unlocked": [],
+        "used": []
+      },
+      "attacks": [
+        {
+          "round": 1,
+          "dynamic": "prever",
+          "correct": 1,
+          "total": 1,
+          "accuracy": 100,
+          "damaged": true,
+          "at": 1789638707.946
+        },
+        {
+          "round": 1,
+          "dynamic": "prever",
+          "correct": 1,
+          "total": 1,
+          "accuracy": 100,
+          "damaged": true,
+          "at": 1789638707.953
+        }
+      ]
+    }
+  },
+  "rejoin": {
+    "sameIdentity": true,
+    "newToken": true,
+    "inheritedSyntheticEmail": true
+  },
+  "libsqlAdapterLocalBackend": {
+    "foreignKeysInsideTransaction": {
+      "foreign_keys": 0
+    },
+    "orphanAccepted": true,
+    "limitation": "Real @libsql/client file backend; does not establish live Turso deployment configuration."
+  },
+  "sseShutdown": {
+    "closeCompletedWithOpenStream": false,
+    "observedMilliseconds": 250
+  }
+}

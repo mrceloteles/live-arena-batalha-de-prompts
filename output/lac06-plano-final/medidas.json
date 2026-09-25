@@ -1,0 +1,2972 @@
+{
+  "estados": [
+    {
+      "estado": "01-rascunho",
+      "viewport": "1440x900",
+      "largura": 1440,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": false,
+          "display": "none",
+          "texto": "",
+          "w": 0,
+          "h": 0
+        },
+        "pin": null,
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Rascunho",
+          "w": 100,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 648,
+          "h": 37
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 648,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoRascunho Alunos0 de 35 Próxima açãoAbrir sala ⏱ 13 min de aulaajustar",
+          "w": 648,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Abrir sala",
+          "w": 75,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "Editar Bloquear Excluir",
+          "w": 430,
+          "h": 36
+        },
+        "qr": null,
+        "copiar": null,
+        "teleao": null,
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 139,
+            "h": 36,
+            "x": 961,
+            "y": 125
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 139,
+            "h": 36,
+            "x": 1106,
+            "y": 125
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": false,
+            "w": 139,
+            "h": 36,
+            "x": 1252,
+            "y": 125
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 1132,
+          "h": 120,
+          "x": 276,
+          "y": 447
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 728,
+          "h": 86,
+          "x": 659,
+          "y": 464
+        },
+        "ladrilhos": [
+          {
+            "alvo": "publish",
+            "marcado": true,
+            "rotulo": "Abrir sala",
+            "w": 300,
+            "h": 86,
+            "x": 1087,
+            "y": 464
+          }
+        ],
+        "sobraDireita": 0,
+        "sobraBancada": 21
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 1132,
+          "h": 131,
+          "x": 276,
+          "y": 591
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 340,
+            "h": 48,
+            "x": 293,
+            "y": 606
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 567,
+            "h": 61,
+            "x": 653,
+            "y": 610
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 340,
+            "h": 18,
+            "x": 293,
+            "y": 658
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 1240,
+            "y": 617
+          },
+          {
+            "classe": "arena-draw-blocked",
+            "w": 1098,
+            "h": 19,
+            "x": 293,
+            "y": 688
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "0 / 35",
+          "nota": "0 inscritos · Ninguém entrou ainda",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada",
+          "valor": "--:--",
+          "nota": "A batalha ainda não começou",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "— sem missão no ar",
+          "nota": "Abra a missão para acompanhar",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "— aguardando o juiz",
+          "nota": "Nada avaliado nesta missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Aguardando o início",
+        "missao": true
+      },
+      "classificacao": null,
+      "colunas": [
+        637,
+        472
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 637,
+        "rolaPorDentro": false,
+        "linha": null
+      }
+    },
+    {
+      "estado": "02-aguardando",
+      "viewport": "1440x900",
+      "largura": 1440,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "CÓDIGO DA SALA Ativo BEAF52 ⧉ Copiar código",
+          "w": 240,
+          "h": 147
+        },
+        "pin": {
+          "visivel": true,
+          "display": "block",
+          "texto": "BEAF52",
+          "w": 212,
+          "h": 40
+        },
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Aguardando participantes",
+          "w": 223,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 482,
+          "h": 75
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 482,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoAguardando participantes Alunos0 de 35 Próxima açãoIniciar missão ⏱ 13 min de aulaajustar",
+          "w": 482,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Iniciar missão",
+          "w": 105,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52 Copiar acesso Abrir telão Editar Bloquear Excluir",
+          "w": 340,
+          "h": 158
+        },
+        "qr": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52",
+          "w": 166,
+          "h": 114
+        },
+        "copiar": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Copiar acesso",
+          "w": 166,
+          "h": 42
+        },
+        "teleao": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Abrir telão",
+          "w": 166,
+          "h": 48
+        },
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1051,
+            "y": 205
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1166,
+            "y": 205
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1282,
+            "y": 205
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 1132,
+          "h": 120,
+          "x": 276,
+          "y": 484
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 728,
+          "h": 86,
+          "x": 659,
+          "y": 501
+        },
+        "ladrilhos": [
+          {
+            "alvo": "start",
+            "marcado": true,
+            "rotulo": "Iniciar missão",
+            "w": 300,
+            "h": 86,
+            "x": 1087,
+            "y": 501
+          }
+        ],
+        "sobraDireita": 0,
+        "sobraBancada": 21
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 1132,
+          "h": 131,
+          "x": 276,
+          "y": 718
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 340,
+            "h": 48,
+            "x": 293,
+            "y": 733
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 567,
+            "h": 61,
+            "x": 653,
+            "y": 737
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 340,
+            "h": 18,
+            "x": 293,
+            "y": 785
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 1240,
+            "y": 744
+          },
+          {
+            "classe": "arena-draw-blocked",
+            "w": 1098,
+            "h": 19,
+            "x": 293,
+            "y": 815
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "0 / 35",
+          "nota": "0 inscritos · Ninguém entrou ainda",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada",
+          "valor": "--:--",
+          "nota": "A batalha ainda não começou",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "— sem missão no ar",
+          "nota": "Abra a missão para acompanhar",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "— aguardando o juiz",
+          "nota": "Nada avaliado nesta missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Aguardando o início",
+        "missao": true
+      },
+      "classificacao": null,
+      "colunas": [
+        637,
+        472
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 637,
+        "rolaPorDentro": false,
+        "linha": null
+      }
+    },
+    {
+      "estado": "03-em-jogo-escrevendo",
+      "viewport": "1440x900",
+      "largura": 1440,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "CÓDIGO DA SALA Ativo BEAF52 ⧉ Copiar código",
+          "w": 240,
+          "h": 147
+        },
+        "pin": {
+          "visivel": true,
+          "display": "block",
+          "texto": "BEAF52",
+          "w": 212,
+          "h": 40
+        },
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Em jogo",
+          "w": 92,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 482,
+          "h": 75
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 482,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoEm jogo · Missão 1 de 2 Alunos3 de 35 Envios1 de 3 Próxima açãoAcompanhar os envios ⏱ 13 min de aulaajustar",
+          "w": 482,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Acompanhar os envios",
+          "w": 150,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52 Copiar acesso Abrir telão Editar Bloquear Excluir",
+          "w": 340,
+          "h": 158
+        },
+        "qr": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52",
+          "w": 166,
+          "h": 114
+        },
+        "copiar": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Copiar acesso",
+          "w": 166,
+          "h": 42
+        },
+        "teleao": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Abrir telão",
+          "w": 166,
+          "h": 48
+        },
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1051,
+            "y": 205
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1166,
+            "y": 205
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": true,
+            "w": 109,
+            "h": 36,
+            "x": 1282,
+            "y": 205
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 1132,
+          "h": 120,
+          "x": 276,
+          "y": 484
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 728,
+          "h": 86,
+          "x": 659,
+          "y": 501
+        },
+        "ladrilhos": [
+          {
+            "alvo": "pause-round",
+            "marcado": false,
+            "rotulo": "Pausar missão",
+            "w": 300,
+            "h": 86,
+            "x": 691,
+            "y": 501
+          },
+          {
+            "alvo": "end-round",
+            "marcado": false,
+            "rotulo": "Encerrar rodada",
+            "w": 300,
+            "h": 86,
+            "x": 1003,
+            "y": 501
+          },
+          {
+            "alvo": "details",
+            "marcado": false,
+            "rotulo": "••• Encerrar sala",
+            "w": 72,
+            "h": 46,
+            "x": 1315,
+            "y": 521
+          }
+        ],
+        "sobraDireita": 0,
+        "sobraBancada": 21
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 1132,
+          "h": 122,
+          "x": 276,
+          "y": 677
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 340,
+            "h": 48,
+            "x": 293,
+            "y": 692
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 567,
+            "h": 61,
+            "x": 653,
+            "y": 697
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 340,
+            "h": 18,
+            "x": 293,
+            "y": 744
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 1240,
+            "y": 703
+          },
+          {
+            "classe": "arena-draw-fair",
+            "w": 738,
+            "h": 18,
+            "x": 653,
+            "y": 766
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "3 / 35",
+          "nota": "3 inscritos · 32 vagas livres",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada 1 de 2",
+          "valor": "9:59",
+          "nota": "Engenharia reversa do cartaz · Aberta",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "1 de 3 entregues",
+          "nota": "33% concluído · 2 digitando",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "78% 1 avaliado",
+          "nota": "Faltam 2 para fechar a missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Em andamento",
+        "missao": true
+      },
+      "classificacao": {
+        "caixa": {
+          "w": 1090,
+          "h": 57,
+          "x": 297,
+          "y": 1839
+        },
+        "pai": "arena-ranking-card",
+        "dentroDeCartao": true,
+        "alunos": 1
+      },
+      "colunas": [
+        637,
+        472
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 637,
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "estado": "03-em-jogo-escrevendo",
+      "viewport": "1024x768",
+      "largura": 1024,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "CÓDIGO DA SALA Ativo BEAF52 ⧉ Copiar código",
+          "w": 513,
+          "h": 164
+        },
+        "pin": {
+          "visivel": true,
+          "display": "block",
+          "texto": "BEAF52",
+          "w": 477,
+          "h": 35
+        },
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Em jogo",
+          "w": 92,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 513,
+          "h": 34
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 513,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoEm jogo · Missão 1 de 2 Alunos3 de 35 Envios1 de 3 Próxima açãoAcompanhar os envios ⏱ 13 min de aulaajustar",
+          "w": 513,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Acompanhar os envios",
+          "w": 150,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52 Copiar acesso Abrir telão Editar Bloquear Excluir",
+          "w": 513,
+          "h": 274
+        },
+        "qr": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52",
+          "w": 513,
+          "h": 114
+        },
+        "copiar": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Copiar acesso",
+          "w": 513,
+          "h": 42
+        },
+        "teleao": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Abrir telão",
+          "w": 513,
+          "h": 48
+        },
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 167,
+            "h": 36,
+            "x": 300,
+            "y": 691
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 167,
+            "h": 36,
+            "x": 473,
+            "y": 691
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": true,
+            "w": 167,
+            "h": 36,
+            "x": 646,
+            "y": 691
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 719,
+          "h": 174,
+          "x": 275,
+          "y": 1090
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 677,
+          "h": 86,
+          "x": 296,
+          "y": 1157
+        },
+        "ladrilhos": [
+          {
+            "alvo": "pause-round",
+            "marcado": false,
+            "rotulo": "Pausar missão",
+            "w": 300,
+            "h": 86,
+            "x": 296,
+            "y": 1157
+          },
+          {
+            "alvo": "end-round",
+            "marcado": false,
+            "rotulo": "Encerrar rodada",
+            "w": 230,
+            "h": 86,
+            "x": 608,
+            "y": 1157
+          },
+          {
+            "alvo": "details",
+            "marcado": false,
+            "rotulo": "••• Encerrar sala",
+            "w": 72,
+            "h": 46,
+            "x": 850,
+            "y": 1177
+          }
+        ],
+        "sobraDireita": 50,
+        "sobraBancada": 71
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 719,
+          "h": 241,
+          "x": 275,
+          "y": 1337
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 685,
+            "h": 24,
+            "x": 292,
+            "y": 1352
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 685,
+            "h": 61,
+            "x": 292,
+            "y": 1388
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 685,
+            "h": 18,
+            "x": 292,
+            "y": 1459
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 292,
+            "y": 1489
+          },
+          {
+            "classe": "arena-draw-fair",
+            "w": 685,
+            "h": 18,
+            "x": 292,
+            "y": 1545
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "3 / 35",
+          "nota": "3 inscritos · 32 vagas livres",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada 1 de 2",
+          "valor": "9:58",
+          "nota": "Engenharia reversa do cartaz · Aberta",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "1 de 3 entregues",
+          "nota": "33% concluído · 2 digitando",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "78% 1 avaliado",
+          "nota": "Faltam 2 para fechar a missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Em andamento",
+        "missao": true
+      },
+      "classificacao": {
+        "caixa": {
+          "w": 677,
+          "h": 57,
+          "x": 296,
+          "y": 3296
+        },
+        "pai": "arena-ranking-card",
+        "dentroDeCartao": true,
+        "alunos": 1
+      },
+      "colunas": [
+        719,
+        719
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 719,
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "estado": "03-em-jogo-escrevendo",
+      "viewport": "390x844",
+      "largura": 390,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "CÓDIGO DA SALA Ativo BEAF52 ⧉ Copiar código",
+          "w": 308,
+          "h": 163
+        },
+        "pin": {
+          "visivel": true,
+          "display": "block",
+          "texto": "BEAF52",
+          "w": 272,
+          "h": 34
+        },
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Em jogo",
+          "w": 92,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 308,
+          "h": 57
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 308,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoEm jogo · Missão 1 de 2 Alunos3 de 35 Envios1 de 3 Próxima açãoAcompanhar os envios ⏱ 13 min de aulaajustar",
+          "w": 308,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Acompanhar os envios",
+          "w": 150,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52 Copiar acesso Abrir telão Editar Bloquear Excluir",
+          "w": 308,
+          "h": 274
+        },
+        "qr": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52",
+          "w": 308,
+          "h": 114
+        },
+        "copiar": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Copiar acesso",
+          "w": 308,
+          "h": 42
+        },
+        "teleao": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Abrir telão",
+          "w": 308,
+          "h": 48
+        },
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 99,
+            "h": 36,
+            "x": 41,
+            "y": 1103
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 99,
+            "h": 36,
+            "x": 146,
+            "y": 1103
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": true,
+            "w": 99,
+            "h": 36,
+            "x": 250,
+            "y": 1103
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 358,
+          "h": 298,
+          "x": 16,
+          "y": 1793
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 316,
+          "h": 49
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 316,
+          "h": 148,
+          "x": 37,
+          "y": 1922
+        },
+        "ladrilhos": [
+          {
+            "alvo": "pause-round",
+            "marcado": false,
+            "rotulo": "Pausar missão",
+            "w": 152,
+            "h": 86,
+            "x": 37,
+            "y": 1922
+          },
+          {
+            "alvo": "end-round",
+            "marcado": false,
+            "rotulo": "Encerrar rodada",
+            "w": 152,
+            "h": 86,
+            "x": 201,
+            "y": 1922
+          },
+          {
+            "alvo": "details",
+            "marcado": false,
+            "rotulo": "••• Encerrar sala",
+            "w": 152,
+            "h": 50,
+            "x": 37,
+            "y": 2020
+          }
+        ],
+        "sobraDireita": 164,
+        "sobraBancada": 185
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 358,
+          "h": 241,
+          "x": 16,
+          "y": 2204
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 324,
+            "h": 24,
+            "x": 33,
+            "y": 2219
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 324,
+            "h": 61,
+            "x": 33,
+            "y": 2255
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 324,
+            "h": 18,
+            "x": 33,
+            "y": 2326
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 324,
+            "h": 48,
+            "x": 33,
+            "y": 2356
+          },
+          {
+            "classe": "arena-draw-fair",
+            "w": 324,
+            "h": 18,
+            "x": 33,
+            "y": 2412
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "3 / 35",
+          "nota": "3 inscritos · 32 vagas livres",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada 1 de 2",
+          "valor": "9:57",
+          "nota": "Engenharia reversa do cartaz · Aberta",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "1 de 3 entregues",
+          "nota": "33% concluído · 2 digitando",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "78% 1 avaliado",
+          "nota": "Faltam 2 para fechar a missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Em andamento",
+        "missao": true
+      },
+      "classificacao": {
+        "caixa": {
+          "w": 316,
+          "h": 57,
+          "x": 37,
+          "y": 4399
+        },
+        "pai": "arena-ranking-card",
+        "dentroDeCartao": true,
+        "alunos": 1
+      },
+      "colunas": [
+        358,
+        358
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 358,
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "estado": "04-em-jogo-entregues",
+      "viewport": "1440x900",
+      "largura": 1440,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "CÓDIGO DA SALA Ativo BEAF52 ⧉ Copiar código",
+          "w": 240,
+          "h": 147
+        },
+        "pin": {
+          "visivel": true,
+          "display": "block",
+          "texto": "BEAF52",
+          "w": 212,
+          "h": 40
+        },
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Em jogo",
+          "w": 92,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 482,
+          "h": 75
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 482,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoEm jogo · Missão 1 de 2 Alunos3 de 35 Envios3 de 3 Próxima açãoEncerrar rodada ⏱ 13 min de aulaajustar",
+          "w": 482,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Encerrar rodada",
+          "w": 113,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52 Copiar acesso Abrir telão Editar Bloquear Excluir",
+          "w": 340,
+          "h": 158
+        },
+        "qr": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52",
+          "w": 166,
+          "h": 114
+        },
+        "copiar": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Copiar acesso",
+          "w": 166,
+          "h": 42
+        },
+        "teleao": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Abrir telão",
+          "w": 166,
+          "h": 48
+        },
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1051,
+            "y": 205
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1166,
+            "y": 205
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": true,
+            "w": 109,
+            "h": 36,
+            "x": 1282,
+            "y": 205
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 1132,
+          "h": 122,
+          "x": 276,
+          "y": 484
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 728,
+          "h": 88,
+          "x": 659,
+          "y": 501
+        },
+        "ladrilhos": [
+          {
+            "alvo": "end-round",
+            "marcado": true,
+            "rotulo": "Encerrar rodada",
+            "w": 300,
+            "h": 88,
+            "x": 691,
+            "y": 501
+          },
+          {
+            "alvo": "pause-round",
+            "marcado": false,
+            "rotulo": "Pausar missão",
+            "w": 300,
+            "h": 88,
+            "x": 1003,
+            "y": 501
+          },
+          {
+            "alvo": "details",
+            "marcado": false,
+            "rotulo": "••• Encerrar sala",
+            "w": 72,
+            "h": 46,
+            "x": 1315,
+            "y": 523
+          }
+        ],
+        "sobraDireita": 0,
+        "sobraBancada": 21
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 1132,
+          "h": 122,
+          "x": 276,
+          "y": 680
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 340,
+            "h": 48,
+            "x": 293,
+            "y": 695
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 567,
+            "h": 61,
+            "x": 653,
+            "y": 699
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 340,
+            "h": 18,
+            "x": 293,
+            "y": 746
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 1240,
+            "y": 706
+          },
+          {
+            "classe": "arena-draw-fair",
+            "w": 738,
+            "h": 18,
+            "x": 653,
+            "y": 768
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "3 / 35",
+          "nota": "3 inscritos · 32 vagas livres",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada 1 de 2",
+          "valor": "9:56",
+          "nota": "Engenharia reversa do cartaz · Aberta",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "3 de 3 entregues",
+          "nota": "100% concluído",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "78% 3 avaliados",
+          "nota": "Notas desta missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Em andamento",
+        "missao": true
+      },
+      "classificacao": {
+        "caixa": {
+          "w": 1090,
+          "h": 178,
+          "x": 297,
+          "y": 1912
+        },
+        "pai": "arena-ranking-card",
+        "dentroDeCartao": true,
+        "alunos": 3
+      },
+      "colunas": [
+        637,
+        472
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 637,
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "estado": "05-pausada",
+      "viewport": "1440x900",
+      "largura": 1440,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "CÓDIGO DA SALA Ativo BEAF52 ⧉ Copiar código",
+          "w": 240,
+          "h": 147
+        },
+        "pin": {
+          "visivel": true,
+          "display": "block",
+          "texto": "BEAF52",
+          "w": 212,
+          "h": 40
+        },
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Pausada",
+          "w": 92,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 482,
+          "h": 75
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 482,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoEm jogo · Pausada Alunos3 de 35 Envios3 de 3 Próxima açãoRetomar missão ⏱ 13 min de aulaajustar",
+          "w": 482,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Retomar missão",
+          "w": 105,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52 Copiar acesso Abrir telão Editar Bloquear Excluir",
+          "w": 340,
+          "h": 158
+        },
+        "qr": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52",
+          "w": 166,
+          "h": 114
+        },
+        "copiar": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Copiar acesso",
+          "w": 166,
+          "h": 42
+        },
+        "teleao": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Abrir telão",
+          "w": 166,
+          "h": 48
+        },
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1051,
+            "y": 205
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1166,
+            "y": 205
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": true,
+            "w": 109,
+            "h": 36,
+            "x": 1282,
+            "y": 205
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 1132,
+          "h": 122,
+          "x": 276,
+          "y": 484
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 728,
+          "h": 88,
+          "x": 659,
+          "y": 501
+        },
+        "ladrilhos": [
+          {
+            "alvo": "resume-round",
+            "marcado": true,
+            "rotulo": "Retomar missão",
+            "w": 300,
+            "h": 88,
+            "x": 691,
+            "y": 501
+          },
+          {
+            "alvo": "end-round",
+            "marcado": false,
+            "rotulo": "Encerrar rodada",
+            "w": 300,
+            "h": 88,
+            "x": 1003,
+            "y": 501
+          },
+          {
+            "alvo": "details",
+            "marcado": false,
+            "rotulo": "••• Encerrar sala",
+            "w": 72,
+            "h": 46,
+            "x": 1315,
+            "y": 523
+          }
+        ],
+        "sobraDireita": 0,
+        "sobraBancada": 21
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 1132,
+          "h": 122,
+          "x": 276,
+          "y": 680
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 340,
+            "h": 48,
+            "x": 293,
+            "y": 695
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 567,
+            "h": 61,
+            "x": 653,
+            "y": 699
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 340,
+            "h": 18,
+            "x": 293,
+            "y": 746
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 1240,
+            "y": 706
+          },
+          {
+            "classe": "arena-draw-fair",
+            "w": 738,
+            "h": 18,
+            "x": 653,
+            "y": 768
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "3 / 35",
+          "nota": "3 inscritos · 32 vagas livres",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada 1 de 2",
+          "valor": "pausada",
+          "nota": "Engenharia reversa do cartaz · pausada",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "3 de 3 entregues",
+          "nota": "100% concluído",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "78% 3 avaliados",
+          "nota": "Notas desta missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Pausada",
+        "missao": true
+      },
+      "classificacao": {
+        "caixa": {
+          "w": 1090,
+          "h": 178,
+          "x": 297,
+          "y": 1912
+        },
+        "pai": "arena-ranking-card",
+        "dentroDeCartao": true,
+        "alunos": 3
+      },
+      "colunas": [
+        637,
+        472
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 637,
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "estado": "08-sem-conexao",
+      "viewport": "1440x900",
+      "largura": 1440,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "CÓDIGO DA SALA Ativo BEAF52 ⧉ Copiar código",
+          "w": 240,
+          "h": 147
+        },
+        "pin": {
+          "visivel": true,
+          "display": "block",
+          "texto": "BEAF52",
+          "w": 212,
+          "h": 40
+        },
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Pausada",
+          "w": 92,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 482,
+          "h": 75
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 482,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoEm jogo · Pausada Alunos3 de 35 Envios3 de 3 Próxima açãoRetomar missão ⏱ 13 min de aulaajustar",
+          "w": 482,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Retomar missão",
+          "w": 105,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52 Copiar acesso Abrir telão Editar Bloquear Excluir",
+          "w": 340,
+          "h": 158
+        },
+        "qr": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52",
+          "w": 166,
+          "h": 114
+        },
+        "copiar": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Copiar acesso",
+          "w": 166,
+          "h": 42
+        },
+        "teleao": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Abrir telão",
+          "w": 166,
+          "h": 48
+        },
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1051,
+            "y": 282
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1166,
+            "y": 282
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": true,
+            "w": 109,
+            "h": 36,
+            "x": 1282,
+            "y": 282
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 1132,
+          "h": 122,
+          "x": 276,
+          "y": 562
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● reconectando",
+          "w": 119,
+          "h": 30
+        },
+        "linha": {
+          "w": 728,
+          "h": 88,
+          "x": 659,
+          "y": 579
+        },
+        "ladrilhos": [
+          {
+            "alvo": "resume-round",
+            "marcado": true,
+            "rotulo": "Retomar missão",
+            "w": 300,
+            "h": 88,
+            "x": 691,
+            "y": 579
+          },
+          {
+            "alvo": "end-round",
+            "marcado": false,
+            "rotulo": "Encerrar rodada",
+            "w": 300,
+            "h": 88,
+            "x": 1003,
+            "y": 579
+          },
+          {
+            "alvo": "details",
+            "marcado": false,
+            "rotulo": "••• Encerrar sala",
+            "w": 72,
+            "h": 46,
+            "x": 1315,
+            "y": 600
+          }
+        ],
+        "sobraDireita": 0,
+        "sobraBancada": 21
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 1132,
+          "h": 122,
+          "x": 276,
+          "y": 757
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 340,
+            "h": 48,
+            "x": 293,
+            "y": 772
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 567,
+            "h": 61,
+            "x": 653,
+            "y": 776
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 340,
+            "h": 18,
+            "x": 293,
+            "y": 824
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 1240,
+            "y": 783
+          },
+          {
+            "classe": "arena-draw-fair",
+            "w": 738,
+            "h": 18,
+            "x": 653,
+            "y": 846
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "3 / 35",
+          "nota": "3 inscritos · 32 vagas livres",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada 1 de 2",
+          "valor": "pausada",
+          "nota": "Engenharia reversa do cartaz · pausada",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "3 de 3 entregues",
+          "nota": "100% concluído",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "78% 3 avaliados",
+          "nota": "Notas desta missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Pausada",
+        "missao": true
+      },
+      "classificacao": {
+        "caixa": {
+          "w": 1090,
+          "h": 178,
+          "x": 297,
+          "y": 1990
+        },
+        "pai": "arena-ranking-card",
+        "dentroDeCartao": true,
+        "alunos": 3
+      },
+      "colunas": [
+        637,
+        472
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 637,
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "estado": "06-resultados",
+      "viewport": "1440x900",
+      "largura": 1440,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "CÓDIGO DA SALA Ativo BEAF52 ⧉ Copiar código",
+          "w": 240,
+          "h": 147
+        },
+        "pin": {
+          "visivel": true,
+          "display": "block",
+          "texto": "BEAF52",
+          "w": 212,
+          "h": 40
+        },
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Em jogo",
+          "w": 92,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 482,
+          "h": 75
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 482,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoEm jogo · Missão 1 · resultados no ar Alunos3 de 35 Envios3 de 3 Próxima açãoFechar resultados ⏱ 13 min de aulaaju",
+          "w": 482,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Fechar resultados",
+          "w": 128,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52 Copiar acesso Abrir telão Editar Bloquear Excluir",
+          "w": 340,
+          "h": 158
+        },
+        "qr": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52",
+          "w": 166,
+          "h": 114
+        },
+        "copiar": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Copiar acesso",
+          "w": 166,
+          "h": 42
+        },
+        "teleao": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Abrir telão",
+          "w": 166,
+          "h": 48
+        },
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1051,
+            "y": 205
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1166,
+            "y": 205
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": true,
+            "w": 109,
+            "h": 36,
+            "x": 1282,
+            "y": 205
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 1132,
+          "h": 121,
+          "x": 276,
+          "y": 484
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 728,
+          "h": 87,
+          "x": 659,
+          "y": 501
+        },
+        "ladrilhos": [
+          {
+            "alvo": "close-round",
+            "marcado": true,
+            "rotulo": "Fechar resultados",
+            "w": 300,
+            "h": 87,
+            "x": 691,
+            "y": 501
+          },
+          {
+            "alvo": "details",
+            "marcado": false,
+            "rotulo": "••• Encerrar sala",
+            "w": 72,
+            "h": 46,
+            "x": 1003,
+            "y": 522
+          }
+        ],
+        "sobraDireita": 312,
+        "sobraBancada": 333
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 1132,
+          "h": 122,
+          "x": 276,
+          "y": 679
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 340,
+            "h": 48,
+            "x": 293,
+            "y": 694
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 567,
+            "h": 61,
+            "x": 653,
+            "y": 698
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 340,
+            "h": 18,
+            "x": 293,
+            "y": 745
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 1240,
+            "y": 705
+          },
+          {
+            "classe": "arena-draw-fair",
+            "w": 738,
+            "h": 18,
+            "x": 653,
+            "y": 767
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "3 / 35",
+          "nota": "3 inscritos · 32 vagas livres",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada 1 de 2",
+          "valor": "Resultados",
+          "nota": "Engenharia reversa do cartaz · Resultados",
+          "notaAltura": 38
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "3 de 3 entregues",
+          "nota": "100% concluído",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "78% 3 avaliados",
+          "nota": "Notas desta missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Resultado na tela",
+        "missao": true
+      },
+      "classificacao": {
+        "caixa": {
+          "w": 1090,
+          "h": 178,
+          "x": 297,
+          "y": 1911
+        },
+        "pai": "arena-ranking-card",
+        "dentroDeCartao": true,
+        "alunos": 3
+      },
+      "colunas": [
+        637,
+        472
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 637,
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "estado": "07-encerrada",
+      "viewport": "1440x900",
+      "largura": 1440,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "CÓDIGO DA SALA Fechado BEAF52 ⧉ Copiar código",
+          "w": 240,
+          "h": 147
+        },
+        "pin": {
+          "visivel": true,
+          "display": "block",
+          "texto": "BEAF52",
+          "w": 212,
+          "h": 40
+        },
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Encerrada",
+          "w": 107,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula de prompts — sala em destaque",
+          "w": 482,
+          "h": 75
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 35 lugares",
+          "w": 482,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoEncerrada Alunos3 de 35 · 2 online Próxima açãoNova batalha nesta sala ⏱ 13 min de aulaajustar",
+          "w": 482,
+          "h": 67
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Nova batalha nesta sala",
+          "w": 173,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52 Copiar acesso Abrir telão Editar Bloquear Excluir",
+          "w": 340,
+          "h": 158
+        },
+        "qr": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "ACESSO RÁPIDO http://192.168.101.5:57199/play?pin=BEAF52",
+          "w": 166,
+          "h": 114
+        },
+        "copiar": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Copiar acesso",
+          "w": 166,
+          "h": 42
+        },
+        "teleao": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Abrir telão",
+          "w": 166,
+          "h": 48
+        },
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 109,
+            "h": 36,
+            "x": 1051,
+            "y": 205
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": true,
+            "w": 109,
+            "h": 36,
+            "x": 1166,
+            "y": 205
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": true,
+            "w": 109,
+            "h": 36,
+            "x": 1282,
+            "y": 205
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 1132,
+          "h": 123,
+          "x": 276,
+          "y": 484
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 728,
+          "h": 89,
+          "x": 659,
+          "y": 501
+        },
+        "ladrilhos": [
+          {
+            "alvo": "new-battle",
+            "marcado": true,
+            "rotulo": "Nova batalha nesta sala",
+            "w": 300,
+            "h": 89,
+            "x": 691,
+            "y": 501
+          },
+          {
+            "alvo": "details",
+            "marcado": false,
+            "rotulo": "••• Arquivar",
+            "w": 72,
+            "h": 46,
+            "x": 1003,
+            "y": 523
+          }
+        ],
+        "sobraDireita": 312,
+        "sobraBancada": 333
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 1132,
+          "h": 122,
+          "x": 276,
+          "y": 681
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 340,
+            "h": 48,
+            "x": 293,
+            "y": 696
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 567,
+            "h": 61,
+            "x": 653,
+            "y": 700
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 340,
+            "h": 18,
+            "x": 293,
+            "y": 747
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 1240,
+            "y": 707
+          },
+          {
+            "classe": "arena-draw-fair",
+            "w": 738,
+            "h": 18,
+            "x": 653,
+            "y": 769
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "2 / 35",
+          "nota": "3 inscritos · 32 vagas livres",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Missão 1 de 2",
+          "valor": "encerrada",
+          "nota": "Engenharia reversa do cartaz · encerrada",
+          "notaAltura": 38
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "3 de 3 entregues",
+          "nota": "100% concluído · última missão",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "78% 3 avaliados",
+          "nota": "Notas da última missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Aguardando o início",
+        "missao": true
+      },
+      "classificacao": {
+        "caixa": {
+          "w": 1090,
+          "h": 178,
+          "x": 297,
+          "y": 1913
+        },
+        "pai": "arena-ranking-card",
+        "dentroDeCartao": true,
+        "alunos": 3
+      },
+      "colunas": [
+        637,
+        472
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 637,
+        "rolaPorDentro": false,
+        "linha": "grid"
+      }
+    },
+    {
+      "estado": "09-sem-missao",
+      "viewport": "1440x900",
+      "largura": 1440,
+      "rolagemLateral": false,
+      "cabecalho": {
+        "acesso": {
+          "visivel": false,
+          "display": "none",
+          "texto": "",
+          "w": 0,
+          "h": 0
+        },
+        "pin": null,
+        "estado": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Rascunho",
+          "w": 100,
+          "h": 27
+        },
+        "seloDestaque": {
+          "visivel": false,
+          "display": "none",
+          "texto": "● SALA EM DESTAQUE",
+          "w": 0,
+          "h": 0
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Aula sem missão",
+          "w": 648,
+          "h": 37
+        },
+        "meta": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Personalizado · 10 lugares",
+          "w": 648,
+          "h": 19
+        },
+        "faixa": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "EstadoRascunho Alunos0 de 10 Próxima açãoAbrir sala",
+          "w": 648,
+          "h": 35
+        },
+        "proximaCelula": {
+          "visivel": true,
+          "display": "block",
+          "texto": "Abrir sala",
+          "w": 75,
+          "h": 15
+        },
+        "portas": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "Editar Bloquear Excluir",
+          "w": 430,
+          "h": 36
+        },
+        "qr": null,
+        "copiar": null,
+        "teleao": null,
+        "gestao": [
+          {
+            "acao": "room-edit",
+            "rotulo": "Editar",
+            "desabilitado": false,
+            "w": 139,
+            "h": 36,
+            "x": 961,
+            "y": 109
+          },
+          {
+            "acao": "room-block",
+            "rotulo": "Bloquear",
+            "desabilitado": false,
+            "w": 139,
+            "h": 36,
+            "x": 1106,
+            "y": 109
+          },
+          {
+            "acao": "delete",
+            "rotulo": "Excluir",
+            "desabilitado": false,
+            "w": 139,
+            "h": 36,
+            "x": 1252,
+            "y": 109
+          }
+        ],
+        "fechar": {
+          "visivel": true,
+          "display": "grid",
+          "texto": "✕",
+          "w": 30,
+          "h": 44
+        }
+      },
+      "bancada": {
+        "caixa": {
+          "w": 1132,
+          "h": 120,
+          "x": 276,
+          "y": 415
+        },
+        "titulo": {
+          "visivel": true,
+          "display": "flex",
+          "texto": "Comandos de batalha em tempo real",
+          "w": 340,
+          "h": 25
+        },
+        "sincronia": {
+          "visivel": true,
+          "display": "block",
+          "texto": "● sincronização ao vivo",
+          "w": 160,
+          "h": 30
+        },
+        "linha": {
+          "w": 728,
+          "h": 86,
+          "x": 659,
+          "y": 432
+        },
+        "ladrilhos": [
+          {
+            "alvo": "publish",
+            "marcado": true,
+            "rotulo": "Abrir sala",
+            "w": 300,
+            "h": 86,
+            "x": 1087,
+            "y": 432
+          }
+        ],
+        "sobraDireita": 0,
+        "sobraBancada": 21
+      },
+      "sorteio": {
+        "caixa": {
+          "w": 1132,
+          "h": 131,
+          "x": 276,
+          "y": 559
+        },
+        "filhos": [
+          {
+            "classe": "arena-draw-head",
+            "w": 340,
+            "h": 48,
+            "x": 293,
+            "y": 574
+          },
+          {
+            "classe": "arena-draw-setup",
+            "w": 567,
+            "h": 61,
+            "x": 653,
+            "y": 578
+          },
+          {
+            "classe": "arena-draw-hint",
+            "w": 340,
+            "h": 18,
+            "x": 293,
+            "y": 626
+          },
+          {
+            "classe": "figma-cta figma-cta-blue arena-draw-cta",
+            "w": 151,
+            "h": 48,
+            "x": 1240,
+            "y": 585
+          },
+          {
+            "classe": "arena-draw-blocked",
+            "w": 1098,
+            "h": 19,
+            "x": 293,
+            "y": 656
+          }
+        ]
+      },
+      "indicadores": [
+        {
+          "rotulo": "Conectados",
+          "valor": "0 / 10",
+          "nota": "0 inscritos · Ninguém entrou ainda",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Rodada",
+          "valor": "--:--",
+          "nota": "A batalha ainda não começou",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Envios de prompts",
+          "valor": "— sem missão no ar",
+          "nota": "Abra a missão para acompanhar",
+          "notaAltura": 19
+        },
+        {
+          "rotulo": "Média do juiz",
+          "valor": "— aguardando o juiz",
+          "nota": "Nada avaliado nesta missão",
+          "notaAltura": 19
+        }
+      ],
+      "rodada": {
+        "estado": "Sem missão",
+        "missao": false
+      },
+      "classificacao": null,
+      "colunas": [
+        637,
+        472
+      ],
+      "filaNaColuna": true,
+      "lista": {
+        "coluna": 637,
+        "rolaPorDentro": false,
+        "linha": null
+      }
+    }
+  ],
+  "erros": [
+    "Failed to load resource: net::ERR_INCOMPLETE_CHUNKED_ENCODING",
+    "Failed to load resource: net::ERR_FAILED",
+    "Failed to load resource: net::ERR_FAILED"
+  ]
+}

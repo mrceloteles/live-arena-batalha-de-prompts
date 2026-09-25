@@ -1,0 +1,29 @@
+# Live Arena — nova simulação visual
+
+## Abrir
+
+Abra `simulacao.html` em um navegador moderno. Tailwind CSS e as fontes são carregados de CDNs; a apresentação completa requer conexão à internet. A imagem da missão é local, em `assets/challenge-underwater-library.webp`.
+
+Use o seletor superior para navegar pelas telas e estados de demonstração. Auto, 390px e 16:9 TV alteram a área de visualização.
+
+## Arquivos
+
+- `simulacao.html`: simulação navegável com identidade visual baseada em `code.html`.
+- `code.html`: referência visual original, preservada sem alterações.
+- `assets/challenge-underwater-library.webp`: imagem local da missão demonstrativa.
+- `portal-corrigido.png` e `capturas-simulacao/`: imagens de referência que já existiam na pasta; não cobrem todas as telas atuais.
+- `DESIGN.md`: tokens e linguagem visual.
+- `CONTRATO-FUNCIONAL.md`: funcionalidades e regras conhecidas do produto.
+- `REFERENCIAS-DO-CODIGO.md`: índice técnico do projeto real.
+- `MAPA-INTEGRACAO.md`: correspondência entre protótipo e aplicativo.
+- `COBERTURA.md`: inventário e limites da simulação.
+
+## Área do professor
+
+Todas as telas autenticadas compartilham a mesma estrutura SaaS clara: navegação lateral persistente, cabeçalho do workspace, superfícies brancas, bordas cinza suaves, cantos mais contidos e sombras leves. A LA-06 usa a composição detalhada do arquivo de referência, sem aplicar o modo escuro ou a faixa listrada; painel, desafios, editor, aulas e relatórios seguem agora essa mesma linguagem. O login continua como entrada separada, com tratamento visual correspondente.
+
+## Limites
+
+Nomes, códigos, pontuações, cronômetros e filas são fictícios. A simulação não chama o backend, não grava dados, não autentica usuários e não chama serviços de IA. Os controles mostram apenas a aparência das interações.
+
+Use `code.html` como referência visual e o contrato funcional/código para confirmar comportamentos. Não substitua a aplicação por esta simulação nem copie dados demonstrativos para o produto.

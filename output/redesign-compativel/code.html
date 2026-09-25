@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Arena — Batalha de Prompts | Descubra o PROMPT</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;family=Space+Grotesk:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            display: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            arena: {
+              bluePrimary: '#0052cc',
+              blueElectric: '#0076ff',
+              blueDark: '#003eb3',
+              cyanBright: '#00d2ff',
+              magentaGlow: '#ff2d75',
+              neonPink: '#ff3366',
+              hazardYellow: '#ffd000',
+              hazardDark: '#201d13',
+            }
+          },
+          boxShadow: {
+            'floating-card': '0 24px 60px -12px rgba(0, 38, 115, 0.28), 0 10px 24px -6px rgba(0, 0, 0, 0.08)',
+            'pill-glow': '0 8px 25px -4px rgba(0, 118, 255, 0.45)',
+            'hazard-bar': '0 4px 12px rgba(0,0,0,0.15)',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(241, 245, 249, 0.6); }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+    /* Fundo Gradiente Suave Original do Portal Inicial (index.php) */
+    .portal-bg {
+      background-color: #dbeafe;
+      background-image: 
+        radial-gradient(circle at 10% 20%, #a7f3d0 0%, transparent 42%),
+        radial-gradient(circle at 90% 15%, #bae6fd 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, #93c5fd 0%, transparent 55%),
+        radial-gradient(circle at 88% 85%, #ddd6fe 0%, transparent 48%),
+        radial-gradient(circle at 12% 88%, #bae6fd 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    /* Padrão Ícone Real dos Fluxos de Ringue/Jogo/TV: LISTRAS DIAGONAIS AZUIS VIBRANTES EM 45 GRAUS (game.php & main.php) */
+    .arena-stripes-bg {
+      background-color: #005ce6;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        #005ce6,
+        #005ce6 32px,
+        #0076ff 32px,
+        #0076ff 64px
+      );
+      background-attachment: fixed;
+    }
+
+    /* Padrão Fita de Perigo Esportiva / Hazard Tape amarela e preta */
+    .hazard-stripe-bar {
+      height: 18px;
+      width: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        #ffd000,
+        #ffd000 14px,
+        #1c1917 14px,
+        #1c1917 28px
+      );
+    }
+
+    .hazard-stripe-bar-sm {
+      height: 10px;
+      width: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        #ffd000,
+        #ffd000 10px,
+        #1c1917 10px,
+        #1c1917 20px
+      );
+    }
+
+    /* Fita de perigo sutil para badges ou divisores */
+    .hazard-badge {
+      background: repeating-linear-gradient(
+        -45deg,
+        #ffd000,
+        #ffd000 8px,
+        #292524 8px,
+        #292524 16px
+      );
+    }
+
+    /* Texto Gradiente Descubra o PROMPT */
+    .prompt-brand-cyan {
+      background: linear-gradient(110deg, #00b4d8 0%, #0077b6 50%, #0052cc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Traço Decorativo Rosa/Magenta Estilizado do PROMPT */
+    .magenta-swoosh {
+      height: 6px;
+      background: linear-gradient(90deg, #ff2d75 0%, #ff5e97 80%, #ffa3c2 100%);
+      border-radius: 9999px;
+      position: relative;
+    }
+    .magenta-swoosh::after {
+      content: '';
+      position: absolute;
+      right: -2px;
+      top: -2px;
+      width: 10px;
+      height: 10px;
+      background: #ff2d75;
+      transform: rotate(45deg);
+      border-radius: 2px;
+    }
+
+    .glass-nav-bar {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .card-pure-white {
+      background: #ffffff;
+      border-radius: 28px;
+    }
+  </style>
+</head>
+<body data-template="visual-prototype-only" class="portal-bg text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-200 selection:text-cyan-900 transition-colors duration-500" id="mainBody">
+<!-- ========================================================================= -->
+<!-- BARRA DE CONTROLE DO PROTÓTIPO (SELETORES LA-01 A LA-13 & ESTADOS)       -->
+<!-- ========================================================================= -->
+<header class="glass-nav-bar px-4 py-2.5 sticky top-0 z-50 shadow-sm">
+<div class="max-w-[1920px] mx-auto flex flex-wrap items-center justify-between gap-3">
+<!-- Marca do Protótipo (NUNCA Google, 100% marca própria Live Arena) -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-3 py-1 bg-white border border-blue-200 shadow-xs rounded-full">
+<span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping"></span>
+<span class="font-display font-black text-xs tracking-wider text-blue-900 uppercase">LIVE ARENA SPEC</span>
+</div>
+<div class="hidden sm:block text-xs text-slate-600 border-l border-slate-300 pl-3 font-medium">
+          Identidade Real (<span class="text-blue-700 font-mono font-bold">LA-01</span> a <span class="text-indigo-600 font-mono font-bold">LA-13</span>)
+        </div>
+</div>
+<!-- Seletor Rápido de Telas / Identificadores LA-01 a LA-13 -->
+<div class="flex items-center gap-2 overflow-x-auto py-1 max-w-full">
+<label class="text-xs text-slate-700 font-bold whitespace-nowrap" for="screenSelector">Ir para:</label>
+<select class="bg-white border border-blue-300 text-xs font-mono font-semibold text-slate-800 rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer shadow-xs" id="screenSelector">
+<optgroup label="Área Pública &amp; Jogador">
+<option selected="" value="LA-01">LA-01 — Portal Inicial (Descubra o Prompt)</option>
+<option value="LA-02">LA-02 — Entrada do Aluno / Inscrição (PIN &amp; Cadastro)</option>
+<option value="LA-03-lobby">LA-03A — Aluno: Espera no Ringue (Lobby)</option>
+<option value="LA-03-mission">LA-03B — Aluno: Ringue / Missão Ativa (game.php)</option>
+<option value="LA-03-evaluating">LA-03C — Aluno: Aguardando Decisão do Juiz</option>
+<option value="LA-03-result">LA-03D — Aluno: Placar &amp; Diagnóstico do Round</option>
+<option value="LA-03-collective">LA-03E — Aluno: Arena — Turma vs. Juiz</option>
+</optgroup>
+<optgroup label="Área do Professor &amp; Gestão">
+<option value="LA-04">LA-04 — Login Admin / Professor (admin.php)</option>
+<option value="LA-05">LA-05 — Painel do Professor: Salas &amp; Gate</option>
+<option value="LA-06">LA-06 — Detalhe &amp; Controle Operacional da Sala</option>
+<option value="LA-07">LA-07 — Banco &amp; Editor de Desafios</option>
+<option value="LA-08">LA-08 — Trilhas &amp; Aulas Pedagógicas</option>
+</optgroup>
+<optgroup label="Projeção, Prévias &amp; Métricas">
+<option value="LA-09">LA-09 — TV / Projeção 16:9 Palco (main.php)</option>
+<option value="LA-10">LA-10 — Prévia do Aluno (Sem pontuar)</option>
+<option value="LA-11">LA-11 — Prévia da TV Projeção</option>
+<option value="LA-12">LA-12 — Relatório Analítico &amp; Exportação</option>
+<option value="LA-13">LA-13 — Página 404 / Não Encontrado</option>
+</optgroup>
+</select>
+<!-- Seletor de Estados Rápidos de Demonstração -->
+<div class="h-4 w-px bg-slate-300 mx-1 hidden sm:block"></div>
+<span class="text-xs text-slate-600 whitespace-nowrap hidden sm:inline">Simular:</span>
+<select class="bg-white border border-purple-300 text-xs font-mono font-medium text-purple-900 rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-purple-400 cursor-pointer shadow-xs" id="stateSimulator">
+<option value="normal">Estado Normal (Sessão Ativa)</option>
+<option value="waiting_eval">Aguardando Avaliação (Fila Juiz IA)</option>
+<option value="offline">Conexão Instável / Modo Offline</option>
+<option value="room_blocked">Sala Fechada / Bloqueada</option>
+<option value="no_attempts">Tentativas Esgotadas</option>
+</select>
+<!-- Alternador de Dispositivo / Viewport Mock -->
+<div class="flex items-center bg-white border border-slate-300 rounded-xl p-0.5 ml-1 shadow-xs">
+<button class="px-2.5 py-1 text-xs rounded-lg font-bold bg-blue-100 text-blue-900 border border-blue-300 shadow-xs transition-all" id="btnViewResponsive" title="Largura Normal Fluida">Auto</button>
+<button class="px-2.5 py-1 text-xs rounded-lg font-semibold text-slate-600 hover:text-slate-900 transition-all" id="btnViewMobile" title="Simular Smartphone Aluno (390px)">390px</button>
+<button class="px-2.5 py-1 text-xs rounded-lg font-semibold text-slate-600 hover:text-slate-900 transition-all" id="btnViewTV" title="Simular Projeção 16:9 Palco">16:9 TV</button>
+</div>
+</div>
+</div>
+</header>
+<!-- ========================================================================= -->
+<!-- CONTAINER DO WORKSPACE DINÂMICO                                           -->
+<!-- ========================================================================= -->
+<main class="flex-1 flex flex-col items-center justify-start p-3 sm:p-8 transition-all duration-300 w-full overflow-y-auto" id="appWorkspace">
+<div class="w-full max-w-6xl mx-auto transition-all duration-300" id="screenContainer"></div>
+</main>
+<!-- ========================================================================= -->
+<!-- MODAL GLOBAL LIGHTBOX / DIÁLOGOS                                          -->
+<!-- ========================================================================= -->
+<div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4" id="globalModal">
+<div class="bg-white rounded-[28px] max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[92vh] overflow-y-auto border border-slate-200" id="modalContent">
+<!-- Conteúdo inserido via JS -->
+</div>
+</div>
+<!-- TOAST NOTIFICATION -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white text-xs font-semibold px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700" id="toastNotification">
+<span class="text-cyan-400 text-lg" id="toastIcon">✨</span>
+<span id="toastText">Ação realizada</span>
+</div>
+<!-- ========================================================================= -->
+<!-- DADOS DA SESSÃO E MOCK                                                    -->
+<!-- ========================================================================= -->
+<script>
+    const mockData = {
+      session: {
+        role: 'student',
+        studentId: 'p-8821',
+        studentName: 'Lucas Ferreira',
+        company: 'Agência Digital',
+        roleTitle: 'Designer de Prompts',
+        email: 'lucas.ferreira@livearena.com.br',
+        roomCode: '7482',
+        roomId: 'room-alpha-9',
+        roomTitle: 'Turma de IA Aplicada — 1º Semestre',
+        preset: 'arena',
+        status: 'playing',
+        pcNumber: 'PC 1'
+      },
+      currentMission: {
+        index: 1,
+        total: 3,
+        title: 'Engenharia Reversa: Peça Publicitária Futurista',
+        modality: 'reversa',
+        category: 'Imagem & Comunicação',
+        timeRemaining: '02:30',
+        attemptsAllowed: 3,
+        attemptsUsed: 1,
+        missionContext: 'Uma peça publicitária sofisticada de um festival de música, com tipografia grande, paleta neon sobre fundo escuro e destaque para a data SONIC 2026.',
+        expectedResult: 'Prompt estruturado que recrie a atmosfera cyberpunk, iluminação volumétrica e hierarquia de texto.',
+        referenceImageUrl: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1000&q=80',
+        lastSubmission: {
+          prompt: 'Cartaz minimalista para festival eletrônico, fundo preto com neon ciano e roxo. Texto principal "SONIC 2026" em tipografia bold caixa alta. Iluminação de laser e partículas no ar.',
+          score: 88,
+          feedback: 'Excelente captura da atmosfera neon e paleta de cores. Para pontuação máxima, especifique o enquadramento (visão frontal ou isométrica) e parâmetros de iluminação volumétrica.',
+          criteria: [
+            { name: 'Paleta & Atmosfera Neon', score: 95, note: 'Tons de ciano e roxo fiéis ao estilo do festival.' },
+            { name: 'Tipografia & Hierarquia', score: 88, note: 'SONIC 2026 em destaque e legível.' },
+            { name: 'Composição Técnica', score: 81, note: 'Faltou parâmetro de profundidade de campo e proporção de lente.' }
+          ]
+        }
+      },
+      teacherRooms: [
+        { id: 'r-1', code: '7482', title: 'Turma de IA Aplicada — 1º Semestre', preset: 'Arena Coletiva (Boss)', status: 'playing', students: 28, capacity: 50, round: 1, totalRounds: 3 },
+        { id: 'r-2', code: '3190', title: 'Oficina Rápida: Engenharia de Prompts', preset: 'Batalha de Turma', status: 'waiting', students: 14, capacity: 35, round: 1, totalRounds: 3 },
+        { id: 'r-3', code: '8820', title: 'Design Sprint com LLMs', preset: 'Clássico (3 Jogadores)', status: 'draft', students: 0, capacity: 25, round: 0, totalRounds: 5 }
+      ],
+      challengesBank: [
+        { id: 'ch-1', title: 'Reversa: Peça Publicitária Futurista', modality: 'reversa', category: 'Imagem', duration: 150, attempts: 3, hasImage: true },
+        { id: 'ch-2', title: 'Briefing: O Cliente Indeciso da Startup', modality: 'briefing', category: 'Texto & Negócios', duration: 180, attempts: 2, hasImage: false },
+        { id: 'ch-3', title: 'Prompt Essencial: Machine Learning em 3 Frases', modality: 'essencial', category: 'Conceito', duration: 120, attempts: 2, hasImage: false },
+        { id: 'ch-4', title: 'Boss Battle: Guardião dos Algoritmos', modality: 'boss', category: 'Avançado', duration: 240, attempts: 3, hasImage: true }
+      ],
+      leaderboard: [
+        { rank: '1º', name: 'Mariana Duarte', pc: 'PC 2', score: 285, time: '01:14', company: 'Faculdade Tech' },
+        { rank: '2º', name: 'Lucas Ferreira (Você)', pc: 'PC 1', score: 268, time: '01:28', company: 'Agência Digital' },
+        { rank: '3º', name: 'Carlos Eduardo', pc: 'PC 3', score: 242, time: '01:45', company: 'Design Lab' }
+      ]
+    };
+
+    // =========================================================================
+    // CONTROLADOR DA APLICAÇÃO (TELAS LA-01 A LA-13)
+    // =========================================================================
+    const app = {
+      currentScreen: 'LA-01',
+      currentState: 'normal',
+      viewportMode: 'auto',
+
+      init() {
+        this.bindEvents();
+        this.renderScreen(this.currentScreen);
+      },
+
+      bindEvents() {
+        const selector = document.getElementById('screenSelector');
+        selector.addEventListener('change', (e) => {
+          this.currentScreen = e.target.value;
+          this.renderScreen(this.currentScreen);
+        });
+
+        const stateSim = document.getElementById('stateSimulator');
+        stateSim.addEventListener('change', (e) => {
+          this.currentState = e.target.value;
+          this.showToast(`Estado alterado: ${e.target.options[e.target.selectedIndex].text}`, '⚡');
+          this.renderScreen(this.currentScreen);
+        });
+
+        document.getElementById('btnViewResponsive').addEventListener('click', () => this.setViewport('auto'));
+        document.getElementById('btnViewMobile').addEventListener('click', () => this.setViewport('mobile'));
+        document.getElementById('btnViewTV').addEventListener('click', () => this.setViewport('tv'));
+      },
+
+      updateThemeBackground(screenId) {
+        const body = document.getElementById('mainBody');
+        // As telas de Ringue do Aluno (LA-03B/C/D/E) e TV Palco (LA-09/LA-11) exibem o fundo oficial com listras diagonais esportivas azuis
+        const isArenaStriped = ['LA-03-mission', 'LA-03-evaluating', 'LA-03-result', 'LA-03-collective', 'LA-09', 'LA-11'].includes(screenId);
+        
+        if (isArenaStriped) {
+          body.classList.remove('portal-bg');
+          body.classList.add('arena-stripes-bg');
+        } else {
+          body.classList.remove('arena-stripes-bg');
+          body.classList.add('portal-bg');
+        }
+      },
+
+      setViewport(mode) {
+        this.viewportMode = mode;
+        const container = document.getElementById('screenContainer');
+        const btns = [
+          document.getElementById('btnViewResponsive'),
+          document.getElementById('btnViewMobile'),
+          document.getElementById('btnViewTV')
+        ];
+
+        btns.forEach(b => {
+          b.className = 'px-2.5 py-1 text-xs rounded-lg font-semibold text-slate-600 hover:text-slate-900 transition-all';
+        });
+
+        if (mode === 'mobile') {
+          container.className = 'w-full max-w-[400px] mx-auto border-8 border-slate-900 rounded-[44px] overflow-hidden shadow-2xl p-2 bg-slate-100 transition-all';
+          btns[1].className = 'px-2.5 py-1 text-xs rounded-lg font-bold bg-blue-100 text-blue-900 border border-blue-300 shadow-xs';
+        } else if (mode === 'tv') {
+          container.className = 'w-full max-w-[1340px] aspect-video mx-auto border-8 border-slate-900 rounded-3xl overflow-hidden shadow-2xl p-4 bg-slate-950 transition-all';
+          btns[2].className = 'px-2.5 py-1 text-xs rounded-lg font-bold bg-indigo-100 text-indigo-900 border border-indigo-300 shadow-xs';
+        } else {
+          container.className = 'w-full max-w-6xl mx-auto transition-all';
+          btns[0].className = 'px-2.5 py-1 text-xs rounded-lg font-bold bg-blue-100 text-blue-900 border border-blue-300 shadow-xs';
+        }
+      },
+
+      showToast(message, icon = '✨') {
+        const toast = document.getElementById('toastNotification');
+        document.getElementById('toastText').innerText = message;
+        document.getElementById('toastIcon').innerText = icon;
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0');
+          toast.classList.remove('translate-y-0', 'opacity-100');
+        }, 3200);
+      },
+
+      openModal(htmlContent) {
+        const modal = document.getElementById('globalModal');
+        const content = document.getElementById('modalContent');
+        content.innerHTML = `
+          <button onclick="app.closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors">
+            ✕
+          </button>
+          ${htmlContent}
+        `;
+        modal.classList.remove('hidden');
+      },
+
+      closeModal() {
+        document.getElementById('globalModal').classList.add('hidden');
+      },
+
+      renderScreen(screenId) {
+        this.currentScreen = screenId;
+        this.updateThemeBackground(screenId);
+
+        const container = document.getElementById('screenContainer');
+        const selector = document.getElementById('screenSelector');
+        if (selector.value !== screenId) {
+          selector.value = screenId;
+        }
+
+        switch(screenId) {
+          case 'LA-01': container.innerHTML = this.viewPortal(); break;
+          case 'LA-02': container.innerHTML = this.viewStudentJoin(); break;
+          case 'LA-03-lobby': container.innerHTML = this.viewStudentLobby(); break;
+          case 'LA-03-mission': container.innerHTML = this.viewStudentMission(); break;
+          case 'LA-03-evaluating': container.innerHTML = this.viewStudentEvaluating(); break;
+          case 'LA-03-result': container.innerHTML = this.viewStudentResult(); break;
+          case 'LA-03-collective': container.innerHTML = this.viewStudentCollective(); break;
+          case 'LA-04': container.innerHTML = this.viewAdminLogin(); break;
+          case 'LA-05': container.innerHTML = this.viewTeacherDashboard(); break;
+          case 'LA-06': container.innerHTML = this.viewRoomDetail(); break;
+          case 'LA-07': container.innerHTML = this.viewChallengesBank(); break;
+          case 'LA-08': container.innerHTML = this.viewLessonsTracks(); break;
+          case 'LA-09': container.innerHTML = this.viewTVStage(); break;
+          case 'LA-10': container.innerHTML = this.viewStudentPreview(); break;
+          case 'LA-11': container.innerHTML = this.viewTVPreview(); break;
+          case 'LA-12': container.innerHTML = this.viewAnalyticsReport(); break;
+          case 'LA-13': container.innerHTML = this.viewNotFound(); break;
+          default: container.innerHTML = this.viewPortal();
+        }
+      },
+
+      // =========================================================================
+      // LA-01: PORTAL INICIAL (EXATA COMPOSIÇÃO DE index.php)
+      // =========================================================================
+      viewPortal() {
+        return `<main data-page="index" data-screen-id="LA-01" class="min-h-[75vh] flex items-center justify-center px-4 py-8"><section class="w-full max-w-xl bg-white rounded-[32px] overflow-hidden shadow-floating-card text-center"><div class="hazard-stripe-bar"></div><div class="p-8 sm:p-12"><div class="inline-flex rounded-full border border-blue-100 px-6 py-3 text-blue-700 font-black tracking-wider">LIVE ARENA · BATALHA DE PROMPTS</div><h1 class="mt-8 text-4xl sm:text-5xl font-black text-slate-900">Descubra o <span class="text-blue-600">PROMPT</span></h1><div class="magenta-swoosh w-40 mx-auto mt-3 mb-8"></div><a href="/play" data-route="/play" onclick="event.preventDefault(); app.renderScreen('LA-02')" class="inline-block w-full py-5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black shadow-pill-glow">Entrar na Arena</a></div></section></main>`;
+      },
+      viewStudentJoin() {
+        const isClosed = this.currentState === 'room_blocked';
+        const isOffline = this.currentState === 'offline';
+
+        return `
+          <div data-page="arena" data-screen-id="LA-02" data-arena-screen="join" class="min-h-[75vh] flex items-center justify-center px-4 py-8">
+            <div class="w-full max-w-md bg-white rounded-[32px] overflow-hidden shadow-floating-card border border-slate-100 relative">
+              
+              <!-- Fita de Perigo Esportiva no Topo do Card -->
+              <div class="hazard-stripe-bar"></div>
+
+              <div class="p-7 sm:p-8">
+                <div class="text-center mb-6">
+                  <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-black uppercase tracking-wider mb-2">
+                    <span>🥊</span> LIVE ARENA
+                  </div>
+                  <h2 class="text-2xl sm:text-3xl font-sans font-black text-slate-900">Batalha de Prompts</h2>
+                  <div class="magenta-swoosh w-28 mx-auto mt-1 mb-2"></div>
+                  <p class="text-xs text-slate-500">O código vem do professor.</p>
+                </div>
+
+                ${isClosed ? `
+                  <div class="mb-5 p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium flex items-center gap-2">
+                    <span class="text-base">🚫</span>
+                    <span><strong>Entrada Fechada:</strong> O professor bloqueou novas entradas para esta rodada.</span>
+                  </div>
+                ` : ''}
+
+                ${isOffline ? `
+                  <div class="mb-5 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium flex items-center gap-2">
+                    <span class="animate-spin text-base">🔄</span>
+                    <span>Conexão instável com a arena. Tentando reconectar...</span>
+                  </div>
+                ` : ''}
+
+                <form data-arena-join-form data-api-action="arena_join" onsubmit="event.preventDefault(); app.renderScreen('LA-03-lobby'); app.showToast('Entrada no ringue confirmada!', '🥊');" class="space-y-3.5">
+                  <div>
+                    <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1">
+                      Código da Sala (PIN)
+                    </label>
+                    <input 
+                      type="text" 
+                      name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" 
+                      value="${mockData.session.roomCode}"
+                      required 
+                      class="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 rounded-2xl px-4 py-2.5 text-center font-mono font-black text-lg text-blue-900 tracking-widest outline-none transition-all"
+                    >
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1">
+                      Seu nome
+                    </label>
+                    <input 
+                      type="text" 
+                      name="name" maxlength="60" value="${mockData.session.studentName}"
+                      required 
+                      placeholder="Ex: Lucas Ferreira"
+                      class="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 rounded-2xl px-4 py-2.5 text-sm text-slate-900 outline-none transition-all"
+                    >
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    ${isClosed ? 'disabled' : ''}
+                    class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white font-sans font-black text-sm uppercase tracking-wider shadow-pill-glow transition-all transform hover:-translate-y-0.5 mt-2"
+                  >
+                    Entrar no Ringue! 🥊
+                  </button>
+                </form>
+
+                <div class="mt-6 text-center">
+                  <button onclick="app.renderScreen('LA-01')" class="text-xs text-slate-500 hover:text-blue-700 font-semibold transition-colors">
+                    ← Voltar ao início
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-03A: LOBBY / ESPERA DO JOGADOR
+      // =========================================================================
+      viewStudentLobby() {
+        return `
+          <div data-page="lobby" class="w-full max-w-lg mx-auto bg-white rounded-[32px] overflow-hidden shadow-floating-card border border-slate-100">
+            <div class="hazard-stripe-bar"></div>
+            
+            <div class="p-6 sm:p-8 text-center">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-bold text-xs mb-4">
+                <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
+                SALA CONECTADA #${mockData.session.roomCode}
+              </div>
+
+              <h2 class="text-2xl font-sans font-black text-slate-900 mb-1">Você está no Ringue!</h2>
+              <div class="magenta-swoosh w-28 mx-auto mt-1 mb-3"></div>
+              <p class="text-xs text-slate-500 max-w-xs mx-auto mb-6">
+                Aguarde o professor disparar o cronômetro na tela principal da arena.
+              </p>
+
+              <!-- Cartão do Jogador Conectado -->
+              <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 mb-6 text-left flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white font-black flex items-center justify-center text-base shadow-sm">
+                    ${mockData.session.pcNumber}
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm text-slate-900">${mockData.session.studentName}</h4>
+                    <span class="text-xs text-slate-500">${mockData.session.company}</span>
+                  </div>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold font-mono">Pronto</span>
+              </div>
+
+              <div class="space-y-3">
+                <button onclick="app.renderScreen('LA-03-mission')" class="w-full py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider shadow-pill-glow transition-all">
+                  ▶ Simular: Início do Round 1
+                </button>
+                <button onclick="app.renderScreen('LA-01')" class="text-xs text-slate-500 hover:text-slate-700">
+                  Sair da sala
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-03B: TELA DE JOGO REAL / RINGUE (game.php COM LISTRAS AZUIS & FITA)
+      // =========================================================================
+      viewStudentMission() {
+        const m = mockData.currentMission;
+        const noAttempts = this.currentState === 'no_attempts';
+
+        return `
+          <div data-page="game" class="w-full max-w-3xl mx-auto space-y-4">
+            
+            <!-- HEADER DA PARTIDA NO RINGUE (CRONÔMETRO GRANDE + CONQUISTAS) -->
+            <div class="bg-white rounded-3xl p-4 sm:p-5 shadow-floating-card flex items-center justify-between border border-white/80">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white font-black text-xs flex items-center justify-center shadow-xs">
+                  ${mockData.session.pcNumber}
+                </div>
+                <div>
+                  <div class="text-[11px] font-black uppercase text-blue-700 tracking-wider">BATALHA DE PROMPT</div>
+                  <div class="text-sm font-bold text-slate-900">Tentativas 01/03</div>
+                </div>
+              </div>
+
+              <!-- Cronômetro Grande Estilo Arena -->
+              <div class="px-5 py-2 rounded-2xl bg-rose-50 border-2 border-rose-300 flex items-center gap-2.5">
+                <span class="text-rose-600 text-lg animate-pulse">⏱️</span>
+                <div class="text-right">
+                  <span class="text-[10px] font-mono text-rose-500 block uppercase font-bold leading-none">Tempo</span>
+                  <span class="text-2xl font-mono font-black text-rose-700 leading-tight">${m.timeRemaining}</span>
+                </div>
+              </div>
+
+              <div class="text-right hidden sm:block">
+                <span class="text-xs text-slate-400 block font-mono">Tentativa</span>
+                <span class="text-sm font-bold text-slate-800 font-mono">${m.attemptsUsed} de ${m.attemptsAllowed}</span>
+              </div>
+            </div>
+
+            <!-- CARTÃO PRINCIPAL DO DESAFIO COM A FITA LISTRADA DE PERIGO -->
+            <div class="bg-white rounded-[32px] overflow-hidden shadow-floating-card border border-white/90">
+              <div class="hazard-stripe-bar"></div>
+
+              <div class="p-6 sm:p-8 space-y-5">
+                <div class="flex items-center justify-between">
+                  <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-900 font-mono text-xs font-black uppercase">
+                    Round ${m.index} • ${m.modality}
+                  </span>
+                  <span class="text-xs font-bold text-slate-400 font-mono">Sala #${mockData.session.roomCode}</span>
+                </div>
+
+                <div>
+                  <h2 class="text-xl sm:text-2xl font-sans font-black text-slate-900 leading-snug">
+                    ${m.title}
+                  </h2>
+                  <div class="magenta-swoosh w-24 mt-1 mb-3"></div>
+                  <p class="text-sm text-slate-600 leading-relaxed">
+                    ${m.missionContext}
+                  </p>
+                </div>
+
+                <!-- Referência Visual Obrigatória do Round -->
+                ${m.referenceImageUrl ? `
+                  <div class="space-y-1.5">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-black uppercase text-slate-700 tracking-wider">Referência Visual:</span>
+                      <button onclick="app.openLightboxImage('${m.referenceImageUrl}')" class="text-xs text-blue-700 font-bold hover:underline">
+                        🔍 Ampliar imagem
+                      </button>
+                    </div>
+                    <div class="relative group cursor-pointer rounded-2xl overflow-hidden border-2 border-slate-200 max-h-52 bg-slate-100" onclick="app.openLightboxImage('${m.referenceImageUrl}')">
+                      <img src="${m.referenceImageUrl}" alt="Peça Publicitária" class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300">
+                      <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold gap-2">
+                        <span>Clique para examinar em tela cheia</span>
+                      </div>
+                    </div>
+                  </div>
+                ` : ''}
+
+                <!-- ÁREA DE ESCRITA DO PROMPT -->
+                <div class="space-y-2 pt-2">
+                  <div class="flex items-center justify-between">
+                    <label for="promptInput" class="text-xs font-black uppercase tracking-wider text-slate-800">
+                      Escreva seu Prompt para a IA:
+                    </label>
+                    <span id="charCounter" class="text-xs font-mono text-slate-400">142 caracteres</span>
+                  </div>
+
+                  <textarea 
+                    id="promptInput" 
+                    rows="4" 
+                    ${noAttempts ? 'disabled' : ''}
+                    placeholder="Descreva a imagem com o máximo de precisão técnica, paleta, iluminação e tipografia..."
+                    class="w-full bg-slate-50 border-2 border-slate-200 focus:border-blue-600 focus:ring-0 rounded-2xl p-4 text-sm font-sans text-slate-900 placeholder-slate-400 outline-none transition-all resize-y disabled:opacity-50"
+                    oninput="document.getElementById('charCounter').innerText = this.value.length + ' caracteres';"
+                  >Cartaz minimalista para festival eletrônico, fundo preto com neon ciano e roxo. Texto principal "SONIC 2026" em tipografia bold caixa alta. Iluminação de laser e partículas no ar.</textarea>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div class="text-[11px] text-slate-500 font-medium">
+                    Pressione o botão para submeter a tentativa ao Juiz IA.
+                  </div>
+
+                  <button 
+                    onclick="app.renderScreen('LA-03-evaluating')" 
+                    ${noAttempts ? 'disabled' : ''}
+                    class="w-full sm:w-auto px-9 py-4 rounded-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white font-sans font-black text-xs uppercase tracking-wider shadow-pill-glow transition-all transform hover:-translate-y-0.5"
+                  >
+                    Enviar Resposta 🚀
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        `;
+      },
+
+      openLightboxImage(url) {
+        this.openModal(`
+          <div class="text-center space-y-3">
+            <h3 class="text-base font-black text-slate-900">Referência Visual em Alta Definição</h3>
+            <img src="${url}" class="rounded-2xl max-h-[70vh] w-auto mx-auto object-contain border border-slate-200 shadow-md">
+            <p class="text-xs text-slate-500">Examine cores, contraste, fontes e elementos gráficos para elaborar seu prompt.</p>
+          </div>
+        `);
+      },
+
+      // =========================================================================
+      // LA-03C: AGUARDANDO JULGAMENTO DA IA
+      // =========================================================================
+      viewStudentEvaluating() {
+        return `
+          <div data-page="evaluating" class="w-full max-w-lg mx-auto bg-white rounded-[32px] overflow-hidden shadow-floating-card border border-white/90 text-center">
+            <div class="hazard-stripe-bar"></div>
+
+            <div class="p-8 space-y-6">
+              <div class="relative w-24 h-24 mx-auto flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin"></div>
+                <div class="text-4xl">⚡</div>
+              </div>
+
+              <div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-bold text-xs uppercase tracking-wider mb-2">
+                  RESPOSTA ENVIADA AO JUIZ
+                </span>
+                <h2 class="text-2xl font-sans font-black text-slate-900">Avaliando seu Prompt...</h2>
+                <div class="magenta-swoosh w-28 mx-auto mt-1 mb-3"></div>
+                <p class="text-xs text-slate-500 max-w-xs mx-auto">
+                  O Juiz IA está confrontando suas instruções com o gabarito visual da rodada.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left text-xs font-mono text-slate-700">
+                <span class="text-slate-400 block mb-1 uppercase font-bold text-[10px]">Prompt submetido:</span>
+                <p class="italic">"Cartaz minimalista para festival eletrônico, fundo preto com neon ciano e roxo..."</p>
+              </div>
+
+              <button onclick="app.renderScreen('LA-03-result')" class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider shadow-pill-glow transition-all">
+                ⚡ Simular: Ver Resultado da Rodada
+              </button>
+            </div>
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-03D: RESULTADO DO ROUND / DIAGNÓSTICO DO JUIZ
+      // =========================================================================
+      viewStudentResult() {
+        const sub = mockData.currentMission.lastSubmission;
+
+        return `
+          <div data-page="result" class="w-full max-w-2xl mx-auto space-y-4">
+            <div class="bg-white rounded-[32px] overflow-hidden shadow-floating-card border border-white/90">
+              <div class="hazard-stripe-bar"></div>
+
+              <div class="p-6 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+                  <div>
+                    <span class="text-xs font-black uppercase text-blue-700 tracking-wider">RESULTADO DO ROUND 1</span>
+                    <h2 class="text-2xl font-sans font-black text-slate-900 mt-0.5">Diagnóstico do Juiz IA</h2>
+                    <div class="magenta-swoosh w-24 mt-1"></div>
+                  </div>
+
+                  <!-- Badge de Pontos com destaque Real -->
+                  <div class="px-6 py-3 rounded-2xl bg-blue-50 border-2 border-blue-500 flex flex-col items-center">
+                    <span class="text-3xl sm:text-4xl font-mono font-black text-blue-700 leading-none">${sub.score}</span>
+                    <span class="text-[10px] font-mono font-bold text-blue-900 uppercase tracking-widest mt-1">PONTOS</span>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-sm text-slate-800 leading-relaxed">
+                  <strong class="text-blue-900 block mb-1">Feedback do Juiz:</strong>
+                  ${sub.feedback}
+                </div>
+
+                <!-- Critérios de Avaliação Detalhados -->
+                <div class="space-y-3">
+                  <h4 class="text-xs font-black uppercase tracking-wider text-slate-700">Critérios Avaliados:</h4>
+                  <div class="space-y-2">
+                    ${sub.criteria.map(c => `
+                      <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                        <div class="flex items-center justify-between text-xs mb-1">
+                          <span class="font-bold text-slate-800">${c.name}</span>
+                          <span class="font-mono font-bold text-blue-700">${c.score}/100</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden mb-1">
+                          <div class="bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full" style="width: ${c.score}%"></div>
+                        </div>
+                        <p class="text-[11px] text-slate-500">${c.note}</p>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <span class="text-xs font-mono text-slate-500">Restam 2 tentativas nesta missão</span>
+                  <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <button onclick="app.renderScreen('LA-03-mission')" class="w-full sm:w-auto px-6 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-colors">
+                      ✏️ Tentar Novamente
+                    </button>
+                    <button onclick="app.renderScreen('LA-03-collective')" class="w-full sm:w-auto px-7 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider shadow-pill-glow transition-all">
+                      Modo Coletivo ⚔️
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-03E: MODO COLETIVO / BOSS BATTLE (TURMA VS JUIZ IA)
+      // =========================================================================
+      viewStudentCollective() {
+        return `
+          <div data-page="collective" class="w-full max-w-2xl mx-auto space-y-4">
+            
+            <!-- Barra do Chefão / Juiz IA -->
+            <div class="bg-white rounded-[32px] overflow-hidden shadow-floating-card border border-white/90">
+              <div class="hazard-stripe-bar"></div>
+
+              <div class="p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-rose-100 border border-rose-300 flex items-center justify-center text-2xl">
+                      👾
+                    </div>
+                    <div>
+                      <h3 class="text-base font-black text-slate-900">Boss Juiz IA — Desafio Coletivo</h3>
+                      <div class="text-xs text-slate-500">Rodada Final • Acerto Mínimo da Turma: 65%</div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200">
+                    <span class="text-rose-600 text-lg">❤️❤️❤️</span>
+                    <span class="text-slate-300 text-lg">🖤🖤</span>
+                  </div>
+                </div>
+
+                <div class="space-y-1">
+                  <div class="flex items-center justify-between text-xs font-mono font-bold text-blue-700">
+                    <span>⚡ ENERGIA COLETIVA DA SALA</span>
+                    <span>72%</span>
+                  </div>
+                  <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden border border-slate-200">
+                    <div class="bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 h-full rounded-full" style="width: 72%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Votação Rápida da Turma -->
+            <div class="bg-white rounded-[32px] p-6 sm:p-8 shadow-floating-card space-y-4 border border-white/90">
+              <div class="flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-900 font-mono text-xs font-black uppercase">
+                  Votação Wild Card
+                </span>
+                <span class="text-xs font-mono font-bold text-rose-600">⏱️ 00:24 restantes</span>
+              </div>
+
+              <h3 class="text-lg font-black text-slate-900">Qual o prompt mais preciso para derrotar o Juiz?</h3>
+
+              <div class="space-y-2.5 pt-1">
+                <button onclick="app.showToast('Voto registrado na Opção A!', '🗳️')" class="w-full p-4 rounded-2xl text-left bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-400 text-xs sm:text-sm font-medium transition-all flex items-start gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-xs flex-shrink-0">A</span>
+                  <span>Foco extremo em parâmetros técnicos de iluminação volumétrica e proporção da arte.</span>
+                </button>
+                <button onclick="app.showToast('Voto registrado na Opção B!', '🗳️')" class="w-full p-4 rounded-2xl text-left bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-400 text-xs sm:text-sm font-medium transition-all flex items-start gap-3">
+                  <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-mono font-bold text-xs flex-shrink-0">B</span>
+                  <span>Prompt conciso com restrições explícitas negativas de ruído visual.</span>
+                </button>
+              </div>
+
+              <div class="pt-4 flex justify-between items-center text-xs text-slate-500">
+                <button onclick="app.renderScreen('LA-03-result')" class="hover:text-blue-700">← Voltar ao resultado</button>
+                <button onclick="app.renderScreen('LA-09')" class="text-blue-700 font-bold hover:underline">Ver TV da Arena →</button>
+              </div>
+            </div>
+
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-04: LOGIN DO PROFESSOR (admin.php REAL: CARD FLUTUANTE LIMPO COM BOTÃO AZUL)
+      // =========================================================================
+      viewAdminLogin() {
+        return `
+          <div data-page="admin-login" class="min-h-[75vh] flex items-center justify-center px-4 py-8">
+            <div class="w-full max-w-md bg-white rounded-[32px] overflow-hidden shadow-floating-card border border-slate-100 p-8 sm:p-10 relative">
+              
+              <!-- Badge Live Arena Painel -->
+              <div class="text-center mb-8">
+                <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-black uppercase tracking-wider mb-3">
+                  PAINEL ADMINISTRATIVO
+                </div>
+                <h2 class="text-3xl font-sans font-black text-slate-900 tracking-tight">Acesso Professor</h2>
+                <div class="magenta-swoosh w-24 mx-auto mt-1 mb-2"></div>
+                <p class="text-xs text-slate-500">Digite sua chave para moderar as salas e projetar o placar.</p>
+              </div>
+
+              <form onsubmit="event.preventDefault(); app.renderScreen('LA-05'); app.showToast('Autenticado com sucesso!', '🔑');" class="space-y-5">
+                <div>
+                  <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+                    Senha de Administrador
+                  </label>
+                  <input 
+                    type="password" 
+                    value="arena2026"
+                    placeholder="••••••••••••" 
+                    required 
+                    class="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 rounded-2xl px-4 py-3.5 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all"
+                  >
+                </div>
+
+                <button 
+                  type="submit" 
+                  class="w-full py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-sans font-black text-sm uppercase tracking-wider shadow-pill-glow transition-all transform hover:-translate-y-0.5"
+                >
+                  Entrar no Painel
+                </button>
+              </form>
+
+              <div class="mt-8 text-center">
+                <button onclick="app.renderScreen('LA-01')" class="text-xs text-slate-500 hover:text-blue-700 font-semibold transition-colors">
+                  ← Voltar para a página inicial
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-05: PAINEL DO PROFESSOR (GESTÃO DE SALAS & GATE GLOBAL)
+      // =========================================================================
+      viewTeacherDashboard() {
+        return `
+          <div data-page="admin-dashboard" class="w-full max-w-6xl mx-auto space-y-6">
+            
+            <div class="card-pure-white p-6 sm:p-8 shadow-floating-card border border-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h1 class="text-2xl sm:text-3xl font-sans font-black text-slate-900 flex items-center gap-2.5">
+                  <span>Painel de Salas da Arena</span>
+                  <span class="text-xs px-2.5 py-1 rounded-full bg-blue-100 text-blue-900 font-mono font-bold">Admin Ativo</span>
+                </h1>
+                <div class="magenta-swoosh w-28 mt-1 mb-2"></div>
+                <p class="text-xs text-slate-500">Controle de portas, criação de salas simultâneas e acionamento de telões.</p>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <button onclick="app.renderScreen('LA-07')" class="px-4 py-2.5 rounded-full bg-white text-xs font-bold text-slate-700 border border-slate-200 hover:bg-slate-50 shadow-xs">
+                  📚 Banco de Desafios
+                </button>
+                <button onclick="app.renderScreen('LA-08')" class="px-4 py-2.5 rounded-full bg-white text-xs font-bold text-slate-700 border border-slate-200 hover:bg-slate-50 shadow-xs">
+                  🗺️ Trilhas & Aulas
+                </button>
+                <button onclick="app.renderScreen('LA-12')" class="px-4 py-2.5 rounded-full bg-emerald-50 text-xs font-bold text-emerald-800 border border-emerald-200 hover:bg-emerald-100 shadow-xs">
+                  📊 Relatórios
+                </button>
+                <button onclick="app.renderScreen('LA-04')" class="px-4 py-2.5 rounded-full bg-rose-50 text-xs font-bold text-rose-700 border border-rose-200 hover:bg-rose-100">
+                  Sair
+                </button>
+              </div>
+            </div>
+
+            <!-- GATE GLOBAL DE ENTRADA -->
+            <div class="card-pure-white p-6 shadow-floating-card border border-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl border border-emerald-200">
+                  🚪
+                </div>
+                <div>
+                  <h3 class="text-sm font-black text-slate-900">Porta Global de Entrada (Gate)</h3>
+                  <p class="text-xs text-slate-500">Permite ou impede que alunos façam login com o PIN nas salas.</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono text-emerald-700 font-black bg-emerald-50 px-3.5 py-1.5 rounded-full border border-emerald-200">PORTA: ABERTA</span>
+                <button onclick="app.showToast('Porta de entrada alternada com sucesso!', '🚪')" class="px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-800">
+                  Alternar Bloqueio
+                </button>
+              </div>
+            </div>
+
+            <!-- SALAS DA ARENA -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between px-1">
+                <span class="text-xs font-black uppercase tracking-wider text-blue-700">Salas Cadastradas</span>
+                <button onclick="app.openModalCreateRoom()" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider shadow-pill-glow flex items-center gap-1.5">
+                  <span>+ Criar Nova Sala</span>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                ${mockData.teacherRooms.map(r => `
+                  <div class="card-pure-white p-6 shadow-floating-card border border-white hover:border-blue-200 flex flex-col justify-between space-y-4 transition-all group">
+                    <div>
+                      <div class="flex items-center justify-between mb-2">
+                        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 font-mono font-bold text-xs">
+                          PIN: ${r.code}
+                        </span>
+                        <span class="text-xs font-mono px-2.5 py-0.5 rounded-full ${r.status === 'playing' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'}">
+                          ${r.status === 'playing' ? '● Em Jogo' : '⏳ Aguardando'}
+                        </span>
+                      </div>
+                      <h3 class="text-base font-black text-slate-900 group-hover:text-blue-700 transition-colors">${r.title}</h3>
+                      <div class="text-xs text-purple-700 font-semibold mt-1">${r.preset}</div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-xs font-mono bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                      <div>
+                        <span class="text-slate-400 block text-[10px]">Alunos:</span>
+                        <span class="text-slate-800 font-bold">${r.students} / ${r.capacity}</span>
+                      </div>
+                      <div>
+                        <span class="text-slate-400 block text-[10px]">Round:</span>
+                        <span class="text-slate-800 font-bold">${r.round} de ${r.totalRounds}</span>
+                      </div>
+                    </div>
+
+                    <div class="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+                      <button onclick="app.renderScreen('LA-06')" class="flex-1 py-2.5 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-800 font-bold text-xs transition-colors">
+                        Gerenciar Sala →
+                      </button>
+                      <button onclick="app.renderScreen('LA-09')" title="Abrir TV Palco" class="px-3 py-2.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs shadow-xs">
+                        📺
+                      </button>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+          </div>
+        `;
+      },
+
+      openModalCreateRoom() {
+        this.openModal(`
+          <div class="space-y-4">
+            <h3 class="text-lg font-black text-slate-900">Criar Nova Sala da Arena</h3>
+            <form onsubmit="event.preventDefault(); app.closeModal(); app.showToast('Demonstração: sala criada apenas no protótipo.', '🎉');" class="space-y-3">
+              <div>
+                <label class="block text-xs font-black text-slate-700 mb-1">Título da Sala</label>
+                <input type="text" placeholder="Ex: Aula de Prompt Engineering — Grupo A" required class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-2.5 text-sm text-slate-900 outline-none">
+              </div>
+              <div>
+                <label class="block text-xs font-black text-slate-700 mb-1">Modo / Preset</label>
+                <select class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-2.5 text-sm text-slate-900 outline-none">
+                  <option value="personalizado">Personalizado — missões por critérios</option><option value="arena">Arena — Turma vs. Juiz</option>
+                  <option value="turma">Batalha de Turma (até 50 participantes)</option>
+                  <option value="classic">Clássico (3 Jogadores no Palco)</option>
+                </select>
+              </div>
+              <div class="pt-2 flex justify-end gap-2">
+                <button type="button" onclick="app.closeModal()" class="px-5 py-2.5 rounded-full bg-slate-100 text-xs font-bold text-slate-600">Cancelar</button>
+                <button type="submit" class="px-6 py-2.5 rounded-full bg-blue-600 text-white font-black text-xs uppercase shadow-pill-glow">Salvar Sala</button>
+              </div>
+            </form>
+          </div>
+        `);
+      },
+
+      // =========================================================================
+      // LA-06: DETALHE OPERACIONAL DA SALA ATIVA
+      // =========================================================================
+      viewRoomDetail() {
+        return `
+          <div data-page="room-detail" class="w-full max-w-6xl mx-auto space-y-6">
+            
+            <div class="card-pure-white p-6 sm:p-8 shadow-floating-card border border-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="px-5 py-3 bg-blue-50 border-2 border-blue-500 rounded-2xl text-center">
+                  <span class="text-[10px] font-mono font-bold text-blue-900 block uppercase">Código PIN</span>
+                  <span class="text-3xl font-mono font-black text-blue-700 tracking-wider">7482</span>
+                </div>
+                <div>
+                  <h1 class="text-xl sm:text-2xl font-sans font-black text-slate-900">Turma de IA Aplicada — 1º Semestre</h1>
+                  <div class="text-xs text-slate-500 mt-0.5">28 participantes ativos • Modo: Arena Coletiva</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="app.showToast('Link da sala copiado!', '📋')" class="px-4 py-2 rounded-full bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 border border-slate-200 shadow-xs">
+                  📋 Copiar Link
+                </button>
+                <button onclick="app.renderScreen('LA-09')" class="px-6 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider shadow-pill-glow">
+                  📺 Abrir TV 16:9
+                </button>
+              </div>
+            </div>
+
+            <!-- BOTÕES DE COMANDO RÁPIDO DO CRONÔMETRO -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <button onclick="app.showToast('Missão iniciada para todos os computadores!', '▶️')" class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 hover:bg-emerald-100 transition-colors font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs">
+                ▶ Iniciar Round
+              </button>
+              <button onclick="app.showToast('Cronômetro pausado!', '⏸️')" class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 hover:bg-amber-100 transition-colors font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs">
+                ⏸ Pausar Tempo
+              </button>
+              <button onclick="app.showToast('Round encerrado!', '⏹️')" class="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 hover:bg-rose-100 transition-colors font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs">
+                ⏹ Encerrar
+              </button>
+              <button onclick="app.showToast('Resultados enviados à TV!', '🏆')" class="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-800 hover:bg-blue-100 transition-colors font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs">
+                🏆 Revelar Placar
+              </button>
+            </div>
+
+            <!-- ROTEIRO DE DESAFIOS DA SALA -->
+            <div class="card-pure-white p-6 sm:p-8 shadow-floating-card border border-white space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black uppercase tracking-wider text-blue-700">Roteiro de Rounds desta Partida</span>
+                <button onclick="app.renderScreen('LA-07')" class="text-xs text-blue-700 font-bold hover:underline">+ Adicionar do Banco</button>
+              </div>
+
+              <div class="space-y-2.5">
+                ${mockData.challengesBank.map((ch, idx) => `
+                  <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <span class="w-8 h-8 rounded-xl bg-blue-600 text-white font-mono font-bold text-xs flex items-center justify-center">
+                        ${idx + 1}
+                      </span>
+                      <div>
+                        <div class="text-sm font-bold text-slate-900">${ch.title}</div>
+                        <div class="text-xs text-slate-500 font-mono">${ch.modality} • ${ch.duration}s • ${ch.attempts} tentativas</div>
+                      </div>
+                    </div>
+                    <button onclick="app.renderScreen('LA-07')" class="text-xs text-blue-700 font-bold">Editar</button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-07: BANCO E EDITOR DE DESAFIOS
+      // =========================================================================
+      viewChallengesBank() {
+        return `
+          <div data-page="challenges" class="w-full max-w-6xl mx-auto space-y-6">
+            <div class="card-pure-white p-6 sm:p-8 shadow-floating-card border border-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h1 class="text-2xl sm:text-3xl font-sans font-black text-slate-900">Banco de Desafios & Gabaritos</h1>
+                <div class="magenta-swoosh w-28 mt-1 mb-2"></div>
+                <p class="text-xs text-slate-500">Catálogo de engenharia reversa, precisão e boss battles.</p>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="app.showToast('Novo desafio criado!', '📝')" class="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider shadow-pill-glow">
+                  + Novo Desafio
+                </button>
+                <button onclick="app.renderScreen('LA-05')" class="px-4 py-2.5 rounded-full bg-white text-slate-700 text-xs font-bold border border-slate-200">
+                  Voltar
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              ${mockData.challengesBank.map(ch => `
+                <div class="card-pure-white p-6 shadow-floating-card border border-white space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-900 font-mono text-xs font-bold">${ch.category}</span>
+                    <span class="text-xs font-mono text-slate-500">${ch.duration}s</span>
+                  </div>
+                  <h3 class="text-base font-black text-slate-900">${ch.title}</h3>
+                  <div class="text-xs text-slate-500 font-mono flex items-center gap-3">
+                    <span>Modalidade: <strong class="text-blue-700">${ch.modality}</strong></span>
+                    <span>•</span>
+                    <span>${ch.attempts} tentativas</span>
+                    ${ch.hasImage ? '<span class="text-emerald-700">📷 Com Imagem</span>' : ''}
+                  </div>
+                  <div class="pt-3 border-t border-slate-100 flex justify-end gap-2">
+                    <button onclick="app.showToast('Desafio aberto para edição!', '✏️')" class="px-4 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700">
+                      Editar
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-08: TRILHAS E AULAS PEDAGÓGICAS
+      // =========================================================================
+      viewLessonsTracks() {
+        const tracks = [
+          { title: 'Aula 2 — Fundação & Clareza de Prompt', desc: 'Objetivo, público, formato e concisão com exemplos práticos.', count: 4 },
+          { title: 'Aula 3 — Controle do Resultado & Tabelas', desc: 'Restrições rígidas, parâmetros em JSON e atendimento a briefings confusos.', count: 4 },
+          { title: 'Aula 4 — Multimodal & Engenharia Reversa', desc: 'Recriação precisa de fotografias, cartazes neon e peças publicitárias.', count: 4 },
+          { title: 'Aula 5 — Arena Final: Boss Battle', desc: 'Maratona com todas as modalidades e disputa coletiva pelo pódio.', count: 6 }
+        ];
+
+        return `
+          <div data-page="lessons" class="w-full max-w-6xl mx-auto space-y-6">
+            <div class="card-pure-white p-6 sm:p-8 shadow-floating-card border border-white flex items-center justify-between">
+              <div>
+                <h1 class="text-2xl sm:text-3xl font-sans font-black text-slate-900">Trilhas & Aulas Prontas</h1>
+                <div class="magenta-swoosh w-28 mt-1 mb-2"></div>
+                <p class="text-xs text-slate-500">Pacotes pedagógicos estruturados para carregar em uma rodada.</p>
+              </div>
+              <button onclick="app.renderScreen('LA-05')" class="px-4 py-2 rounded-full bg-white text-slate-700 text-xs font-bold border border-slate-200">
+                Voltar
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              ${tracks.map(t => `
+                <div class="card-pure-white p-6 shadow-floating-card border border-white space-y-3 flex flex-col justify-between">
+                  <div>
+                    <h3 class="text-base font-black text-slate-900">${t.title}</h3>
+                    <p class="text-xs text-slate-600 mt-1">${t.desc}</p>
+                  </div>
+                  <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs font-mono text-blue-700 font-bold">${t.count} desafios inclusos</span>
+                    <button onclick="app.showToast('Trilha carregada na sala ativa!', '📚')" class="px-4 py-2 rounded-full bg-blue-50 text-blue-800 text-xs font-bold hover:bg-blue-100">
+                      Importar para a Sala
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-09: TV / PROJEÇÃO 16:9 DO PALCO (main.php COM LISTRAS AZUIS E RANKING)
+      // =========================================================================
+      viewTVStage() {
+        return `
+          <div data-page="tv-stage" class="w-full min-h-[580px] flex flex-col justify-between card-pure-white p-6 sm:p-8 shadow-floating-card border-4 border-white/90 relative overflow-hidden">
+            
+            <!-- Fita amarela e preta no topo da TV -->
+            <div class="hazard-stripe-bar absolute top-0 left-0 right-0"></div>
+
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4 pt-2">
+              <div class="flex items-center gap-3">
+                <span class="w-3.5 h-3.5 rounded-full bg-blue-600 animate-ping"></span>
+                <span class="font-sans font-black text-2xl text-slate-900 tracking-wider">LIVE ARENA</span>
+                <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-900 font-mono text-xs font-bold">PROJEÇÃO 16:9</span>
+              </div>
+
+              <!-- Cronômetro Oficial do Palco -->
+              <div class="px-8 py-2 rounded-2xl bg-rose-50 border-2 border-rose-300 flex items-center gap-3 shadow-xs">
+                <span class="text-rose-600 text-2xl">⏱️</span>
+                <span class="text-3xl sm:text-5xl font-mono font-black text-rose-700 tracking-widest leading-none">02:30</span>
+              </div>
+
+              <div class="text-right">
+                <span class="text-[10px] font-mono text-slate-400 block uppercase font-bold">ENTRE NO RINGUE</span>
+                <span class="text-2xl sm:text-3xl font-mono font-black text-blue-700 tracking-wider">PIN: 7482</span>
+              </div>
+            </div>
+
+            <!-- CONTEÚDO CENTRAL: DESAFIO & LÍDERES DO ROUND -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 my-6 items-center">
+              <div class="lg:col-span-2 space-y-4">
+                <span class="px-3.5 py-1 rounded-full bg-blue-100 text-blue-900 font-mono text-xs font-black uppercase">
+                  Round 1 de 3 • Engenharia Reversa
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-sans font-black text-slate-900 leading-tight">
+                  Peça Publicitária Futurista: Festival SONIC 2026
+                </h2>
+                <div class="magenta-swoosh w-36"></div>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
+                  Escreva no seu posto o prompt ideal especificando paleta de cores ciano/roxo, luz neon e hierarquia de títulos.
+                </p>
+                <div class="p-3.5 rounded-2xl bg-blue-50 border border-blue-200 text-xs font-mono text-blue-900">
+                  🥊 28 competidores conectados escrevendo os prompts simultaneamente!
+                </div>
+              </div>
+
+              <!-- PLACAR DO ROUND EM TEMPO REAL -->
+              <div class="bg-slate-50 border-2 border-slate-200 rounded-3xl p-5 space-y-3">
+                <div class="text-xs font-black uppercase text-slate-500 tracking-wider">Líderes do Round:</div>
+                <div class="space-y-2">
+                  ${mockData.leaderboard.map(lb => `
+                    <div class="p-3 rounded-2xl bg-white border border-slate-200 flex items-center justify-between shadow-xs">
+                      <div class="flex items-center gap-2.5">
+                        <span class="font-mono font-black text-sm text-blue-700">${lb.rank}</span>
+                        <div>
+                          <div class="font-bold text-xs text-slate-900">${lb.name}</div>
+                          <div class="text-[10px] text-slate-400 font-mono">${lb.pc} • ${lb.company}</div>
+                        </div>
+                      </div>
+                      <span class="font-mono font-black text-sm text-blue-700">${lb.score} pts</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-slate-100 pt-3 flex items-center justify-between text-xs font-mono text-slate-400">
+              <span>Projeção de Alta Visibilidade • Sem exibição de gabaritos secretos</span>
+              <button onclick="app.setViewport('auto'); app.renderScreen('LA-06')" class="text-blue-700 font-bold hover:underline">
+                Sair da Projeção TV
+              </button>
+            </div>
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-10: PRÉVIA DO ALUNO (SEM GRAVAR PONTOS)
+      // =========================================================================
+      viewStudentPreview() {
+        return `
+          <div data-page="student-preview" class="w-full max-w-3xl mx-auto space-y-4">
+            <div class="p-3 bg-amber-50 border border-amber-300 text-amber-900 rounded-2xl text-xs font-mono font-bold flex items-center justify-between">
+              <span>⚠️ MODO PRÉVIA: Teste pedagógico para professores. Não altera pontuações reais.</span>
+              <button onclick="app.renderScreen('LA-06')" class="underline">Sair</button>
+            </div>
+            ${this.viewStudentMission()}
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-11: PRÉVIA DA PROJEÇÃO TV
+      // =========================================================================
+      viewTVPreview() {
+        return `
+          <div data-page="tv-preview" class="w-full max-w-5xl mx-auto space-y-4">
+            <div class="p-3 bg-blue-50 border border-blue-300 text-blue-900 rounded-2xl text-xs font-mono font-bold flex items-center justify-between">
+              <span>📺 PRÉVIA DO TELÃO: Conferência de layout 16:9 para palco.</span>
+              <button onclick="app.renderScreen('LA-06')" class="underline">Voltar</button>
+            </div>
+            ${this.viewTVStage()}
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-12: RELATÓRIO ANALÍTICO GERAL & EXPORTAÇÃO CSV
+      // =========================================================================
+      viewAnalyticsReport() {
+        return `
+          <div data-page="analytics" class="w-full max-w-6xl mx-auto space-y-6">
+            <div class="card-pure-white p-6 sm:p-8 shadow-floating-card border border-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h1 class="text-2xl sm:text-3xl font-sans font-black text-slate-900">Relatório de Desempenho & Prompts</h1>
+                <div class="magenta-swoosh w-28 mt-1 mb-2"></div>
+                <p class="text-xs text-slate-500">Métricas analíticas consolidadas e acurácia por participante.</p>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button onclick="app.showToast('Demonstração: a exportação real será ligada ao relatório existente.', '📊')" class="px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs uppercase tracking-wider shadow-pill-glow flex items-center gap-1.5">
+                  📥 Exportar CSV
+                </button>
+                <button onclick="app.renderScreen('LA-05')" class="px-4 py-2.5 rounded-full bg-white text-slate-700 text-xs font-bold border border-slate-200">
+                  Voltar
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="card-pure-white p-5 shadow-floating-card border border-white">
+                <span class="text-[11px] font-mono font-bold text-slate-400 block uppercase">Alunos Únicos</span>
+                <span class="text-3xl font-black text-blue-700 mt-1 block">142</span>
+              </div>
+              <div class="card-pure-white p-5 shadow-floating-card border border-white">
+                <span class="text-[11px] font-mono font-bold text-slate-400 block uppercase">Prompts Julgados</span>
+                <span class="text-3xl font-black text-purple-700 mt-1 block">618</span>
+              </div>
+              <div class="card-pure-white p-5 shadow-floating-card border border-white">
+                <span class="text-[11px] font-mono font-bold text-slate-400 block uppercase">Acurácia Média</span>
+                <span class="text-3xl font-black text-emerald-700 mt-1 block">84.2%</span>
+              </div>
+              <div class="card-pure-white p-5 shadow-floating-card border border-white">
+                <span class="text-[11px] font-mono font-bold text-slate-400 block uppercase">Tempo Médio</span>
+                <span class="text-3xl font-black text-amber-700 mt-1 block">1m 18s</span>
+              </div>
+            </div>
+
+            <!-- Tabela Consolidada -->
+            <div class="card-pure-white p-6 shadow-floating-card border border-white space-y-4">
+              <span class="text-xs font-black uppercase tracking-wider text-blue-700">Classificação Histórica</span>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs font-sans">
+                  <thead class="bg-slate-50 text-slate-500 border-b border-slate-200 font-mono">
+                    <tr>
+                      <th class="p-3">Pos</th>
+                      <th class="p-3">Competidor</th>
+                      <th class="p-3">Organização</th>
+                      <th class="p-3">Pontos</th>
+                      <th class="p-3">Precisão</th>
+                      <th class="p-3">Melhor Score</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100">
+                    <tr class="hover:bg-slate-50">
+                      <td class="p-3 font-mono font-black text-blue-700">#1</td>
+                      <td class="p-3 font-bold text-slate-900">Mariana Duarte</td>
+                      <td class="p-3 text-slate-500">Faculdade Tech</td>
+                      <td class="p-3 font-mono font-bold text-blue-700">385</td>
+                      <td class="p-3 font-mono text-emerald-700 font-bold">94%</td>
+                      <td class="p-3 font-mono text-slate-700">98 pts</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50">
+                      <td class="p-3 font-mono font-black text-blue-700">#2</td>
+                      <td class="p-3 font-bold text-slate-900">Lucas Ferreira</td>
+                      <td class="p-3 text-slate-500">Agência Digital</td>
+                      <td class="p-3 font-mono font-bold text-blue-700">368</td>
+                      <td class="p-3 font-mono text-emerald-700 font-bold">91%</td>
+                      <td class="p-3 font-mono text-slate-700">95 pts</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50">
+                      <td class="p-3 font-mono font-black text-blue-700">#3</td>
+                      <td class="p-3 font-bold text-slate-900">Carlos Eduardo</td>
+                      <td class="p-3 text-slate-500">Design Lab</td>
+                      <td class="p-3 font-mono font-bold text-blue-700">342</td>
+                      <td class="p-3 font-mono text-emerald-700 font-bold">85%</td>
+                      <td class="p-3 font-mono text-slate-700">89 pts</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
+      },
+
+      // =========================================================================
+      // LA-13: 404 / NÃO ENCONTRADO
+      // =========================================================================
+      viewNotFound() {
+        return `
+          <div data-page="not-found" class="min-h-[60vh] flex flex-col items-center justify-center text-center p-6">
+            <div class="w-20 h-20 rounded-full bg-rose-50 border-2 border-rose-300 text-rose-600 flex items-center justify-center text-3xl mb-4 font-mono font-black">
+              404
+            </div>
+            <h2 class="text-2xl font-sans font-black text-slate-900">Página não encontrada</h2>
+            <div class="magenta-swoosh w-24 mx-auto mt-1 mb-3"></div>
+            <p class="text-xs text-slate-500 max-w-sm">Este endereço não corresponde a uma página da Live Arena.</p>
+            <button onclick="app.renderScreen('LA-01')" class="mt-6 px-8 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-sans font-black text-xs uppercase tracking-wider shadow-pill-glow">
+              Voltar ao Início
+            </button>
+          </div>
+        `;
+      }
+    };
+
+
+    // Ajustes do protótipo: navegação de demonstração não vira controle do aluno.
+    const compatibilityRoutes = {'LA-01':'/','LA-02':'/play','LA-04':'/admin-arena.php','LA-05':'/admin-arena.php','LA-06':'/admin-arena.php','LA-07':'/admin-arena.php','LA-08':'/admin-arena.php','LA-09':'/tv.php','LA-10':'/aluno-preview.php?room=ID','LA-11':'/tv-preview.php?room=ID','LA-12':'/report.php'};
+    const originalRender = app.renderScreen;
+    app.renderScreen = function(id) {
+      originalRender.call(this,id);
+      const root=document.getElementById('screenContainer');
+      root.dataset.screenId=id;root.dataset.route=compatibilityRoutes[id] || (id.startsWith('LA-03')?'/play':'404');
+      root.querySelectorAll('button').forEach(btn=>{
+        const action=btn.getAttribute('onclick')||'';
+        const restricted=(id==='LA-03-lobby'&&action.includes("renderScreen('LA-03-mission')")) ||
+          (id==='LA-03-evaluating'&&action.includes("renderScreen('LA-03-result')")) ||
+          (id==='LA-03-result'&&action.includes("renderScreen('LA-03-collective')")) ||
+          (id==='LA-03-collective'&&action.includes('renderScreen')) ||
+          (id==='LA-09'&&action.includes("renderScreen('LA-06')"));
+        if(restricted)btn.remove();
+      });
+      if(id==='LA-03-evaluating') {
+        const p=document.createElement('p');p.className='text-center text-sm font-bold text-blue-800 p-4';p.textContent='Resposta recebida. A nota aparecerá automaticamente quando a avaliação terminar.';root.append(p);
+      }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      app.init();
+    });
+  </script>
+</body></html>

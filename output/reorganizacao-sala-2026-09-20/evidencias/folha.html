@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sala em destaque reorganizada — folha de evidências</title>
+<style>
+  body { margin: 0; padding: 32px; background: #eef2f8; color: #0d1b34;
+         font: 15px/1.5 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  h1 { font-size: 26px; margin: 0 0 6px; }
+  p.nota { color: #4d5c74; max-width: 900px; margin: 0 0 28px; }
+  .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 24px; }
+  figure { margin: 0; background: #fff; border: 1px solid #dce4ef; border-radius: 16px;
+           box-shadow: 0 12px 34px rgba(8,36,91,.08); overflow: hidden; }
+  figure.wide { grid-column: 1 / -1; }
+  figcaption { padding: 12px 16px; font-size: 13px; font-weight: 700; color: #263A5D;
+               border-bottom: 1px solid #eef2f8; }
+  img { display: block; width: 100%; height: auto; }
+</style>
+</head>
+<body>
+  <h1>Sala em destaque — as seis larguras do plano</h1>
+  <p class="nota">
+    A sala inteira, e não só o topo do painel: a organização desta rodada mora
+    abaixo da dobra (as duas colunas e a fila de desafios). A foto sobe a
+    viewport do navegador só para caber a sala toda — a medida de rolagem
+    horizontal é feita antes dela, na janela de verdade, e em nenhuma das seis
+    larguras a página rola para o lado.
+  </p>
+  <div class="grade">
+    <figure class="wide"><figcaption>1920×1080 — a sala na coluna de 1440 px (antes: 1080, com um terço da tela vazio dos dois lados)</figcaption><img src="sala-1920x1080.png" alt="Sala em destaque em 1920 por 1080"></figure>
+    <figure class="wide"><figcaption>1440×900 — duas colunas: participantes (58%) e rodada ativa (42%)</figcaption><img src="sala-1440x900.png" alt="Sala em destaque em 1440 por 900"></figure>
+    <figure><figcaption>1280×720 — ainda duas colunas</figcaption><img src="sala-1280x720.png" alt="Sala em destaque em 1280 por 720"></figure>
+    <figure><figcaption>1024×768 — as colunas empilham</figcaption><img src="sala-1024x768.png" alt="Sala em destaque em 1024 por 768"></figure>
+    <figure><figcaption>768×1024 — coluna única, cartão com 24 px de respiro</figcaption><img src="sala-768x1024.png" alt="Sala em destaque em 768 por 1024"></figure>
+    <figure><figcaption>390×844 — a ordem do plano: código, título, ações, métricas, comandos, participantes, rodada, fila</figcaption><img src="sala-390x844.png" alt="Sala em destaque em 390 por 844"></figure>
+  </div>
+</body>
+</html>

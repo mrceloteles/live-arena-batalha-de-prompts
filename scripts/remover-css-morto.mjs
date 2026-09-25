@@ -92,7 +92,13 @@ for (const folha of FOLHAS) {
   let saida = 0;
   for (const regra of regrasComOffset(texto)) {
     const preludio = texto.slice(regra.preludioInicio, regra.preludioFim);
-    const compostos = compostosDe(preludio.trim());
+    // O comentário que abre a regra não é seletor. Separá-lo antes de partir por
+    // vírgula é o que impede a prosa de virar composto: uma vírgula dentro do
+    // comentário já condenou um "seletor" que nunca existiu, e o recorte apagava
+    // a frase junto.
+    const comentario = /^\s*(?:\/\*[\s\S]*?\*\/\s*)*/.exec(preludio)[0];
+    const semComentarios = preludio.slice(comentario.length).replace(/\/\*[\s\S]*?\*\//g, ' ');
+    const compostos = compostosDe(semComentarios.trim());
     const condenados = compostos.filter((composto) =>
       classesDe(composto).some((classe) => alvos.includes(classe)),
     );
@@ -109,7 +115,7 @@ for (const folha of FOLHAS) {
     );
     edicoes.push(
       restantes.length
-        ? { inicio: regra.preludioInicio, fim: regra.preludioFim, texto: restantes.join(', ') }
+        ? { inicio: regra.preludioInicio, fim: regra.preludioFim, texto: comentario + restantes.join(', ') }
         : { inicio: regra.preludioInicio, fim: regra.fim, texto: '' },
     );
   }

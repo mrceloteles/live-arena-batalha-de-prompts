@@ -153,10 +153,30 @@ test('rejects unknown and removed legacy routes', () => {
   assert.equal(renderPage('/main.php').status, 404, 'legacy main TV was replaced by /tv.php');
 });
 
-test('home is a single-entry launcher with no legacy station links', () => {
+test('home names the three roles and keeps the legacy station links out', () => {
   const home = renderPage('/').body;
+  // A home diz QUEM entra, além do que o produto é. O CTA único ("Entrar na
+  // Arena") só servia a quem já era aluno: recebendo o endereço, nem o professor
+  // nem quem liga a TV da sala sabiam que existiam.
+  //
+  // O que mudou nesta passada (a régua foi devolvida à intenção, não ao
+  // desenho): os três papéis eram três CARTÕES com micro-rótulo e título, e a
+  // asserção cobrava a ordem professor, aluno, TV desses cartões. A home voltou
+  // à composição da referência (LA-01) — lockup, tagline, uma LINHA de ações e
+  // a faixa de prova —, e os três papéis passaram a ser as três AÇÕES dessa
+  // linha. A ordem passa a ser a da referência, que abre pela ação do aluno:
+  // aluno (/play), professor (/admin-arena.php) e TV (/tv.php). As duas ações
+  // silenciosas nomeiam o papel, como o "Painel do professor" da referência.
+  const portas = [...home.matchAll(/href="(\/play|\/admin-arena\.php|\/tv\.php)"/g)].map((m) => m[1]);
+  assert.deepEqual(
+    portas,
+    ['/play', '/admin-arena.php', '/tv.php'],
+    'as três portas do produto aparecem na home, na ordem aluno, professor, TV',
+  );
   assert.match(home, /Entrar na Arena/);
-  assert.ok(home.includes('href="/play"'), 'home links to the single entry');
+  assert.match(home, /Painel do professor/, 'a porta do professor nomeia o papel');
+  assert.match(home, /Projeção da TV/, 'a porta da TV nomeia o papel');
+  // O que NAO volta: a home classica listava PCs, modos e o ambiente.
   assert.ok(!home.includes('game.php?station'), 'no legacy station links');
   assert.ok(!home.includes('>PC 1<'), 'no PC 1 card');
   assert.ok(!home.includes('BATALHA CLASSICA'), 'no classic mode card');

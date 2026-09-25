@@ -1,0 +1,604 @@
+{
+  "medidas": {
+    "alunoEspera390": {
+      "vazioVisivel": true,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": false,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Missão",
+      "rodada": null,
+      "imagem": null,
+      "campoDeResposta": false,
+      "rascunho": "",
+      "caixaDoCampo": null,
+      "caixaDoEnviar": null,
+      "enviarHabilitado": true,
+      "rodape": null,
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 0,
+      "blocosDaEspera": [
+        "arena-wait-illustration",
+        "h1"
+      ],
+      "blocosDaMissao": [],
+      "ranking": 0,
+      "textoDoFim": "Aguarde o professor iniciar"
+    },
+    "alunoEspera1440": {
+      "vazioVisivel": true,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": false,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Missão",
+      "rodada": null,
+      "imagem": null,
+      "campoDeResposta": false,
+      "rascunho": "",
+      "caixaDoCampo": null,
+      "caixaDoEnviar": null,
+      "enviarHabilitado": true,
+      "rodape": null,
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 0,
+      "blocosDaEspera": [
+        "arena-wait-illustration",
+        "h1"
+      ],
+      "blocosDaMissao": [],
+      "ranking": 0,
+      "textoDoFim": "Aguarde o professor iniciar"
+    },
+    "alunoMissaoTexto390": {
+      "vazioVisivel": false,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": true,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Cartaz da feira",
+      "rodada": "MISSAO 01/03",
+      "imagem": null,
+      "campoDeResposta": true,
+      "rascunho": "",
+      "caixaDoCampo": {
+        "topo": 561,
+        "altura": 169
+      },
+      "caixaDoEnviar": {
+        "topo": 758,
+        "altura": 48
+      },
+      "enviarHabilitado": true,
+      "rodape": "1",
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 0,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [
+        "arena-mission-top",
+        "round-layout"
+      ],
+      "ranking": 0,
+      "textoDoFim": "MISSAO 01/03\nPRECISÃO\nTempo restante\nSEM LIMITE\nCartaz da feira\n\nA feira é na quadra, no sábado, para as famílias.\n\nCrie um prompt que produza o cartaz da feira de ciências. Informe o público, a finalidade e os dados que precisam aparecer. A resposta deve estar pronta para uso pela escola.\n\nTentativ",
+      "rolagem": {
+        "quemRola": "documento",
+        "topo": 23
+      },
+      "caixaDoEnviarDepoisDeRolar": {
+        "topo": 735,
+        "altura": 48
+      }
+    },
+    "alunoMissaoTexto1440": {
+      "vazioVisivel": false,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": true,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Cartaz da feira",
+      "rodada": "MISSAO 01/03",
+      "imagem": null,
+      "campoDeResposta": true,
+      "rascunho": "",
+      "caixaDoCampo": {
+        "topo": 302,
+        "altura": 240
+      },
+      "caixaDoEnviar": {
+        "topo": 570,
+        "altura": 48
+      },
+      "enviarHabilitado": true,
+      "rodape": "1",
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 0,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [
+        "arena-mission-top",
+        "round-layout"
+      ],
+      "ranking": 0,
+      "textoDoFim": "MISSAO 01/03\nPRECISÃO\nTempo restante\nSEM LIMITE\nCartaz da feira\n\nA feira é na quadra, no sábado, para as famílias.\n\nCrie um prompt que produza o cartaz da feira de ciências. Informe o público, a finalidade e os dados que precisam aparecer. A resposta deve estar pronta para uso pela escola.\n\nTentativ"
+    },
+    "painelDurante1440": {
+      "sala": "ecce1f04-48aa-4a98-87f3-36b62473d7ef",
+      "detalheVisivel": true,
+      "alturaDoDetalhe": 973,
+      "rolagemDaPagina": 0,
+      "areasQueRolam": 2,
+      "quemRola": {
+        "classe": "arena-admin-main",
+        "conteudo": 979,
+        "janela": 900
+      },
+      "missoesVisiveis": 3,
+      "participantesVisiveis": 0,
+      "temGerenciar": 1,
+      "botaoDeAvancar": 1,
+      "primeiroBotaoDeAcao": {
+        "texto": "⏸ Pausar missão",
+        "topo": 193
+      }
+    },
+    "painelDurante390": {
+      "sala": "ecce1f04-48aa-4a98-87f3-36b62473d7ef",
+      "detalheVisivel": true,
+      "alturaDoDetalhe": 1606,
+      "rolagemDaPagina": 3694,
+      "areasQueRolam": 1,
+      "quemRola": {
+        "classe": "html",
+        "conteudo": 4538,
+        "janela": 844
+      },
+      "missoesVisiveis": 3,
+      "participantesVisiveis": 0,
+      "temGerenciar": 1,
+      "botaoDeAvancar": 1,
+      "primeiroBotaoDeAcao": {
+        "texto": "⏸ Pausar missão",
+        "topo": 717
+      }
+    },
+    "alunoMissaoImagem390": {
+      "vazioVisivel": false,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": true,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Reversa: aquário profundo",
+      "rodada": "MISSAO 02/03",
+      "imagem": {
+        "temSrc": true,
+        "carregou": true,
+        "largura": 1200,
+        "altura": 896,
+        "visivel": true
+      },
+      "campoDeResposta": true,
+      "rascunho": "",
+      "caixaDoCampo": {
+        "topo": 808,
+        "altura": 169
+      },
+      "caixaDoEnviar": {
+        "topo": 1005,
+        "altura": 48
+      },
+      "enviarHabilitado": true,
+      "rodape": "12",
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 2,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [
+        "arena-mission-top",
+        "round-layout"
+      ],
+      "ranking": 6,
+      "textoDoFim": "MISSAO 02/03\nENGENHARIA REVERSA\nTempo restante\nSEM LIMITE\nReversa: aquário profundo\nREFERENCIA VISUAL\n\nEscreva o prompt que produziria algo com estas características.\n\nSua missão: escreva o prompt que produziria um resultado com estas características.\n\nTentativas\n1\n2\nEscreva seu prompt\n0 / 4000 cara"
+    },
+    "alunoMissaoImagem1440": {
+      "vazioVisivel": false,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": true,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Reversa: aquário profundo",
+      "rodada": "MISSAO 02/03",
+      "imagem": {
+        "temSrc": true,
+        "carregou": true,
+        "largura": 1200,
+        "altura": 896,
+        "visivel": true
+      },
+      "campoDeResposta": true,
+      "rascunho": "",
+      "caixaDoCampo": {
+        "topo": 302,
+        "altura": 240
+      },
+      "caixaDoEnviar": {
+        "topo": 570,
+        "altura": 48
+      },
+      "enviarHabilitado": true,
+      "rodape": "12",
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 2,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [
+        "arena-mission-top",
+        "round-layout"
+      ],
+      "ranking": 6,
+      "textoDoFim": "MISSAO 02/03\nENGENHARIA REVERSA\nTempo restante\nSEM LIMITE\nReversa: aquário profundo\nREFERENCIA VISUAL\n\nEscreva o prompt que produziria algo com estas características.\n\nSua missão: escreva o prompt que produziria um resultado com estas características.\n\nTentativas\n1\n2\nEscreva seu prompt\n0 / 4000 cara"
+    },
+    "alunoRascunho390": {
+      "vazioVisivel": false,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": true,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Reversa: aquário profundo",
+      "rodada": "MISSAO 02/03",
+      "imagem": {
+        "temSrc": true,
+        "carregou": true,
+        "largura": 1200,
+        "altura": 896,
+        "visivel": true
+      },
+      "campoDeResposta": true,
+      "rascunho": "Prompt: biblioteca submersa, luz azul suave, peixes pequenos ao fundo, composição horizontal, estilo render 3D, sem texto na imagem.",
+      "caixaDoCampo": {
+        "topo": 808,
+        "altura": 169
+      },
+      "caixaDoEnviar": {
+        "topo": 1005,
+        "altura": 48
+      },
+      "enviarHabilitado": true,
+      "rodape": "12",
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 2,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [
+        "arena-mission-top",
+        "round-layout"
+      ],
+      "ranking": 6,
+      "textoDoFim": "MISSAO 02/03\nENGENHARIA REVERSA\nTempo restante\nSEM LIMITE\nReversa: aquário profundo\nREFERENCIA VISUAL\n\nEscreva o prompt que produziria algo com estas características.\n\nSua missão: escreva o prompt que produziria um resultado com estas características.\n\nTentativas\n1\n2\nEscreva seu prompt\n132 / 4000 ca"
+    },
+    "alunoAvaliacao390": {
+      "vazioVisivel": false,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": true,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Reversa: aquário profundo",
+      "rodada": "MISSAO 02/03",
+      "imagem": {
+        "temSrc": true,
+        "carregou": true,
+        "largura": 1200,
+        "altura": 896,
+        "visivel": true
+      },
+      "campoDeResposta": true,
+      "rascunho": "",
+      "caixaDoCampo": {
+        "topo": 201,
+        "altura": 169
+      },
+      "caixaDoEnviar": {
+        "topo": 398,
+        "altura": 48
+      },
+      "enviarHabilitado": true,
+      "rodape": "12",
+      "nota": "-0,2 PTS",
+      "temFeedback": true,
+      "caixasVisiveis": 3,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [
+        "arena-mission-top",
+        "round-layout"
+      ],
+      "ranking": 6,
+      "textoDoFim": "MISSAO 02/03\nENGENHARIA REVERSA\nTempo restante\nSEM LIMITE\nReversa: aquário profundo\nREFERENCIA VISUAL\n\nEscreva o prompt que produziria algo com estas características.\n\nSua missão: escreva o prompt que produziria um resultado com estas características.\n\nTentativas\n1\n2\nEscreva seu prompt\n0 / 4000 cara"
+    },
+    "alunoAvaliacao1440": {
+      "vazioVisivel": false,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": true,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Reversa: aquário profundo",
+      "rodada": "MISSAO 02/03",
+      "imagem": {
+        "temSrc": true,
+        "carregou": true,
+        "largura": 1200,
+        "altura": 896,
+        "visivel": true
+      },
+      "campoDeResposta": true,
+      "rascunho": "",
+      "caixaDoCampo": {
+        "topo": 302,
+        "altura": 240
+      },
+      "caixaDoEnviar": {
+        "topo": 570,
+        "altura": 48
+      },
+      "enviarHabilitado": true,
+      "rodape": "12",
+      "nota": "80 PTS",
+      "temFeedback": true,
+      "caixasVisiveis": 3,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [
+        "arena-mission-top",
+        "round-layout"
+      ],
+      "ranking": 6,
+      "textoDoFim": "MISSAO 02/03\nENGENHARIA REVERSA\nTempo restante\nSEM LIMITE\nReversa: aquário profundo\nREFERENCIA VISUAL\n\nEscreva o prompt que produziria algo com estas características.\n\nSua missão: escreva o prompt que produziria um resultado com estas características.\n\nTentativas\n1\n2\nEscreva seu prompt\n0 / 4000 cara"
+    },
+    "alunoEncerramento390": {
+      "vazioVisivel": true,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "🏆 Batalha encerrada! 🎉",
+      "missaoVisivel": false,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Missão",
+      "rodada": null,
+      "imagem": null,
+      "campoDeResposta": false,
+      "rascunho": "",
+      "caixaDoCampo": null,
+      "caixaDoEnviar": null,
+      "enviarHabilitado": true,
+      "rodape": null,
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 2,
+      "blocosDaEspera": [
+        "h1"
+      ],
+      "blocosDaMissao": [],
+      "ranking": 6,
+      "textoDoFim": "🏆 Batalha encerrada! 🎉"
+    },
+    "alunoEncerramento1440": {
+      "vazioVisivel": true,
+      "painelPintado": true,
+      "atributoHiddenDoPainel": false,
+      "tituloDaEspera": "🏆 Batalha encerrada! 🎉",
+      "missaoVisivel": false,
+      "cartaoDeVotoVisivel": false,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": null,
+      "opcoesDoVoto": 0,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Missão",
+      "rodada": null,
+      "imagem": null,
+      "campoDeResposta": false,
+      "rascunho": "",
+      "caixaDoCampo": null,
+      "caixaDoEnviar": null,
+      "enviarHabilitado": true,
+      "rodape": null,
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 2,
+      "blocosDaEspera": [
+        "h1"
+      ],
+      "blocosDaMissao": [],
+      "ranking": 6,
+      "textoDoFim": "🏆 Batalha encerrada! 🎉"
+    },
+    "painelDepois1440": {
+      "sala": "ecce1f04-48aa-4a98-87f3-36b62473d7ef",
+      "detalheVisivel": true,
+      "alturaDoDetalhe": 1430,
+      "rolagemDaPagina": 0,
+      "areasQueRolam": 2,
+      "quemRola": {
+        "classe": "arena-admin-main",
+        "conteudo": 979,
+        "janela": 900
+      },
+      "missoesVisiveis": 3,
+      "participantesVisiveis": 0,
+      "temGerenciar": 1,
+      "botaoDeAvancar": 0,
+      "primeiroBotaoDeAcao": null
+    },
+    "painelDepois390": {
+      "sala": "ecce1f04-48aa-4a98-87f3-36b62473d7ef",
+      "detalheVisivel": true,
+      "alturaDoDetalhe": 2365,
+      "rolagemDaPagina": 4788,
+      "areasQueRolam": 1,
+      "quemRola": {
+        "classe": "html",
+        "conteudo": 5632,
+        "janela": 844
+      },
+      "missoesVisiveis": 3,
+      "participantesVisiveis": 0,
+      "temGerenciar": 1,
+      "botaoDeAvancar": 0,
+      "primeiroBotaoDeAcao": null
+    },
+    "alunoVotacao390": {
+      "vazioVisivel": false,
+      "painelPintado": false,
+      "atributoHiddenDoPainel": true,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": false,
+      "cartaoDeVotoVisivel": true,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": "Qual prompt merece entrar na Arena?",
+      "opcoesDoVoto": 3,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Missão",
+      "rodada": null,
+      "imagem": null,
+      "campoDeResposta": false,
+      "rascunho": "",
+      "caixaDoCampo": null,
+      "caixaDoEnviar": null,
+      "enviarHabilitado": true,
+      "rodape": null,
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 0,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [],
+      "ranking": 0,
+      "textoDoFim": "Aguarde o professor iniciar\n                \n              \n              \n                \n                \n                  \n                    \n                    MISSAO\n                  \n                  Tempo restante--:--\n                \n                \n                \n                "
+    },
+    "alunoVotacao1440": {
+      "vazioVisivel": false,
+      "painelPintado": false,
+      "atributoHiddenDoPainel": true,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": false,
+      "cartaoDeVotoVisivel": true,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": "Qual prompt merece entrar na Arena?",
+      "opcoesDoVoto": 3,
+      "statusDoVoto": null,
+      "tituloDaMissao": "Missão",
+      "rodada": null,
+      "imagem": null,
+      "campoDeResposta": false,
+      "rascunho": "",
+      "caixaDoCampo": null,
+      "caixaDoEnviar": null,
+      "enviarHabilitado": true,
+      "rodape": null,
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 0,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [],
+      "ranking": 0,
+      "textoDoFim": "Aguarde o professor iniciar\n                \n              \n              \n                \n                \n                  \n                    \n                    MISSAO\n                  \n                  Tempo restante--:--\n                \n                \n                \n                "
+    },
+    "alunoWildCardDentro390": {
+      "vazioVisivel": false,
+      "painelPintado": false,
+      "atributoHiddenDoPainel": true,
+      "tituloDaEspera": "Aguarde o professor iniciar",
+      "missaoVisivel": false,
+      "cartaoDeVotoVisivel": true,
+      "esperaJuntoDaVotacao": false,
+      "perguntaDoVoto": "Qual prompt merece entrar na Arena?",
+      "opcoesDoVoto": 0,
+      "statusDoVoto": "Você está no Wild Card — quem está em campo não vota.",
+      "tituloDaMissao": "Missão",
+      "rodada": null,
+      "imagem": null,
+      "campoDeResposta": false,
+      "rascunho": "",
+      "caixaDoCampo": null,
+      "caixaDoEnviar": null,
+      "enviarHabilitado": true,
+      "rodape": null,
+      "nota": "0",
+      "temFeedback": false,
+      "caixasVisiveis": 0,
+      "blocosDaEspera": [],
+      "blocosDaMissao": [],
+      "ranking": 0,
+      "textoDoFim": "Aguarde o professor iniciar\n                \n              \n              \n                \n                \n                  \n                    \n                    MISSAO\n                  \n                  Tempo restante--:--\n                \n                \n                \n                "
+    },
+    "tvVotacao1920": {
+      "classeDoConteudo": "arena-tv-content is-results",
+      "pergunta": "🎲 WILD CARD — QUEM ENTRA NA ARENA?",
+      "opcoes": [
+        "A Cartaz para a mostra Joana: título, data, local, programação e contato, em linguagem clara e sem dados inventados. 0 v",
+        "B Cartaz para a mostra Kaio: título, data, local, programação e contato, em linguagem clara e sem dados inventados. 0 vo",
+        "C Cartaz para a mostra Gabi: título, data, local, programação e contato, em linguagem clara e sem dados inventados. 0 vo"
+      ],
+      "rodapeDaPergunta": "0 votos até agora",
+      "rodadaNoAr": false,
+      "blocosPintados": [
+        "arena-tv-results"
+      ],
+      "alturaDaBarra": 72,
+      "topoDoConteudo": 80
+    },
+    "tvVotacao1280": {
+      "pergunta": "🎲 WILD CARD — QUEM ENTRA NA ARENA?",
+      "opcoes": 3,
+      "rolagem": 0
+    }
+  },
+  "falhas": [],
+  "limites": []
+}

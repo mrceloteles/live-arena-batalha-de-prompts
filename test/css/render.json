@@ -1,5 +1,6 @@
 {
   "folhasCarregadas": [
+    "aluno.css",
     "app-authorial.css",
     "arena.css",
     "design.css",
@@ -8,104 +9,104 @@
   ],
   "telas": {
     "portal__1440x900": {
-      "elementos": 30,
-      "hash": "0c98274c80e9384a"
+      "elementos": 48,
+      "hash": "175e137786055edc"
     },
     "entrada-do-aluno__1440x900": {
-      "elementos": 174,
-      "hash": "48f7a058af275ceb"
+      "elementos": 228,
+      "hash": "97e77dfe2ed010ae"
     },
     "entrada-do-aluno-com-codigo__1440x900": {
-      "elementos": 174,
-      "hash": "cdd2f95e4e32303d"
+      "elementos": 228,
+      "hash": "21c784fe855acd19"
     },
     "painel-login__1440x900": {
-      "elementos": 32,
-      "hash": "afac998c9991b473"
+      "elementos": 33,
+      "hash": "8a1349dcae0dad8f"
     },
     "painel-do-professor__1440x900": {
-      "elementos": 282,
-      "hash": "69252b22c91823e7"
+      "elementos": 258,
+      "hash": "34f1aca3a0296f4e"
     },
     "sala-em-destaque-em-espera__1440x900": {
-      "elementos": 498,
-      "hash": "8e0b4388e5ab5c0c"
+      "elementos": 540,
+      "hash": "5391968583977b76"
     },
     "sala-em-destaque-em-jogo__1440x900": {
-      "elementos": 509,
-      "hash": "085fcf0404aa5ecd"
+      "elementos": 556,
+      "hash": "d08416ba81978ffd"
     },
     "previa-do-aluno__1440x900": {
-      "elementos": 174,
-      "hash": "bac14ebd047af671"
+      "elementos": 228,
+      "hash": "e65fd66076e3f8de"
     },
     "previa-da-tv__1440x900": {
-      "elementos": 32,
-      "hash": "d26731b34c10d4d8"
+      "elementos": 35,
+      "hash": "62a4bf6b4820a439"
     },
     "projecao-da-tv__1440x900": {
-      "elementos": 71,
-      "hash": "7238b29ddfe0a6ce"
+      "elementos": 74,
+      "hash": "9df98de135fcc702"
     },
     "projecao-da-tv-rodada-viva__1440x900": {
-      "elementos": 52,
-      "hash": "1c3958b4f189e11b"
+      "elementos": 55,
+      "hash": "d9810a918f7ed645"
     },
     "projecao-da-tv-placar__1440x900": {
-      "elementos": 85,
-      "hash": "8892c4a7ae4d3f01"
+      "elementos": 88,
+      "hash": "6cd550f6f7f62e64"
     },
     "relatorio__1440x900": {
       "elementos": 608,
       "hash": "234f6df990700b6f"
     },
     "portal__390x844": {
-      "elementos": 30,
-      "hash": "ce2f56e141c69168"
+      "elementos": 48,
+      "hash": "3d76d719a85c8ccd"
     },
     "entrada-do-aluno__390x844": {
-      "elementos": 174,
-      "hash": "392dcfe227fbb6e8"
+      "elementos": 228,
+      "hash": "4e57a04332c8964d"
     },
     "entrada-do-aluno-com-codigo__390x844": {
-      "elementos": 174,
-      "hash": "7c8c0f601af49538"
+      "elementos": 228,
+      "hash": "0064348bd5a2326d"
     },
     "painel-login__390x844": {
-      "elementos": 32,
-      "hash": "c3c61b0fd1ab2f26"
+      "elementos": 33,
+      "hash": "2df9afa4d29c7fb6"
     },
     "painel-do-professor__390x844": {
-      "elementos": 282,
-      "hash": "5024769cdd5d20ac"
+      "elementos": 258,
+      "hash": "75051ee5067cd4b0"
     },
     "sala-em-destaque-em-espera__390x844": {
-      "elementos": 498,
-      "hash": "f21bbe2e2750abe4"
+      "elementos": 540,
+      "hash": "4e613ff6dea3632c"
     },
     "sala-em-destaque-em-jogo__390x844": {
-      "elementos": 509,
-      "hash": "9c5247770c689ed2"
+      "elementos": 556,
+      "hash": "8ec78316fdb62ad4"
     },
     "previa-do-aluno__390x844": {
-      "elementos": 174,
-      "hash": "d882087857620e0f"
+      "elementos": 228,
+      "hash": "5fd1629c85da5438"
     },
     "previa-da-tv__390x844": {
-      "elementos": 32,
-      "hash": "337c9965fcc0a3f8"
+      "elementos": 35,
+      "hash": "edfab1196b04260d"
     },
     "projecao-da-tv__390x844": {
-      "elementos": 71,
-      "hash": "cce1acc955ae47be"
+      "elementos": 74,
+      "hash": "a033c64ec95f61fc"
     },
     "projecao-da-tv-rodada-viva__390x844": {
-      "elementos": 52,
-      "hash": "38a6898f09f80a39"
+      "elementos": 55,
+      "hash": "0384d5d03b7cf6b7"
     },
     "projecao-da-tv-placar__390x844": {
-      "elementos": 85,
-      "hash": "215b16432f4b8ee6"
+      "elementos": 88,
+      "hash": "e06116407d07a8b1"
     },
     "relatorio__390x844": {
       "elementos": 608,

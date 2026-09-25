@@ -1,0 +1,73 @@
+{
+  "rotulo": "alvo local 8",
+  "alvo": "http://127.0.0.1:59004",
+  "instalacao": {
+    "perfil": "volume-persistente",
+    "juiz": "gemini",
+    "versao": null,
+    "avisos": [
+      "juiz apontando para um endpoint alternativo (http://127.0.0.1:59003): use isto so em homologacao/medicao, com um destino que voce controla. Em producao, remova GEMINI_BASE_URL para voltar ao provedor oficial."
+    ],
+    "tipo": "instalacao_remota",
+    "provedor": "real",
+    "endpoint_controlado": false,
+    "banco_em_arquivo": false,
+    "base_do_provedor": null,
+    "preflight": null,
+    "submit_wait_ms": 8000,
+    "concorrencia_do_teto": 4
+  },
+  "alunos": 8,
+  "missoes": 2,
+  "latencia_do_provedor_ms": null,
+  "modo_do_juiz": null,
+  "orcamento": null,
+  "envios": 8,
+  "pendentes": 0,
+  "falhas": 0,
+  "amostra_de_erro": null,
+  "status": [
+    200
+  ],
+  "envio_p50_ms": 206,
+  "envio_p95_ms": 218,
+  "envio_max_ms": 218,
+  "conclusao_das_notas_ms": 9,
+  "notas_gravadas": 8,
+  "chamadas_ao_provedor": 8,
+  "fonte_das_chamadas": "judge_budget_spent_last_hour",
+  "chamadas_por_submissao": 1,
+  "provedor_pico_simultaneo": null,
+  "streams_abertos": 8,
+  "stream_bytes_total": 8912,
+  "stream_bytes_p50": 1114,
+  "eventos_sse": 80,
+  "bytes_lobby": 2669,
+  "procedencia_das_notas": {
+    "total": 8,
+    "local": 0,
+    "provedor": "gemini"
+  },
+  "degradacao": null,
+  "teto_antes": {
+    "active": 0,
+    "queued": 0,
+    "concurrency": 4,
+    "per_hour": 400,
+    "spent_last_hour": 0,
+    "remaining_last_hour": 400
+  },
+  "teto_depois": {
+    "active": 0,
+    "queued": 0,
+    "concurrency": 4,
+    "per_hour": 400,
+    "spent_last_hour": 8,
+    "remaining_last_hour": 392
+  },
+  "encerramento": {
+    "saiu": true,
+    "drenou": null,
+    "cancelou": null
+  }
+}

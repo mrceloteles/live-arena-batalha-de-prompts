@@ -196,9 +196,23 @@ function lerAspas(fonte, inicio) {
   return { valor: saida, fim: i };
 }
 
-// Dentro de `${ ... }` pode haver string, template aninhado e chaves de objeto —
-// contar chaves sozinho não basta, e o `}` de um template aninhado fecharia a
-// expressão cedo. Por isso string e template aninhados são consumidos inteiros.
+// Dentro de `${ ... }` pode haver string, template aninhado, REGEX, comentário e
+// chaves de objeto — contar chaves sozinho não basta, e o `}` de um template
+// aninhado fecharia a expressão cedo. Por isso string, template e regex são
+// consumidos inteiros, e comentário é pulado.
+//
+// O REGEX dentro da interpolação faltava, e a conta que isso custou: em
+// `arena.js` a linha
+//
+//   `[${attr}="${String(node.getAttribute(attr)).replace(/(["\\\\])/g, '\\\\$1')}"]`
+//
+// tem uma classe de caractere com ASPAS. Sem saber ler regex aqui, o leitor
+// entrava na aspa da classe como se fosse string, consumia o `"` de fechamento
+// e o `{`/`}` da expressão saía de fase — a varredura do arquivo morria ali e
+// NADA depois contava. Medido em 19/09/2026: `arena.js` "media" 691 palavras
+// contra as 1346 do cartório, com o painel do professor inteiro (e os diálogos,
+// que ficam depois) fora da régua. A guarda não reprovava porque a folga escrita
+// do cartório cobria o buraco — folga que existe para outra coisa.
 function lerTemplate(fonte, inicio) {
   let saida = '';
   let i = inicio + 1;
@@ -213,13 +227,51 @@ function lerTemplate(fonte, inicio) {
     if (c === '$' && fonte[i + 1] === '{') {
       i += 2;
       let nivel = 1;
+      // A mesma pergunta do scanner de fora: `/` é divisão ou abre regex? Sem
+      // esta marca, uma divisão viraria regex (inofensivo) e um regex com aspa
+      // viraria string (o defeito descrito acima).
+      let depoisDeValor = false;
       while (i < fonte.length && nivel > 0) {
         const d = fonte[i];
+        if (d === '/' && fonte[i + 1] === '/') {
+          const fim = fonte.indexOf('\n', i);
+          i = fim < 0 ? fonte.length : fim + 1;
+          continue;
+        }
+        if (d === '/' && fonte[i + 1] === '*') {
+          const fim = fonte.indexOf('*/', i + 2);
+          i = fim < 0 ? fonte.length : fim + 2;
+          continue;
+        }
         if (d === '\\') { i += 2; continue; }
-        if (d === '{') { nivel += 1; i += 1; continue; }
-        if (d === '}') { nivel -= 1; i += 1; continue; }
-        if (d === '`') { i = lerTemplate(fonte, i).fim; continue; }
-        if (d === '"' || d === "'") { i = lerAspas(fonte, i).fim; continue; }
+        if (d === '{') { nivel += 1; i += 1; depoisDeValor = false; continue; }
+        if (d === '}') { nivel -= 1; i += 1; depoisDeValor = false; continue; }
+        if (d === '`') { i = lerTemplate(fonte, i).fim; depoisDeValor = true; continue; }
+        if (d === '"' || d === "'") { i = lerAspas(fonte, i).fim; depoisDeValor = true; continue; }
+        if (d === '/' && !depoisDeValor) { i = lerRegex(fonte, i); depoisDeValor = true; continue; }
+        if (ehPalavra(d)) {
+          let j = i;
+          while (j < fonte.length && ehPalavra(fonte[j])) j += 1;
+          depoisDeValor = !PALAVRAS_QUE_NAO_ABREM_REGEX.has(fonte.slice(i, j));
+          i = j;
+          continue;
+        }
+        if (/[0-9]/.test(d)) {
+          let j = i;
+          while (j < fonte.length && /[\w.]/.test(fonte[j])) j += 1;
+          i = j;
+          depoisDeValor = true;
+          continue;
+        }
+        // ESPAÇO não apaga a marca. `a / b` tem divisão depois de um valor, e
+        // com a marca zerada pelo espaço o leitor lia o `/` como ABERTURA de
+        // regex — que então engolia `b}` até a quebra de linha e matava o
+        // `}` que fecha a interpolação. O leitor saía de fase e o resto do
+        // arquivo deixava de contar. Medido em 19/09/2026: a divisão
+        // `${Math.round((entry.avg / 20) * 100)}` do relatório do painel
+        // derrubava a varredura do `arena.js` dali para a frente.
+        if (/\s/.test(d)) { i += 1; continue; }
+        depoisDeValor = d === ')' || d === ']';
         i += 1;
       }
       continue;
@@ -311,6 +363,10 @@ export function literaisDeCodigo(fonte) {
     // `}` fecha bloco ou objeto: na dúvida, NÃO é valor. Errar para este lado
     // lê `/\//` como regex (inofensivo) em vez de engolir código como se fosse
     // texto, que é o erro que corromperia a conta.
+    //
+    // ESPAÇO, porém, não decide nada: ele não apaga a marca do valor anterior.
+    // Sem esta linha, `total / contagem` fora de expressão virava regex.
+    if (/\s/.test(c)) { i += 1; continue; }
     depoisDeValor = c === ')' || c === ']';
     i += 1;
   }

@@ -1,0 +1,962 @@
+{
+  "rotulo": "antes",
+  "medidas": {
+    "aulasFechadas": {
+      "grade": {
+        "colunas": "335.328px 335.328px 335.344px",
+        "largura": 1030,
+        "gap": "12px"
+      },
+      "cartoes": [
+        {
+          "titulo": "Aula 2 — Fundação",
+          "tituloNasLinhas": 21,
+          "resumo": "4 missões · 1× Resgate · 1× Precisão · 1× Prompt Essencial · 1× Diagnóstico",
+          "palavrasDoResumo": 15,
+          "alturaDoResumo": 38,
+          "aberta": false,
+          "itensNaDobra": 4,
+          "topo": 304,
+          "altura": 246,
+          "largura": 335,
+          "topoDaAcao": 431,
+          "fundoDaAcao": 479,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 172,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 188,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        },
+        {
+          "titulo": "Aula 3 — Controle do resultado",
+          "tituloNasLinhas": 21,
+          "resumo": "4 missões · 2× Prompt Completo · 1× Precisão · 1× Briefing de Cliente",
+          "palavrasDoResumo": 14,
+          "alturaDoResumo": 38,
+          "aberta": false,
+          "itensNaDobra": 4,
+          "topo": 304,
+          "altura": 246,
+          "largura": 335,
+          "topoDaAcao": 431,
+          "fundoDaAcao": 479,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 172,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 188,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        },
+        {
+          "titulo": "Aula 4 — Multimodal e visual",
+          "tituloNasLinhas": 21,
+          "resumo": "4 missões de Engenharia Reversa",
+          "palavrasDoResumo": 5,
+          "alturaDoResumo": 19,
+          "aberta": false,
+          "itensNaDobra": 4,
+          "topo": 304,
+          "altura": 246,
+          "largura": 335,
+          "topoDaAcao": 412,
+          "fundoDaAcao": 460,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 172,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 188,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        },
+        {
+          "titulo": "Aula 5 — Arena final",
+          "tituloNasLinhas": 21,
+          "resumo": "7 missões · 1× Precisão · 1× Sprint · 1× Prompt Essencial · 1× Resgate · 1× Engenharia Reversa · 1× Briefing de Cliente · 1× Boss Battle",
+          "palavrasDoResumo": 28,
+          "alturaDoResumo": 56,
+          "aberta": false,
+          "itensNaDobra": 7,
+          "topo": 562,
+          "altura": 265,
+          "largura": 335,
+          "topoDaAcao": 708,
+          "fundoDaAcao": 756,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 172,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 188,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        }
+      ]
+    },
+    "aulasCelular": {
+      "grade": {
+        "colunas": "316px",
+        "largura": 316,
+        "gap": "12px"
+      },
+      "cartoes": [
+        {
+          "titulo": "Aula 2 — Fundação",
+          "tituloNasLinhas": 21,
+          "resumo": "4 missões · 1× Resgate · 1× Precisão · 1× Prompt Essencial · 1× Diagnóstico",
+          "palavrasDoResumo": 15,
+          "alturaDoResumo": 38,
+          "aberta": false,
+          "itensNaDobra": 4,
+          "topo": 2501,
+          "altura": 246,
+          "largura": 316,
+          "topoDaAcao": 2628,
+          "fundoDaAcao": 2676,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 286,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 286,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        },
+        {
+          "titulo": "Aula 3 — Controle do resultado",
+          "tituloNasLinhas": 21,
+          "resumo": "4 missões · 2× Prompt Completo · 1× Precisão · 1× Briefing de Cliente",
+          "palavrasDoResumo": 14,
+          "alturaDoResumo": 38,
+          "aberta": false,
+          "itensNaDobra": 4,
+          "topo": 2759,
+          "altura": 246,
+          "largura": 316,
+          "topoDaAcao": 2886,
+          "fundoDaAcao": 2934,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 286,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 286,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        },
+        {
+          "titulo": "Aula 4 — Multimodal e visual",
+          "tituloNasLinhas": 21,
+          "resumo": "4 missões de Engenharia Reversa",
+          "palavrasDoResumo": 5,
+          "alturaDoResumo": 19,
+          "aberta": false,
+          "itensNaDobra": 4,
+          "topo": 3017,
+          "altura": 227,
+          "largura": 316,
+          "topoDaAcao": 3126,
+          "fundoDaAcao": 3174,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 286,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 286,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        },
+        {
+          "titulo": "Aula 5 — Arena final",
+          "tituloNasLinhas": 21,
+          "resumo": "7 missões · 1× Precisão · 1× Sprint · 1× Prompt Essencial · 1× Resgate · 1× Engenharia Reversa · 1× Briefing de Cliente · 1× Boss Battle",
+          "palavrasDoResumo": 28,
+          "alturaDoResumo": 56,
+          "aberta": false,
+          "itensNaDobra": 7,
+          "topo": 3257,
+          "altura": 265,
+          "largura": 316,
+          "topoDaAcao": 3403,
+          "fundoDaAcao": 3451,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 286,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 286,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        }
+      ]
+    },
+    "aulasUmaAberta": {
+      "grade": {
+        "colunas": "335.328px 335.328px 335.344px",
+        "largura": 1030,
+        "gap": "12px"
+      },
+      "cartoes": [
+        {
+          "titulo": "Aula 2 — Fundação",
+          "tituloNasLinhas": 21,
+          "resumo": "4 missões · 1× Resgate · 1× Precisão · 1× Prompt Essencial · 1× Diagnóstico",
+          "palavrasDoResumo": 15,
+          "alturaDoResumo": 38,
+          "aberta": false,
+          "itensNaDobra": 4,
+          "topo": 304,
+          "altura": 246,
+          "largura": 335,
+          "topoDaAcao": 431,
+          "fundoDaAcao": 479,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 172,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 188,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        },
+        {
+          "titulo": "Aula 3 — Controle do resultado",
+          "tituloNasLinhas": 21,
+          "resumo": "4 missões · 2× Prompt Completo · 1× Precisão · 1× Briefing de Cliente",
+          "palavrasDoResumo": 14,
+          "alturaDoResumo": 38,
+          "aberta": false,
+          "itensNaDobra": 4,
+          "topo": 304,
+          "altura": 246,
+          "largura": 335,
+          "topoDaAcao": 431,
+          "fundoDaAcao": 479,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 172,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 188,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        },
+        {
+          "titulo": "Aula 4 — Multimodal e visual",
+          "tituloNasLinhas": 21,
+          "resumo": "4 missões de Engenharia Reversa",
+          "palavrasDoResumo": 5,
+          "alturaDoResumo": 19,
+          "aberta": false,
+          "itensNaDobra": 4,
+          "topo": 304,
+          "altura": 246,
+          "largura": 335,
+          "topoDaAcao": 412,
+          "fundoDaAcao": 460,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 172,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 188,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        },
+        {
+          "titulo": "Aula 5 — Arena final",
+          "tituloNasLinhas": 21,
+          "resumo": "7 missões · 1× Precisão · 1× Sprint · 1× Prompt Essencial · 1× Resgate · 1× Engenharia Reversa · 1× Briefing de Cliente · 1× Boss Battle",
+          "palavrasDoResumo": 28,
+          "alturaDoResumo": 56,
+          "aberta": true,
+          "itensNaDobra": 7,
+          "topo": 562,
+          "altura": 464,
+          "largura": 335,
+          "topoDaAcao": 907,
+          "fundoDaAcao": 955,
+          "acoes": [
+            {
+              "rotulo": "Adicionar a sala",
+              "desabilitado": false,
+              "largura": 172,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": true,
+              "cor": "rgb(255, 255, 255)",
+              "borda": "0px rgb(255, 255, 255)",
+              "raio": "999px",
+              "sombra": "rgba(0, 82, 255, 0.14) 0px 4px 14px 0px",
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            },
+            {
+              "rotulo": "So criar no banco",
+              "desabilitado": false,
+              "largura": 188,
+              "altura": 48,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(203, 213, 225)",
+              "raio": "999px",
+              "sombra": null,
+              "fonte": "16px",
+              "peso": "900",
+              "padding": "12px 24px"
+            }
+          ]
+        }
+      ]
+    },
+    "bancoUmDesafio": {
+      "grade": {
+        "colunas": "1030px 0px 0px",
+        "largura": 1030,
+        "gap": "16px"
+      },
+      "cartoes": [
+        {
+          "titulo": "Pedido do cliente",
+          "largura": 1030,
+          "altura": 173,
+          "topo": 179,
+          "acoes": [
+            {
+              "rotulo": "Editar",
+              "largura": 57,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Duplicar",
+              "largura": 70,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Excluir",
+              "largura": 60,
+              "altura": 44,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(239, 68, 68)",
+              "borda": "1px rgb(254, 226, 226)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            }
+          ]
+        }
+      ]
+    },
+    "bancoUmDesafioCelular": {
+      "grade": {
+        "colunas": "316px",
+        "largura": 316,
+        "gap": "16px"
+      },
+      "cartoes": [
+        {
+          "titulo": "Pedido do cliente",
+          "largura": 316,
+          "altura": 173,
+          "topo": 2078,
+          "acoes": [
+            {
+              "rotulo": "Editar",
+              "largura": 57,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Duplicar",
+              "largura": 70,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Excluir",
+              "largura": 60,
+              "altura": 44,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(239, 68, 68)",
+              "borda": "1px rgb(254, 226, 226)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            }
+          ]
+        }
+      ]
+    },
+    "bancoCincoDesafios": {
+      "grade": {
+        "colunas": "332.656px 332.672px 332.656px",
+        "largura": 1030,
+        "gap": "16px"
+      },
+      "cartoes": [
+        {
+          "titulo": "Bilhete da reunião",
+          "largura": 333,
+          "altura": 173,
+          "topo": 178,
+          "acoes": [
+            {
+              "rotulo": "Editar",
+              "largura": 57,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Duplicar",
+              "largura": 70,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Excluir",
+              "largura": 60,
+              "altura": 44,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(239, 68, 68)",
+              "borda": "1px rgb(254, 226, 226)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            }
+          ]
+        },
+        {
+          "titulo": "Convite da mostra",
+          "largura": 333,
+          "altura": 173,
+          "topo": 178,
+          "acoes": [
+            {
+              "rotulo": "Editar",
+              "largura": 57,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Duplicar",
+              "largura": 70,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Excluir",
+              "largura": 60,
+              "altura": 44,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(239, 68, 68)",
+              "borda": "1px rgb(254, 226, 226)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            }
+          ]
+        },
+        {
+          "titulo": "Post de robótica",
+          "largura": 333,
+          "altura": 173,
+          "topo": 178,
+          "acoes": [
+            {
+              "rotulo": "Editar",
+              "largura": 57,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Duplicar",
+              "largura": 70,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Excluir",
+              "largura": 60,
+              "altura": 44,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(239, 68, 68)",
+              "borda": "1px rgb(254, 226, 226)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            }
+          ]
+        },
+        {
+          "titulo": "Cartaz da feira",
+          "largura": 333,
+          "altura": 173,
+          "topo": 367,
+          "acoes": [
+            {
+              "rotulo": "Editar",
+              "largura": 57,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Duplicar",
+              "largura": 70,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Excluir",
+              "largura": 60,
+              "altura": 44,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(239, 68, 68)",
+              "borda": "1px rgb(254, 226, 226)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            }
+          ]
+        },
+        {
+          "titulo": "Pedido do cliente",
+          "largura": 333,
+          "altura": 173,
+          "topo": 367,
+          "acoes": [
+            {
+              "rotulo": "Editar",
+              "largura": 57,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Duplicar",
+              "largura": 70,
+              "altura": 44,
+              "fundo": "rgb(255, 255, 255)",
+              "gradiente": false,
+              "cor": "rgb(71, 85, 105)",
+              "borda": "1px rgb(226, 232, 240)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            },
+            {
+              "rotulo": "Excluir",
+              "largura": 60,
+              "altura": 44,
+              "fundo": "rgba(0, 0, 0, 0)",
+              "gradiente": false,
+              "cor": "rgb(239, 68, 68)",
+              "borda": "1px rgb(254, 226, 226)",
+              "raio": "6px",
+              "sombra": null,
+              "fonte": "11.5px",
+              "peso": "600",
+              "padding": "5px 11px"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pendentes": []
+}

@@ -1,0 +1,75 @@
+{
+ "salaReversa": {
+  "room": {
+   "id": "0a7702c1-5452-4f22-80ce-bef7e85f0916",
+   "code": "ZATK39",
+   "pin": null,
+   "title": "SONDA rodada reversa 2026-09-22T14:04",
+   "status": "draft",
+   "preset": "personalizado",
+   "expectedPlayers": 30,
+   "settings": {
+    "preset": "personalizado",
+    "maxPlayers": 35,
+    "rounds": 0,
+    "roundDuration": 0,
+    "resultsDuration": 0,
+    "finalResultsDuration": 0,
+    "scoringMode": "arena",
+    "rankingMode": "arena",
+    "judgeKind": "criteria",
+    "contentSource": "challenge-bank",
+    "rosterLocksAtStart": false,
+    "gameMode": "classic"
+   },
+   "currentCycle": 1,
+   "revision": 0,
+   "entryBlocked": false,
+   "createdAt": 1790085899.768,
+   "updatedAt": 1790085899.768,
+   "startedAt": null,
+   "endedAt": null
+  },
+  "codigo": "ZATK39"
+ },
+ "salaCompleto": {
+  "room": {
+   "id": "d7521375-517b-4c17-a092-056878901ae3",
+   "code": "UYTW67",
+   "pin": null,
+   "title": "SONDA rodada completo 2026-09-22T14:04",
+   "status": "draft",
+   "preset": "personalizado",
+   "expectedPlayers": 30,
+   "settings": {
+    "preset": "personalizado",
+    "maxPlayers": 35,
+    "rounds": 0,
+    "roundDuration": 0,
+    "resultsDuration": 0,
+    "finalResultsDuration": 0,
+    "scoringMode": "arena",
+    "rankingMode": "arena",
+    "judgeKind": "criteria",
+    "contentSource": "challenge-bank",
+    "rosterLocksAtStart": false,
+    "gameMode": "classic"
+   },
+   "currentCycle": 1,
+   "revision": 0,
+   "entryBlocked": false,
+   "createdAt": 1790085899.835,
+   "updatedAt": 1790085899.835,
+   "startedAt": null,
+   "endedAt": null
+  },
+  "codigo": "UYTW67"
+ },
+ "resposta": "Escreva um relatório técnico de duas páginas sobre o projeto de robótica da escola, para a banca da feira: contexto do projeto, objetivos, materiais, etapas de montagem, resultados dos testes e próximos passos. Linguagem formal, seções numeradas, tabela de custos e conclusão com recomendações.",
+ "nota": {
+  "pct": "71 PTS",
+  "unidade": "de 100",
+  "feedback": "O objetivo do que você quer está claro, mas explicite o resultado esperado. Reescreva com ",
+  "criterios": []
+ }
+}

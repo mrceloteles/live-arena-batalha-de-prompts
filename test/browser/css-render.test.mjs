@@ -106,7 +106,7 @@ const folhasCarregadas = new Set();
 const abrirDetalhe = (roomId) => async (pagina) => {
   await pagina.waitForSelector(`[data-arena-room-list] [data-room-id="${roomId}"]`, { timeout: 30_000 });
   await pagina.click(`[data-arena-room-list] [data-room-id="${roomId}"] [data-action="detail"]`);
-  await pagina.waitForSelector('[data-arena-detail]:not([hidden]) .arena-detail-head', { timeout: 30_000 });
+  await pagina.waitForSelector('[data-arena-detail]:not([hidden]) .arena-detail-head-bar', { timeout: 30_000 });
   await pagina.waitForSelector('.arena-rounds-grid .arena-round-card', { timeout: 30_000 });
   await pagina.waitForSelector('[data-qr-entry]:not([hidden])', { timeout: 30_000 });
 };
@@ -343,6 +343,16 @@ async function capturar() {
         // Telas que só existem depois de um gesto (o detalhe da sala) montam o
         // próprio estado aqui, antes de a foto ser tirada.
         if (preparar) await preparar(pagina);
+        // O ponteiro do mouse fica onde o clique o deixou, e depois que a tela se
+        // redesenha ele pode acabar em cima de OUTRO elemento — com o `:hover`
+        // dele dentro do retrato. Foi medido: em 4 rodadas seguidas do mesmo
+        // código, o `a.arena-preview-open` da "sala em destaque em jogo" (390px)
+        // saiu branco em duas e tingido pelas cores do `:hover` nas outras duas
+        // (`refinement.css` manda `#f7f9fd` / `#c3d2ea` no hover) — um portão
+        // intermitente, que ensina a rodar de novo até ficar verde. Retrato é do
+        // estilo DA TELA, não do repouso do ponteiro: manda o mouse para longe
+        // antes de ler, e ele passa a ser o mesmo em toda rodada.
+        await pagina.mouse.move(0, 0);
         // Lê até que duas leituras seguidas batam. Uma espera fixa não garante
         // que a tela parou de se montar (as telas buscam dados depois do load),
         // e um retrato tirado no meio da montagem reprova o portão sozinho.
