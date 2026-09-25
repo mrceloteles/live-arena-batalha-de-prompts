@@ -1,4 +1,4 @@
-const refinementStyles = '<link rel="stylesheet" href="/public/assets/css/refinement.css?v=86">';
+const refinementStyles = '<link rel="stylesheet" href="/public/assets/css/refinement.css?v=87">';
 // A JORNADA DO ALUNO tem folha própria: `aluno.css` é o dono das telas do aluno
 // que esta frente construiu (a espera com o caminho de entrada e a leitura
 // "Como a batalha funciona"), e é onde as telas que ainda faltam portar

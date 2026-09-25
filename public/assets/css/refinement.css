@@ -313,7 +313,10 @@ body[data-page='index'] .portal-shell-center .portal-hero {
   /* Mesma família do cartão de entrada do aluno, com o respiro do topo da
      fita de perigo (`.brand-tape`, na seção da identidade). */
   padding: calc(var(--la-tape-h) + clamp(32px, 5vw, 44px)) clamp(28px, 4vw, 40px) clamp(28px, 5vw, 40px);
-  border-radius: var(--la-radius-card-lg) !important;
+  /* Canto reto: a aresta de cima deste cartão é a fita de perigo, e o raio
+     grande a recortava nas duas pontas — ela é reta em todo o resto do
+     produto, e só nos cartões com fita o canto a curvava. */
+  border-radius: 0 !important;
   background: #ffffff !important;
   border: 0 !important;
   box-shadow: var(--la-shadow-card) !important;

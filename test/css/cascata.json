@@ -448,7 +448,7 @@
   "||.admin-login-back": "align-content:center;color:var(--color-text-muted) !important !important;display:inline-block;font-size:13px;margin-top:12px;min-height:44px;text-decoration:none",
   "||.admin-login-back:hover": "color:#0b57d0 !important !important",
   "||.admin-login-brand": "display:flex;justify-content:center;margin-bottom:16px",
-  "||.admin-login-card": "background:#ffffff !important !important;border:0 !important !important;border-radius:var(--la-radius-card-lg) !important !important;box-shadow:var(--la-shadow-card) !important !important;overflow:hidden;padding:calc(var(--la-tape-h) + clamp(32px, 5vw, 44px)) clamp(28px, 4vw, 40px) clamp(28px, 5vw, 40px);position:relative;text-align:center;width:min(440px, 100%)",
+  "||.admin-login-card": "background:#ffffff !important !important;border:0 !important !important;border-radius:0 !important !important;box-shadow:var(--la-shadow-card) !important !important;overflow:hidden;padding:calc(var(--la-tape-h) + clamp(32px, 5vw, 44px)) clamp(28px, 4vw, 40px) clamp(28px, 5vw, 40px);position:relative;text-align:center;width:min(440px, 100%)",
   "||.admin-login-form": "display:flex;flex-direction:column;gap:16px;text-align:left",
   "||.admin-login-form .form-message": "background:transparent;border:0;color:var(--gray);font-size:14px;line-height:1.5;margin:4px 0 0;padding:0",
   "||.admin-login-form .form-message[data-tone='error']": "color:var(--color-danger)",
