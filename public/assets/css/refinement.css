@@ -1056,13 +1056,18 @@ body[data-page='arena'].round-active .round-workspace .brand-swoosh {
 body[data-page='arena'].round-active .round-workspace .brand-swoosh { --la-swoosh-w: 96px; }
 
 /* ---- CARTÃO DE ENTRADA (portal) ----
-   A referência LA-01: superfície branca sólida, canto grande e sombra
-   flutuante sobre o fundo menta/azul/lavanda. Sai a borda de 1 px e o vidro
-   translúcido — o cartão deve ler como superfície, não como camada de vidro.
+   A referência LA-01: superfície branca sólida e sombra flutuante sobre o fundo
+   menta/azul/lavanda. Sai a borda de 1 px e o vidro translúcido — o cartão deve
+   ler como superfície, não como camada de vidro.
    (Os outros dois cartões de entrada — aluno e painel — ficam com as regras
-   deles, logo acima, e leem o mesmo desenho.) */
+   deles, logo acima, e leem o mesmo desenho.)
+   O CANTO é reto: a aresta de cima do cartão é a fita de perigo, e o canto
+   grande recortava a fita nas duas pontas (o `overflow: hidden` do
+   `.brand-tape`) — a fita curvava só ali, enquanto no resto do produto ela é
+   reta. O canto reto é o que faz a fita ler como a borda do cartão, e não como
+   um adesivo colado por cima. */
 body[data-page='index'] .portal-hero {
-  border-radius: var(--la-radius-card-lg) !important;
+  border-radius: 0 !important;
   background: #ffffff !important;
   border: 0 !important;
   box-shadow: var(--la-shadow-card) !important;
