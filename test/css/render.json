@@ -10,107 +10,107 @@
   "telas": {
     "portal__1440x900": {
       "elementos": 48,
-      "hash": "ccab9ae46de2ab5e"
+      "hash": "86381b40e1cbacb7"
     },
     "entrada-do-aluno__1440x900": {
       "elementos": 228,
-      "hash": "97e77dfe2ed010ae"
+      "hash": "5a44552becaa2699"
     },
     "entrada-do-aluno-com-codigo__1440x900": {
       "elementos": 228,
-      "hash": "21c784fe855acd19"
+      "hash": "41fdff8061ee1e77"
     },
     "painel-login__1440x900": {
       "elementos": 33,
-      "hash": "e302a5a606f69a92"
+      "hash": "6b4de62bf1a380b5"
     },
     "painel-do-professor__1440x900": {
       "elementos": 258,
-      "hash": "34f1aca3a0296f4e"
+      "hash": "ecd981d5aa50900e"
     },
     "sala-em-destaque-em-espera__1440x900": {
       "elementos": 540,
-      "hash": "5391968583977b76"
+      "hash": "b42ad1758b315aec"
     },
     "sala-em-destaque-em-jogo__1440x900": {
       "elementos": 556,
-      "hash": "d08416ba81978ffd"
+      "hash": "0c137c0afcaed9e2"
     },
     "previa-do-aluno__1440x900": {
       "elementos": 228,
-      "hash": "e65fd66076e3f8de"
+      "hash": "53505e0143947905"
     },
     "previa-da-tv__1440x900": {
       "elementos": 35,
-      "hash": "2ea6a58594773841"
+      "hash": "a6eace8b0985500f"
     },
     "projecao-da-tv__1440x900": {
       "elementos": 74,
-      "hash": "5e5585f88c932b0d"
+      "hash": "9f573ade217300ec"
     },
     "projecao-da-tv-rodada-viva__1440x900": {
       "elementos": 55,
-      "hash": "e93d150b21038e7c"
+      "hash": "81f1a59c4882af3f"
     },
     "projecao-da-tv-placar__1440x900": {
       "elementos": 88,
-      "hash": "78f3738ee530830c"
+      "hash": "b8199ace6e6bdd73"
     },
     "relatorio__1440x900": {
       "elementos": 608,
-      "hash": "234f6df990700b6f"
+      "hash": "dde5229390d4be75"
     },
     "portal__390x844": {
       "elementos": 48,
-      "hash": "4f264695806ba8a7"
+      "hash": "d6f6511dde93dc7d"
     },
     "entrada-do-aluno__390x844": {
       "elementos": 228,
-      "hash": "4e57a04332c8964d"
+      "hash": "553b3ad3cd5faa86"
     },
     "entrada-do-aluno-com-codigo__390x844": {
       "elementos": 228,
-      "hash": "0064348bd5a2326d"
+      "hash": "65ddbcd332acc389"
     },
     "painel-login__390x844": {
       "elementos": 33,
-      "hash": "ca1b0fe758a49d3d"
+      "hash": "fafa8876d0463b49"
     },
     "painel-do-professor__390x844": {
       "elementos": 258,
-      "hash": "75051ee5067cd4b0"
+      "hash": "d748c21bba2549cc"
     },
     "sala-em-destaque-em-espera__390x844": {
       "elementos": 540,
-      "hash": "4e613ff6dea3632c"
+      "hash": "d6f1e2c52c43be65"
     },
     "sala-em-destaque-em-jogo__390x844": {
       "elementos": 556,
-      "hash": "8ec78316fdb62ad4"
+      "hash": "594a1957638c74dd"
     },
     "previa-do-aluno__390x844": {
       "elementos": 228,
-      "hash": "5fd1629c85da5438"
+      "hash": "1b65a877063acd29"
     },
     "previa-da-tv__390x844": {
       "elementos": 35,
-      "hash": "02ee4ac8910f0471"
+      "hash": "097324961d2de2af"
     },
     "projecao-da-tv__390x844": {
       "elementos": 74,
-      "hash": "7ca3fbc2cfdb6582"
+      "hash": "99c2486f492b59b4"
     },
     "projecao-da-tv-rodada-viva__390x844": {
       "elementos": 55,
-      "hash": "6d76678cf5f46f7c"
+      "hash": "7f67ef15c09531a3"
     },
     "projecao-da-tv-placar__390x844": {
       "elementos": 88,
-      "hash": "1b3eead88b1c6123"
+      "hash": "41477c6666863be2"
     },
     "relatorio__390x844": {
       "elementos": 608,
-      "hash": "603179e39a3bb806"
+      "hash": "9d2ff12c17060550"
     }
   }
 }

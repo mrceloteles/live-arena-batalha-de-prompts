@@ -135,7 +135,15 @@ const fotografar = (props) => {
       no = pai;
     }
     const estilo = getComputedStyle(elemento);
-    const valores = props.map((p) => `${p}:${estilo.getPropertyValue(p)}`).join(';');
+    // CSSOM resolves automatic margins to used pixels. Those pixels depend on
+    // text metrics and are geometry, which this gate deliberately excludes.
+    // Typed OM preserves the computed keyword; a change to an explicit margin
+    // still changes the snapshot instead of being silently ignored.
+    const computado = elemento.computedStyleMap();
+    const valores = props.map((p) => {
+      const automatico = p.startsWith('margin-') && computado.get(p)?.toString() === 'auto';
+      return `${p}:${automatico ? 'auto' : estilo.getPropertyValue(p)}`;
+    }).join(';');
     linhas.push(`${caminho.join('>')}\t${elemento.tagName.toLowerCase()}\t${elemento.getAttribute('class') || ''}\t${valores}`);
   }
   return { elementos: document.querySelectorAll('*').length, texto: linhas.join('\n') };
@@ -319,6 +327,9 @@ async function capturar() {
   const retratos = {};
   const pagina = await navegador.newPage();
   const sessao = await pagina.createCDPSession();
+  // The heatmap groups timestamps by the browser's local weekday/hour. Fix
+  // this fixture's zone so a Brazilian laptop and the UTC CI render one state.
+  await sessao.send('Emulation.setTimezoneOverride', { timezoneId: 'UTC' });
   pagina.on('response', (resposta) => {
     const caminho = new URL(resposta.url()).pathname;
     if (caminho.endsWith('.css')) folhasCarregadas.add(caminho.split('/').pop());
