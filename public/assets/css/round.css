@@ -943,8 +943,6 @@ body[data-page='arena'].round-active.round-finished .arena-mission-empty:has(.ar
   text-align: left;
   align-items: stretch;
 }
-body[data-page='arena'].round-active.round-finished .arena-ranking-row:nth-child(-n+3) { display: none !important; }
-body[data-page='arena'].round-active.round-finished .arena-ranking-panel:not(:has(.arena-ranking-row:nth-child(4))) { display: none !important; }
 body[data-page='arena'].round-active.round-finished .arena-side {
   width: 100%;
   max-width: none;
@@ -1107,6 +1105,7 @@ body[data-page='arena'].round-active.round-finished .arena-victory-podium {
   display: flex;
   justify-content: center;
   align-items: end;
+  flex-wrap: wrap;
   gap: 6px;
   width: min(650px, calc(100% - 44px));
   margin: 18px auto 0;
@@ -1128,6 +1127,19 @@ body[data-page='arena'].round-active.round-finished .arena-victory-place {
   animation: arenaPodiumRise .7s .5s cubic-bezier(.16,.84,.24,1) both;
 }
 body[data-page='arena'].round-active.round-finished .arena-victory-place.is-place-1 { animation-delay: .42s; }
+body[data-page='arena'].round-active.round-finished .arena-victory.is-tied .arena-victory-podium {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(135px, 100%), 1fr));
+  gap: 12px;
+  padding-bottom: 18px;
+}
+body[data-page='arena'].round-active.round-finished .arena-victory.is-tied .arena-victory-podium::after { display: none; }
+body[data-page='arena'].round-active.round-finished .arena-victory.is-tied .arena-victory-place > strong {
+  overflow-wrap: anywhere;
+  white-space: normal;
+  line-height: 1.25;
+  text-align: center;
+}
 body[data-page='arena'].round-active.round-finished .arena-victory-place.is-place-2 { animation-delay: .66s; }
 body[data-page='arena'].round-active.round-finished .arena-victory-place.is-place-3 { animation-delay: .82s; }
 @keyframes arenaPodiumRise {
@@ -1220,4 +1232,17 @@ body[data-page='arena'].round-active.round-finished .arena-victory-confetti i:nt
   body[data-page='arena'].round-active.round-finished .arena-victory-copy > img,
   body[data-page='arena'].round-active.round-finished .arena-victory-place,
   body[data-page='arena'].round-active.round-finished .arena-victory-confetti i { animation: none; }
+}
+@media (min-width: 640px) and (max-height: 800px) {
+  body[data-page='arena'].round-active.round-finished .arena-lobby-body {
+    margin-top: 20px;
+    padding: 28px 32px 16px !important;
+  }
+  body[data-page='arena'].round-active.round-finished .arena-mission-empty h1 {
+    font-size: clamp(38px, 5vw, 60px) !important;
+  }
+  body[data-page='arena'].round-active.round-finished .arena-victory {
+    min-height: 340px;
+    margin-top: 20px;
+  }
 }

@@ -867,19 +867,26 @@
       const resultsPending = finished && Number(lobby.results_pending || 0) > 0;
       document.body.classList.toggle('results-pending', resultsPending);
       const winner = finished && !resultsPending ? lobby.ranking?.[0] : null;
+      const champions = winner ? (lobby.ranking || []).filter((row) => Number(row.position) === 1) : [];
+      const tied = champions.length > 1;
+      // Preserve every participant tied at the podium cutoff; the server owns
+      // the places and tie-break rules, not the presentation.
+      const finalPodium = winner ? (lobby.ranking || []).filter((row, index) => (Number(row.position) || index + 1) <= 3) : [];
       const rankingHeading = $('[data-arena-ranking-heading]');
       if (rankingHeading) rankingHeading.textContent = winner ? 'Demais colocados' : rankingHeading.dataset.titleActive;
       $('[data-arena-empty-title]').textContent = resultsPending
         ? 'Conferindo resultado'
-        : winner ? 'Temos um campeão' : finished ? 'Batalha encerrada'
+        : winner ? (tied ? 'Temos campeões' : 'Temos um campeão') : finished ? 'Batalha encerrada'
           : completedRound ? 'Missão concluída' : 'Aguarde o professor iniciar';
       const victory = $('[data-arena-victory]');
       if (victory) {
         victory.hidden = !winner;
+        victory.classList.toggle('is-tied', tied);
         if (winner) {
           const total = Number(winner.total_points ?? winner.points_sum ?? winner.avg_percent ?? 0);
-          const podium = (lobby.ranking || []).slice(0, 3);
-          const key = `${room.id}:${podium.map((row) => `${row.participant_id || row.name}:${row.total_points ?? row.points_sum ?? row.avg_percent ?? 0}`).join('|')}`;
+          const podium = finalPodium;
+          const orderedPodium = !tied && podium.length <= 3 ? [podium[1], podium[0], podium[2]].filter(Boolean) : podium;
+          const key = `${room.id}:${podium.map((row) => `${row.participant_id || row.name}:${row.position}:${row.total_points ?? row.points_sum ?? row.avg_percent ?? 0}`).join('|')}`;
           if (victory.dataset.resultKey !== key) {
             victory.dataset.resultKey = key;
             victory.innerHTML = `
@@ -887,19 +894,19 @@
               <div class="arena-victory-rays" aria-hidden="true"></div>
               <div class="arena-victory-sparkles" aria-hidden="true"></div>
               <div class="arena-victory-copy">
-                <span>CAMPEÃO DA BATALHA</span>
+                <span>${tied ? 'CAMPEÕES DA BATALHA' : 'CAMPEÃO DA BATALHA'}</span>
                 <img src="/public/assets/figma/champion-medal-gold.svg" alt="" width="64" height="72">
-                <strong>${esc(winner.name)}</strong>
-                <p>${Math.round(total).toLocaleString('pt-BR')} pontos${String(winner.participant_id) === String(lobby.me?.id) ? ' · Você venceu!' : ''}</p>
+                <strong>${tied ? 'Vitória compartilhada' : esc(winner.name)}</strong>
+                <p>${total.toLocaleString('pt-BR', { maximumFractionDigits: 2 })} pontos${!tied && String(winner.participant_id) === String(lobby.me?.id) ? ' · Você venceu!' : ''}</p>
               </div>
               <div class="arena-victory-podium" data-count="${podium.length}" aria-label="Pódio final">
-                ${[podium[1], podium[0], podium[2]].filter(Boolean).map((row) => {
+                ${orderedPodium.map((row) => {
                   const place = Number(row.position) || podium.indexOf(row) + 1;
                   const score = Number(row.total_points ?? row.points_sum ?? row.avg_percent ?? 0);
                   const medal = ['gold', 'silver', 'bronze'][place - 1] || 'bronze';
-                  return `<div class="arena-victory-place is-place-${place}">
+                  return `<div class="arena-victory-place is-place-${place}" aria-label="${esc(row.name)}, ${place}º lugar, ${score.toLocaleString('pt-BR', { maximumFractionDigits: 2 })} pontos">
                     <img src="/public/assets/figma/champion-medal-${medal}.svg" alt="" width="38" height="44">
-                    ${place === 1 ? '' : `<strong>${esc(row.name)}</strong><span>${Math.round(score).toLocaleString('pt-BR')} pts</span>`}
+                    ${place === 1 && !tied ? '' : `<strong>${esc(row.name)}</strong><span>${score.toLocaleString('pt-BR', { maximumFractionDigits: 2 })} pts</span>`}
                     <div class="arena-victory-plinth" aria-hidden="true">${place}</div>
                   </div>`;
                 }).join('')}
@@ -912,7 +919,10 @@
       }
       const betweenCopy = $('[data-arena-between-copy]');
       const betweenScore = $('[data-arena-between-score]');
-      if (betweenCopy) betweenCopy.hidden = !completedRound;
+      if (betweenCopy) {
+        betweenCopy.hidden = !completedRound && !resultsPending;
+        if (resultsPending) betweenCopy.textContent = `${lobby.results_pending} ${Number(lobby.results_pending) === 1 ? 'avaliação pendente' : 'avaliações pendentes'}.`;
+      }
       if (betweenScore) betweenScore.hidden = !completedRound;
       if (completedRound) {
         if (betweenCopy) betweenCopy.textContent = 'Aguarde o professor.';
@@ -991,7 +1001,7 @@
       // Quando os tres somem, a coluna inteira some junto: o `hidden` vale
       // dentro de [data-arena-screen] (ver o catch-all em arena.css).
       renderResults(lobby.results, true);
-      renderRanking(lobby.ranking, true, Boolean(winner));
+      renderRanking(winner ? (lobby.ranking || []).filter((row) => !finalPodium.includes(row)) : lobby.ranking, true, Boolean(winner));
       renderHighlights(lobby.highlights, true);
       const side = document.querySelector('.arena-side');
       if (side) side.hidden = resultsPending || [...side.querySelectorAll('.arena-card')].every((card) => card.hidden);
@@ -1227,6 +1237,7 @@
           const start = performance.now();
           const format = classic ? (v) => String(Math.round(v)) : (v) => `${v.toLocaleString('pt-BR', { maximumFractionDigits: 2 })} PTS`;
           const frame = (time) => {
+            if (el.dataset.target !== targetText) return;
             // O quadro recebe o instante em que ele COMEÇOU, que pode ser
             // anterior ao `performance.now()` deste disparo: sem o piso em zero,
             // o primeiro quadro mostrava uma nota NEGATIVA ("-0,94 PTS", medido
@@ -1240,7 +1251,8 @@
               el.textContent = targetText;
             }
           };
-          requestAnimationFrame(frame);
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) el.textContent = targetText;
+          else requestAnimationFrame(frame);
         }
         $('[data-arena-breakdown]').innerHTML = classic ? '' : breakdownBars(latest.breakdown);
         // DIAGNÓSTICO (referência LA-03D): o melhor critério e o que ainda dá
@@ -1252,7 +1264,7 @@
           const entries = Object.entries(latest.breakdown || {})
             .filter(([, value]) => Number.isFinite(Number(value)))
             .sort((a, b) => Number(b[1]) - Number(a[1]));
-          if (classic || entries.length < 2) {
+          if (classic || entries.length < 2 || Number(entries[0][1]) === Number(entries[entries.length - 1][1])) {
             diagnosis.hidden = true;
             diagnosis.innerHTML = '';
           } else {
@@ -1261,7 +1273,7 @@
             const focus = entries[entries.length - 1];
             diagnosis.innerHTML = `
               <p class="arena-diagnosis-item is-best"><span>Melhor ponto</span><strong>${esc(label(best[0]))}</strong><em>${Number(best[1])}/20</em></p>
-              <p class="arena-diagnosis-item is-focus"><span>Foco agora</span><strong>${esc(label(focus[0]))}</strong><em>+${Math.max(0, 20 - Number(focus[1]))} pts possíveis</em></p>`;
+              <p class="arena-diagnosis-item is-focus"><span>Na próxima missão</span><strong>${esc(label(focus[0]))}</strong><em>${Number(focus[1])}/20</em></p>`;
             diagnosis.hidden = false;
           }
         }
@@ -4340,7 +4352,8 @@
 
     function openDialog(title, bodyHtml) {
       const dialog = $('[data-arena-dialog]');
-      $('[data-arena-dialog-body]').innerHTML = `<h3>${esc(title)}</h3>${bodyHtml}`;
+      $('[data-arena-dialog-body]').innerHTML = `<h3 id="arena-dialog-title">${esc(title)}</h3>${bodyHtml}`;
+      dialog.setAttribute('aria-labelledby', 'arena-dialog-title');
       if (typeof dialog.showModal === 'function') dialog.showModal();
       else dialog.setAttribute('open', '');
     }
@@ -5533,7 +5546,7 @@
           await refreshDetail(form.elements.room_id.value);
         } else if (form.matches('[data-arena-create-room]')) {
           const node = form.querySelector('[data-arena-create-message]');
-          message(node, 'Criando sala...', 'info');
+          message(node, '', 'info');
           const preset = form.elements.preset?.value || 'turma';
           const arenaConfigPayload = preset === 'arena' ? {
             arena_rounds: Number(form.elements.arena_rounds?.value || 3),
@@ -5920,7 +5933,7 @@
     function rankingMarkup(rows, classic) {
       if (!rows || !rows.length) return '<p class="arena-tv-empty">Ainda sem pontuação.</p>';
       return rows.map((row, index) => {
-        const position = index + 1;
+        const position = Number(row.position) || index + 1;
         const champion = position === 1;
         return `
           <li class="arena-tv-rank pos-${Math.min(position, 9)}${champion ? ' is-champion' : ''}">
@@ -6254,22 +6267,25 @@
     function resultsMarkup(tv, results, final) {
       const room = tv.room;
       const classic = isClassicish(room);
-      const rows = final ? tv.ranking : results?.ranking || [];
+      const rows = (final ? tv.ranking : results?.ranking) || [];
+      const pending = final && Number(tv.results_pending || 0) > 0;
+      const champions = final && !pending ? rows.filter((row, index) => (Number(row.position) || index + 1) === 1) : [];
+      const tied = champions.length > 1;
       const closed = room.status === 'ended' || room.status === 'archived';
       // UM título principal por estado. O selo que dizia "CLASSIFICAÇÃO FINAL"
       // acima de "Batalha encerrada!" era a terceira camada dizendo o mesmo que
       // o h1; e a linha de baixo repetia o número da rodada que o próprio h1 já
       // diz, então ela carrega só o nome da missão, que é informação nova.
-      const heading = final ? (closed ? 'Batalha encerrada!' : 'Resultado final') : `Resultado da rodada ${results?.position || ''}`;
-      const sub = results?.title && !final ? results.title : '';
-      const champion = final && rows && rows.length ? rows[0] : null;
+      const heading = pending ? 'Conferindo resultado' : tied ? 'Temos campeões' : final ? (closed ? 'Batalha encerrada!' : 'Resultado final') : `Resultado da rodada ${results?.position || ''}`;
+      const sub = pending ? `${tv.results_pending} ${Number(tv.results_pending) === 1 ? 'avaliação pendente' : 'avaliações pendentes'}` : results?.title && !final ? results.title : '';
+      const champion = champions[0] || null;
       const winner = champion ? `
             <div class="arena-tv-champion">
               ${medalImage(1, 'arena-tv-champion-medal')}
               ${winnerAvatar('arena-tv-champion-avatar')}
               <span class="arena-tv-champion-copy">
-                <span class="arena-tv-champion-kicker">Campeão da batalha</span>
-                <strong>${esc(champion.name)}</strong>
+                <span class="arena-tv-champion-kicker">${tied ? 'Empate no topo' : 'Campeão da batalha'}</span>
+                <strong>${champions.map((row) => esc(row.name)).join(' · ')}</strong>
                 <b>${pointsStar('arena-tv-champion-star')}${esc(standingLabel(champion, classic))}</b>
               </span>
             </div>` : '';
@@ -6281,8 +6297,8 @@
             ${sub ? `<p>${esc(sub)}</p>` : ''}
             ${winner}
           </header>
-          <ol class="arena-tv-rank-list arena-tv-rank-list-large">${rankingMarkup(rows, classic)}</ol>
-          ${arenaTvMarkup(tv)}
+          ${pending ? '' : `<ol class="arena-tv-rank-list arena-tv-rank-list-large">${rankingMarkup(rows, classic)}</ol>`}
+          ${pending ? '' : arenaTvMarkup(tv)}
         </div>`;
     }
 

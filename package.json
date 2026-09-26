@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/server/start.mjs",
+    "dev": "node --watch src/server/start.mjs",
     "validar-integridade": "node scripts/validar-integridade.mjs",
     "backup-banco": "node scripts/backup.mjs",
     "carga": "node scripts/carga.mjs",

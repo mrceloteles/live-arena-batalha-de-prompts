@@ -54,7 +54,9 @@ function sendStatic(request, response) {
   if (!candidate.startsWith(publicRoot + sep) || !existsSync(candidate) || !statSync(candidate).isFile()) return false;
   response.writeHead(200, {
     'content-type': types[extname(candidate)] || 'application/octet-stream',
-    'cache-control': 'public, max-age=3600',
+    // Local refinement must show the current CSS/JS after a reload. Production
+    // keeps its existing cache policy and versioned asset URLs.
+    'cache-control': isProduction(process.env) ? 'public, max-age=3600' : 'no-store',
     'x-content-type-options': 'nosniff',
     'x-frame-options': 'SAMEORIGIN',
     'referrer-policy': 'strict-origin-when-cross-origin',

@@ -680,12 +680,12 @@ test('browser reviews a room mission by mission the way the student will see it'
     if (resultado.diagnostico.length) {
       assert.deepEqual(
         resultado.diagnostico.map((item) => item.rotulo),
-        ['Melhor ponto', 'Foco agora'],
-        'o diagnóstico lê o melhor critério e o que ainda dá ponto',
+        ['Melhor ponto', 'Na próxima missão'],
+        'o diagnóstico prepara a missão seguinte sem prometer outro envio',
       );
       assert.equal(resultado.diagnostico.every((item) => item.criterio.trim().length > 0), true);
       assert.match(resultado.diagnostico[0].detalhe, /\/20$/);
-      assert.match(resultado.diagnostico[1].detalhe, /^\+\d+ pts/);
+      assert.match(resultado.diagnostico[1].detalhe, /\/20$/);
       assert.equal(resultado.diagnosticoEscondido, false);
     }
     // Nota, feedback e proximo passo vem primeiro; o detalhe dos criterios existe
@@ -724,8 +724,8 @@ test('browser reviews a room mission by mission the way the student will see it'
       selo: document.querySelector('.arena-preview-sample')?.textContent,
     }));
     assert.equal(fim.resultados, 2, 'uma linha de resultado por missao da sala');
-    assert.equal(fim.classificacao, 4);
-    assert.equal(fim.campeao, 1, 'so o primeiro lugar e campeao');
+    assert.equal(fim.classificacao + fim.podio.length, 4, 'cada participante aparece uma vez no pódio ou na lista restante');
+    assert.equal(fim.campeao, 0, 'o campeão já ocupa o pódio e não se repete nos demais colocados');
     assert.ok(fim.vencedor?.trim(), 'o campeão tem nome no destaque principal');
     assert.deepEqual(fim.podio.map((place) => place.posicao), ['2', '1', '3'], 'o pódio coloca o campeão no centro');
     assert.equal(fim.podio[0].nome?.trim().length > 0, true);

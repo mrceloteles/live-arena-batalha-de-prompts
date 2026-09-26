@@ -45,6 +45,9 @@ npm run test:browser
 
 Esse teste usa o navegador instalado pelo Puppeteer e um banco em memória.
 
+Para ajustar a interface localmente, use `npm run dev`. O servidor reinicia
+quando suas fontes mudam; CSS e JavaScript locais são recarregados sem cache.
+
 ## Pontuação e tentativas da Arena
 
 Nas salas personalizadas, novas avaliações calculam pontos com o peso de
@@ -52,8 +55,9 @@ velocidade escolhido pelo professor. A qualidade continua registrada como
 porcentagem separada. Pausas não penalizam o aluno; missões sem prazo ignoram
 o peso de velocidade. Os presets Clássico e Turma mantêm o motor original.
 
-Cada rodada conta uma vez no ranking, pela tentativa com mais pontos. O
-relatório preserva todos os envios e informa qual tentativa conta no ranking.
+Cada aluno envia uma única resposta por missão. Repetir uma solicitação após
+falha de conexão recupera o mesmo envio, sem gastar outra tentativa nem avaliar
+duas vezes. O relatório preserva as respostas e suas pontuações.
 Notas antigas permanecem gravadas; quando não possuem pontos, sua porcentagem
 é usada como pontuação. Repetir um envio pendente preserva a mesma tentativa.
 

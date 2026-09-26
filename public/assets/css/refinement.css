@@ -1255,10 +1255,12 @@ body[data-page='tv'] .arena-tv-bg { background: none !important; }
    conteúdo em vh/vw e recortar aqui esconderia justamente o que se lê longe. */
 body[data-page='tv'] .arena-tv-stage {
   margin: 0 clamp(10px, 1.2vw, 20px) clamp(10px, 1.4vh, 20px);
-  /* A borda é 4px. O canto é RETO: a fita é a aresta de cima do palco, e um raio
-     aqui a curvava nas duas pontas — fora do telão, a fita é reta em todo o
-     produto, e era só aqui que ela deixava de ser. */
-  border: 4px solid rgba(255, 255, 255, 0.92);
+  /* Sem moldura: a fita é a aresta de cima do palco. A borda branca de 4px
+     desenhava uma linha clara em volta do cartão e, no topo, uma tarja branca
+     por cima da própria fita — o palco parecia emoldurado dentro da listra.
+     O canto é RETO: um raio aqui curvava a fita nas duas pontas, e fora do
+     telão a fita é reta em todo o produto. */
+  border: 0;
   border-radius: 0;
   background: linear-gradient(165deg, #05173a 0%, #062a52 58%, #083a6e 100%);
   box-shadow: 0 26px 60px -16px rgba(0, 22, 66, 0.55), 0 10px 26px -8px rgba(0, 0, 0, 0.28);
