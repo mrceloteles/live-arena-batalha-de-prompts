@@ -69,3 +69,11 @@ jobs:
       # voltar a falhar, é uma espera para consertar, não um envio para repetir.
       - name: Portão 2 — a tela renderizada
         run: npm run test:browser
+      - name: Guardar diagnóstico dos estilos
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: css-render-diagnostics
+          path: tmp/qa/css-render/*.txt
+          if-no-files-found: ignore
+          retention-days: 3
