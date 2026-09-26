@@ -39,6 +39,7 @@ const raiz = new URL('../../', import.meta.url);
 const cartorio = new URL('test/css/render.json', raiz);
 // Estritamente '1' — ver a nota em test/css/cascata.test.mjs.
 const atualizar = process.env.UPDATE_CSS_BASELINE === '1';
+const fusoOriginal = process.env.TZ;
 const saida = new URL('tmp/qa/css-render/', raiz);
 const SENHA = 'css-baseline-password';
 const SEGREDO = 'css-baseline-secret-at-least-32-characters';
@@ -155,6 +156,10 @@ const normalizar = (texto, porta) =>
     .replace(/\r\n/g, '\n');
 
 before(async () => {
+  // The API groups report activity using the server's local hour as well.
+  // Fix both sides of this test fixture; changing the browser alone is not
+  // enough to make the heatmap's input data reproducible.
+  process.env.TZ = 'UTC';
   const aberto = openDatabase(':memory:');
   await aberto.migrate();
   const repositories = createRepositories(aberto.database);
@@ -299,6 +304,8 @@ before(async () => {
 after(async () => {
   if (navegador) await navegador.close();
   if (servidor) await new Promise((resolve) => servidor.close(resolve));
+  if (fusoOriginal === undefined) delete process.env.TZ;
+  else process.env.TZ = fusoOriginal;
 });
 
 /**
