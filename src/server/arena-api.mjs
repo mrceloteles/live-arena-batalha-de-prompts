@@ -17,6 +17,7 @@ import { PRESETS, roomSettingsFor as presetRoomSettings, requirePreset } from '.
 import { formatPin, normalizePin, randomPin } from '../domain/pin.mjs';
 import { canJoinRoom, roomPhase } from '../domain/room-phases.mjs';
 import { DEFAULT_ROUNDS, DEFAULT_RUBRIC, classicRoundsToChallenges } from '../domain/classic-rounds.mjs';
+import { CLASSIC_DECKS } from '../domain/classic-decks.mjs';
 import { calculatePoints, SCORING_VERSION } from '../domain/scoring.mjs';
 import { rankFinal, rankRound } from '../domain/ranking.mjs';
 import { blockersMessage, missionIssues, roomBlockers } from '../domain/room-readiness.mjs';
@@ -2938,6 +2939,10 @@ export function createArenaApi({
         // sala nascia sempre com 35).
         const presetRules = PRESETS[presetKey].rules;
         const classicRules = presetRules.judgeKind === 'classic';
+        const deckKey = String(payload.classic_deck || '');
+        if (deckKey && (!classicRules || !Object.hasOwn(CLASSIC_DECKS, deckKey))) {
+          throw new ApiError(422, 'Conjunto de imagens clássico inválido.');
+        }
         const maxPlayersOverride = payload.max_players
           ?? (classicRules && payload.expected_players > 0 ? payload.expected_players : undefined);
         const settings = presetRoomSettings(presetKey, {
@@ -2973,7 +2978,7 @@ export function createArenaApi({
         if (classicRules) {
           // Preset classico: semeia as 3 rodadas oficiais e abre a sala (lobby).
           const roomRow = await repositories.arena.rooms.getById(room.id);
-          const seeds = classicRoundsToChallenges(DEFAULT_ROUNDS, { modality: 'precisao' }).map((seed) => ({
+          const seeds = classicRoundsToChallenges(deckKey ? CLASSIC_DECKS[deckKey] : DEFAULT_ROUNDS, { modality: 'precisao' }).map((seed) => ({
             ...seed,
             durationSeconds: settings.roundDuration || null,
           }));

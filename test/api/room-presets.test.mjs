@@ -39,6 +39,61 @@ afterEach(() => opened.close());
 const admin = () => ({ admin_token: adminToken });
 const api = (action, payload = {}) => arenaDispatch(action, payload);
 
+test('three curated classic decks stay distinct and preserve the classic rules', async () => {
+  const images = new Set();
+  const references = new Set();
+  for (const deck of ['observacao', 'imaginacao', 'composicao']) {
+    const { room } = await api('arena_create_room', { ...admin(), preset: 'turma', title: `Curadoria ${deck}`, expected_players: 30, classic_deck: deck });
+    assert.equal(room.expectedPlayers, 30);
+    assert.equal(room.settings.judgeKind, 'classic');
+    assert.equal(room.settings.roundDuration, 60);
+    const rounds = await repositories.arena.rounds.listByRoom(room.id);
+    assert.equal(rounds.length, 3);
+    for (const round of rounds) {
+      const challenge = await repositories.arena.challenges.getById(round.challengeId);
+      assert.equal(challenge.judgeKind, 'classic');
+      assert.equal(challenge.attempts, 1);
+      assert.ok(challenge.referencePrompt.length > 80);
+      images.add(challenge.referenceImage);
+      references.add(challenge.referencePrompt);
+    }
+  }
+  assert.equal(images.size, 9);
+  assert.equal(references.size, 9);
+});
+
+test('an invalid classic deck is rejected before any room is created', async () => {
+  await assert.rejects(api('arena_create_room', { ...admin(), preset: 'classic', title: 'Invalida', classic_deck: 'missing' }), error => error.status === 422);
+  assert.equal((await repositories.arena.rooms.list()).length, 0);
+});
+
+test('all three curated battles finish with single submissions, visible scores and a final winner', async () => {
+  await api('arena_set_open', { ...admin(), open: true });
+  for (const deck of ['observacao', 'imaginacao', 'composicao']) {
+    const { room } = await api('arena_create_room', { ...admin(), preset: 'classic', title: `Jogo ${deck}`, classic_deck: deck });
+    const players = await joinAll(room, ['Ana', 'Bia', 'Caio']);
+    await api('arena_start_round', { ...admin(), room_id: room.id });
+    const rounds = await repositories.arena.rounds.listByRoom(room.id);
+    for (const [index, round] of rounds.entries()) {
+      const challenge = await repositories.arena.challenges.getById(round.challengeId);
+      const sent = await submitAll(players, round.id, [challenge.referencePrompt, challenge.referencePrompt + ' paisagem', 'Imagem azul']);
+      assert.ok(sent.every(value => Number.isFinite(value.points) && Number.isFinite(value.percent)));
+      await assert.rejects(api('arena_submit', { participant_id: players[0].id, token: players[0].token, round_id: round.id, prompt: 'Outro envio' }), error => error.status === 409);
+      const args = { participant_id: players[0].id, token: players[0].token };
+      let lobby = (await api('arena_lobby', args)).lobby;
+      assert.equal(lobby.results.length, index + 1);
+      clock += index === 2 ? 31 : 11;
+      lobby = (await api('arena_lobby', args)).lobby;
+      if (index < 2) assert.equal(lobby.current_round.position, index + 2);
+      else {
+        assert.equal(lobby.room.status, 'ended');
+        assert.equal(lobby.ranking.length, 3);
+        assert.equal(lobby.ranking[0].name, 'Ana');
+      }
+    }
+  }
+});
+
 async function joinAll(room, names) {
   const joins = [];
   for (const name of names) {

@@ -44,7 +44,7 @@ export function isRepeatedLegacyChallengeSet(rounds) {
  */
 export function classicRoundToChallenge(round, { modality = 'precisao' } = {}) {
   return {
-    title: `Batalha Clássica — Desafio ${round.number}`,
+    title: round.title || `Batalha Clássica — Desafio ${round.number}`,
     modality,
     mission: 'Observe a imagem e escreva o prompt original que a gerou, chegando o mais perto possível do texto de referência.',
     context: '',
@@ -57,7 +57,7 @@ export function classicRoundToChallenge(round, { modality = 'precisao' } = {}) {
     category: 'Clássico',
     judgeKind: 'classic',
     referencePrompt: round.referencePrompt,
-    rubric: round.rubric,
+    rubric: round.rubric || DEFAULT_RUBRIC,
   };
 }
 
