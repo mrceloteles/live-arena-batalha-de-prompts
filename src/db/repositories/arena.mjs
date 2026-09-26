@@ -206,7 +206,7 @@ export function createArenaRepositories(database) {
       if (result.changes !== 1) throw new Error('arena room not found');
       return rooms.getById(id);
     },
-    async update({ id, title, expectedPlayers, entryBlocked, now: timestamp }) {
+    async update({ id, title, expectedPlayers, entryBlocked, preset, settings, now: timestamp }) {
       now(timestamp);
       if (title !== undefined && (typeof title !== 'string' || title.trim().length < 2)) {
         throw new RangeError('title must be a non-empty string');
@@ -218,12 +218,16 @@ export function createArenaRepositories(database) {
         SET title = COALESCE(?, title),
             expected_players = COALESCE(?, expected_players),
             entry_blocked = COALESCE(?, entry_blocked),
+            preset = COALESCE(?, preset),
+            settings_json = COALESCE(?, settings_json),
             updated_at = ?
         WHERE id = ?`)
         .run(
           title !== undefined ? title.trim() : null,
           expectedPlayers !== undefined ? expectedPlayers : null,
           entryBlocked !== undefined ? (entryBlocked ? 1 : 0) : null,
+          preset ?? null,
+          settings === undefined ? null : JSON.stringify(settings),
           timestamp,
           id,
         );

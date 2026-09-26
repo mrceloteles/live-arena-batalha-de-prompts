@@ -39,6 +39,42 @@ afterEach(() => opened.close());
 const admin = () => ({ admin_token: adminToken });
 const api = (action, payload = {}) => arenaDispatch(action, payload);
 
+test('a prepared classic room can become a flexible turma without changing its PIN or images', async () => {
+  await api('arena_set_open', { ...admin(), open: true });
+  const { room } = await api('arena_create_room', { ...admin(), preset: 'classic', title: 'Turma flexivel', classic_deck: 'observacao' });
+  const before = await repositories.arena.rounds.listByRoom(room.id);
+  const updated = (await api('arena_update_room', { ...admin(), room_id: room.id, preset: 'turma', expected_players: 50 })).room;
+  assert.equal(updated.pin, room.pin);
+  assert.equal(updated.preset, 'turma');
+  assert.equal(updated.settings.maxPlayers, 50);
+  assert.equal(updated.settings.rosterLocksAtStart, false);
+  assert.equal(updated.settings.judgeKind, 'classic');
+  assert.deepEqual(await repositories.arena.rounds.listByRoom(room.id), before);
+  await joinAll(updated, Array.from({ length: 31 }, (_, i) => `Aluno ${i + 1}`));
+  const started = await api('arena_start_round', { ...admin(), room_id: room.id });
+  assert.equal(started.room.rounds[0].status, 'open');
+  await assert.rejects(api('arena_update_room', { ...admin(), room_id: room.id, preset: 'turma', expected_players: 40 }), error => error.status === 409);
+});
+
+test('turma capacity edits affect entry and permit starting below capacity', async () => {
+  await api('arena_set_open', { ...admin(), open: true });
+  const { room } = await api('arena_create_room', { ...admin(), preset: 'turma', expected_players: 3, title: 'Capacidade editada' });
+  const updated = (await api('arena_update_room', { ...admin(), room_id: room.id, expected_players: 30 })).room;
+  assert.equal(updated.settings.maxPlayers, 30);
+  await joinAll(updated, ['Ana', 'Bia', 'Caio', 'Davi']);
+  assert.equal((await api('arena_start_round', { ...admin(), room_id: room.id })).room.rounds[0].status, 'open');
+});
+
+test('an authenticated teacher can project a numeric room PIN while students cannot', async () => {
+  const { room } = await api('arena_create_room', { ...admin(), preset: 'classic', title: 'Projecao pelo PIN' });
+  await assert.rejects(api('arena_tv_code', { code: room.pin }), error => error.status === 403);
+  const projected = await api('arena_tv_code', { ...admin(), code: room.pin });
+  assert.equal(projected.pin, room.pin);
+  assert.ok(projected.tv_token);
+  const tv = await api('arena_tv', { pin: room.pin, tv_token: projected.tv_token });
+  assert.equal(tv.tv.room.id, room.id);
+});
+
 test('three curated classic decks stay distinct and preserve the classic rules', async () => {
   const images = new Set();
   const references = new Set();

@@ -2546,7 +2546,14 @@ export function createArenaApi({
           throw new ApiError(429, `Muitas tentativas de projeção. Aguarde ${limit.retryAfter}s e tente novamente.`);
         }
         const index = (await repositories.settings.get(tvCodeIndexKey)) || {};
-        const entry = index[digits];
+        let entry = index[digits];
+        // A room PIN is not a public projection credential. The signed-in
+        // teacher may use it; a different device still needs the TV code.
+        if (!entry && payload.admin_token) {
+          requireAdmin(payload.admin_token);
+          const teacherRoom = await repositories.arena.rooms.findByPinOrCode(digits);
+          if (teacherRoom) entry = { roomId: teacherRoom.id, expiresAt: timestamp + TV_TOKEN_TTL_SECONDS };
+        }
         if (!entry || Number(entry.expiresAt) < timestamp) {
           tvCodeLimiter.registerFailure(ipKey);
           throw new ApiError(403, 'Código de projeção inválido ou expirado. Confira com o professor.');
@@ -2993,11 +3000,38 @@ export function createArenaApi({
       case 'arena_update_room': {
         requireAdmin(payload.admin_token);
         const room = await roomById(payload.room_id);
+        let expectedPlayers = payload.expected_players !== undefined
+          ? integer(payload.expected_players, 'expected_players', { min: 0, max: 50 }) : undefined;
+        const targetPreset = payload.preset === undefined ? room.preset : String(payload.preset);
+        if (targetPreset !== room.preset && expectedPlayers === undefined) expectedPlayers = 50;
+        if (targetPreset !== room.preset && !(room.preset === 'classic' && targetPreset === 'turma')) {
+          throw new ApiError(422, 'Apenas a mudança de Clássico para Turma é permitida nesta sala.');
+        }
+        let settings;
+        const changingCapacity = targetPreset !== room.preset
+          || (isClassicRules(room) && expectedPlayers !== undefined && expectedPlayers !== room.expectedPlayers);
+        if (changingCapacity) {
+          const rounds = await repositories.arena.rounds.listByRoom(room.id);
+          if (!['waiting', 'open'].includes(room.status) || rounds.some(round => round.status !== 'pending')) {
+            throw new ApiError(409, 'Ajuste a capacidade antes de iniciar a batalha.');
+          }
+          if (targetPreset === 'classic' && expectedPlayers !== 3) {
+            throw new ApiError(422, 'Para mais jogadores, use o modo Turma com as mesmas regras clássicas.');
+          }
+          const capacity = expectedPlayers || 50;
+          if (await repositories.arena.participants.countActive(room.id) > capacity) {
+            throw new ApiError(409, 'O limite não pode ser menor que os participantes presentes.');
+          }
+          settings = { ...room.settings, preset: targetPreset, maxPlayers: capacity,
+            rosterLocksAtStart: targetPreset === 'classic' };
+        }
         const updated = await repositories.arena.rooms.update({
           id: room.id,
           title: payload.title !== undefined ? text(payload.title, 'title', { min: 2, max: 120 }) : undefined,
-          expectedPlayers: payload.expected_players !== undefined ? integer(payload.expected_players, 'expected_players', { min: 0, max: 50 }) : undefined,
+          expectedPlayers,
           entryBlocked: payload.entry_blocked !== undefined ? Boolean(payload.entry_blocked) : undefined,
+          preset: targetPreset !== room.preset ? targetPreset : undefined,
+          settings,
           now: timestamp,
         });
         return { ok: true, room: updated, server_now: timestamp };

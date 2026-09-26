@@ -4622,7 +4622,7 @@
         <form class="arena-challenge-form" data-room-form>
           <input type="hidden" name="room_id" value="${esc(room.id)}">
           <label class="text-field"><span>Título</span><input name="title" maxlength="120" value="${esc(room.title)}" required></label>
-          <label class="text-field"><span>Limite de participantes (0 = sem limite)</span><input name="expected_players" type="number" min="0" max="50" value="${room.expected_players}"></label>
+          <label class="text-field"><span>Limite de participantes (0 = até 50)</span><input name="expected_players" type="number" min="0" max="50" value="${room.expected_players}"></label>
           <label class="text-field"><span>Bloquear novas entradas</span>
             <select name="entry_blocked"><option value="false">Nao</option><option value="true" ${room.entry_blocked ? 'selected' : ''}>Sim</option></select>
           </label>
@@ -6418,9 +6418,9 @@
       setContent(`
         <div class="arena-tv-code-entry">
           <h1>Projeção da sala</h1>
-          <p class="arena-tv-code-message">${esc(message || 'Peça o código de projeção ao professor — ele aparece no Painel do professor, em “Projeção”.')}</p>
+          <p class="arena-tv-code-message">${esc(message || 'Use o código TV do painel. Professor autenticado também pode usar o PIN da sala.')}</p>
           <form class="arena-tv-code-form" data-tv-code-form>
-            <input data-tv-code-input inputmode="numeric" autocomplete="off" maxlength="6" placeholder="000 000" aria-label="Código de projeção">
+            <input data-tv-code-input inputmode="numeric" autocomplete="off" maxlength="7" placeholder="000 000" aria-label="Código de projeção">
             <button type="submit" class="arena-tv-code-submit">Projetar</button>
           </form>
           <p class="arena-tv-code-error" data-tv-code-error hidden></p>
@@ -6446,7 +6446,7 @@
         } catch (error) {
           if (button) { button.disabled = false; button.textContent = 'Projetar'; }
           if (errorNode) {
-            errorNode.textContent = error.status === 429 ? error.message : 'Código inválido ou expirado. Confira com o professor.';
+            errorNode.textContent = error.status === 429 ? error.message : 'Use o código TV do painel, não o PIN.';
             errorNode.hidden = false;
           }
           console.error('[projecao]', error);
