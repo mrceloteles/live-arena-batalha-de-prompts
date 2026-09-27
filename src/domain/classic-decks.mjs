@@ -1,4 +1,4 @@
-// Seven distinct classic image decks. Judge, scoring and pacing remain classic.
+// Seven fresh image-only classic decks. Judge, scoring and pacing remain classic.
 export const CLASSIC_DECKS = Object.freeze({
   "observacao": [
     {
@@ -64,19 +64,19 @@ export const CLASSIC_DECKS = Object.freeze({
     {
       "number": 1,
       "title": "Batalha Visual — Aventura 1",
-      "referencePrompt": "Uma pequena casa amarela sobre palafitas em uma lagoa azul tropical, uma canoa vermelha amarrada à escada, folhas largas de bananeira, montanhas cobertas de névoa e nuvens ao fundo. Fotografia cinematográfica realista, enquadramento amplo.",
+      "referencePrompt": "Use case: stylized-concept. Uma pequena casa amarela sobre palafitas numa lagoa azul durante uma chuva tropical, uma canoa vermelha amarrada à escada, folhas de bananeira e montanhas distantes sob nuvens dramáticas. Render cinematográfico realista, enquadramento amplo, cores vivas e objetos nítidos.",
       "imagePath": "/public/assets/classic-curated/10.webp"
     },
     {
       "number": 2,
       "title": "Batalha Visual — Aventura 2",
-      "referencePrompt": "Uma ciclista com jaqueta azul atravessa uma ponte suspensa de madeira numa floresta exuberante coberta de névoa, mochila amarela, cachoeira ao fundo e folhas molhadas. Fotografia de aventura cinematográfica, luz natural, plano amplo e detalhes legíveis.",
+      "referencePrompt": "Use case: photorealistic-natural. Uma ciclista com jaqueta azul atravessa uma ponte suspensa de madeira numa floresta exuberante coberta de névoa, mochila amarela, cachoeira ao fundo e folhas molhadas. Fotografia de aventura cinematográfica, luz natural, plano amplo e detalhes legíveis.",
       "imagePath": "/public/assets/classic-curated/11.webp"
     },
     {
       "number": 3,
       "title": "Batalha Visual — Aventura 3",
-      "referencePrompt": "Um pequeno veleiro branco com vela laranja navega num lago alpino ao amanhecer, uma pessoa de casaco vermelho no convés, montanhas cobertas de neve e reflexo rosa na água azul. Fotografia cinematográfica realista, composição clara.",
+      "referencePrompt": "Use case: photorealistic-natural. Um pequeno veleiro branco com vela laranja navega num lago alpino ao amanhecer, uma pessoa de casaco vermelho no convés, montanhas cobertas de neve e reflexo rosa na água azul. Fotografia cinematográfica realista, composição clara.",
       "imagePath": "/public/assets/classic-curated/12.webp"
     }
   ],
@@ -84,19 +84,19 @@ export const CLASSIC_DECKS = Object.freeze({
     {
       "number": 1,
       "title": "Batalha Visual — Cidades 1",
-      "referencePrompt": "Um bonde amarelo antigo percorre uma rua inclinada de paralelepípedos numa cidade costeira, fachadas azuis e brancas, mulher com guarda-chuva verde, fios aéreos e luz dourada da manhã. Fotografia editorial cinematográfica, plano amplo, composição limpa.",
+      "referencePrompt": "Use case: photorealistic-natural. Um bonde amarelo antigo percorre uma rua inclinada de paralelepípedos numa cidade costeira, fachadas azuis e brancas, mulher com guarda-chuva verde, fios aéreos e luz dourada da manhã. Fotografia editorial cinematográfica, plano amplo, composição limpa.",
       "imagePath": "/public/assets/classic-curated/13.webp"
     },
     {
       "number": 2,
       "title": "Batalha Visual — Cidades 2",
-      "referencePrompt": "Uma banca de mercado colorida ao ar livre, mãos de uma vendedora organizando laranjas e limões, balança antiga azul, toldo listrado vermelho e creme e azulejos geométricos ao fundo. Fotografia editorial realista, luz suave, enquadramento próximo com contexto.",
+      "referencePrompt": "Use case: photorealistic-natural. Uma banca de mercado colorida ao ar livre, mãos de uma vendedora organizando laranjas e limões, balança antiga azul, toldo listrado vermelho e creme e azulejos geométricos ao fundo. Fotografia editorial realista, luz suave, enquadramento próximo com contexto.",
       "imagePath": "/public/assets/classic-curated/14.webp"
     },
     {
       "number": 3,
       "title": "Batalha Visual — Cidades 3",
-      "referencePrompt": "Uma estação de metrô antiga e ampla à noite, um trem vermelho parado na plataforma, relógio redondo na parede, colunas de azulejo verde e uma mulher de casaco amarelo segurando um guarda-chuva transparente. Fotografia editorial cinematográfica, reflexos no chão, composição profunda e nítida.",
+      "referencePrompt": "Uma violinista de casaco vermelho toca sob uma arcada de pedra com azulejos verdes, estojo azul aberto aos pés, rua litorânea molhada após a chuva, folhas douradas e uma janela amarela iluminada ao fundo. Fotografia editorial cinematográfica, composição ampla e nítida.",
       "imagePath": "/public/assets/classic-curated/15.webp"
     }
   ],
@@ -104,13 +104,13 @@ export const CLASSIC_DECKS = Object.freeze({
     {
       "number": 1,
       "title": "Batalha Visual — Futuro 1",
-      "referencePrompt": "Uma estação de pesquisa em Marte vista através de uma grande janela, domo transparente com pequenas plantas e tomates, rover branco estacionado do lado de fora sob céu coral, astronauta de traje azul verificando uma planta. Render cinematográfico fotorrealista, formas nítidas.",
+      "referencePrompt": "Use case: stylized-concept. Uma estação de pesquisa em Marte vista através de uma grande janela, domo transparente com pequenas plantas e tomates, rover branco estacionado do lado de fora sob céu coral, astronauta de traje azul verificando uma planta. Render cinematográfico fotorrealista, formas nítidas.",
       "imagePath": "/public/assets/classic-curated/16.webp"
     },
     {
       "number": 2,
       "title": "Batalha Visual — Futuro 2",
-      "referencePrompt": "Um robô de entrega pequeno, branco e amarelo atravessa uma calçada futurista molhada ao entardecer, um cachorro marrom curioso olha para ele, prédios modernos com painéis verdes e reflexos azuis. Fotografia conceitual cinematográfica realista, enquadramento baixo, cena clara.",
+      "referencePrompt": "Use case: stylized-concept. Um robô de entrega pequeno, branco e amarelo atravessa uma calçada futurista molhada ao entardecer, um cachorro marrom curioso olha para ele, prédios modernos com painéis verdes e reflexos azuis. Fotografia conceitual cinematográfica realista, enquadramento baixo, cena clara.",
       "imagePath": "/public/assets/classic-curated/17.webp"
     },
     {
@@ -130,14 +130,74 @@ export const CLASSIC_DECKS = Object.freeze({
     {
       "number": 2,
       "title": "Batalha Visual — Contos 2",
-      "referencePrompt": "Uma coruja branca com pequenas penas douradas pousada no topo de uma torre de relógio antiga, cidade iluminada por lanternas abaixo, lua crescente enorme entre nuvens azuis e uma fita vermelha presa ao parapeito. Ilustração 3D cinematográfica com materiais fotorrealistas e detalhes claros.",
+      "referencePrompt": "Use case: stylized-concept. Uma coruja branca com pequenas penas douradas pousada no topo de uma torre de relógio antiga, cidade iluminada por lanternas abaixo, lua crescente enorme entre nuvens azuis e uma fita vermelha presa ao parapeito. Ilustração 3D cinematográfica com materiais fotorrealistas e detalhes claros.",
       "imagePath": "/public/assets/classic-curated/20.webp"
     },
     {
       "number": 3,
       "title": "Batalha Visual — Contos 3",
-      "referencePrompt": "Um farol vermelho em miniatura dentro de uma garrafa de vidro sobre uma mesa de madeira, ondas azuis e espuma se movendo dentro da garrafa, duas conchas, uma bússola aberta e luz dourada de janela ao fundo. Fotografia conceitual mágica fotorrealista, close-up limpo.",
+      "referencePrompt": "Use case: stylized-concept. Um farol vermelho em miniatura dentro de uma garrafa de vidro sobre uma mesa de madeira, ondas azuis e espuma se movendo dentro da garrafa, duas conchas, uma bússola aberta e luz dourada de janela ao fundo. Fotografia conceitual mágica fotorrealista, close-up limpo.",
       "imagePath": "/public/assets/classic-curated/21.webp"
+    }
+  ],
+  "natureza": [
+    {
+      "number": 1,
+      "title": "Batalha Visual — Natureza 1",
+      "referencePrompt": "Um pequeno tamanduá-bandeira atravessa uma área de capim alto e flores amarelas ao amanhecer, horizonte com árvores baixas, uma garça branca próxima a uma poça e luz dourada atravessando a neblina. Fotografia documental cinematográfica, plano amplo, espécie e cenário fáceis de reconhecer.",
+      "imagePath": "/public/assets/classic-curated/22.webp"
+    },
+    {
+      "number": 2,
+      "title": "Batalha Visual — Natureza 2",
+      "referencePrompt": "Uma arara azul e amarela pousada em um galho inclinado sobre uma cachoeira tropical, bromélias vermelhas e folhas verdes em primeiro plano, névoa azul ao fundo. Fotografia de natureza fotorrealista, composição clara, foco nítido na ave.",
+      "imagePath": "/public/assets/classic-curated/23.webp"
+    },
+    {
+      "number": 3,
+      "title": "Batalha Visual — Natureza 3",
+      "referencePrompt": "Uma capivara jovem repousa numa pedra ao lado de um rio de águas transparentes, flores lilases na margem, duas capivaras adultas desfocadas ao fundo e reflexos de árvores na água. Fotografia de natureza fotorrealista, luz suave, plano médio.",
+      "imagePath": "/public/assets/classic-curated/24.webp"
+    }
+  ],
+  "oficina": [
+    {
+      "number": 1,
+      "title": "Batalha Visual — Oficina 1",
+      "referencePrompt": "Uma ceramista molda um vaso de barro numa roda de oleiro em oficina iluminada por luminária amarela, mãos cobertas de argila, dois vasos azuis prontos em prateleira de madeira e ferramentas ao lado. Fotografia editorial cinematográfica, foco nas mãos e no torno, cores quentes.",
+      "imagePath": "/public/assets/classic-curated/25.webp"
+    },
+    {
+      "number": 2,
+      "title": "Batalha Visual — Oficina 2",
+      "referencePrompt": "Um artesão sopra vidro quente alaranjado através de um tubo metálico numa oficina escura, forno aceso ao fundo, pinças sobre a bancada e várias peças de vidro azul e verde numa prateleira. Fotografia documental cinematográfica, iluminação dramática, ferramentas bem definidas.",
+      "imagePath": "/public/assets/classic-curated/26.webp"
+    },
+    {
+      "number": 3,
+      "title": "Batalha Visual — Oficina 3",
+      "referencePrompt": "Uma pessoa monta um pequeno barco de madeira amarelo numa bancada de carpintaria, serrote, formão, planta desenhada sem palavras e aparas de madeira, janela azul com luz da manhã. Fotografia editorial realista, plano próximo, composição organizada.",
+      "imagePath": "/public/assets/classic-curated/27.webp"
+    }
+  ],
+  "espacos": [
+    {
+      "number": 1,
+      "title": "Batalha Visual — Espaços 1",
+      "referencePrompt": "Um museu moderno de concreto branco no deserto, pátio geométrico com espelho d'água, escultura vermelha no centro, uma pessoa com guarda-chuva amarelo na passarela e montanhas rochosas ao fundo. Fotografia arquitetônica cinematográfica, luz de fim de tarde, linhas bem definidas.",
+      "imagePath": "/public/assets/classic-curated/28.webp"
+    },
+    {
+      "number": 2,
+      "title": "Batalha Visual — Espaços 2",
+      "referencePrompt": "Um teleférico vermelho cruza um vale alpino profundo ao amanhecer, cabines pequenas suspensas nos cabos, rio azul serpenteando abaixo, floresta de pinheiros e picos nevados sob nuvens rosadas. Fotografia de viagem fotorrealista, plano amplo e boa leitura espacial.",
+      "imagePath": "/public/assets/classic-curated/29.webp"
+    },
+    {
+      "number": 3,
+      "title": "Batalha Visual — Espaços 3",
+      "referencePrompt": "Um teatro art déco vazio antes do espetáculo, poltronas de veludo azul, palco com cortinas vermelhas abertas, um piano preto sob foco dourado e lustre redondo no teto. Fotografia interior cinematográfica, perspectiva central e detalhes bem visíveis.",
+      "imagePath": "/public/assets/classic-curated/30.webp"
     }
   ]
 });
