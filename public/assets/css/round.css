@@ -79,6 +79,7 @@ body[data-page='arena'].round-active .arena-lobby-body { padding: 24px 16px 40px
 body[data-page='arena'].round-active .arena-mission-panel {
   padding: 0 !important; border: 0 !important; background: transparent !important;
   box-shadow: none !important; border-radius: 0 !important;
+  overflow: clip !important;
 }
 body[data-page='arena'].round-active .arena-mission-panel > .signal-tape { display: none !important; }
 /* O cartão do ringue: a área de trabalho inteira (cabeçalho da missão +
@@ -90,7 +91,39 @@ body[data-page='arena'].round-active .round-workspace {
   position: relative;
   min-width: 0;
   background: #ffffff;
-  overflow: hidden;
+  overflow: clip;
+}
+body[data-page='arena'].round-active .round-workspace .arena-mission-top {
+  position: sticky;
+  top: calc(60px + env(safe-area-inset-top, 0px));
+  z-index: 16;
+  padding-top: max(8px, env(safe-area-inset-top, 0px));
+  background: #fff;
+  box-shadow: 0 8px 14px -14px rgba(12, 28, 60, .7);
+  scroll-margin-block: 88px;
+}
+body[data-page='arena'].round-active .arena-field {
+  scroll-margin-block: 88px;
+}
+@media (max-width: 640px) {
+  body[data-page='arena'].round-active .round-workspace .arena-mission-top {
+    top: calc(52px + env(safe-area-inset-top, 0px));
+  }
+}
+body[data-page='arena'].round-active .round-workspace .arena-timer.is-final-five {
+  position: relative;
+  border: 3px solid #b3261e !important;
+  background: #b3261e !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 4px rgba(179, 38, 30, .18) !important;
+  animation: arena-final-five-pulse .8s ease-in-out infinite alternate;
+}
+@keyframes arena-final-five-pulse {
+  from { box-shadow: 0 0 0 2px rgba(179, 38, 30, .12); transform: scale(1); }
+  to { box-shadow: 0 0 0 7px rgba(179, 38, 30, .3); transform: scale(1.035); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-page='arena'].round-active .round-workspace .arena-timer.is-final-five { animation: none; }
 }
 body[data-page='arena'].round-active .round-workspace::before {
   content: '';

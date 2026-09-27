@@ -664,7 +664,8 @@
       // O aluno abriu a explicação ("Como funciona") enquanto esperava. É escolha
       // dele, e o batimento de 2,5 s não pode arrastá-lo de volta: quem devolve a
       // tela é a BATALHA, não o relógio (ver `telaDoLobby`).
-      onHow: false, reviewedScoreKey: null, editingRetry: false };
+      onHow: false, reviewedScoreKey: null, editingRetry: false,
+      autoSubmittedRoundId: null, deadlineAutoSubmissionRoundId: null };
     const screens = $$('[data-arena-screen]');
 
     function showScreen(name) {
@@ -1047,6 +1048,8 @@
       const roundKey = `${mission.id}:${mission.round_over ? 'over' : 'open'}`;
       if (state.lastMissionKey !== roundKey) {
         state.lastMissionKey = roundKey;
+        state.autoSubmittedRoundId = null;
+        state.deadlineAutoSubmissionRoundId = null;
         state.reviewedScoreKey = null;
         state.editingRetry = false;
         const send = $('[data-arena-send]');
@@ -1367,6 +1370,8 @@
       if (semCronometro) {
         node.textContent = 'Sem limite';
         node.classList.remove('is-danger', 'is-paused');
+        node.classList.remove('is-final-five');
+        node.setAttribute('aria-label', 'Sem limite de tempo');
         return;
       }
       const lastServerTime = Date.now();
@@ -1374,21 +1379,41 @@
         if (mission.paused_at) {
           node.textContent = '⏸ PAUSADA';
           node.classList.add('is-paused');
-          node.classList.remove('is-danger');
+          node.classList.remove('is-danger', 'is-final-five');
+          node.setAttribute('aria-label', 'Tempo pausado');
           return;
         }
         if (mission.round_over || !mission.deadline_at) {
           node.textContent = mission.round_over ? '—' : '--:--';
-          node.classList.remove('is-danger', 'is-paused');
+          node.classList.remove('is-danger', 'is-paused', 'is-final-five');
+          node.setAttribute('aria-label', 'Tempo restante');
           return;
         }
         const remaining = Number(mission.deadline_at) - (Number(mission.server_now || 0) + (Date.now() - lastServerTime) / 1000);
         node.textContent = formatSeconds(remaining);
         node.classList.toggle('is-danger', remaining <= 30);
+        const segundos = Math.max(0, Math.ceil(remaining));
+        const ultimosSegundos = remaining > 0 && remaining <= 5;
+        node.classList.toggle('is-final-five', ultimosSegundos);
+        node.dataset.secondsLeft = String(segundos);
+        node.setAttribute('aria-label', ultimosSegundos ? `Últimos ${segundos} segundos` : 'Tempo restante');
         node.classList.remove('is-paused');
         if (remaining <= 0) {
           node.textContent = '00:00';
+          node.classList.remove('is-final-five');
+          node.setAttribute('aria-label', 'Tempo encerrado');
+          const roundId = mission.id;
+          const form = $('[data-arena-prompt-form]');
+          const draft = String(form?.elements?.prompt?.value || '');
+          if (roundId && draft.trim() && state.autoSubmittedRoundId !== roundId
+            && !state.submitLocked && !state.isSubmitting) {
+            state.autoSubmittedRoundId = roundId;
+            state.deadlineAutoSubmissionRoundId = roundId;
+            if (form?.requestSubmit) form.requestSubmit();
+          }
           if (state.poll) { /* aguarda o poll fechar a rodada */ }
+        } else if (ultimosSegundos) {
+          node.setAttribute('aria-label', `Últimos ${segundos} segundos`);
         }
       };
       tick();
@@ -1509,6 +1534,7 @@
       const session = savedSession();
       const roundId = state.lobby?.current_round?.id;
       if (!roundId || state.isSubmitting) return;
+      const envioAutomaticoNoPrazo = state.deadlineAutoSubmissionRoundId === roundId;
 
       state.isSubmitting = true;
       button.disabled = true;
@@ -1537,6 +1563,7 @@
           round_id: roundId,
           prompt: pending.prompt,
           attempt: pending.attempt,
+          deadline_auto_submit: envioAutomaticoNoPrazo,
         }, { timeout: 15000 });
         confirmado = true;
         if (enviado.pending) {
@@ -1799,6 +1826,15 @@
 
     // Textarea auto-ajuste + contador dinâmico + salvamento de rascunho
     const promptTextarea = $('[data-arena-prompt-form] textarea');
+    // A resposta é escrita no campo da batalha; clipboard e arraste não entram
+    // na missão. Isso reduz cola casual no navegador sem afetar PIN, cadastro ou
+    // os outros campos do aluno.
+    for (const type of ['paste', 'copy', 'cut', 'drop']) {
+      promptTextarea?.addEventListener(type, (event) => event.preventDefault());
+    }
+    promptTextarea?.addEventListener('beforeinput', (event) => {
+      if (['insertFromPaste', 'insertFromDrop'].includes(event.inputType)) event.preventDefault();
+    });
     promptTextarea?.addEventListener('input', (event) => {
       const field = event.currentTarget;
       field.style.height = 'auto';
@@ -1812,6 +1848,11 @@
 
     // Atalho universal de envio (Ctrl + Enter / Cmd + Enter)
     promptTextarea?.addEventListener('keydown', (event) => {
+      const tecla = String(event.key || '').toLowerCase();
+      const atalhoClipboard = ((event.ctrlKey || event.metaKey) && ['c', 'x', 'v'].includes(tecla))
+        || (event.shiftKey && tecla === 'insert')
+        || (event.ctrlKey && tecla === 'insert');
+      if (atalhoClipboard) { event.preventDefault(); return; }
       if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
         event.preventDefault();
         const form = event.currentTarget.form;
@@ -2609,6 +2650,18 @@
       const corpo = $('[data-arena-detail-body] .arena-table tbody');
       if (!corpo) return;
       const filtro = state.filtroDeAlunos || 'todos';
+      if (filtro === 'nomes') {
+        for (const linha of corpo.querySelectorAll('tr')) {
+          if (linha.classList.contains('is-name-flagged') && !linha.classList.contains('is-removido')) delete linha.dataset.filtroFora;
+          else linha.dataset.filtroFora = '';
+        }
+        for (const botao of document.querySelectorAll('[data-student-filters] [data-student-filter]')) {
+          const aceso = botao.dataset.studentFilter === filtro;
+          botao.classList.toggle('is-on', aceso);
+          botao.setAttribute('aria-pressed', String(aceso));
+        }
+        return;
+      }
       const grupos = {
         enviados: ['is-enviou', 'is-avaliando', 'is-avaliado'],
         respondendo: ['is-escrevendo'],
@@ -3815,6 +3868,8 @@
         return '';
       };
       const contagemDeFiltro = { todos: detail.participants.length, enviados: 0, respondendo: 0, atencao: 0 };
+      contagemDeFiltro.nomes = detail.participants.filter((participant) => participant.active && participant.name_flagged).length;
+      if (state.filtroDeAlunos === 'nomes' && !contagemDeFiltro.nomes) state.filtroDeAlunos = 'todos';
       const linhasDeAluno = detail.participants.map((participant) => {
         const aluno = estadoDoAluno(participant, {
           emMissao: Boolean(rodadaNoAr),
@@ -3827,19 +3882,13 @@
         const chaveDoFiltro = filtroDoAluno(estadoDaCelula);
         if (chaveDoFiltro) contagemDeFiltro[chaveDoFiltro] += 1;
         return `
-                <tr class="${aluno.classe}" data-aluno-estado="${esc(estadoDaCelula)}">
-                  <td data-label="Aluno"><span class="arena-student-name"><span class="arena-student-avatar" aria-hidden="true">${esc(iniciaisDoNome(participant.name))}</span><strong>${esc(participant.name)}</strong></span></td>
+                <tr class="${aluno.classe}${participant.name_flagged ? ' is-name-flagged' : ''}" data-aluno-estado="${esc(estadoDaCelula)}">
+                  <td data-label="Aluno"><span class="arena-student-name"><span class="arena-student-avatar" aria-hidden="true">${esc(iniciaisDoNome(participant.name))}</span><strong>${esc(participant.name)}</strong>${participant.name_flagged ? '<span class="arena-name-review" aria-label="Nome para verificar">Verificar</span>' : ''}</span></td>
                   <td data-label="Estado"><span class="arena-student-state ${aluno.classe}"><i aria-hidden="true"></i>${aluno.rotulo}</span></td>
                   ${rodadaNoAr ? `<td data-label="Missao">${aluno.missao ? `<span class="arena-student-mission ${aluno.missao.classe}"><span aria-hidden="true">${aluno.missao.icone}</span>${aluno.missao.rotulo}</span>` : ''}</td>` : ''}
                   <td class="arena-student-clock" data-label="Entrou">${new Date(Number(participant.joined_at) * 1000).toLocaleTimeString('pt-BR')}</td>
                   <td${participant.active ? ' data-label="Acoes"' : ''}>
-                    ${participant.active ? `<details class="arena-row-tools">
-                      <summary aria-label="Ações de ${esc(participant.name)}">Gerenciar</summary>
-                      <div>
-                      <button type="button" data-action="rename-participant" data-pid="${esc(participant.id)}">Renomear</button>
-                      <button type="button" data-action="remove-participant" data-pid="${esc(participant.id)}" class="is-danger">Remover</button>
-                      </div>
-                    </details>` : ''}
+                    ${participant.active ? `<button type="button" class="arena-quick-remove is-danger" data-action="remove-participant" data-pid="${esc(participant.id)}" aria-label="Remover ${esc(participant.name)} da sala" title="Remover aluno">Remover</button>` : ''}
                   </td>
                 </tr>`;
       }).join('');
@@ -3864,6 +3913,7 @@
         { chave: 'enviados', rotulo: 'Enviados' },
         { chave: 'respondendo', rotulo: 'Respondendo' },
         { chave: 'atencao', rotulo: 'Atenção' },
+        ...(contagemDeFiltro.nomes ? [{ chave: 'nomes', rotulo: 'Verificar nomes' }] : []),
       ];
       $('[data-arena-detail-body]').innerHTML = `
         ${(detail.blockers || []).length ? `<div class="arena-blockers" role="alert">

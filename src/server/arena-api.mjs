@@ -18,6 +18,7 @@ import { formatPin, normalizePin, randomPin } from '../domain/pin.mjs';
 import { canJoinRoom, roomPhase } from '../domain/room-phases.mjs';
 import { DEFAULT_ROUNDS, DEFAULT_RUBRIC, classicRoundsToChallenges } from '../domain/classic-rounds.mjs';
 import { CLASSIC_DECKS } from '../domain/classic-decks.mjs';
+import { isOffensiveParticipantName } from '../domain/name-moderation.mjs';
 import { calculatePoints, SCORING_VERSION } from '../domain/scoring.mjs';
 import { rankFinal, rankRound } from '../domain/ranking.mjs';
 import { blockersMessage, missionIssues, roomBlockers } from '../domain/room-readiness.mjs';
@@ -2056,6 +2057,7 @@ export function createArenaApi({
     const participants = (await repositories.arena.participants.listByRoom(room.id)).map((entry) => ({
       id: entry.id,
       name: entry.name,
+      name_flagged: isOffensiveParticipantName(entry.name),
       station_number: entry.stationNumber ?? null,
       email: entry.email ?? '',
       role: entry.role ?? '',
@@ -2661,6 +2663,7 @@ export function createArenaApi({
         }
         joinLimiter.reset(ipKey);
         if (room.entryBlocked) throw new ApiError(409, 'Esta sala não está aceitando participantes no momento.');
+        if (isOffensiveParticipantName(name)) throw new ApiError(422, 'Este nome não pode ser usado. Digite outro.');
         const roomRounds = await repositories.arena.rounds.listByRoom(room.id);
         if (!canJoinRoom(room, roomRounds, { rosterLocksAtStart: Boolean(room.settings?.rosterLocksAtStart) })) {
           throw new ApiError(409, 'Esta sala não está aceitando participantes no momento.');
@@ -2754,7 +2757,9 @@ export function createArenaApi({
         if (attempt !== 1) throw new ApiError(409, 'Esta missão aceita uma única resposta.');
 
         const promptMax = challenge.modality === 'essencial' ? 250 : 4000;
-        const candidatePrompt = text(payload.prompt, 'prompt', { min: 3, max: promptMax });
+        const deadlineAutoSubmit = payload.deadline_auto_submit === true
+          && Number.isFinite(round.deadlineAt) && timestamp >= Number(round.deadlineAt);
+        const candidatePrompt = text(payload.prompt, 'prompt', { min: deadlineAutoSubmit ? 1 : 3, max: promptMax });
 
         let submission = existingAttempts.find((entry) => entry.attempt === attempt);
         const existingScore = submission ? await repositories.arena.scores.getBySubmission(submission.id) : undefined;
@@ -3636,6 +3641,7 @@ export function createArenaApi({
         requireAdmin(payload.admin_token);
         const room = await roomById(payload.room_id);
         const name = text(payload.name, 'name', { min: 2, max: 60 });
+        if (isOffensiveParticipantName(name)) throw new ApiError(422, 'Este nome não pode ser usado. Digite outro.');
         const participant = await repositories.arena.participants.getById(String(payload.participant_id));
         if (!participant || participant.roomId !== room.id) throw new ApiError(404, 'Participante nao encontrado.');
         try {

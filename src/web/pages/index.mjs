@@ -1,4 +1,4 @@
-const refinementStyles = '<link rel="stylesheet" href="/public/assets/css/refinement.css?v=88">';
+const refinementStyles = '<link rel="stylesheet" href="/public/assets/css/refinement.css?v=89">';
 // A JORNADA DO ALUNO tem folha própria: `aluno.css` é o dono das telas do aluno
 // que esta frente construiu (a espera com o caminho de entrada e a leitura
 // "Como a batalha funciona"), e é onde as telas que ainda faltam portar
@@ -9,7 +9,7 @@ const alunoStyles = '<link rel="stylesheet" href="/public/assets/css/aluno.css?v
 const assets = '<link rel="stylesheet" href="/public/assets/css/app-authorial.css?v=31"><link rel="stylesheet" href="/public/assets/css/design.css?v=66">' + refinementStyles;
 const arenaAssets = '<link rel="stylesheet" href="/public/assets/css/app-authorial.css?v=31"><link rel="stylesheet" href="/public/assets/css/arena.css?v=71"><link rel="stylesheet" href="/public/assets/css/design.css?v=66">' + refinementStyles + alunoStyles;
 const script = '<script src="/public/assets/js/app.js?v=42"></script>';
-const arenaScript = '<script src="/public/assets/js/arena.js?v=145"></script>';
+const arenaScript = '<script src="/public/assets/js/arena.js?v=147"></script>';
 
 // Ícones SVG oficiais Material / Feather para a barra lateral e navegação
 const iconDashboard = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>';
@@ -446,7 +446,7 @@ function arenaPage({ preview = false } = {}) {
                 <button class="ghost-link arena-how-open" type="button" data-arena-how-open>Como funciona</button>
               </div>
               <div class="arena-mission round-workspace" data-arena-mission hidden>
-                <link rel="stylesheet" href="/public/assets/css/round.css?v=50">
+                <link rel="stylesheet" href="/public/assets/css/round.css?v=52">
                 <div class="arena-mission-top">
                   <span class="arena-mission-meta">
                     <span class="arena-round-count" data-arena-round-count></span>
